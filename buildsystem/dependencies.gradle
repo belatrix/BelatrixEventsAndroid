@@ -1,0 +1,42 @@
+allprojects {
+  repositories {
+    jcenter()
+  }
+}
+
+ext {
+
+  //Libraries
+  daggerVersion = '2.8'
+  butterKnifeVersion = '8.0.1'
+  okHttpVersion = '2.5.0'
+  retrofitVersion = '2.0.2'
+  jUnitVersion = '4.12'
+  mockitoVersion = '1.+'
+  okhttpVersion = '3.2.0'
+  supportLibrariesVersion = "25.0.1"
+  timberVersion = "4.1.0"
+
+
+ developmentDependencies = [
+    //di
+    daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+    dagger: "com.google.dagger:dagger:${daggerVersion}",
+    butterKnife: "com.jakewharton:butterknife:${butterKnifeVersion}",
+    butterKnifeCompiler: "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+    daggerCompiler: "com.google.dagger:dagger-compiler:${daggerVersion}",
+
+    // general
+    appCompat: "com.android.support:appcompat-v7:${supportLibrariesVersion}",
+    design: "com.android.support:design:${supportLibrariesVersion}",
+    timber: "com.jakewharton.timber:timber:${timberVersion}",
+    //network
+    retrofit: "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+    retrofitConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+    httpInterceptor: "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+    //tests
+    junit:              "junit:junit:${jUnitVersion}",
+    mockito: "org.mockito:mockito-core:${mockitoVersion}",
+  ]
+
+}
