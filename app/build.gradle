@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.belatrixsf.events"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../buildsystem/debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    def developmentDependencies = rootProject.ext.developmentDependencies
+    apt developmentDependencies.daggerCompiler
+    apt developmentDependencies.butterKnifeCompiler
+    compile developmentDependencies.dagger
+    compile developmentDependencies.appCompat
+    compile developmentDependencies.design
+    compile developmentDependencies.butterKnife
+    compile developmentDependencies.timber
+    compile developmentDependencies.retrofit
+    compile developmentDependencies.retrofitConverter
+    compile developmentDependencies.httpInterceptor
+    testCompile developmentDependencies.junit
+    testCompile developmentDependencies.mockito
+    compile 'com.android.support:support-v4:23.4.0'
+}
