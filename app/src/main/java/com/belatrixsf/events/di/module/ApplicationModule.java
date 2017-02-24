@@ -4,20 +4,22 @@ import android.content.Context;
 
 import com.belatrixsf.events.di.scope.ApplicationScope;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ContextModule {
+public class ApplicationModule {
 
     private final Context context;
 
-    public ContextModule(Context context) {
-        this.context = context.getApplicationContext();
+    public ApplicationModule(Context context) {
+        this.context = context;
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     public Context context() {
         return context;
     }

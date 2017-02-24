@@ -23,11 +23,16 @@ package com.belatrixsf.events.presentation.ui.base;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 
+import com.belatrixsf.events.BxEventsApplication;
+import com.belatrixsf.events.di.component.ApplicationComponent;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 
 import butterknife.ButterKnife;
@@ -61,14 +66,16 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initDependencies();
+        initDependencies(BxEventsApplication.get(getActivity()).getComponent());
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
+        initViews();
     }
+
 
     @Override
     public void onDestroyView() {
@@ -150,7 +157,7 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
         return getActivity();
     }
 
-    protected abstract void initDependencies();
+    protected abstract void initDependencies(ApplicationComponent applicationComponent);
 
     protected abstract void initViews();
 

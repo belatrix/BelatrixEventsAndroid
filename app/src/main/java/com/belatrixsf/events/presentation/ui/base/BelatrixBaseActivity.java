@@ -187,4 +187,9 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
         onBackPressed();
     }
 
+
+    @Override
+    public void finishActivity() {
+        finish();
+    }
 }

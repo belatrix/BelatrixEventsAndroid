@@ -4,24 +4,20 @@ import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 import com.belatrixsf.events.domain.interactors.base.Callback;
-import com.belatrixsf.events.domain.repository.Repository;
+import com.belatrixsf.events.domain.model.Event;
+import com.belatrixsf.events.domain.model.Project;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
 
-/**
- * This is an interactor boilerplate with a reference to a model repository.
- * <p/>
- */
-public class LoginInteractor extends AbstractInteractor<Callback<String>>  {
-
-    private Repository mRepository;
+public class ProjectListInteractor extends AbstractInteractor<Callback<List<Project>>> {
 
 
     @Inject
-    public LoginInteractor(Executor threadExecutor,
-                           MainThread mainThread
+    public ProjectListInteractor(Executor threadExecutor,
+                                 MainThread mainThread
     ) {
         super(threadExecutor, mainThread);
     }
@@ -29,7 +25,6 @@ public class LoginInteractor extends AbstractInteractor<Callback<String>>  {
 
     @Override
     public void run() {
-        Timber.d("running");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -39,7 +34,7 @@ public class LoginInteractor extends AbstractInteractor<Callback<String>>  {
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                callback.onResult("diego");
+                callback.onResult(Project.getDummyData());
             }
         });
 

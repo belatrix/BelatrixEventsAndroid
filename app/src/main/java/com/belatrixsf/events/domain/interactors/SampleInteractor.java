@@ -25,7 +25,7 @@ public class SampleInteractor extends AbstractInteractor  {
         mRepository = repository;
     }
 
-    @Override
+   // @Override
     public void run() {
         // TODO: Implement this with your business logic
     }

@@ -18,32 +18,30 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
 */
-package com.belatrixsf.events.presentation.ui.base;
+package com.belatrixsf.events.presentation.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 
-/**
- * Created by PedroCarrillo on 4/8/16.
- */
-public interface FragmentListener {
+import com.belatrixsf.events.R;
+import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
+import com.belatrixsf.events.presentation.ui.fragments.AboutFragment;
 
-    void replaceFragment(Fragment fragment, boolean addToBackStack);
-    void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
-    void showError(String message);
-    void showProgressDialog();
-    void showProgressDialog(String message);
-    void dismissProgressDialog();
-    void showSnackBar(String message);
-    void showSnackBar(View view, String message);
-    void showSnackBar(View view, String message, String action, View.OnClickListener onClickListener);
-    void closeActivity();
-    void setActivityResult(int resultCode);
-    void setActivityResult(int resultCode, Intent resultIntent);
-    void setTitle(String title);
-    void setToolbar(Toolbar toolbar);
-    void finishActivity();
+public class AboutActivity extends BelatrixBaseActivity {
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about);
+        setNavigationToolbar();
+        if (savedInstanceState == null) {
+            replaceFragment(AboutFragment.newInstance(), false);
+        }
+    }
+
+    public static Intent makeIntent(Context context) {
+        return new Intent(context, AboutActivity.class);
+    }
 }

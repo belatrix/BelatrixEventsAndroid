@@ -45,5 +45,8 @@ dependencies {
     compile developmentDependencies.httpInterceptor
     testCompile developmentDependencies.junit
     testCompile developmentDependencies.mockito
-    compile 'com.android.support:support-v4:23.4.0'
+    compile developmentDependencies.viewPagerIndicator
+    compile developmentDependencies.support
+    compile developmentDependencies.cardView
+    compile developmentDependencies.bottomNavigation
 }

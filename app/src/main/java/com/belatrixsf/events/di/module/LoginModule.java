@@ -1,13 +1,8 @@
 package com.belatrixsf.events.di.module;
 
-import android.app.Activity;
-import android.content.Context;
 
-import com.belatrixsf.events.di.scope.ApplicationScope;
 import com.belatrixsf.events.di.scope.UIScope;
-import com.belatrixsf.events.domain.interactors.LoginInteractor;
 import com.belatrixsf.events.presentation.presenters.LoginPresenter;
-import com.belatrixsf.events.presentation.ui.activities.LoginActivity;
 import com.belatrixsf.events.presentation.ui.fragments.LoginFragment;
 
 import dagger.Module;
@@ -33,8 +28,9 @@ public class LoginModule {
 
 
     @Provides
+    @UIScope
     public LoginPresenter.View view() {
-        return loginFragment;
+        return view;
     }
 
 

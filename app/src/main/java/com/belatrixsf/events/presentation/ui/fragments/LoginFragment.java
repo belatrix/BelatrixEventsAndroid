@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.di.component.DaggerLoginComponent;
+import com.belatrixsf.events.di.component.ApplicationComponent;
 import com.belatrixsf.events.di.module.LoginModule;
 import com.belatrixsf.events.presentation.presenters.LoginPresenter;
 import com.belatrixsf.events.presentation.ui.activities.MainActivity;
@@ -21,7 +21,7 @@ import butterknife.OnClick;
 public class LoginFragment extends BelatrixBaseFragment implements LoginPresenter.View {
 
     @Inject
-    LoginPresenter loginPresenter;
+    LoginPresenter presenter;
 
     public LoginFragment() {
     }
@@ -37,8 +37,8 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginPresente
     }
 
     @Override
-    protected void initDependencies() {
-        DaggerLoginComponent.builder().loginModule(new LoginModule(this)).build().inject(this);
+    protected void initDependencies(ApplicationComponent applicationComponent) {
+        applicationComponent.loadModule(new LoginModule(this)).inject(this);
     }
 
     @Override
@@ -55,6 +55,7 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginPresente
     @Override
     public void onLoginSuccess() {
        startActivity(MainActivity.makeIntent(getActivity()));
+        fragmentListener.finishActivity();
     }
 
     @Override
@@ -64,7 +65,7 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginPresente
 
     @OnClick(R.id.log_in)
     public void onClickLogin(){
-            loginPresenter.login("diego","diego");
+        presenter.login("diego","diego");
     }
 
 

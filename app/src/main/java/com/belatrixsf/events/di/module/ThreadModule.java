@@ -1,11 +1,11 @@
 package com.belatrixsf.events.di.module;
 
-
-import com.belatrixsf.events.di.scope.ApplicationScope;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.executor.impl.MainThreadImpl;
 import com.belatrixsf.events.domain.executor.impl.ThreadExecutor;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,12 +14,12 @@ import dagger.Provides;
 public class ThreadModule {
 
 
-    @Provides
+    @Provides @Singleton
     public MainThread getMainThread() {
         return new MainThreadImpl();
     }
 
-    @Provides
+    @Provides @Singleton
     public Executor getExecutor() {
         return new ThreadExecutor();
     }

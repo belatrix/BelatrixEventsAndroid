@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.ui.activities.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/image_event_featured"
+        android:layout_width="match_parent"
+        android:src="@drawable/ic_belatrix"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/name_textview"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:src="@drawable/ic_belatrix"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

@@ -5,7 +5,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.belatrixsf.events.di.component.ApplicationComponent;
-import com.belatrixsf.events.di.module.ContextModule;
+import com.belatrixsf.events.di.component.DaggerApplicationComponent;
+import com.belatrixsf.events.di.module.ApplicationModule;
 
 import timber.log.Timber;
 import timber.log.Timber.DebugTree;
@@ -30,7 +31,7 @@ public class BxEventsApplication extends Application {
     }
 
     private void configDagger(){
-        //component = DaggerApplicationComponent.builder().contextModule(new ContextModule(this)).build();
+        component = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
     }
 
     public static Context getContext() {

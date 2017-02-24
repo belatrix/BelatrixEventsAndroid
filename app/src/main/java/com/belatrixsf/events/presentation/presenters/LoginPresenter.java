@@ -1,6 +1,7 @@
 package com.belatrixsf.events.presentation.presenters;
 
 import com.belatrixsf.events.domain.interactors.LoginInteractor;
+import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 
@@ -9,7 +10,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 
-public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> implements LoginInteractor.Callback  {
+public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> implements Callback<String> {
 
     public interface View extends BelatrixBaseView {
         void onLoginSuccess();
@@ -32,15 +33,16 @@ public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> i
 
 
     @Override
-    public void onLoginSuccess() {
+    public void onResult(String result) {
         view.dismissProgressDialog();
         Timber.d("presenter onLoginSuccess");
         view.onLoginSuccess();
     }
 
     @Override
-    public void onLoginError(String errorMessage) {
+    public void onError(String errorMessage) {
         view.dismissProgressDialog();
         view.onLoginError(errorMessage);
     }
+
 }
