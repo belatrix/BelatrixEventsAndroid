@@ -12,12 +12,13 @@ ext {
   okHttpVersion = '2.5.0'
   retrofitVersion = '2.0.2'
   jUnitVersion = '4.12'
-  mockitoVersion = '1.+'
+  mockitoVersion = '1.9.5'
   okhttpVersion = '3.2.0'
   supportLibrariesVersion = "25.0.1"
   timberVersion = "4.1.0"
   viewPagerIndicatorVersion = "1.0.2"
   bottomNavigationVersion = "2.0.1"
+  daggerMockVersion = "0.6.4"
 
 
  developmentDependencies = [
@@ -43,7 +44,8 @@ ext {
     mockito: "org.mockito:mockito-core:${mockitoVersion}",
     //design
     viewPagerIndicator:  "com.github.ronaldsmartin:Material-ViewPagerIndicator:${viewPagerIndicatorVersion}",
-    bottomNavigation: "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}"
+    bottomNavigation: "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}",
+    daggerMock: "com.github.fabioCollini:DaggerMock:${daggerMockVersion}"
   ]
 
 }

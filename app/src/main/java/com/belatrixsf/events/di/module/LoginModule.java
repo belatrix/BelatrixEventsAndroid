@@ -33,5 +33,4 @@ public class LoginModule {
         return view;
     }
 
-    
 }

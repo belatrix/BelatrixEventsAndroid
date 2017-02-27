@@ -1,7 +1,5 @@
 package com.belatrixsf.events.domain.interactors;
 
-import com.belatrixsf.events.domain.executor.Executor;
-import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.domain.repository.Repository;
@@ -14,7 +12,7 @@ import timber.log.Timber;
  * This is an interactor boilerplate with a reference to a model repository.
  * <p/>
  */
-public class LoginInteractor extends AbstractInteractor<Callback<String>,LoginInteractor.Params>  {
+public class LoginInteractor extends AbstractInteractor<String,LoginInteractor.Params>  {
 
     private Repository mRepository;
 

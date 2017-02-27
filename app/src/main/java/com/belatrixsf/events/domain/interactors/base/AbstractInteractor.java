@@ -23,7 +23,7 @@ public abstract class AbstractInteractor<T,P> {
     protected volatile boolean mIsCanceled;
     protected volatile boolean mIsRunning;
 
-    protected T callback;
+    protected Callback<T> callback;
     protected P[] params;
 
 
@@ -54,7 +54,7 @@ public abstract class AbstractInteractor<T,P> {
         mIsCanceled = false;
     }
 
-    public void execute(T callback, P ...params) {
+    public void execute(Callback<T> callback, P ...params) {
         this.callback = callback;
         this.params = params;
         // mark this interactor as running

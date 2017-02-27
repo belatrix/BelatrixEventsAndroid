@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-public class ProjectListInteractor extends AbstractInteractor<Callback<List<Project>>,ProjectListInteractor.Params> {
+public class ProjectListInteractor extends AbstractInteractor<List<Project>,ProjectListInteractor.Params> {
 
 
     @Inject

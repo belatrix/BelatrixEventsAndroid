@@ -7,11 +7,13 @@ import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.domain.model.Event;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 
 
-public class EventListInteractor extends AbstractInteractor<Callback,Void> {
+public class EventListInteractor extends AbstractInteractor<List<Event>,Void> {
 
 
     @Inject

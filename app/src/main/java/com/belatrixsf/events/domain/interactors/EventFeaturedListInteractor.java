@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class EventFeaturedListInteractor extends AbstractInteractor<Callback<List<Event>>,Void> {
+public class EventFeaturedListInteractor extends AbstractInteractor<List<Event>,Void> {
 
     @Inject
     public EventFeaturedListInteractor() {

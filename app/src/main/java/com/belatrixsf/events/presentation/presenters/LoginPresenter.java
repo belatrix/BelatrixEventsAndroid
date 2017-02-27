@@ -7,6 +7,7 @@ import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 
 import javax.inject.Inject;
 
+
 public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> implements Callback<String> {
 
     public interface View extends BelatrixBaseView {
@@ -14,12 +15,12 @@ public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> i
         void onLoginError(String errorMessage);
     }
 
-    @Inject
     LoginInteractor loginInteractor;
 
     @Inject
-    public LoginPresenter(View view){
+    public LoginPresenter(View view,LoginInteractor loginInteractor){
         super(view);
+        this.loginInteractor = loginInteractor;
     }
 
     public void login(String username, String password) {
