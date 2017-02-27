@@ -91,6 +91,10 @@ public class HomeFeaturedFragment extends BelatrixBaseFragment implements HomeFe
     }
 
 
-
+    @Override
+    public void onDestroyView() {
+        presenter.cancelRequests();
+        super.onDestroyView();
+    }
 
 }

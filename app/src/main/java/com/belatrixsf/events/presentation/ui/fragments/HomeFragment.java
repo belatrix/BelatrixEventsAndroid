@@ -96,6 +96,10 @@ public class HomeFragment extends BelatrixBaseFragment implements HomePresenter.
     public void hideProgressIndicator() {
         progressBar.setVisibility(View.GONE);
     }
-
+    @Override
+    public void onDestroyView() {
+        presenter.cancelRequests();
+        super.onDestroyView();
+    }
 
 }

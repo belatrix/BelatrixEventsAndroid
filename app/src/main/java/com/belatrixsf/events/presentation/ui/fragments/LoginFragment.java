@@ -69,6 +69,9 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginPresente
     }
 
 
-
-
+    @Override
+    public void onDestroyView() {
+        presenter.cancelRequests();
+        super.onDestroyView();
+    }
 }

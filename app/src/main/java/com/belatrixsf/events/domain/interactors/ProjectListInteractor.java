@@ -1,10 +1,7 @@
 package com.belatrixsf.events.domain.interactors;
 
-import com.belatrixsf.events.domain.executor.Executor;
-import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 import com.belatrixsf.events.domain.interactors.base.Callback;
-import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
 
 import java.util.List;
@@ -12,19 +9,18 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-public class ProjectListInteractor extends AbstractInteractor<Callback<List<Project>>> {
+public class ProjectListInteractor extends AbstractInteractor<Callback<List<Project>>,ProjectListInteractor.Params> {
 
 
     @Inject
-    public ProjectListInteractor(Executor threadExecutor,
-                                 MainThread mainThread
+    public ProjectListInteractor(
     ) {
-        super(threadExecutor, mainThread);
+
     }
 
 
     @Override
-    public void run() {
+    public void run(Params ...params) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -37,7 +33,19 @@ public class ProjectListInteractor extends AbstractInteractor<Callback<List<Proj
                 callback.onResult(Project.getDummyData());
             }
         });
+    }
 
+    public static final class Params {
+        int eventId;
+
+        public Params(int eventId) {
+            this.eventId = eventId;
+        }
+
+        public static ProjectListInteractor.Params forEvent(int eventId){
+            return new ProjectListInteractor.Params(eventId);
+        }
 
     }
+
 }

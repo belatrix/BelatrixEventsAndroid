@@ -15,21 +15,21 @@ import javax.inject.Inject;
  * For example, when an activity is getting destroyed then we should probably cancel an interactor
  * but the request will come from the UI thread unless the request was specifically assigned to a background thread.
  */
-public abstract class AbstractInteractor<T> implements Interactor<T> {
+public abstract class AbstractInteractor<T,P> {
 
-    protected Executor   mThreadExecutor;
-    protected MainThread mMainThread;
+    @Inject protected  Executor   mThreadExecutor;
+    @Inject protected MainThread mMainThread;
 
     protected volatile boolean mIsCanceled;
     protected volatile boolean mIsRunning;
 
-    public AbstractInteractor(Executor threadExecutor, MainThread mainThread) {
-        mThreadExecutor = threadExecutor;
-        mMainThread = mainThread;
-    }
-
     protected T callback;
+    protected P[] params;
 
+
+    public P[] getParams() {
+        return params;
+    }
 
     /**
      * This method contains the actual business logic of the interactor. It SHOULD NOT BE USED DIRECTLY but, instead, a
@@ -38,7 +38,7 @@ public abstract class AbstractInteractor<T> implements Interactor<T> {
      * This method should only be called directly while doing unit/integration tests. That is the only reason it is declared
      * public as to help with easier testing.
      */
-    public abstract void run();
+    public abstract void run(P ...params);
 
     public void cancel() {
         mIsCanceled = true;
@@ -54,8 +54,9 @@ public abstract class AbstractInteractor<T> implements Interactor<T> {
         mIsCanceled = false;
     }
 
-    public void execute(T callback) {
+    public void execute(T callback, P ...params) {
         this.callback = callback;
+        this.params = params;
         // mark this interactor as running
         this.mIsRunning = true;
 

@@ -69,7 +69,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        presenter.getProjectList();
+        presenter.getProjectList(1);
     }
 
 
@@ -99,5 +99,11 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     @Override
     public void hideProgressIndicator() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        presenter.cancelRequests();
+        super.onDestroyView();
     }
 }

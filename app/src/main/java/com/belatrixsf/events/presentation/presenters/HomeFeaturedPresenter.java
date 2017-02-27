@@ -22,7 +22,7 @@ public class HomeFeaturedPresenter extends BelatrixBasePresenter<HomeFeaturedPre
 
     @Inject
     public HomeFeaturedPresenter(View view) {
-        setView(view);
+        super(view);
     }
 
 
@@ -42,5 +42,11 @@ public class HomeFeaturedPresenter extends BelatrixBasePresenter<HomeFeaturedPre
     @Override
     public void onError(String errorMessage) {
         view.hideProgressIndicator();
+    }
+
+
+    @Override
+    public void cancelRequests() {
+
     }
 }

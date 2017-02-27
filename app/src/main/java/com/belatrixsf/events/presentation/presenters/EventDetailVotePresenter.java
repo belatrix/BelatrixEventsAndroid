@@ -24,13 +24,13 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
 
     @Inject
     public EventDetailVotePresenter(View view) {
-        setView(view);
+        super(view);
     }
 
 
-    public void getProjectList() {
+    public void getProjectList(final int eventId) {
         view.showProgressIndicator();
-        interactor.execute(this);
+        interactor.execute(this, ProjectListInteractor.Params.forEvent(eventId));
     }
 
 
@@ -44,5 +44,10 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
     @Override
     public void onError(String errorMessage) {
         view.hideProgressIndicator();
+    }
+
+    @Override
+    public void cancelRequests() {
+
     }
 }

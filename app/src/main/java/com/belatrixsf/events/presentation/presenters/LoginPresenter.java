@@ -7,9 +7,6 @@ import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
-
 public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> implements Callback<String> {
 
     public interface View extends BelatrixBaseView {
@@ -21,21 +18,19 @@ public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> i
     LoginInteractor loginInteractor;
 
     @Inject
-    public LoginPresenter(View view) {
-        setView(view);
+    public LoginPresenter(View view){
+        super(view);
     }
-
 
     public void login(String username, String password) {
         view.showProgressDialog();
-        loginInteractor.execute(this);
+        loginInteractor.execute(this, LoginInteractor.Params.forUser(username,password));
     }
 
 
     @Override
     public void onResult(String result) {
         view.dismissProgressDialog();
-        Timber.d("presenter onLoginSuccess");
         view.onLoginSuccess();
     }
 
@@ -45,4 +40,9 @@ public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> i
         view.onLoginError(errorMessage);
     }
 
+
+    @Override
+    public void cancelRequests() {
+
+    }
 }

@@ -14,21 +14,17 @@ import timber.log.Timber;
  * This is an interactor boilerplate with a reference to a model repository.
  * <p/>
  */
-public class LoginInteractor extends AbstractInteractor<Callback<String>>  {
+public class LoginInteractor extends AbstractInteractor<Callback<String>,LoginInteractor.Params>  {
 
     private Repository mRepository;
 
 
     @Inject
-    public LoginInteractor(Executor threadExecutor,
-                           MainThread mainThread
-    ) {
-        super(threadExecutor, mainThread);
+    public LoginInteractor() {
     }
 
-
     @Override
-    public void run() {
+    public void run(Params ...params) {
         Timber.d("running");
         try {
             Thread.sleep(1000);
@@ -42,7 +38,20 @@ public class LoginInteractor extends AbstractInteractor<Callback<String>>  {
                 callback.onResult("diego");
             }
         });
+    }
 
+    public static final class Params {
+        String username;
+        String password;
+
+        public Params(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
+
+        public static Params forUser(String username, String password){
+            return new Params(username,password);
+        }
 
     }
 }

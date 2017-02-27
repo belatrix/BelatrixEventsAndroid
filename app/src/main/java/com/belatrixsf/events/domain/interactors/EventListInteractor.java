@@ -11,32 +11,27 @@ import javax.inject.Inject;
 
 
 
-public class EventListInteractor extends AbstractInteractor<Callback> {
+public class EventListInteractor extends AbstractInteractor<Callback,Void> {
 
 
     @Inject
-    public EventListInteractor(Executor threadExecutor,
-                               MainThread mainThread
-    ) {
-        super(threadExecutor, mainThread);
+    public EventListInteractor() {
+
     }
 
 
     @Override
-    public void run() {
+    public void run(Void ...params) {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
                 callback.onResult(Event.getDummyData());
             }
         });
-
-
     }
 }

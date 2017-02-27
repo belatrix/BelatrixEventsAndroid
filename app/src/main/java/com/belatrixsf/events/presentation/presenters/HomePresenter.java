@@ -25,7 +25,7 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> imp
 
     @Inject
     public HomePresenter(View view) {
-        setView(view);
+        super(view);
     }
 
 
@@ -45,5 +45,10 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> imp
     @Override
     public void onError(String errorMessage) {
         view.hideProgressIndicator();
+    }
+
+    @Override
+    public void cancelRequests() {
+
     }
 }
