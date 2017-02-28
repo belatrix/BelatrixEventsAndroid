@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
 
 import java.util.ArrayList;

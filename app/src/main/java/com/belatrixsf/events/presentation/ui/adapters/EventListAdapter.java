@@ -32,8 +32,6 @@ import com.belatrixsf.events.domain.model.Event;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

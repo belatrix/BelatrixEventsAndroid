@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.ApplicationComponent;
-import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
-
-import butterknife.BindView;
 
 /**
  * created by dvelasquez

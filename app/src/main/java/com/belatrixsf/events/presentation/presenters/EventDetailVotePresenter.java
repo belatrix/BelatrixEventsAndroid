@@ -1,9 +1,7 @@
 package com.belatrixsf.events.presentation.presenters;
 
-import com.belatrixsf.events.domain.interactors.EventListInteractor;
 import com.belatrixsf.events.domain.interactors.ProjectListInteractor;
 import com.belatrixsf.events.domain.interactors.base.Callback;
-import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
@@ -19,12 +17,12 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
         void showProjectList(List<Project> list);
     }
 
-    @Inject
     ProjectListInteractor interactor;
 
     @Inject
-    public EventDetailVotePresenter(View view) {
+    public EventDetailVotePresenter(View view, ProjectListInteractor interactor) {
         super(view);
+        this.interactor = interactor;
     }
 
 

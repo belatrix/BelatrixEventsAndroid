@@ -17,12 +17,13 @@ public class HomeFeaturedPresenter extends BelatrixBasePresenter<HomeFeaturedPre
         void showEventList (List<Event> list);
     }
 
-    @Inject
+
    EventFeaturedListInteractor interactor;
 
     @Inject
-    public HomeFeaturedPresenter(View view) {
+    public HomeFeaturedPresenter(View view, EventFeaturedListInteractor interactor) {
         super(view);
+        this.interactor = interactor;
     }
 
 

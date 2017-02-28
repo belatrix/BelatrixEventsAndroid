@@ -21,7 +21,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import timber.log.Timber;
 
 /**
  * created by dvelasquez

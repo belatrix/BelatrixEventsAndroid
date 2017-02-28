@@ -1,8 +1,6 @@
 package com.belatrixsf.events.presentation.ui.fragments;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +10,6 @@ import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.ApplicationComponent;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 

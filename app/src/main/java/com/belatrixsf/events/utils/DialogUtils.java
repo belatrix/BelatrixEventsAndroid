@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 
-
 import com.belatrixsf.events.BxEventsApplication;
 import com.belatrixsf.events.R;
 

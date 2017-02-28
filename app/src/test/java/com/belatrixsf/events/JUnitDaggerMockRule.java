@@ -1,7 +1,5 @@
 package com.belatrixsf.events;
 
-import android.os.Looper;
-
 import com.belatrixsf.events.di.component.ApplicationComponent;
 import com.belatrixsf.events.di.module.ApplicationModule;
 import com.belatrixsf.events.di.module.ThreadModule;

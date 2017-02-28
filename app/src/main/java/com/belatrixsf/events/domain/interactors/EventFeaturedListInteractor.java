@@ -3,7 +3,6 @@ package com.belatrixsf.events.domain.interactors;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
-import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.domain.model.Event;
 
 import java.util.List;
@@ -13,8 +12,8 @@ import javax.inject.Inject;
 public class EventFeaturedListInteractor extends AbstractInteractor<List<Event>,Void> {
 
     @Inject
-    public EventFeaturedListInteractor() {
-
+    public EventFeaturedListInteractor(Executor mThreadExecutor, MainThread mMainThread) {
+        super(mThreadExecutor, mMainThread);
     }
 
 

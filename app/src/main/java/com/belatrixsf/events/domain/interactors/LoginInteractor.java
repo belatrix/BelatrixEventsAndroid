@@ -1,7 +1,8 @@
 package com.belatrixsf.events.domain.interactors;
 
+import com.belatrixsf.events.domain.executor.Executor;
+import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
-import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.domain.repository.Repository;
 
 import javax.inject.Inject;
@@ -16,31 +17,42 @@ public class LoginInteractor extends AbstractInteractor<String,LoginInteractor.P
 
     private Repository mRepository;
 
-
     @Inject
-    public LoginInteractor() {
+    public LoginInteractor(Executor mThreadExecutor, MainThread mMainThread, Repository repository) {
+        super(mThreadExecutor, mMainThread);
+        this.mRepository = repository;
     }
 
     @Override
-    public void run(Params ...params) {
+    public void run(final Params ...params) {
         Timber.d("running");
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Params p = params[0];
+        final boolean result = mRepository.login(p.username, p.password);
+
+        if (result)
+            callback.onResult(params[0].username);
+        else
+            callback.onError("error");
 
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                callback.onResult("diego");
+                if (result)
+                    callback.onResult(params[0].username);
+                else
+                    callback.onError("error");
             }
         });
     }
 
     public static final class Params {
-        String username;
-        String password;
+         String username;
+         String password;
 
         public Params(String username, String password) {
             this.username = username;

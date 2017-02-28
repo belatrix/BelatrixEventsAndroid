@@ -4,7 +4,6 @@ import com.belatrixsf.events.di.module.LoginModule;
 import com.belatrixsf.events.di.scope.UIScope;
 import com.belatrixsf.events.presentation.ui.fragments.LoginFragment;
 
-import dagger.Component;
 import dagger.Subcomponent;
 
 /**

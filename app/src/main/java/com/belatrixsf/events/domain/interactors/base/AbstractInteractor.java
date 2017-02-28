@@ -3,8 +3,6 @@ package com.belatrixsf.events.domain.interactors.base;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 
-import javax.inject.Inject;
-
 /**
  * Created by dmilicic on 8/4/15.
  * <p/>
@@ -17,8 +15,8 @@ import javax.inject.Inject;
  */
 public abstract class AbstractInteractor<T,P> {
 
-    @Inject protected  Executor   mThreadExecutor;
-    @Inject protected MainThread mMainThread;
+    protected  Executor   mThreadExecutor;
+    protected MainThread mMainThread;
 
     protected volatile boolean mIsCanceled;
     protected volatile boolean mIsRunning;
@@ -29,6 +27,12 @@ public abstract class AbstractInteractor<T,P> {
 
     public P[] getParams() {
         return params;
+    }
+
+
+    public AbstractInteractor(Executor executor, MainThread mainThread){
+        this.mThreadExecutor = executor;
+        this.mMainThread = mainThread;
     }
 
     /**

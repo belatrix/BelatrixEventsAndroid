@@ -1,7 +1,5 @@
 package com.belatrixsf.events.presentation.presenters.base;
 
-import javax.inject.Inject;
-
 public abstract class BelatrixBasePresenter<T extends BelatrixBaseView>  {
     protected T view;
 

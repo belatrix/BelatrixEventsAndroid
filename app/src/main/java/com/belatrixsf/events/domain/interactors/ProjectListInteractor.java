@@ -1,7 +1,8 @@
 package com.belatrixsf.events.domain.interactors;
 
+import com.belatrixsf.events.domain.executor.Executor;
+import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
-import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.domain.model.Project;
 
 import java.util.List;
@@ -13,9 +14,8 @@ public class ProjectListInteractor extends AbstractInteractor<List<Project>,Proj
 
 
     @Inject
-    public ProjectListInteractor(
-    ) {
-
+    public ProjectListInteractor(Executor mThreadExecutor, MainThread mMainThread) {
+        super(mThreadExecutor, mMainThread);
     }
 
 

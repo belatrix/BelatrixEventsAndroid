@@ -1,6 +1,5 @@
 package com.belatrixsf.events.presentation.presenters;
 
-import com.belatrixsf.events.domain.interactors.EventFeaturedListInteractor;
 import com.belatrixsf.events.domain.interactors.EventListInteractor;
 import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.domain.model.Event;
@@ -11,8 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
 
 public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> implements Callback<List<Event>> {
 
@@ -20,12 +17,12 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> imp
         void showEventList(List<Event> list);
     }
 
-    @Inject
     EventListInteractor interactor;
 
     @Inject
-    public HomePresenter(View view) {
+    public HomePresenter(View view, EventListInteractor interactor) {
         super(view);
+        this.interactor = interactor;
     }
 
 

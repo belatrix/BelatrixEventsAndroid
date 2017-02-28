@@ -1,10 +1,8 @@
 package com.belatrixsf.events.di.component;
 
 import com.belatrixsf.events.di.module.EventDetailVoteModule;
-import com.belatrixsf.events.di.module.HomeFeaturedModule;
 import com.belatrixsf.events.di.scope.UIScope;
 import com.belatrixsf.events.presentation.ui.fragments.EventDetailVoteFragment;
-import com.belatrixsf.events.presentation.ui.fragments.HomeFeaturedFragment;
 
 import dagger.Subcomponent;
 
