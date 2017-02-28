@@ -19,6 +19,8 @@ ext {
   viewPagerIndicatorVersion = "1.0.2"
   bottomNavigationVersion = "2.0.1"
   daggerMockVersion = "0.6.4"
+  picassoVersion = "2.5.2"
+  glideVersion = "3.7.0"
 
 
  developmentDependencies = [
@@ -45,7 +47,10 @@ ext {
     //design
     viewPagerIndicator:  "com.github.ronaldsmartin:Material-ViewPagerIndicator:${viewPagerIndicatorVersion}",
     bottomNavigation: "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}",
-    daggerMock: "com.github.fabioCollini:DaggerMock:${daggerMockVersion}"
+    daggerMock: "com.github.fabioCollini:DaggerMock:${daggerMockVersion}",
+
+    picasso: "com.squareup.picasso:picasso:${picassoVersion}",
+    glide: "com.github.bumptech.glide:glide:${glideVersion}"
   ]
 
 }

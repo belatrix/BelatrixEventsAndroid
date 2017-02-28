@@ -13,9 +13,12 @@ import android.widget.ImageView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.events.R;
+import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.EventDetailAboutFragment;
 import com.belatrixsf.events.presentation.ui.fragments.EventDetailVoteFragment;
+import com.belatrixsf.events.utils.media.ImageFactory;
+import com.belatrixsf.events.utils.media.loaders.ImageLoader;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -23,14 +26,14 @@ import butterknife.BindView;
 public class EventDetailActivity extends BelatrixBaseActivity {
 
 
-    public static final String EVENT_ID_KEY = "_event_id";
+    public static final String EVENT_KEY = "_event_id";
 
     @BindView(R.id.event_picture)
     ImageView pictureImageView;
     @BindView(R.id.bottom_navigation)
     AHBottomNavigation bottomNavigation;
     @BindString(R.string.bottom_navigation_color) String navigationColor;
-    private int eventId;
+    private Event event;
     public static final int TAB_ABOUT = 0;
     public static final int TAB_VOTE = 1;
     @BindView(R.id.collapsing)
@@ -45,14 +48,14 @@ public class EventDetailActivity extends BelatrixBaseActivity {
         setToolbar(toolbar);
         setNavigationToolbar();
         if (savedInstanceState == null) {
-            eventId = getIntent().getIntExtra(EVENT_ID_KEY, -1);
+            event = getIntent().getParcelableExtra(EVENT_KEY);
         }
         initViews();
     }
 
     private void initViews() {
         setupViews();
-        replaceFragment(EventDetailAboutFragment.newInstance(eventId),false);
+        replaceFragment(EventDetailAboutFragment.newInstance(event),false);
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
@@ -61,11 +64,11 @@ public class EventDetailActivity extends BelatrixBaseActivity {
                     switch (position) {
 
                         case TAB_ABOUT:
-                            replaceFragment(EventDetailAboutFragment.newInstance(eventId),false);
+                            replaceFragment(EventDetailAboutFragment.newInstance(event),false);
                             break;
 
                         case TAB_VOTE:
-                            replaceFragment(EventDetailVoteFragment.newInstance(eventId),false);
+                            replaceFragment(EventDetailVoteFragment.newInstance(event),false);
                             break;
 
                     }
@@ -73,6 +76,13 @@ public class EventDetailActivity extends BelatrixBaseActivity {
                 return true;
             }
         });
+        setTitle(event.getName());
+        ImageFactory.getLoader().loadFromUrl(event.getImage(),
+                pictureImageView,
+                null,
+                getResources().getDrawable(R.drawable.event_placeholder),
+                ImageLoader.ScaleType.CENTER_CROP
+        );
     }
 
     private void setupViews() {
@@ -83,6 +93,7 @@ public class EventDetailActivity extends BelatrixBaseActivity {
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setAccentColor(Color.parseColor(navigationColor));
         bottomNavigation.setBehaviorTranslationEnabled(false);
+
     }
 
     @Override
@@ -90,9 +101,9 @@ public class EventDetailActivity extends BelatrixBaseActivity {
         collapsingToolbarLayout.setTitle(title);
     }
 
-    public static Intent makeIntent(Context context, int eventId) {
+    public static Intent makeIntent(Context context, Event event) {
         Intent intent = new Intent(context, EventDetailActivity.class);
-        intent.putExtra(EVENT_ID_KEY,eventId);
+        intent.putExtra(EVENT_KEY,event);
         return intent;
     }
 

@@ -28,7 +28,7 @@ public class EventFeaturedListInteractor extends AbstractInteractor<List<Event>,
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                callback.onResult(Event.getDummyData());
+                callback.onResult(Event.getDummyEventFeatureListData());
             }
         });
 

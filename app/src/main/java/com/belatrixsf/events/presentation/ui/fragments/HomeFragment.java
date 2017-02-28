@@ -84,7 +84,7 @@ public class HomeFragment extends BelatrixBaseFragment implements HomePresenter.
     @Override
     public void onItemClicked(int position, View view) {
         Event event = (Event) view.getTag();
-        startActivity(EventDetailActivity.makeIntent(getActivity(),position));
+        startActivity(EventDetailActivity.makeIntent(getActivity(),event));
     }
 
     @Override

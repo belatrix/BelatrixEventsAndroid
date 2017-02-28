@@ -44,8 +44,8 @@ public class LoginPresenterTest {
     @Test
     public void loginSuccessful() throws Exception {
         given(view.getContext()).willReturn(mockContext);
-        final String username = "diego";
-        final String password = "diego";
+        final String username = "user01";
+        final String password = "pass02";
         presenter.login(username,password);
         verify(view).showProgressDialog();
         verify(mockLoginInteractor,times(1)).execute(dummyCallbackArgumentCaptor.capture(), any(LoginInteractor.Params.class));
@@ -58,8 +58,8 @@ public class LoginPresenterTest {
     @Test
     public void loginFail() throws Exception {
         given(view.getContext()).willReturn(mockContext);
-        final String username = "diego";
-        final String password = "diego";
+        final String username = "user01";
+        final String password = "pass02";
         final String errorMessage = "fail";
         presenter.login(username,password);
         verify(view).showProgressDialog();

@@ -32,6 +32,7 @@ import com.belatrixsf.events.domain.model.Project;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,6 +45,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
     private List<Project> list;
     private RecyclerViewClickListener clickListener;
+    private boolean areVotesVisible = false;
 
     public ProjectListAdapter(RecyclerViewClickListener clickListener) {
         this(clickListener, new ArrayList<Project>());
@@ -56,7 +58,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_project, parent, false);
         return new ViewHolder(layoutView, clickListener);
     }
 
@@ -66,6 +68,12 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         String fullName = object.getName();
         holder.eventTextView.setText(fullName);
         holder.itemView.setTag(object);
+        holder.projectVotesTextView.setText("" + object.getVotes());
+        if (areVotesVisible){
+            holder.votesView.setVisibility(View.VISIBLE);
+        } else {
+            holder.votesView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -84,9 +92,16 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         notifyDataSetChanged();
     }
 
+    public void showVotes() {
+        areVotesVisible = true;
+        //notifyDataSetChanged();
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.event_name) public TextView eventTextView;
+        @BindView(R.id.project_votes) public TextView projectVotesTextView;
+        @BindView(R.id.view_votes) public View votesView;
 
         private RecyclerViewClickListener clickListener;
 

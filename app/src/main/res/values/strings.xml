@@ -178,7 +178,7 @@
     <string name="event_dialog_confirm_unregister">Do you want unregister this event?</string>
     <string name="event_dialog_result_registered">Event registration confirmed</string>
     <string name="event_dialog_result_unregistered">Event unregistration confirmed</string>
-
+    <string name="event_dialog_confirm_vote">Do you want to vote for Project \"%1$s\"?</string>
     <!--About-->
     <string name="about_what">What</string>
     <string name="about_why">Why</string>

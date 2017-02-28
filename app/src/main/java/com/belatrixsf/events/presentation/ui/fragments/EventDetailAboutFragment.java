@@ -4,32 +4,41 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.ApplicationComponent;
+import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
+
+import butterknife.BindView;
 
 /**
  * created by dvelasquez
  */
 public class EventDetailAboutFragment extends BelatrixBaseFragment  {
 
+    @BindView(R.id.description)
+    TextView descriptionTextView;
+    Event event;
+
 
     public EventDetailAboutFragment() {
     }
 
-    public static EventDetailAboutFragment newInstance(int eventId) {
+    public static EventDetailAboutFragment newInstance(Event event) {
         EventDetailAboutFragment fragment = new EventDetailAboutFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(EventDetailActivity.EVENT_ID_KEY, eventId);
+        bundle.putParcelable(EventDetailActivity.EVENT_KEY, event);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        event = getArguments().getParcelable(EventDetailActivity.EVENT_KEY);
+        super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
@@ -39,7 +48,7 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
 
     @Override
     protected void initViews() {
-
+            descriptionTextView.setText(event.getDescription());
     }
 
     @Override

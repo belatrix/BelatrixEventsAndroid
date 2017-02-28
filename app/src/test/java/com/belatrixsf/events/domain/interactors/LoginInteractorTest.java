@@ -43,7 +43,7 @@ public class LoginInteractorTest {
     @Test
     public void loginSuccessful(){
         final String username = "user01";
-        final String password = "user02";
+        final String password = "pass02";
         when(repository.login(username,password)).thenReturn(true);
         interactor.execute(callback,LoginInteractor.Params.forUser(username, password));
         interactor.run(interactor.getParams());
@@ -56,7 +56,7 @@ public class LoginInteractorTest {
     @Test
     public void loginSuccessFail(){
         final String username = "user01";
-        final String password = "user02";
+        final String password = "pass02";
         when(repository.login(username,password)).thenReturn(false);
         interactor.execute(callback,LoginInteractor.Params.forUser(username, password));
         interactor.run(interactor.getParams());

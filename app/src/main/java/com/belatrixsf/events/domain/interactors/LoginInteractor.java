@@ -34,11 +34,6 @@ public class LoginInteractor extends AbstractInteractor<String,LoginInteractor.P
         Params p = params[0];
         final boolean result = mRepository.login(p.username, p.password);
 
-        if (result)
-            callback.onResult(params[0].username);
-        else
-            callback.onError("error");
-
         mMainThread.post(new Runnable() {
             @Override
             public void run() {

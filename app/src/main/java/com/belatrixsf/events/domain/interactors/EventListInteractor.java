@@ -30,7 +30,7 @@ public class EventListInteractor extends AbstractInteractor<List<Event>,Void> {
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                callback.onResult(Event.getDummyData());
+                callback.onResult(Event.getDummyEventListData());
             }
         });
     }
