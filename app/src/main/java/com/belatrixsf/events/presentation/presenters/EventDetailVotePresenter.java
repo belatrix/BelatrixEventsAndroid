@@ -12,7 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailVotePresenter.View> implements Callback<List<Project>> {
+public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailVotePresenter.View>{
 
     public interface View extends BelatrixBaseView {
         void showProjectList(List<Project> list);
@@ -59,24 +59,24 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
     private void getProjectList(final int eventId, boolean orderRequired) {
         view.showProgressIndicator();
         this.eventId = eventId;
-        interactor.execute(this, ProjectListInteractor.Params.forEvent(eventId,orderRequired));
+        interactor.execute(new Callback<List<Project>>() {
+            @Override
+            public void onResult(List<Project> result) {
+                view.hideProgressIndicator();
+                view.showProjectList(result);
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                view.hideProgressIndicator();
+            }
+        }, ProjectListInteractor.Params.forEvent(eventId, orderRequired));
     }
 
-
-    @Override
-    public void onResult(List<Project> list) {
-        view.hideProgressIndicator();
-        view.showProjectList(list);
-    }
-
-
-    @Override
-    public void onError(String errorMessage) {
-        view.hideProgressIndicator();
-    }
 
     @Override
     public void cancelRequests() {
-
+        interactor.cancel();
+        projectVoteInteractor.cancel();
     }
 }
