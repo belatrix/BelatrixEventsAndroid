@@ -6,8 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.di.component.ApplicationComponent;
-import com.belatrixsf.events.di.module.LoginModule;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.presentation.presenters.LoginPresenter;
 import com.belatrixsf.events.presentation.ui.activities.MainActivity;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
@@ -38,8 +37,9 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginPresente
     }
 
     @Override
-    protected void initDependencies(ApplicationComponent applicationComponent) {
-        applicationComponent.loadModule(new LoginModule(this)).inject(this);
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+        presenter.setView(this);
     }
 
     @Override

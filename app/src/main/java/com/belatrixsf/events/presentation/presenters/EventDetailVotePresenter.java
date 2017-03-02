@@ -18,6 +18,8 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
         void showProjectList(List<Project> list);
         void onVoteSuccessful();
         void onVoteFail(String errorMessage);
+        void hideNoDataView();
+        void showNoDataView();
     }
 
     ProjectListInteractor interactor;
@@ -25,8 +27,7 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
     private int eventId;
 
     @Inject
-    public EventDetailVotePresenter(View view, ProjectListInteractor interactor, ProjectVoteInteractor projectVoteInteractor ) {
-        super(view);
+    public EventDetailVotePresenter( ProjectListInteractor interactor, ProjectVoteInteractor projectVoteInteractor ) {
         this.interactor = interactor;
         this.projectVoteInteractor = projectVoteInteractor;
     }
@@ -63,7 +64,11 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
             @Override
             public void onResult(List<Project> result) {
                 view.hideProgressIndicator();
-                view.showProjectList(result);
+                if (result.isEmpty()){
+                    view.showNoDataView();
+                } else {
+                    view.showProjectList(result);
+                }
             }
 
             @Override

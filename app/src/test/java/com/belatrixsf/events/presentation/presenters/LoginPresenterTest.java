@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by dvelasquez on 2/27/17.
  */
-//@RunWith(MockitoJUnitRunner.class)
+
 public class LoginPresenterTest {
 
     LoginPresenter presenter;
@@ -38,7 +38,8 @@ public class LoginPresenterTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new LoginPresenter(view,mockLoginInteractor);
+        presenter = new LoginPresenter(mockLoginInteractor);
+        presenter.setView(view);
     }
 
     @Test
@@ -50,8 +51,8 @@ public class LoginPresenterTest {
         verify(view).showProgressDialog();
         verify(mockLoginInteractor,times(1)).execute(dummyCallbackArgumentCaptor.capture(), any(LoginInteractor.Params.class));
         dummyCallbackArgumentCaptor.getValue().onResult(username);
-        verify(view).dismissProgressDialog();
         verify(view).onLoginSuccess();
+        verify(view).dismissProgressDialog();
     }
 
 
@@ -65,7 +66,7 @@ public class LoginPresenterTest {
         verify(view).showProgressDialog();
         verify(mockLoginInteractor,times(1)).execute(dummyCallbackArgumentCaptor.capture(), any(LoginInteractor.Params.class));
         dummyCallbackArgumentCaptor.getValue().onError(errorMessage);
-        verify(view).dismissProgressDialog();
         verify(view).onLoginError(errorMessage);
+        verify(view).dismissProgressDialog();
     }
 }

@@ -1,11 +1,13 @@
 package com.belatrixsf.events.di.component;
 
+import android.content.Context;
+
+import com.belatrixsf.events.BxEventsApplication;
 import com.belatrixsf.events.di.module.ApplicationModule;
-import com.belatrixsf.events.di.module.EventDetailVoteModule;
-import com.belatrixsf.events.di.module.HomeFeaturedModule;
-import com.belatrixsf.events.di.module.HomeModule;
-import com.belatrixsf.events.di.module.LoginModule;
 import com.belatrixsf.events.di.module.ThreadModule;
+import com.belatrixsf.events.domain.executor.Executor;
+import com.belatrixsf.events.domain.executor.MainThread;
+import com.belatrixsf.events.domain.repository.Repository;
 
 import javax.inject.Singleton;
 
@@ -22,8 +24,11 @@ import dagger.Component;
 })
 public interface ApplicationComponent {
 
-    LoginComponent loadModule(LoginModule module);
-    HomeComponent loadModule(HomeModule module);
-    EventFeaturedComponent loadModule(HomeFeaturedModule module);
-    EventDetailVoteComponent loadModule(EventDetailVoteModule module);
+    @Singleton
+    Context context();
+    //BxEventsApplication application();
+    void inject(BxEventsApplication bxEventsApplication);
+    MainThread mainThread();
+    Executor executor();
+    Repository repository();
 }

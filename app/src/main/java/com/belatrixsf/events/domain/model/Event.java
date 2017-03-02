@@ -49,13 +49,15 @@ public class Event implements Parcelable{
         this.image = image;
     }
 
-    public Event(String name, String image, String description) {
+    public Event(int id , String name, String image, String description) {
+        this.id = id ;
         this.name = name;
         this.image = image;
         this.description = description;
     }
 
-    public Event(String name ,String description){
+    public Event(int id , String name ,String description){
+        this.id = id ;
         this.name = name;
         this.description = description;
     }
@@ -78,9 +80,9 @@ public class Event implements Parcelable{
         List<Event> eventList = new ArrayList<>();
         for(int i = 1; i < 11 ; i++){
             if (i <= imgArray.length){
-                eventList.add(new Event("Evento " + i , imgArray[i-1],staticDescription));
+                eventList.add(new Event(i,"Evento " + i , imgArray[i-1],staticDescription));
             } else {
-                eventList.add(new Event("Evento " + i, staticDescription));
+                eventList.add(new Event(i,"Evento " + i, staticDescription));
             }
 
         }
@@ -90,7 +92,7 @@ public class Event implements Parcelable{
     public static List<Event> getDummyEventFeatureListData(){
         List<Event> eventList = new ArrayList<>();
         for(int i = 1; i < 5 ; i++){
-            eventList.add(new Event("Evento " + i , imgArray[i-1],staticDescription));
+            eventList.add(new Event(i,"Evento " + i , imgArray[i-1],staticDescription));
         }
         return eventList;
     }

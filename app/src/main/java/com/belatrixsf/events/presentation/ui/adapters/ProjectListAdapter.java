@@ -32,7 +32,6 @@ import com.belatrixsf.events.domain.model.Project;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -113,7 +112,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
         @OnClick(R.id.layout_container)
         public void onClick(View view) {
-            if (clickListener != null) {
+            if (clickListener != null && votesView.getVisibility() == View.GONE) {
                 clickListener.onItemClicked(getLayoutPosition(), view);
             }
         }

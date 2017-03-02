@@ -18,8 +18,7 @@ public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> i
     LoginInteractor loginInteractor;
 
     @Inject
-    public LoginPresenter(View view,LoginInteractor loginInteractor){
-        super(view);
+    public LoginPresenter(LoginInteractor loginInteractor){
         this.loginInteractor = loginInteractor;
     }
 
@@ -28,11 +27,10 @@ public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> i
         loginInteractor.execute(this, LoginInteractor.Params.forUser(username,password));
     }
 
-
     @Override
     public void onResult(String result) {
-        view.dismissProgressDialog();
         view.onLoginSuccess();
+        view.dismissProgressDialog();
     }
 
     @Override

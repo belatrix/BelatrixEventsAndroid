@@ -3,13 +3,8 @@ package com.belatrixsf.events.domain.interactors;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
-import com.belatrixsf.events.domain.model.Project;
-
-import java.util.List;
 
 import javax.inject.Inject;
-
-import timber.log.Timber;
 
 
 public class ProjectVoteInteractor extends AbstractInteractor<Boolean,ProjectVoteInteractor.Params> {

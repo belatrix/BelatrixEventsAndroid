@@ -32,6 +32,7 @@ public class BxEventsApplication extends Application {
 
     private void configDagger(){
         component = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
+        component.inject(this);
     }
 
     public static Context getContext() {

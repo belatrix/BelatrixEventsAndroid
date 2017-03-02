@@ -11,6 +11,6 @@ public class JUnitDaggerMockRule extends DaggerMockRule<ApplicationComponent> {
     public JUnitDaggerMockRule() {
         super(ApplicationComponent.class, new ThreadModule(), new ApplicationModule(null));
         providesMock(MainThread.class);
-       // provides(LoginModule.class, LoginModuleTest.class);
+       // provides(UIModule.class, LoginModuleTest.class);
     }
 }
