@@ -12,8 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.di.component.ApplicationComponent;
-import com.belatrixsf.events.di.module.EventDetailVoteModule;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
 import com.belatrixsf.events.presentation.presenters.EventDetailVotePresenter;
@@ -66,8 +65,9 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     }
 
     @Override
-    protected void initDependencies(ApplicationComponent applicationComponent) {
-        applicationComponent.loadModule(new EventDetailVoteModule(this)).inject(this);
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+        presenter.setView(this);
     }
 
     @Override
@@ -114,6 +114,18 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     }
 
+
+    @Override
+    public void hideNoDataView() {
+        noDataTextView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showNoDataView() {
+        noDataTextView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+    }
 
     @Override
     public void onVoteSuccessful() {

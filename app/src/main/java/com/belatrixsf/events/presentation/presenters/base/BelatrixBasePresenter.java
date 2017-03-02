@@ -3,6 +3,14 @@ package com.belatrixsf.events.presentation.presenters.base;
 public abstract class BelatrixBasePresenter<T extends BelatrixBaseView>  {
     protected T view;
 
+    public BelatrixBasePresenter(){
+
+    }
+
+    public void setView(T view) {
+        this.view = view;
+    }
+
     public BelatrixBasePresenter(T view){
         this.view = view;
     }

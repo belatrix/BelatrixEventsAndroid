@@ -20,8 +20,8 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> imp
     EventListInteractor interactor;
 
     @Inject
-    public HomePresenter(View view, EventListInteractor interactor) {
-        super(view);
+    public HomePresenter( EventListInteractor interactor) {
+
         this.interactor = interactor;
     }
 

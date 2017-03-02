@@ -10,8 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.di.component.ApplicationComponent;
-import com.belatrixsf.events.di.module.HomeFeaturedModule;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.presenters.HomeFeaturedPresenter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
@@ -46,8 +45,9 @@ public class HomeFeaturedFragment extends BelatrixBaseFragment implements HomeFe
     }
 
     @Override
-    protected void initDependencies(ApplicationComponent applicationComponent) {
-        applicationComponent.loadModule(new HomeFeaturedModule(this)).inject(this);
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+        presenter.setView(this);
     }
 
     @Override

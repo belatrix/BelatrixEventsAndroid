@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.di.component.ApplicationComponent;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
 
 public  class AboutFragment extends BelatrixBaseFragment {
@@ -26,10 +26,9 @@ public  class AboutFragment extends BelatrixBaseFragment {
             return inflater.inflate(R.layout.fragment_about, container, false);
         }
 
-        @Override
-        protected void initDependencies(ApplicationComponent applicationComponent) {
-
-        }
+    @Override
+    protected void initDependencies(UIComponent uiComponent) {
+    }
 
 
     @Override

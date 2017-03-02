@@ -11,8 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.di.component.ApplicationComponent;
-import com.belatrixsf.events.di.module.HomeModule;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.presenters.HomePresenter;
 import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
@@ -56,9 +55,11 @@ public class HomeFragment extends BelatrixBaseFragment implements HomePresenter.
     }
 
     @Override
-    protected void initDependencies(ApplicationComponent applicationComponent) {
-        applicationComponent.loadModule(new HomeModule(this)).inject(this);
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+        presenter.setView(this);
     }
+
 
     @Override
     protected void initViews() {

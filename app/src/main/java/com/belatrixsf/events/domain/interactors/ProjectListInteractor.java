@@ -5,6 +5,7 @@ import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 import com.belatrixsf.events.domain.model.Project;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,17 +30,27 @@ public class ProjectListInteractor extends AbstractInteractor<List<Project>,Proj
         }
 
         Params p = params[0];
-        final List<Project> list = Project.getDummyData();
-        if (p.orderRequired) {
-            Collections.sort(list);
-            list.get(0).setHighest(true);
-        }
-        mMainThread.post(new Runnable() {
-            @Override
-            public void run() {
-                callback.onResult(list);
+        if (p.eventId == 10){
+            mMainThread.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onResult(new ArrayList<Project>());
+                }
+            });
+        } else {
+            final List<Project> list = Project.getDummyData();
+            if (p.orderRequired) {
+                Collections.sort(list);
+                list.get(0).setHighest(true);
             }
-        });
+            mMainThread.post(new Runnable() {
+                @Override
+                public void run() {
+                    callback.onResult(list);
+                }
+            });
+        }
+
     }
 
     public static final class Params {

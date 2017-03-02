@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.di.component.ApplicationComponent;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
@@ -44,7 +44,7 @@ public class HomeFeaturedItemFragment extends BelatrixBaseFragment  {
     }
 
     @Override
-    protected void initDependencies(ApplicationComponent applicationComponent) {
+    protected void initDependencies(UIComponent uiComponent) {
 
     }
 
