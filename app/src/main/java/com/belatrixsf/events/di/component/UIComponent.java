@@ -8,6 +8,7 @@ import com.belatrixsf.events.presentation.ui.fragments.EventDetailVoteFragment;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFeaturedFragment;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFragment;
 import com.belatrixsf.events.presentation.ui.fragments.LoginFragment;
+import com.belatrixsf.events.presentation.ui.fragments.ManageEventListFragment;
 
 import dagger.Component;
 
@@ -25,4 +26,5 @@ public interface UIComponent {
     void inject(HomeFragment fragment);
     void inject(HomeFeaturedFragment fragment);
     void inject(EventDetailVoteFragment fragment);
+    void inject(ManageEventListFragment fragment);
 }

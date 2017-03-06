@@ -59,4 +59,7 @@ dependencies {
     compile developmentDependencies.bottomNavigation
     compile developmentDependencies.glide
     compile developmentDependencies.picasso
+    compile developmentDependencies.okHttp3
+    compile developmentDependencies.glideIntegration
+    compile developmentDependencies.okHttp3Square
 }

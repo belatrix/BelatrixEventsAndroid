@@ -1,0 +1,38 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+ <com.belatrixsf.events.presentation.ui.common.SwipeRecyclerView
+                android:id="@+id/recycler_programs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/no_data_textview"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeightSmall"
+        android:gravity="center"
+        android:text="@string/no_data_found"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_gravity="center"
+        android:elevation="@dimen/dimen_8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_input_add"
+        android:elevation="@dimen/dimen_5"
+        android:tint="@color/white" />
+
+</FrameLayout>

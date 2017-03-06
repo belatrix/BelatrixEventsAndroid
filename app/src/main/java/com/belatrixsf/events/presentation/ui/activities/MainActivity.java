@@ -17,6 +17,7 @@ import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFragment;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BelatrixBaseActivity {
 
@@ -26,6 +27,8 @@ public class MainActivity extends BelatrixBaseActivity {
     NavigationView navigationView;
     @BindView(R.id.menu_logout)
     TextView menuLogoutTextView;
+    @BindView(R.id.menu_login)
+    TextView menuLoginTextView;
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
 
@@ -37,6 +40,20 @@ public class MainActivity extends BelatrixBaseActivity {
         setContentView(R.layout.activity_main);
         setToolbar();
         setupViews();
+        loadParams();
+    }
+
+    private void loadParams() {
+        int loginType = getIntent().getIntExtra(LoginActivity.LOGIN_PARAM,0);
+        if (loginType == LoginActivity.IS_LOGGED){
+            menuLoginTextView.setVisibility(View.GONE);
+            menuLogoutTextView.setVisibility(View.VISIBLE);
+            ((TextView)navigationView.getHeaderView(0).findViewById(R.id.full_name)).setText("Diego Velásquez");
+        } else {
+            menuLoginTextView.setVisibility(View.VISIBLE);
+            menuLogoutTextView.setVisibility(View.GONE);
+            navigationView.getMenu().findItem(R.id.menu_events).setVisible(false);
+        }
     }
 
     protected void setupViews() {
@@ -45,15 +62,21 @@ public class MainActivity extends BelatrixBaseActivity {
         replaceFragment(HomeFragment.newInstance(),false);
     }
 
-    private void setupNavigationDrawerMenu(){
-        menuLogoutTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.closeDrawers();
-                //homePresenter.wantToLogout();
-            }
-        });
 
+    @OnClick(R.id.menu_login)
+    public void clickLogin(){
+        startActivity(LoginActivity.makeIntent(this));
+        finishActivity();
+    }
+
+    @OnClick(R.id.menu_logout)
+    public void clickLogout(){
+        startActivity(LoginActivity.makeIntent(this));
+        finishActivity();
+    }
+
+
+    private void setupNavigationDrawerMenu(){
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -76,6 +99,9 @@ public class MainActivity extends BelatrixBaseActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
+                    case R.id.menu_events:
+                        startActivity(ManageEventActivity.makeIntent(MainActivity.this));
+                        break;
                     case R.id.menu_about:
                         startActivity(AboutActivity.makeIntent(MainActivity.this));
                         break;
@@ -101,7 +127,11 @@ public class MainActivity extends BelatrixBaseActivity {
     }
 
 
-    public static Intent makeIntent(Context context) {
-        return new Intent(context, MainActivity.class);
+    public static Intent makeIntent(Context context, Bundle params) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtras(params);
+        return intent;
     }
+
+
 }

@@ -26,6 +26,8 @@
             android:name=".presentation.ui.activities.EventDetailActivity"
             android:theme="@style/Translucent" />
         <activity
+            android:name=".presentation.ui.activities.ManageEventActivity" />
+        <activity
             android:name=".presentation.ui.activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">

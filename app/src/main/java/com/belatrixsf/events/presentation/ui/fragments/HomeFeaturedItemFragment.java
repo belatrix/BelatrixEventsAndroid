@@ -17,6 +17,7 @@ import com.belatrixsf.events.utils.media.loaders.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * created by dvelasquez

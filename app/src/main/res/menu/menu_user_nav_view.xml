@@ -3,6 +3,11 @@
         <group android:checkableBehavior="single"
             >
                 <item
+                    android:id="@+id/menu_events"
+                    android:icon="@drawable/ic_belatrix"
+                    android:title="@string/menu_title_events"/>
+
+                <item
                     android:id="@+id/menu_about"
                     android:icon="@drawable/ic_about"
                     android:title="@string/menu_title_about"/>

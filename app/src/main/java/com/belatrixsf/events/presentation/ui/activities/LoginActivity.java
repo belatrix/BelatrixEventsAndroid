@@ -9,6 +9,11 @@ import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 
 public class LoginActivity extends BelatrixBaseActivity  {
 
+    public static final String LOGIN_PARAM = "login_param";
+    public static final int IS_LOGGED = 1;
+    public static final int IS_GUEST = 2;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
