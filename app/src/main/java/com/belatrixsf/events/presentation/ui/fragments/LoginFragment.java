@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.belatrixsf.events.R;
-import com.belatrixsf.events.di.component.DaggerLoginComponent;
-import com.belatrixsf.events.di.module.LoginModule;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.presentation.presenters.LoginPresenter;
+import com.belatrixsf.events.presentation.ui.activities.LoginActivity;
 import com.belatrixsf.events.presentation.ui.activities.MainActivity;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
+import com.belatrixsf.events.utils.CustomDomainEditText;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -21,7 +24,9 @@ import butterknife.OnClick;
 public class LoginFragment extends BelatrixBaseFragment implements LoginPresenter.View {
 
     @Inject
-    LoginPresenter loginPresenter;
+    LoginPresenter presenter;
+    @BindView(R.id.username)
+    CustomDomainEditText usernameEditText;
 
     public LoginFragment() {
     }
@@ -37,13 +42,15 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginPresente
     }
 
     @Override
-    protected void initDependencies() {
-        DaggerLoginComponent.builder().loginModule(new LoginModule(this)).build().inject(this);
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+        presenter.setView(this);
     }
 
     @Override
     protected void initViews() {
-
+        usernameEditText.setDefaultDomain("@belatrixsf.com");
+        usernameEditText.setDefaultUsername(getString(R.string.hint_username));
     }
 
     @Override
@@ -54,7 +61,10 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginPresente
 
     @Override
     public void onLoginSuccess() {
-       startActivity(MainActivity.makeIntent(getActivity()));
+        Bundle bundle = new Bundle();
+        bundle.putInt(LoginActivity.LOGIN_PARAM,LoginActivity.IS_LOGGED);
+       startActivity(MainActivity.makeIntent(getActivity(),bundle));
+        fragmentListener.finishActivity();
     }
 
     @Override
@@ -64,10 +74,21 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginPresente
 
     @OnClick(R.id.log_in)
     public void onClickLogin(){
-            loginPresenter.login("diego","diego");
+        presenter.login("diego","diego");
+    }
+
+    @OnClick(R.id.log_in_as_guest)
+    public void onClickGuest(){
+        Bundle bundle = new Bundle();
+        bundle.putInt(LoginActivity.LOGIN_PARAM,LoginActivity.IS_GUEST);
+        startActivity(MainActivity.makeIntent(getActivity(),bundle));
+        fragmentListener.finishActivity();
     }
 
 
-
-
+    @Override
+    public void onDestroyView() {
+        presenter.cancelRequests();
+        super.onDestroyView();
+    }
 }

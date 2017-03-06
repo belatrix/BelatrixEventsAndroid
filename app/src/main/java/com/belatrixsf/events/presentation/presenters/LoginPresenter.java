@@ -1,46 +1,47 @@
 package com.belatrixsf.events.presentation.presenters;
 
 import com.belatrixsf.events.domain.interactors.LoginInteractor;
+import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
 
-
-public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> implements LoginInteractor.Callback  {
+public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> implements Callback<String> {
 
     public interface View extends BelatrixBaseView {
         void onLoginSuccess();
         void onLoginError(String errorMessage);
     }
 
-    @Inject
     LoginInteractor loginInteractor;
 
     @Inject
-    public LoginPresenter(View view) {
-        setView(view);
+    public LoginPresenter(LoginInteractor loginInteractor){
+        this.loginInteractor = loginInteractor;
     }
-
 
     public void login(String username, String password) {
         view.showProgressDialog();
-        loginInteractor.execute(this);
+        loginInteractor.execute(this, LoginInteractor.Params.forUser(username,password));
     }
 
-
     @Override
-    public void onLoginSuccess() {
-        view.dismissProgressDialog();
-        Timber.d("presenter onLoginSuccess");
+    public void onResult(String result) {
         view.onLoginSuccess();
+        view.dismissProgressDialog();
     }
 
     @Override
-    public void onLoginError(String errorMessage) {
+    public void onError(String errorMessage) {
         view.dismissProgressDialog();
         view.onLoginError(errorMessage);
+    }
+
+
+    @Override
+    public void cancelRequests() {
+
     }
 }

@@ -9,14 +9,18 @@ ext {
   //Libraries
   daggerVersion = '2.8'
   butterKnifeVersion = '8.0.1'
-  okHttpVersion = '2.5.0'
   retrofitVersion = '2.0.2'
   jUnitVersion = '4.12'
-  mockitoVersion = '1.+'
+  mockitoVersion = '1.9.5'
   okhttpVersion = '3.2.0'
   supportLibrariesVersion = "25.0.1"
   timberVersion = "4.1.0"
-
+  viewPagerIndicatorVersion = "1.0.2"
+  bottomNavigationVersion = "2.0.1"
+  daggerMockVersion = "0.6.4"
+  picassoVersion = "2.5.2"
+  glideVersion = "3.7.0"
+ okhttpVersionCore = "3.6.0"
 
  developmentDependencies = [
     //di
@@ -29,14 +33,26 @@ ext {
     // general
     appCompat: "com.android.support:appcompat-v7:${supportLibrariesVersion}",
     design: "com.android.support:design:${supportLibrariesVersion}",
+    cardView: "com.android.support:cardview-v7:${supportLibrariesVersion}",
+    support: "com.android.support:support-v4:${supportLibrariesVersion}",
     timber: "com.jakewharton.timber:timber:${timberVersion}",
     //network
     retrofit: "com.squareup.retrofit2:retrofit:${retrofitVersion}",
     retrofitConverter: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
     httpInterceptor: "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+    okHttp3: "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
     //tests
     junit:              "junit:junit:${jUnitVersion}",
     mockito: "org.mockito:mockito-core:${mockitoVersion}",
+    //design
+    viewPagerIndicator:  "com.github.ronaldsmartin:Material-ViewPagerIndicator:${viewPagerIndicatorVersion}",
+    bottomNavigation: "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}",
+    daggerMock: "com.github.fabioCollini:DaggerMock:${daggerMockVersion}",
+
+    picasso: "com.squareup.picasso:picasso:${picassoVersion}",
+    glide: "com.github.bumptech.glide:glide:${glideVersion}",
+    okHttp3Square: "com.squareup.okhttp3:okhttp:${okhttpVersionCore}",
+    glideIntegration: "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar"
   ]
 
 }

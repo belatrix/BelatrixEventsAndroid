@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_container"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    style="@style/LargeItemList">
+
+    <TextView
+        android:id="@+id/event_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textSize="@dimen/text_16"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:paddingLeft="@dimen/activity_margin"
+        tools:text="@string/title_full_name" />
+
+
+    <LinearLayout
+        android:id="@+id/view_votes"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:paddingRight="@dimen/activity_margin"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/project_votes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_16"
+            android:maxLines="1"
+            android:gravity="center"
+            android:textColor="@color/black"
+            tools:text="@string/title_full_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_12"
+            android:maxLines="1"
+            android:gravity="center"
+            android:text="Votos"
+            android:textColor="@color/black"
+            tools:text="@string/title_full_name" />
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

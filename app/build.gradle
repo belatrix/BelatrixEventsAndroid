@@ -14,6 +14,12 @@ android {
         versionName "1.0"
     }
 
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+        }
+    }
+
     signingConfigs {
         debug {
             storeFile file('../buildsystem/debug.keystore')
@@ -45,5 +51,15 @@ dependencies {
     compile developmentDependencies.httpInterceptor
     testCompile developmentDependencies.junit
     testCompile developmentDependencies.mockito
-    compile 'com.android.support:support-v4:23.4.0'
+    testCompile developmentDependencies.daggerCompiler
+    testCompile developmentDependencies.daggerMock
+    compile developmentDependencies.viewPagerIndicator
+    compile developmentDependencies.support
+    compile developmentDependencies.cardView
+    compile developmentDependencies.bottomNavigation
+    compile developmentDependencies.glide
+    compile developmentDependencies.picasso
+    compile developmentDependencies.okHttp3
+    compile developmentDependencies.glideIntegration
+    compile developmentDependencies.okHttp3Square
 }

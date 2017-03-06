@@ -23,6 +23,8 @@ package com.belatrixsf.events.presentation.ui.base;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -32,7 +34,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.belatrixsf.events.BxEventsApplication;
 import com.belatrixsf.events.R;
+import com.belatrixsf.events.di.component.DaggerUIComponent;
+import com.belatrixsf.events.di.component.UIComponent;
+import com.belatrixsf.events.di.module.UIModule;
 import com.belatrixsf.events.utils.DialogUtils;
 import com.belatrixsf.events.utils.SnackbarUtils;
 
@@ -47,6 +53,22 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
     private AlertDialog errorAlertDialog;
     private ProgressDialog progressDialog;
     @Nullable @BindView(R.id.toolbar) protected Toolbar toolbar;
+    UIComponent uiComponent;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        uiComponent = DaggerUIComponent.builder().applicationComponent(BxEventsApplication.get(this).getComponent()).uIModule(new UIModule(this)).build();
+    }
+
+    public UIComponent getUiComponent() {
+        return uiComponent;
+    }
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -187,4 +209,9 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
         onBackPressed();
     }
 
+
+    @Override
+    public void finishActivity() {
+        finish();
+    }
 }

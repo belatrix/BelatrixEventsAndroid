@@ -41,7 +41,7 @@ public class ThreadExecutor implements Executor {
             @Override
             public void run() {
                 // run the main logic
-                interactor.run();
+                interactor.run(interactor.getParams());
 
                 // mark it as finished
                 interactor.onFinished();

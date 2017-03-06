@@ -1,0 +1,31 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/item_layout"
+    android:clickable="true"
+    tools:context=".presentation.ui.activities.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/image_event_featured"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:clickable="false"
+        android:src="@drawable/event_placeholder"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/name_textview"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@color/black_transparent"
+        android:layout_gravity="bottom|left"
+        android:layout_width="wrap_content"
+        android:padding="@dimen/activity_margin"
+        android:src="@drawable/ic_belatrix"
+        android:layout_height="wrap_content" />
+
+
+</FrameLayout>

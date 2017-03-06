@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".presentation.ui.activities.MainActivity">
+
+
+
+
+    <fragment
+        class="com.belatrixsf.events.presentation.ui.fragments.HomeFeaturedFragment"
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_weight="1"
+        tools:layout="@layout/fragment_home_featured">
+
+    </fragment>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/belatrix"
+        android:layout_weight="2">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_events"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/no_data_textview"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeightSmall"
+            android:gravity="center"
+            android:text="@string/no_data_found"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+
+    </FrameLayout>
+
+
+</LinearLayout>

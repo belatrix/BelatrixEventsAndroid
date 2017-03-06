@@ -16,6 +16,7 @@
     <color name="grey">#9E9E9E</color>
     <color name="lightGrey">#EFEFEF</color>
     <color name="black">#CC000000</color>
+    <color name="black_transparent">#60000000</color>
 
     <color name="recycler_view_normal">#ffffff</color>
     <color name="recycler_view_press">#20424242</color>
