@@ -34,7 +34,7 @@ public class LauncherActivity extends AppCompatActivity {
             //Restore Employee session
 
         } else {
-            startActivity(LoginActivity.makeIntent(this));
+            startActivity(MainActivity.makeIntent(this));
         }
         finish();
     }

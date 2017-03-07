@@ -86,7 +86,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.event_name) public TextView eventTextView;
+        @BindView(R.id.event_title) public TextView eventTextView;
 
         private RecyclerViewClickListener clickListener;
 

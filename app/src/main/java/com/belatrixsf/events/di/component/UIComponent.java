@@ -5,6 +5,8 @@ import com.belatrixsf.events.di.scope.UIScope;
 import com.belatrixsf.events.presentation.ui.activities.LoginActivity;
 import com.belatrixsf.events.presentation.ui.activities.MainActivity;
 import com.belatrixsf.events.presentation.ui.fragments.EventDetailVoteFragment;
+import com.belatrixsf.events.presentation.ui.fragments.EventListFragment;
+import com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFeaturedFragment;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFragment;
 import com.belatrixsf.events.presentation.ui.fragments.LoginFragment;
@@ -27,4 +29,6 @@ public interface UIComponent {
     void inject(HomeFeaturedFragment fragment);
     void inject(EventDetailVoteFragment fragment);
     void inject(ManageEventListFragment fragment);
+    void inject(EventListSummaryFragment fragment);
+    void inject(EventListFragment fragment);
 }

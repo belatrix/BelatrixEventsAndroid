@@ -7,47 +7,47 @@
     tools:context=".presentation.ui.activities.MainActivity">
 
 
-
-
     <fragment
         class="com.belatrixsf.events.presentation.ui.fragments.HomeFeaturedFragment"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_weight="1"
+        android:layout_weight="0.9"
         tools:layout="@layout/fragment_home_featured">
 
     </fragment>
 
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/belatrix"
-        android:layout_weight="2">
+        android:layout_weight="1.1"
+        android:layout_height="0dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/belatrix">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_events"
+       <FrameLayout
+           android:id="@+id/frame_events_near"
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/dimen_18_10"
+           class="com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment"
+           />
+
+        <FrameLayout
+            android:id="@+id/frame_events_past"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <TextView
-            android:id="@+id/no_data_textview"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
-            android:gravity="center"
-            android:text="@string/no_data_found"
-            android:visibility="gone" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_height="@dimen/dimen_18_10"
+            class="com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment"
+            />
 
 
-    </FrameLayout>
+
+    </LinearLayout>
+    </ScrollView>
+
 
 
 </LinearLayout>

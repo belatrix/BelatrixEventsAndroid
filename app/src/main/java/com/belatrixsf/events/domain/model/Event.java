@@ -91,8 +91,8 @@ public class Event implements Parcelable{
 
     public static List<Event> getDummyEventFeatureListData(){
         List<Event> eventList = new ArrayList<>();
-        for(int i = 1; i < 5 ; i++){
-            eventList.add(new Event(i,"Evento " + i , imgArray[i-1],staticDescription));
+        for(int i = 1; i < 2 ; i++){
+            eventList.add(new Event(i,"Hackatrix Lima 2017" , imgArray[i-1],staticDescription));
         }
         return eventList;
     }

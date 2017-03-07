@@ -19,10 +19,27 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> imp
 
     EventListInteractor interactor;
 
+    String eventType;
+    String eventTitle;
+
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
     @Inject
     public HomePresenter( EventListInteractor interactor) {
 
         this.interactor = interactor;
+    }
+
+    public void setParams(String eventType, String eventTitle){
+        this.eventTitle = eventTitle;
+        this.eventType = eventType;
     }
 
 
