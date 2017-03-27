@@ -63,6 +63,6 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> imp
 
     @Override
     public void cancelRequests() {
-
+        interactor.cancel();
     }
 }

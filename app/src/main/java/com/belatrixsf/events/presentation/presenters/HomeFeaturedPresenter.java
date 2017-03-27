@@ -48,6 +48,6 @@ public class HomeFeaturedPresenter extends BelatrixBasePresenter<HomeFeaturedPre
 
     @Override
     public void cancelRequests() {
-
+        interactor.cancel();
     }
 }

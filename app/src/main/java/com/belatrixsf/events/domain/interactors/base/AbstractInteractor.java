@@ -3,6 +3,8 @@ package com.belatrixsf.events.domain.interactors.base;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 
+import java.util.concurrent.Future;
+
 /**
  * Created by dmilicic on 8/4/15.
  * <p/>
@@ -23,6 +25,7 @@ public abstract class AbstractInteractor<T,P> {
 
     protected Callback<T> callback;
     protected P[] params;
+    private Future future;
 
 
     public P[] getParams() {
@@ -47,6 +50,9 @@ public abstract class AbstractInteractor<T,P> {
     public void cancel() {
         mIsCanceled = true;
         mIsRunning = false;
+        if (future != null){
+            future.cancel(true);
+        }
     }
 
     public boolean isRunning() {
@@ -65,7 +71,15 @@ public abstract class AbstractInteractor<T,P> {
         this.mIsRunning = true;
 
         // start running this interactor in a background thread
-        mThreadExecutor.execute(this);
+        future = mThreadExecutor.execute(this);
     }
+
+    protected void runOnUIThread(Runnable runnable){
+        if (future != null && !future.isCancelled()){
+            mMainThread.post(runnable);
+        }
+    }
+
+
 
 }

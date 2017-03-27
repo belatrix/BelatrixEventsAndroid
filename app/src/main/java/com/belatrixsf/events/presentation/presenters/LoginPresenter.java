@@ -42,6 +42,6 @@ public class LoginPresenter extends BelatrixBasePresenter<LoginPresenter.View> i
 
     @Override
     public void cancelRequests() {
-
+        loginInteractor.cancel();
     }
 }

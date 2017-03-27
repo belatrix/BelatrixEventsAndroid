@@ -47,6 +47,6 @@ public class ManageEventListPresenter extends BelatrixBasePresenter<ManageEventL
 
     @Override
     public void cancelRequests() {
-
+        interactor.cancel();
     }
 }
