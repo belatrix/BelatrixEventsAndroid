@@ -2,7 +2,6 @@ package com.belatrixsf.events.domain.interactors.base;
 
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
-
 import java.util.concurrent.Future;
 
 /**
@@ -23,7 +22,7 @@ public abstract class AbstractInteractor<T,P> {
     protected volatile boolean mIsCanceled;
     protected volatile boolean mIsRunning;
 
-    protected Callback<T> callback;
+    protected T callback;
     protected P[] params;
     private Future future;
 
@@ -64,7 +63,7 @@ public abstract class AbstractInteractor<T,P> {
         mIsCanceled = false;
     }
 
-    public void execute(Callback<T> callback, P ...params) {
+    public void execute(T callback, P ...params) {
         this.callback = callback;
         this.params = params;
         // mark this interactor as running

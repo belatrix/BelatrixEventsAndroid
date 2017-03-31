@@ -1,53 +1,49 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    tools:context=".presentation.ui.activities.MainActivity">
+    android:layout_height="match_parent">
 
-
-    <fragment
-        class="com.belatrixsf.events.presentation.ui.fragments.HomeFeaturedFragment"
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_weight="0.9"
-        tools:layout="@layout/fragment_home_featured">
-
-    </fragment>
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_weight="1.1"
-        android:layout_height="0dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         android:orientation="vertical"
-        android:background="@color/belatrix">
+        tools:context=".presentation.ui.activities.MainActivity">
 
-       <FrameLayout
-           android:id="@+id/frame_events_near"
-           android:layout_width="match_parent"
-           android:layout_height="@dimen/dimen_18_10"
-           class="com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment"
-           />
-
-        <FrameLayout
-            android:id="@+id/frame_events_past"
+        <ImageView
+            android:id="@+id/image_home"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_18_10"
-            class="com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment"
-            />
+            android:layout_height="0dp"
+            android:src="@drawable/event_placeholder"
+            android:layout_weight="0.8"
+            android:scaleType="centerCrop"/>
 
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/belatrix"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/frame_events_near"
+                    class="com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_18_10" />
+
+                <FrameLayout
+                    android:id="@+id/frame_events_past"
+                    class="com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_18_10" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </LinearLayout>
-    </ScrollView>
 
-
-
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

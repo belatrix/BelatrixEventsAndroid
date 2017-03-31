@@ -23,7 +23,6 @@ package com.belatrixsf.events.utils.media;
 
 import com.belatrixsf.events.utils.media.loaders.GlideLoader;
 import com.belatrixsf.events.utils.media.loaders.ImageLoader;
-import com.belatrixsf.events.utils.media.loaders.PicassoLoader;
 
 /**
  * @author Carlos Piñan
@@ -46,7 +45,7 @@ public class ImageFactory {
             case GLIDE:
                 return new GlideLoader();
             case PICASSO:
-                return new PicassoLoader();
+                return new GlideLoader();
             default:
                 return new GlideLoader();
         }

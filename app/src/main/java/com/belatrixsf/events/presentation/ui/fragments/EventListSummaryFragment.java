@@ -1,10 +1,17 @@
 package com.belatrixsf.events.presentation.ui.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.ShareActionProvider;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -13,27 +20,30 @@ import android.widget.TextView;
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
-import com.belatrixsf.events.presentation.presenters.HomePresenter;
+import com.belatrixsf.events.presentation.presenters.EventListPresenter;
 import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.activities.EventListActivity;
 import com.belatrixsf.events.presentation.ui.adapters.EventListAdapter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrixsf.events.presentation.ui.common.DividerItemDecoration;
+import com.belatrixsf.events.utils.DialogUtils;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * created by dvelasquez
  */
-public class EventListSummaryFragment extends BelatrixBaseFragment implements HomePresenter.View, EventListAdapter.RecyclerViewClickListener {
+public class EventListSummaryFragment extends BelatrixBaseFragment implements EventListPresenter.View, EventListAdapter.RecyclerViewClickListener {
 
     @Inject
-    HomePresenter presenter;
+    EventListPresenter presenter;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.no_data_textview)
@@ -43,7 +53,8 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ho
     EventListAdapter listAdapter;
     @BindView(R.id.event_title_textview)
     TextView eventTitleTextView;
-
+    @BindString(R.string.menu_title_share)
+    String stringShare;
 
     public static final String EVENT_TYPE = "event_type";
     public static final String EVENT_TITLE = "event_title";
@@ -80,7 +91,7 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ho
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        presenter.getEventList();
+        presenter.actionGetEventList();
         eventTitleTextView.setText(presenter.getEventTitle());
     }
 
@@ -108,6 +119,25 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ho
     public void onItemClicked(int position, View view) {
         Event event = (Event) view.getTag();
         startActivity(EventDetailActivity.makeIntent(getActivity(),event));
+    }
+
+    @Override
+    public void onItemMoreClicked(View view) {
+        final Event event = (Event) view.getTag();
+        PopupMenu popup = new PopupMenu(getActivity(), view);
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.menu_event_item, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int menuItemId = item.getItemId();
+                if (menuItemId == R.id.menu_share){
+                    DialogUtils.shareContent(getActivity(),event.getName()+"\n"+event.getImage(), stringShare);
+                }
+                return false;
+            }
+        });
+        popup.show();
     }
 
     @Override

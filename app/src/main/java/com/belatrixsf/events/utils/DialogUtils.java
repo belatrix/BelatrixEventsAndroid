@@ -23,6 +23,7 @@ package com.belatrixsf.events.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 
 import com.belatrixsf.events.BxEventsApplication;
 import com.belatrixsf.events.R;
@@ -73,6 +74,13 @@ public class DialogUtils {
         progressDialog.setMessage(message);
         progressDialog.setCancelable(false);
         return progressDialog;
+    }
+
+    public static void shareContent(Activity activity, String text, String popupTitle){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text);
+        shareIntent.setType("text/plain");
+        activity.startActivity(Intent.createChooser(shareIntent, popupTitle));
     }
 
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     android:fitsSystemWindows="true"
     tools:context=".presentation.ui.activities.EventDetailActivity">
 
@@ -20,8 +21,8 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Collapsed"
-            app:expandedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Expanded"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Expanded"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -39,12 +40,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:layout_collapseParallaxMultiplier="0.3"/>
+                app:layout_collapseParallaxMultiplier="0.3"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_10_8"
+        android:clickable="true"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|right|end" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginRight="@dimen/dimen_2_5"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|right|end" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -54,7 +71,7 @@
         <FrameLayout
             android:id="@+id/main_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </android.support.v4.widget.NestedScrollView>
 
@@ -63,6 +80,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom" />
 
 </android.support.design.widget.CoordinatorLayout>

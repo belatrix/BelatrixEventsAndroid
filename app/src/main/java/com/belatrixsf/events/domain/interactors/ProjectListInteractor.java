@@ -12,8 +12,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-public class ProjectListInteractor extends AbstractInteractor<List<Project>,ProjectListInteractor.Params> {
+public class ProjectListInteractor extends AbstractInteractor<ProjectListInteractor.CallBack,ProjectListInteractor.Params> {
 
+    public interface CallBack {
+        void onSuccess(List<Project> result);
+        void onError();
+    }
 
     @Inject
     public ProjectListInteractor(Executor mThreadExecutor, MainThread mMainThread) {
@@ -34,7 +38,7 @@ public class ProjectListInteractor extends AbstractInteractor<List<Project>,Proj
             mMainThread.post(new Runnable() {
                 @Override
                 public void run() {
-                    callback.onResult(new ArrayList<Project>());
+                    callback.onSuccess(new ArrayList<Project>());
                 }
             });
         } else {
@@ -46,7 +50,7 @@ public class ProjectListInteractor extends AbstractInteractor<List<Project>,Proj
             mMainThread.post(new Runnable() {
                 @Override
                 public void run() {
-                    callback.onResult(list);
+                    callback.onSuccess(list);
                 }
             });
         }

@@ -32,8 +32,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, LauncherActivity.class);
-        startActivity(intent);
+        startActivity(MainActivity.makeIntent(this));
         finish();
     }
 }

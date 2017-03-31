@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:replace="label"
-    android:label="@string/login_subtitle"
+    android:label="@string/title_main"
     package="com.belatrixsf.events">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -12,16 +12,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         tools:replace="android:label"
-        android:label="@string/login_subtitle"
+        android:label="@string/title_main"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.ui.activities.MainActivity" />
-        <activity
-            android:name=".presentation.ui.activities.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presentation.ui.activities.LauncherActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.activities.AboutActivity"
             android:label="@string/title_about_activity"
@@ -30,8 +24,6 @@
             android:name=".presentation.ui.activities.EventDetailActivity"/>
         <activity
             android:name=".presentation.ui.activities.EventListActivity" />
-        <activity
-            android:name=".presentation.ui.activities.ManageEventActivity" />
         <activity
             android:name=".presentation.ui.activities.SplashActivity"
             android:screenOrientation="portrait"

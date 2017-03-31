@@ -2,7 +2,6 @@ package com.belatrixsf.events.domain.interactors;
 
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
-import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.domain.repository.Repository;
 
 import org.junit.Before;

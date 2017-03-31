@@ -1,20 +1,24 @@
 package com.belatrixsf.events.presentation.presenters;
 
+import com.belatrixsf.events.domain.interactors.GetEventListInteractor;
 import com.belatrixsf.events.domain.interactors.GetEventFeaturedInteractor;
+import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 
-public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> {
+public class EventListPresenter extends BelatrixBasePresenter<EventListPresenter.View> {
 
 
     public interface View extends BelatrixBaseView {
-        void showHomeEvent(String urlImage);
+        void showEventList(List<Event> list);
     }
 
-    GetEventFeaturedInteractor getEventFeaturedInteractor;
+    GetEventListInteractor getEventListInteractor;
 
     String eventType;
     String eventTitle;
@@ -29,8 +33,8 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> {
     }
 
     @Inject
-    public HomePresenter(GetEventFeaturedInteractor interactor) {
-        this.getEventFeaturedInteractor = interactor;
+    public EventListPresenter(GetEventListInteractor interactor) {
+        this.getEventListInteractor = interactor;
     }
 
     public void setParams(String eventType, String eventTitle){
@@ -39,11 +43,12 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> {
     }
 
 
-    public void actionLoadHomeEvent() {
-        getEventFeaturedInteractor.execute(new GetEventFeaturedInteractor.CallBack() {
+    public void actionGetEventList() {
+        getEventListInteractor.execute(new GetEventListInteractor.CallBack() {
             @Override
-            public void onSuccess(String urlImage) {
-                view.showHomeEvent(urlImage);
+            public void onSuccess(List<Event> result) {
+                view.hideProgressIndicator();
+                view.showEventList(result);
             }
 
             @Override
@@ -56,6 +61,6 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> {
 
     @Override
     public void cancelRequests() {
-        getEventFeaturedInteractor.cancel();
+        getEventListInteractor.cancel();
     }
 }

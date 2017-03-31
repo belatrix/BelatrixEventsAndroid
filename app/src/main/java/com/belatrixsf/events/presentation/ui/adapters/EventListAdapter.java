@@ -24,6 +24,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
@@ -35,12 +36,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
-
-    static final int FIRST_POSITION = 1;
-    static final int SECOND_POSITION = 2;
-    static final int THIRD_POSITION = 3;
 
     private List<Event> list;
     private RecyclerViewClickListener clickListener;
@@ -87,6 +85,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.event_title) public TextView eventTextView;
+        @BindView(R.id.event_more) public ImageView moreImageView;
+        @BindView(R.id.event_picture) public ImageView eventImageView;
 
         private RecyclerViewClickListener clickListener;
 
@@ -96,10 +96,19 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             ButterKnife.bind(this, view);
         }
 
-        @OnClick(R.id.layout_container)
+        @OnClick(R.id.event_picture)
         public void onClick(View view) {
             if (clickListener != null) {
-                clickListener.onItemClicked(getLayoutPosition(), view);
+                Timber.d("view : " + view);
+                Timber.d("view2 : " + view.getTag());
+                clickListener.onItemClicked(getLayoutPosition(), itemView);
+            }
+        }
+
+        @OnClick(R.id.event_more)
+        public void onMoreClick(View view){
+            if (clickListener != null) {
+                clickListener.onItemMoreClicked(itemView);
             }
         }
     }
@@ -107,7 +116,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public interface RecyclerViewClickListener {
 
         void onItemClicked(int position, View view);
-
+        void onItemMoreClicked(View view);
     }
 
 }

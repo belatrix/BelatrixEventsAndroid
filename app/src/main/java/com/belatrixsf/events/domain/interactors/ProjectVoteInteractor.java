@@ -7,8 +7,12 @@ import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 import javax.inject.Inject;
 
 
-public class ProjectVoteInteractor extends AbstractInteractor<Boolean,ProjectVoteInteractor.Params> {
+public class ProjectVoteInteractor extends AbstractInteractor<ProjectVoteInteractor.CallBack, ProjectVoteInteractor.Params> {
 
+    public interface CallBack {
+        void onSuccess(Boolean result);
+        void onError();
+    }
 
     @Inject
     public ProjectVoteInteractor(Executor mThreadExecutor, MainThread mMainThread) {
@@ -27,7 +31,7 @@ public class ProjectVoteInteractor extends AbstractInteractor<Boolean,ProjectVot
         mMainThread.post(new Runnable() {
             @Override
             public void run() {
-                callback.onResult(true);
+                callback.onSuccess(true);
             }
         });
     }

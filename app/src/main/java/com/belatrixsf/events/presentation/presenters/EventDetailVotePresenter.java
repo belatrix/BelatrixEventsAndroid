@@ -2,7 +2,6 @@ package com.belatrixsf.events.presentation.presenters;
 
 import com.belatrixsf.events.domain.interactors.ProjectListInteractor;
 import com.belatrixsf.events.domain.interactors.ProjectVoteInteractor;
-import com.belatrixsf.events.domain.interactors.base.Callback;
 import com.belatrixsf.events.domain.model.Project;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
@@ -34,17 +33,18 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
 
     public void voteForProject(int projectId){
         view.showProgressIndicator();
-        projectVoteInteractor.execute(new Callback<Boolean>() {
+
+        projectVoteInteractor.execute(new ProjectVoteInteractor.CallBack() {
             @Override
-            public void onResult(Boolean result) {
+            public void onSuccess(Boolean result) {
                 view.hideProgressIndicator();
                     view.onVoteSuccessful();
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError() {
                 view.hideProgressIndicator();
-                view.onVoteFail(errorMessage);
+                view.onVoteFail(null);
             }
         }, ProjectVoteInteractor.Params.forProject(projectId));
     }
@@ -60,9 +60,9 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
     private void getProjectList(final int eventId, boolean orderRequired) {
         view.showProgressIndicator();
         this.eventId = eventId;
-        interactor.execute(new Callback<List<Project>>() {
+        interactor.execute(new ProjectListInteractor.CallBack() {
             @Override
-            public void onResult(List<Project> result) {
+            public void onSuccess(List<Project> result) {
                 view.hideProgressIndicator();
                 if (result.isEmpty()){
                     view.showNoDataView();
@@ -72,7 +72,7 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
             }
 
             @Override
-            public void onError(String errorMessage) {
+            public void onError() {
                 view.hideProgressIndicator();
             }
         }, ProjectListInteractor.Params.forEvent(eventId, orderRequired));

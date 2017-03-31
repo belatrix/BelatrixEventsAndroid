@@ -13,87 +13,16 @@
 
     <!-- Error -->
     <string name="error_incorrect_fields">Make sure the fields are filled correctly</string>
-    <string name="error_facebook">Can\'t connect with Facebook Service</string>
-    <string name="error_twitter">Can\'t connect with Twitter Service</string>
 
     <!-- Hint -->
-    <string name="hint_username">Username</string>
-    <string name="hint_password">Password</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_first_name">First Name</string>
-    <string name="hint_last_name">Last Name</string>
-    <string name="hint_skype_id">Skype Id</string>
-    <string name="hint_keyword">Select a Tag</string>
-    <string name="hint_old_password">Old Password</string>
-    <string name="hint_new_password">New Password</string>
-    <string name="hint_repeat_new_password">Repeat New Password</string>
     <string name="hint_write_comment">Write a comment</string>
 
-    <!-- Button -->
-    <string name="button_log_in">Log In</string>
-    <string name="button_log_in_as_guest">Log In As Guest</string>
-    <string name="button_create_account">Create New Account</string>
-    <string name="button_forgot_password">Forgot Password</string>
-    <string name="button_sign_up">Sign Up</string>
-    <string name="button_request_new_password">Request new password</string>
-    <string name="button_change_password">Change Password</string>
-    <string name="button_continue_twitter_login">Continue</string>
-    <string name="button_facebook">Login with Facebook</string>
-    <string name="button_twitter">Login with Twitter</string>
-
     <!-- Title -->
-    <string name="title_reset_password_activity">Reset Password</string>
-    <string name="title_select_category">Select Category</string>
-    <string name="title_select_subcategory">Select Subcategory</string>
-    <string name="title_account_activity">Profile</string>
-    <string name="title_recommendations_activity">Recommendations</string>
-    <string name="title_expand_photo_activity"></string>
-    <string name="title_main">Belatrix Connect</string>
-    <string name="title_contact_activity">Select an user</string>
-    <string name="title_recommendation_activity">Recommendations</string>
-    <string name="title_give_star_activity">Give a recommendation</string>
-    <string name="title_comment_activity">Write a comment</string>
-    <string name="title_keywords_activity">Select a Tag</string>
-    <string name="title_keyword">Tag</string>
-    <string name="title_contacts_keyword_activity">Tag Top</string>
-    <string name="title_keyword_top">%s Top</string>
-    <string name="title_edit_profile_activity">Edit Profile</string>
+    <string name="title_main">Belatrix Events</string>
     <string name="title_event_list_activity">Events</string>
     <string name="title_event_detail_activity">Event Detail</string>
     <string name="title_about_activity">About</string>
-    <string name="title_settings_activity">Settings</string>
-    <string name="title_notification_list_activity">Activities</string>
     <string name="title_help_activity">Help</string>
-    <string name="tab_account_title">Profile</string>
-    <string name="tab_events_title">Events</string>
-    <string name="tab_contacts_title">Contacts</string>
-    <string name="tab_ranking_title">Ranking</string>
-
-    <!-- Login -->
-    <string name="login_subtitle">Belatrix Events</string>
-
-    <!-- Sign Up -->
-    <string name="sign_up_subtitle">Let\'s get started</string>
-    <string name="sign_up_description">Enter your email address to receive your temporary password.</string>
-
-    <!-- Login as Guest -->
-    <string name="log_in_as_guest_subtitle">Log In as Guest</string>
-    <string name="log_in_as_guest_description">Use your favorite social network account to login as guest.</string>
-    <string name="log_in_as_guest_name">Guest</string>
-
-    <!-- Guest Email -->
-    <string name="get_guest_email_subtitle">Almost done!</string>
-    <string name="get_guest_email_description">We couldn\'t get your email from your social network account. Enter your email to start using the app!</string>
-
-    <!-- Request New Password -->
-    <string name="request_new_password_subtitle">New password</string>
-    <string name="request_new_password_description">Enter your email address to request your new password.</string>
-
-    <!-- Reset Password -->
-    <string name="reset_password_subtitle">Secure you account</string>
-    <string name="reset_password_description">Change your password, so you can remember it.</string>
-    <string name="new_password_length_error">At least %s characters</string>
-    <string name="new_password_repeat_error">Must be the same</string>
 
     <!-- Home -->
     <string name="bottom_navigation_color">#448AFF</string>
@@ -107,49 +36,9 @@
     <string name="menu_title_about">About</string>
     <string name="menu_title_events">Events</string>
     <string name="menu_title_help">Help</string>
-    <string name="menu_title_logout">Logout</string>
-    <string name="menu_title_login">Login</string>
-
-    <!--Account-->
-    <string name="title_full_name">Full Name</string>
-    <string name="title_current_month_score">Month score</string>
-    <string name="title_score">Score</string>
-    <string name="title_level">Level</string>
-    <string name="empty_error">Field must not be empty</string>
-
-    <!--Edit account-->
-    <string name="edit_profile">Edit</string>
-    <string name="location_head">Location:</string>
-    <string name="photo_option">Take a photo</string>
-    <string name="gallery_option">Pick from gallery</string>
-    <string name="select_photo_title">Upload a picture</string>
-    <string name="select_image_title">Select an image</string>
-    <string name="permission_profile">The application needs write and camera permissions to be able to edit your profile picture</string>
-    <string name="location_error">Must select location</string>
-    <string name="edit_skills">Skills</string>
-
-    <!--Give a star-->
-    <string name="select_user">Select user</string>
-    <string name="select_category">Select Category</string>
-    <string name="option_select_a_user">Select a user</string>
-    <string name="hint_comment">Add a comment (up to 100 characters)</string>
-    <string name="success_recommendation">Recommendation completed</string>
-
-    <!--Profile-->
-    <string name="tab_recommendations">Recommendations</string>
-    <string name="tab_badges">Badges</string>
-
-    <!--Contacts-->
-    <string name="contact_list_level">Lvl. %s</string>
-    <string name="hint_search">Search Term</string>
-
-    <!--Ranking-->
-    <string name="tab_current_month">Current Month</string>
-    <string name="tab_last_month">Last Month</string>
-    <string name="tab_all_time">All Time</string>
+    <string name="menu_title_share">Share</string>
 
     <!--Messages-->
-    <string name="making_recommendation">Making recommendation</string>
     <string name="no_data_found">No data found</string>
 
     <!--Recommendation-->
@@ -183,8 +72,7 @@
     <string name="event_dialog_result_unregistered">Event unregistration confirmed</string>
     <string name="event_dialog_confirm_vote">Do you want to vote for Project \"%1$s\"?</string>
 
-    <!--Manage Event-->
-    <string name="dialog_confirmation_remove_event">Are you sure you want to remove this event?</string>
+
     <!--About-->
     <string name="about_what">What</string>
     <string name="about_why">Why</string>
@@ -233,25 +121,5 @@ SOFTWARE.</string>
     <string name="profile_pic_needed">You need to upload a profile picture</string>
     <string name="string_register">Register</string>
     <string name="string_unregister">Registered</string>
-
-    <!-- Settings -->
-    <string name="settings_category_notifications">NOTIFICATIONS</string>
-    <string name="settings_title_notifications_switch">Enable Notifications</string>
-    <string name="settings_summary_notifications_switch">Turn on/off the notifications</string>
-    <string name="settings_key_notifications_switch">settings_notifications_switch_key</string>
-    <string name="settings_key_notifications">settings_key_notifications</string>
-
-    <!-- Skills -->
-    <string name="skills_main_label">Skills</string>
-    <string name="add_skill_main_label">Add Skill</string>
-    <string name="skills_button_add">Add new skill</string>
-    <string name="skillname_placeholder">Skill</string>
-    <string name="dialog_confirmation_remove_skill_first">Are you sure you want to remove</string>
-    <string name="dialog_confirmation_remove_skill_sec">from your skills?</string>
-    <string name="dialog_confirmation_added">added</string>
-    <string name="dialog_confirmation_deleted">removed</string>
-    <string name="dialog_confirmation_already_exists">already exists in your skills</string>
-    <string name="skills_button_add_new_first">Add</string>
-    <string name="skills_button_add_new_second">as new skill</string>
 
 </resources>

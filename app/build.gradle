@@ -1,10 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
-//apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.belatrixsf.events"
@@ -30,36 +29,61 @@ android {
     }
 
     buildTypes {
+
+        def Properties serverProps = new Properties()
+        serverProps.load(new FileInputStream(file('../server.properties')))
         debug {
+            buildConfigField "String", "BASE_URL", serverProps["baseDevelopUrl"]
             signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", serverProps["baseReleaseUrl"]
         }
     }
 }
 
+def daggerVersion = '2.8'
+def butterKnifeVersion = '8.0.1'
+def retrofitVersion = '2.0.2'
+def jUnitVersion = '4.12'
+def mockitoVersion = '1.9.5'
+def okhttpVersion = '3.2.0'
+def supportLibrariesVersion = "25.0.1"
+def timberVersion = "4.1.0"
+def viewPagerIndicatorVersion = "1.0.2"
+def bottomNavigationVersion = "2.0.1"
+def daggerMockVersion = "0.6.4"
+def glideVersion = "3.7.0"
+def okhttpVersionCore = "3.6.0"
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    def developmentDependencies = rootProject.ext.developmentDependencies
-    apt developmentDependencies.daggerCompiler
-    apt developmentDependencies.butterKnifeCompiler
-    compile developmentDependencies.dagger
-    compile developmentDependencies.appCompat
-    compile developmentDependencies.design
-    compile developmentDependencies.butterKnife
-    compile developmentDependencies.timber
-    compile developmentDependencies.retrofit
-    compile developmentDependencies.retrofitConverter
-    compile developmentDependencies.httpInterceptor
-    testCompile developmentDependencies.junit
-    testCompile developmentDependencies.mockito
-    testCompile developmentDependencies.daggerCompiler
-    testCompile developmentDependencies.daggerMock
-    compile developmentDependencies.viewPagerIndicator
-    compile developmentDependencies.support
-    compile developmentDependencies.cardView
-    compile developmentDependencies.bottomNavigation
-    compile developmentDependencies.glide
-    compile developmentDependencies.picasso
-    compile developmentDependencies.okHttp3
-    compile developmentDependencies.glideIntegration
-    compile developmentDependencies.okHttp3Square
+    //di
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    compile "com.jakewharton:butterknife:${butterKnifeVersion}"
+    apt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
+    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+
+    // general
+    compile "com.android.support:design:${supportLibrariesVersion}"
+    compile "com.android.support:cardview-v7:${supportLibrariesVersion}"
+    compile "com.jakewharton.timber:timber:${timberVersion}"
+    //network
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+    //tests
+    testCompile "junit:junit:${jUnitVersion}"
+    testCompile "org.mockito:mockito-core:${mockitoVersion}"
+    //design
+    //compile  "com.github.ronaldsmartin:Material-ViewPagerIndicator:${viewPagerIndicatorVersion}"
+    compile "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}"
+    compile "com.github.fabioCollini:DaggerMock:${daggerMockVersion}"
+
+    compile "com.github.bumptech.glide:glide:${glideVersion}"
+    compile "com.squareup.okhttp3:okhttp:${okhttpVersionCore}"
+    compile "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar"
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.belatrixsf.events.domain.interactors.ProjectListInteractor;
 import com.belatrixsf.events.domain.interactors.ProjectVoteInteractor;
-import com.belatrixsf.events.domain.interactors.base.Callback;
 
 import org.junit.Before;
 import org.junit.Test;

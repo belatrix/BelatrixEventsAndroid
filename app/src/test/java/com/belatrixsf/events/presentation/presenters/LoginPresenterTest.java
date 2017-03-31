@@ -2,9 +2,6 @@ package com.belatrixsf.events.presentation.presenters;
 
 import android.content.Context;
 
-import com.belatrixsf.events.domain.interactors.LoginInteractor;
-import com.belatrixsf.events.domain.interactors.base.Callback;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
