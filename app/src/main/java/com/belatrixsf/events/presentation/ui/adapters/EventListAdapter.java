@@ -85,7 +85,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.event_title) public TextView eventTextView;
-        @BindView(R.id.event_more) public ImageView moreImageView;
         @BindView(R.id.event_picture) public ImageView eventImageView;
 
         private RecyclerViewClickListener clickListener;
@@ -96,11 +95,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             ButterKnife.bind(this, view);
         }
 
-        @OnClick(R.id.event_picture)
+        @OnClick(R.id.layout_container)
         public void onClick(View view) {
             if (clickListener != null) {
-                Timber.d("view : " + view);
-                Timber.d("view2 : " + view.getTag());
                 clickListener.onItemClicked(getLayoutPosition(), itemView);
             }
         }

@@ -1,25 +1,12 @@
 package com.belatrixsf.events.presentation.presenters;
 
-import android.content.Context;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
 /**
  * Created by dvelasquez on 2/27/17.
  */
 
 public class LoginPresenterTest {
 
+    /*
     LoginPresenter presenter;
 
     @Mock
@@ -65,5 +52,5 @@ public class LoginPresenterTest {
         dummyCallbackArgumentCaptor.getValue().onError(errorMessage);
         verify(view).onLoginError(errorMessage);
         verify(view).dismissProgressDialog();
-    }
+    }*/
 }

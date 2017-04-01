@@ -2,7 +2,7 @@ package com.belatrixsf.events.di.module;
 
 import android.content.Context;
 
-import com.belatrixsf.events.data.datasource.InMemoryRepository;
+import com.belatrixsf.events.data.datasource.memory.InMemoryRepository;
 import com.belatrixsf.events.domain.repository.Repository;
 
 import javax.inject.Singleton;
@@ -30,6 +30,5 @@ public class ApplicationModule {
     public Repository repository (){
         return new InMemoryRepository();
     }
-
 
 }

@@ -63,7 +63,7 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        uiComponent = DaggerUIComponent.builder().applicationComponent(BxEventsApplication.get(this).getComponent()).uIModule(new UIModule(this)).build();
+        uiComponent = DaggerUIComponent.builder().applicationComponent(BxEventsApplication.get(this).getComponent()).build();
     }
 
     public UIComponent getUiComponent() {

@@ -31,7 +31,7 @@ public class EventDetailVotePresenterTest {
     @Mock
     private ProjectVoteInteractor mockVoteInteractor;
     @Captor
-    private ArgumentCaptor<Callback> dummyCallbackArgumentCaptor;
+    private ArgumentCaptor<ProjectVoteInteractor.CallBack> dummyCallbackArgumentCaptor;
 
 
     @Before
@@ -46,7 +46,7 @@ public class EventDetailVotePresenterTest {
         presenter.voteForProject(1);
         verify(view).showProgressIndicator();
         verify(mockVoteInteractor,times(1)).execute(dummyCallbackArgumentCaptor.capture(), any(ProjectVoteInteractor.Params.class));
-        dummyCallbackArgumentCaptor.getValue().onResult(true);
+        dummyCallbackArgumentCaptor.getValue().onSuccess(true);
         verify(view).onVoteSuccessful();
         verify(view).hideProgressIndicator();
     }

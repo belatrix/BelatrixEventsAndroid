@@ -17,7 +17,6 @@ import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFragment;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class MainActivity extends BelatrixBaseActivity {
 

@@ -7,7 +7,7 @@ import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 import javax.inject.Inject;
 
 
-public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> {
+public class HomeFragmentPresenter extends BelatrixBasePresenter<HomeFragmentPresenter.View> {
 
 
     public interface View extends BelatrixBaseView {
@@ -29,7 +29,7 @@ public class HomePresenter extends BelatrixBasePresenter<HomePresenter.View> {
     }
 
     @Inject
-    public HomePresenter(GetEventFeaturedInteractor interactor) {
+    public HomeFragmentPresenter(GetEventFeaturedInteractor interactor) {
         this.getEventFeaturedInteractor = interactor;
     }
 

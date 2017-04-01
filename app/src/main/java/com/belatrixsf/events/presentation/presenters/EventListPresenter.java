@@ -1,7 +1,6 @@
 package com.belatrixsf.events.presentation.presenters;
 
 import com.belatrixsf.events.domain.interactors.GetEventListInteractor;
-import com.belatrixsf.events.domain.interactors.GetEventFeaturedInteractor;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;

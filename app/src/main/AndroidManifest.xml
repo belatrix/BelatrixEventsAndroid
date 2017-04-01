@@ -15,18 +15,27 @@
         android:label="@string/title_main"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.ui.activities.MainActivity" />
+        <activity android:name=".presentation.ui.activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            />
         <activity
             android:name=".presentation.ui.activities.AboutActivity"
             android:label="@string/title_about_activity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:theme="@style/Translucent" />
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:name=".presentation.ui.activities.EventDetailActivity"/>
         <activity
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:name=".presentation.ui.activities.EventListActivity" />
         <activity
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:name=".presentation.ui.activities.SplashActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

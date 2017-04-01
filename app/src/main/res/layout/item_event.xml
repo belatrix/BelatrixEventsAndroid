@@ -6,6 +6,9 @@
     android:layout_width="@dimen/dimen_10_10"
     android:layout_height="@dimen/dimen_12_10"
     app:cardElevation="@dimen/dimen_5"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
@@ -17,7 +20,6 @@
         <ImageView
             android:id="@+id/event_picture"
             android:layout_width="match_parent"
-            android:clickable="true"
             android:layout_height="match_parent"
             android:layout_above="@+id/event_title"
             android:layout_centerHorizontal="true"
@@ -45,15 +47,23 @@
 
     </RelativeLayout>
 
-
-    <ImageView
+    <FrameLayout
+        android:background="@android:color/transparent"
         android:id="@+id/event_more"
-        android:layout_width="@dimen/dimen_4_5"
-        android:layout_height="@dimen/dimen_4_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="bottom|right"
-        android:layout_marginBottom="@dimen/dimen_4"
         android:clickable="true"
-        android:src="@drawable/ic_more_vert_black_24dp" />
+        android:paddingLeft="@dimen/activity_margin">
+
+        <ImageView
+            android:layout_gravity="bottom|right"
+            android:layout_width="@dimen/dimen_4_5"
+            android:layout_height="@dimen/dimen_4_5"
+            android:src="@drawable/ic_more_vert_black_24dp" />
+
+    </FrameLayout>
+
 
 </android.support.v7.widget.CardView>

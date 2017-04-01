@@ -1,4 +1,4 @@
-package com.belatrixsf.events.data.datasource;
+package com.belatrixsf.events.data.datasource.memory;
 
 import com.belatrixsf.events.domain.repository.Repository;
 

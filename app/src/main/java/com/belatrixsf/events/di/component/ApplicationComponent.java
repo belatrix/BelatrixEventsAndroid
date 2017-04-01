@@ -4,9 +4,12 @@ import android.content.Context;
 
 import com.belatrixsf.events.BxEventsApplication;
 import com.belatrixsf.events.di.module.ApplicationModule;
+import com.belatrixsf.events.di.module.RepositoryModule;
+import com.belatrixsf.events.di.module.RetrofitModule;
 import com.belatrixsf.events.di.module.ThreadModule;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
+import com.belatrixsf.events.domain.repository.EventRepository;
 import com.belatrixsf.events.domain.repository.Repository;
 
 import javax.inject.Singleton;
@@ -19,7 +22,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {ApplicationModule.class,
-        ThreadModule.class
+        ThreadModule.class, RetrofitModule.class, RepositoryModule.class
 
 })
 public interface ApplicationComponent {
@@ -31,4 +34,5 @@ public interface ApplicationComponent {
     MainThread mainThread();
     Executor executor();
     Repository repository();
+    EventRepository eventRepository();
 }

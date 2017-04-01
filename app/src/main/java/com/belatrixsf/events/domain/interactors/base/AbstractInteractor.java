@@ -2,6 +2,7 @@ package com.belatrixsf.events.domain.interactors.base;
 
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
+
 import java.util.concurrent.Future;
 
 /**

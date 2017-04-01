@@ -10,12 +10,10 @@ import android.widget.ImageView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
-import com.belatrixsf.events.presentation.presenters.HomePresenter;
+import com.belatrixsf.events.presentation.presenters.HomeFragmentPresenter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrixsf.events.utils.media.ImageFactory;
 import com.belatrixsf.events.utils.media.loaders.ImageLoader;
-import com.bumptech.glide.Glide;
-
 
 import javax.inject.Inject;
 
@@ -26,7 +24,7 @@ import butterknife.BindView;
 /**
  * created by dvelasquez
  */
-public class HomeFragment extends BelatrixBaseFragment implements HomePresenter.View {
+public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPresenter.View {
 
 
     @BindString(R.string.event_title_near)
@@ -40,7 +38,7 @@ public class HomeFragment extends BelatrixBaseFragment implements HomePresenter.
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @Inject
-    HomePresenter presenter;
+    HomeFragmentPresenter presenter;
 
     public HomeFragment() {
     }
