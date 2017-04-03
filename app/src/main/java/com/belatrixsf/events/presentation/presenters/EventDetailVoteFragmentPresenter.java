@@ -2,6 +2,7 @@ package com.belatrixsf.events.presentation.presenters;
 
 import com.belatrixsf.events.domain.interactors.ProjectListInteractor;
 import com.belatrixsf.events.domain.interactors.ProjectVoteInteractor;
+import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
@@ -10,23 +11,33 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
 
-public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailVotePresenter.View>{
+
+public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<EventDetailVoteFragmentPresenter.View>{
 
     public interface View extends BelatrixBaseView {
         void showProjectList(List<Project> list);
         void onVoteSuccessful();
         void onVoteFail(String errorMessage);
-        void hideNoDataView();
-        void showNoDataView();
+        void showEmptyView();
     }
 
     ProjectListInteractor interactor;
     ProjectVoteInteractor projectVoteInteractor;
-    private int eventId;
+
+    private Event event;
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
     @Inject
-    public EventDetailVotePresenter( ProjectListInteractor interactor, ProjectVoteInteractor projectVoteInteractor ) {
+    public EventDetailVoteFragmentPresenter(ProjectListInteractor interactor, ProjectVoteInteractor projectVoteInteractor ) {
         this.interactor = interactor;
         this.projectVoteInteractor = projectVoteInteractor;
     }
@@ -59,13 +70,12 @@ public class EventDetailVotePresenter extends BelatrixBasePresenter<EventDetailV
 
     private void getProjectList(final int eventId, boolean orderRequired) {
         view.showProgressIndicator();
-        this.eventId = eventId;
         interactor.execute(new ProjectListInteractor.CallBack() {
             @Override
-            public void onSuccess(List<Project> result) {
+            public void onSuccess(final List<Project> result) {
                 view.hideProgressIndicator();
                 if (result.isEmpty()){
-                    view.showNoDataView();
+                    view.showEmptyView();
                 } else {
                     view.showProjectList(result);
                 }

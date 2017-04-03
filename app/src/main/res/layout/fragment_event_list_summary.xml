@@ -24,14 +24,19 @@
             android:textColor="@color/black" />
 
 
-        <Button
-            android:id="@+id/event_more_button"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+        <TextView
+            android:id="@+id/event_more_textview"
+            android:textAllCaps="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dimen_4_5"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dimen_5"
+            android:paddingLeft="@dimen/dimen_4_5"
+            android:paddingRight="@dimen/dimen_4_5"
+            android:paddingTop="@dimen/dimen_5"
             android:text="@string/event_button_more"
             android:textColor="@color/colorAccent"
             android:textStyle="bold" />

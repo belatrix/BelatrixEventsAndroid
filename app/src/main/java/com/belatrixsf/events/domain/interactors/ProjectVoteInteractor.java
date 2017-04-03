@@ -28,10 +28,20 @@ public class ProjectVoteInteractor extends AbstractInteractor<ProjectVoteInterac
             e.printStackTrace();
         }
 
-        mMainThread.post(new Runnable() {
+        runOnUIThread(new Runnable() {
             @Override
             public void run() {
                 callback.onSuccess(true);
+            }
+        });
+    }
+
+    @Override
+    public void onError(Exception e) {
+        runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                callback.onError();
             }
         });
     }

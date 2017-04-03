@@ -27,9 +27,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
+import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 
+import butterknife.BindString;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -45,7 +47,8 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
 
     protected FragmentListener fragmentListener;
     private Unbinder unbinder;
-
+    @BindString(R.string.menu_title_share)
+    protected String stringShare;
 
     @Override
     public void onAttach(Context context) {
@@ -167,6 +170,10 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
         String tag = fragment.getClass().getSimpleName();
         transaction.replace(fragmentReplacedId, fragment, tag);
         transaction.commit();
+    }
+
+    public void refreshData(){
+
     }
 
 }

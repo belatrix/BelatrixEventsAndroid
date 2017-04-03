@@ -1,6 +1,6 @@
 package com.belatrixsf.events.data.datasource.rest.retrofit.base;
 
-import com.belatrixsf.events.data.datasource.ServerCallBack;
+import com.belatrixsf.events.data.datasource.ServerCallback;
 
 import org.json.JSONObject;
 
@@ -11,9 +11,9 @@ import retrofit2.Response;
  * Created by diegoveloper on 4/1/17.
  */
 
-public abstract class BaseRepository<T> {
+public abstract class BaseRepository {
 
-    protected void executeRequest(ServerCallBack<T> callBack, Call<T> call) {
+    protected <T> void executeRequest(ServerCallback<T> callBack, Call<T> call) {
         try {
             Response<T> response = call.execute();
             if (response.isSuccessful() && response.body() != null) {

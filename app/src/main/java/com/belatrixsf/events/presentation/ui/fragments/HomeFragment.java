@@ -10,8 +10,11 @@ import android.widget.ImageView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
+import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.presenters.HomeFragmentPresenter;
+import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
+import com.belatrixsf.events.utils.Constants;
 import com.belatrixsf.events.utils.media.ImageFactory;
 import com.belatrixsf.events.utils.media.loaders.ImageLoader;
 
@@ -20,6 +23,7 @@ import javax.inject.Inject;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * created by dvelasquez
@@ -59,6 +63,10 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
         presenter.setView(this);
     }
 
+    @OnClick(R.id.image_home)
+    public void onClickHomeEvent(){
+        startActivity(EventDetailActivity.makeIntent(getActivity(),presenter.getEvent()));
+    }
 
     @Override
     protected void initViews() {
@@ -73,14 +81,15 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
     }
 
     private void loadViews() {
-        replaceChildFragment(EventListSummaryFragment.newInstance(eventTitleNear, eventTitleNear), R.id.frame_events_near);
-        replaceChildFragment(EventListSummaryFragment.newInstance(eventTitlePast, eventTitlePast), R.id.frame_events_past);
+        replaceChildFragment(EventListSummaryFragment.newInstance(Constants.EVENT_TYPE_UPCOMING, eventTitleNear), R.id.frame_events_near);
+        replaceChildFragment(EventListSummaryFragment.newInstance(Constants.EVENT_TYPE_PAST, eventTitlePast), R.id.frame_events_past);
         presenter.actionLoadHomeEvent();
     }
 
     @Override
-    public void showHomeEvent(String urlImage) {
-        ImageFactory.getLoader().loadFromUrl(urlImage, homeImageView, null, placeHolderDrawable, ImageLoader.ScaleType.FIT_CENTER);
+    public void showHomeEvent(Event event) {
+        presenter.setEvent(event);
+        ImageFactory.getLoader().loadFromUrl(event.getImage(), homeImageView, null, placeHolderDrawable, ImageLoader.ScaleType.FIT_CENTER);
     }
 
     @Override

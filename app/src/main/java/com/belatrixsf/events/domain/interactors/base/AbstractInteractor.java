@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 public abstract class AbstractInteractor<T,P> {
 
     protected  Executor   mThreadExecutor;
-    protected MainThread mMainThread;
+    private MainThread mMainThread;
 
     protected volatile boolean mIsCanceled;
     protected volatile boolean mIsRunning;
@@ -80,6 +80,5 @@ public abstract class AbstractInteractor<T,P> {
         }
     }
 
-
-
+    public abstract void onError(Exception e);
 }

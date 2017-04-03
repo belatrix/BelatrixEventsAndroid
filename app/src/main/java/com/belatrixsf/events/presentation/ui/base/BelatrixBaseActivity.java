@@ -42,6 +42,7 @@ import com.belatrixsf.events.di.module.UIModule;
 import com.belatrixsf.events.utils.DialogUtils;
 import com.belatrixsf.events.utils.SnackbarUtils;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -54,6 +55,8 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
     private ProgressDialog progressDialog;
     @Nullable @BindView(R.id.toolbar) protected Toolbar toolbar;
     UIComponent uiComponent;
+    @BindString(R.string.menu_title_share)
+    protected String stringShare;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {

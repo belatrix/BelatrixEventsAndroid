@@ -67,4 +67,15 @@ public class DateUtils {
         }
     }
 
+    public static Date getDateFromtString(String date, String inputFormat){
+        try {
+            SimpleDateFormat inFormat = new SimpleDateFormat(inputFormat);
+            //inFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date newDate = inFormat.parse(date);
+            return newDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

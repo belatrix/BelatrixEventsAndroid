@@ -46,6 +46,14 @@ public class DialogUtils {
                 .create();
     }
 
+    public static AlertDialog createSimpleDialog(Activity activity, String title, String message, String okButton) {
+        return new AlertDialog.Builder(activity)
+                .setTitle(title)
+                .setPositiveButton(okButton,null)
+                .setMessage(message)
+                .create();
+    }
+
     public static AlertDialog createInformationDialog(Activity activity, String message, String title, OnClickListener positiveListener) {
         return new AlertDialog.Builder(activity)
                 .setTitle(title)

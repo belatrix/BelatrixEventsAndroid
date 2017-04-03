@@ -19,13 +19,13 @@ import static org.mockito.Mockito.verify;
 /**
  * Created by dvelasquez on 2/28/17.
  */
-public class EventDetailVotePresenterTest {
-    EventDetailVotePresenter presenter;
+public class EventDetailVoteFragmentPresenterTest {
+    EventDetailVoteFragmentPresenter presenter;
 
     @Mock
     private Context mockContext;
     @Mock
-    private EventDetailVotePresenter.View view;
+    private EventDetailVoteFragmentPresenter.View view;
     @Mock
     private ProjectListInteractor mockListInteractor;
     @Mock
@@ -37,7 +37,7 @@ public class EventDetailVotePresenterTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        presenter = new EventDetailVotePresenter(mockListInteractor, mockVoteInteractor);
+        presenter = new EventDetailVoteFragmentPresenter(mockListInteractor, mockVoteInteractor);
         presenter.setView(view);
     }
 

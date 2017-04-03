@@ -20,6 +20,7 @@
 */
 package com.belatrixsf.events.presentation.ui.adapters;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +30,16 @@ import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.domain.model.Event;
+import com.belatrixsf.events.utils.media.ImageFactory;
+import com.belatrixsf.events.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
 
@@ -61,9 +64,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Event object = list.get(position);
-        String fullName = object.getName();
+        String fullName = object.getTitle();
         holder.eventTextView.setText(fullName);
         holder.itemView.setTag(object);
+        ImageFactory.getLoader().loadFromUrl(object.getImage(),
+                holder.eventImageView,
+                null,
+                holder.eventPlaceHolderDrawable,
+                ImageLoader.ScaleType.CENTER_CROP
+        );
     }
 
     @Override
@@ -86,6 +95,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
         @BindView(R.id.event_title) public TextView eventTextView;
         @BindView(R.id.event_picture) public ImageView eventImageView;
+        @BindDrawable(R.drawable.event_placeholder)
+        Drawable eventPlaceHolderDrawable;
 
         private RecyclerViewClickListener clickListener;
 

@@ -10,11 +10,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-public class EventListPresenter extends BelatrixBasePresenter<EventListPresenter.View> {
+public class EventListFragmentPresenter extends BelatrixBasePresenter<EventListFragmentPresenter.View> {
 
 
     public interface View extends BelatrixBaseView {
         void showEventList(List<Event> list);
+        void showEmptyView();
     }
 
     GetEventListInteractor getEventListInteractor;
@@ -32,7 +33,7 @@ public class EventListPresenter extends BelatrixBasePresenter<EventListPresenter
     }
 
     @Inject
-    public EventListPresenter(GetEventListInteractor interactor) {
+    public EventListFragmentPresenter(GetEventListInteractor interactor) {
         this.getEventListInteractor = interactor;
     }
 
@@ -47,14 +48,19 @@ public class EventListPresenter extends BelatrixBasePresenter<EventListPresenter
             @Override
             public void onSuccess(List<Event> result) {
                 view.hideProgressIndicator();
-                view.showEventList(result);
+                if (result!= null && !result.isEmpty()) {
+                    view.showEventList(result);
+                } else {
+                    view.showEmptyView();
+                }
             }
 
             @Override
             public void onError() {
-
+                view.hideProgressIndicator();
+                view.showEmptyView();
             }
-        });
+        }, GetEventListInteractor.Params.forEventType(eventType));
     }
 
 

@@ -15,10 +15,11 @@ import android.widget.TextView;
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
-import com.belatrixsf.events.presentation.presenters.EventListPresenter;
+import com.belatrixsf.events.presentation.presenters.EventListFragmentPresenter;
 import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.adapters.EventListAdapter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
+import com.belatrixsf.events.utils.Constants;
 import com.belatrixsf.events.utils.DialogUtils;
 
 import java.util.List;
@@ -31,10 +32,10 @@ import butterknife.BindView;
 /**
  * created by dvelasquez
  */
-public class EventListFragment extends BelatrixBaseFragment implements EventListPresenter.View, EventListAdapter.RecyclerViewClickListener {
+public class EventListFragment extends BelatrixBaseFragment implements EventListFragmentPresenter.View, EventListAdapter.RecyclerViewClickListener {
 
     @Inject
-    EventListPresenter presenter;
+    EventListFragmentPresenter presenter;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.no_data_textview)
@@ -47,18 +48,14 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
     @BindString(R.string.menu_title_share)
     String stringShare;
 
-    public static final String EVENT_TYPE = "event_type";
-    public static final String EVENT_TITLE = "event_title";
-
-
     public EventListFragment() {
     }
 
     public static EventListFragment newInstance(String eventType, String eventTitle) {
         EventListFragment fragment = new EventListFragment();
         Bundle args = new Bundle();
-        args.putString(EVENT_TYPE,eventType);
-        args.putString(EVENT_TITLE,eventTitle);
+        args.putString(Constants.EVENT_TYPE,eventType);
+        args.putString(Constants.EVENT_TITLE,eventTitle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -92,7 +89,7 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         if (getArguments() != null){
-            presenter.setParams(getArguments().getString(EVENT_TYPE),getArguments().getString(EVENT_TITLE));
+            presenter.setParams(getArguments().getString(Constants.EVENT_TYPE),getArguments().getString(Constants.EVENT_TITLE));
         }
         super.onViewCreated(view, savedInstanceState);
     }
@@ -105,6 +102,7 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
 
     @Override
     public void showEventList(List<Event> list) {
+        noDataTextView.setVisibility(View.GONE);
         listAdapter.updateData(list);
     }
 
@@ -125,7 +123,8 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
             public boolean onMenuItemClick(MenuItem item) {
                 int menuItemId = item.getItemId();
                 if (menuItemId == R.id.menu_share){
-                    DialogUtils.shareContent(getActivity(),event.getName()+"\n"+event.getImage(), stringShare);
+                    String sharingText = (event.getSharingText() != null && !event.getSharingText().isEmpty() ? event.getSharingText(): event.getTitle());
+                    DialogUtils.shareContent(getActivity(),sharingText+"\n"+event.getImage(), stringShare);
                 }
                 return false;
             }
@@ -148,6 +147,9 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
         super.onDestroyView();
     }
 
-
+    @Override
+    public void showEmptyView() {
+        noDataTextView.setVisibility(View.VISIBLE);
+    }
 
 }

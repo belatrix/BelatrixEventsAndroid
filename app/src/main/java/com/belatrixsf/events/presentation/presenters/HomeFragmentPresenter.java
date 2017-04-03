@@ -1,6 +1,7 @@
 package com.belatrixsf.events.presentation.presenters;
 
 import com.belatrixsf.events.domain.interactors.GetEventFeaturedInteractor;
+import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 
@@ -11,7 +12,7 @@ public class HomeFragmentPresenter extends BelatrixBasePresenter<HomeFragmentPre
 
 
     public interface View extends BelatrixBaseView {
-        void showHomeEvent(String urlImage);
+        void showHomeEvent(Event event);
     }
 
     GetEventFeaturedInteractor getEventFeaturedInteractor;
@@ -19,6 +20,15 @@ public class HomeFragmentPresenter extends BelatrixBasePresenter<HomeFragmentPre
     String eventType;
     String eventTitle;
 
+    Event event;
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
     public String getEventType() {
         return eventType;
@@ -42,8 +52,8 @@ public class HomeFragmentPresenter extends BelatrixBasePresenter<HomeFragmentPre
     public void actionLoadHomeEvent() {
         getEventFeaturedInteractor.execute(new GetEventFeaturedInteractor.CallBack() {
             @Override
-            public void onSuccess(String urlImage) {
-                view.showHomeEvent(urlImage);
+            public void onSuccess(Event event) {
+                view.showHomeEvent(event);
             }
 
             @Override

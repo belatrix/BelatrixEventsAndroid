@@ -42,7 +42,12 @@ public class ThreadExecutor implements Executor {
             @Override
             public void run() {
                 // run the main logic
-                interactor.run(interactor.getParams());
+                try {
+                    interactor.run(interactor.getParams());
+                }catch (Exception e){
+                    interactor.onError(e);
+                    e.printStackTrace();
+                }
 
                 // mark it as finished
                 interactor.onFinished();

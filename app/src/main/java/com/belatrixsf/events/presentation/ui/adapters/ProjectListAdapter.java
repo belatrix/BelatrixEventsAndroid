@@ -64,15 +64,10 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Project object = list.get(position);
-        String fullName = object.getName();
+        String fullName = object.getText();
         holder.eventTextView.setText(fullName);
         holder.itemView.setTag(object);
         holder.projectVotesTextView.setText("" + object.getVotes());
-        if (areVotesVisible){
-            holder.votesView.setVisibility(View.VISIBLE);
-        } else {
-            holder.votesView.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -112,7 +107,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
         @OnClick(R.id.layout_container)
         public void onClick(View view) {
-            if (clickListener != null && votesView.getVisibility() == View.GONE) {
+            if (clickListener != null) {
                 clickListener.onItemClicked(getLayoutPosition(), view);
             }
         }
