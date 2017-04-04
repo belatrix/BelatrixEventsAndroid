@@ -44,6 +44,7 @@ public class EventListFragmentPresenter extends BelatrixBasePresenter<EventListF
 
 
     public void actionGetEventList() {
+        view.showProgressIndicator();
         getEventListInteractor.execute(new GetEventListInteractor.CallBack() {
             @Override
             public void onSuccess(List<Event> result) {

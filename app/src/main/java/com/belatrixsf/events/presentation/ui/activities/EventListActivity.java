@@ -1,6 +1,6 @@
 package com.belatrixsf.events.presentation.ui.activities;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,12 +22,14 @@ public class EventListActivity extends BelatrixBaseActivity  {
         setNavigationToolbar();
     }
 
-    public static Intent makeIntent(Context context,String eventType, String eventTitle) {
+    public static Intent makeIntent(Activity context, String eventType, String eventTitle) {
         Intent intent = new Intent(context, EventListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString(Constants.EVENT_TITLE,eventTitle);
         bundle.putString(Constants.EVENT_TYPE,eventType);
         intent.putExtras(bundle);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        context.overridePendingTransition(0, 0);
         return intent;
     }
 

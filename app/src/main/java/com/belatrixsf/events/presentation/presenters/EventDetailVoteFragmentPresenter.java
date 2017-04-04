@@ -1,18 +1,17 @@
 package com.belatrixsf.events.presentation.presenters;
 
+import com.belatrixsf.events.R;
 import com.belatrixsf.events.domain.interactors.ProjectListInteractor;
 import com.belatrixsf.events.domain.interactors.ProjectVoteInteractor;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
+import com.belatrixsf.events.utils.cache.Cache;
 
 import java.util.List;
 
 import javax.inject.Inject;
-
-import timber.log.Timber;
-
 
 public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<EventDetailVoteFragmentPresenter.View>{
 
@@ -20,11 +19,14 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
         void showProjectList(List<Project> list);
         void onVoteSuccessful();
         void onVoteFail(String errorMessage);
+        void onConfirmationDialogCreated(String message, int projectId);
         void showEmptyView();
     }
 
     ProjectListInteractor interactor;
     ProjectVoteInteractor projectVoteInteractor;
+    @Inject
+    Cache cache;
 
     private Event event;
 
@@ -44,31 +46,23 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
 
     public void voteForProject(int projectId){
         view.showProgressIndicator();
-
         projectVoteInteractor.execute(new ProjectVoteInteractor.CallBack() {
             @Override
-            public void onSuccess(Boolean result) {
+            public void onSuccess(Project result) {
+                cache.saveVote(event.getId());
                 view.hideProgressIndicator();
-                    view.onVoteSuccessful();
+                view.onVoteSuccessful();
             }
 
             @Override
             public void onError() {
                 view.hideProgressIndicator();
-                view.onVoteFail(null);
+                view.onVoteFail(view.getContext().getString(R.string.dialog_title_error));
             }
         }, ProjectVoteInteractor.Params.forProject(projectId));
     }
 
     public void getProjectList(final int eventId) {
-       getProjectList(eventId,false);
-    }
-
-    public void getProjectListOrdered(final int eventId) {
-        getProjectList(eventId,true);
-    }
-
-    private void getProjectList(final int eventId, boolean orderRequired) {
         view.showProgressIndicator();
         interactor.execute(new ProjectListInteractor.CallBack() {
             @Override
@@ -85,9 +79,28 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
             public void onError() {
                 view.hideProgressIndicator();
             }
-        }, ProjectListInteractor.Params.forEvent(eventId, orderRequired));
+        }, ProjectListInteractor.Params.forEvent(eventId));
     }
 
+    public void buildConfirmationMessage(Project project){
+        boolean alreadyVoted = cache.alreadyVoted(event.getId());
+        if (alreadyVoted){
+            view.onVoteFail(view.getContext().getString(R.string.dialog_error_vote_already));
+        } else {
+            if (event.isInteractionActive()) {
+                final String projectName = project.getText();
+                String confirmationMessage = view.getContext().getString(R.string.event_dialog_confirm_vote, projectName);
+                if (event.getInteractionConfirmationText() != null && !event.getInteractionConfirmationText().isEmpty()) {
+                    confirmationMessage = String.format(event.getInteractionConfirmationText(), projectName);
+                }
+                confirmationMessage += "\n\n" + view.getContext().getString(R.string.dialog_option_note);
+                view.onConfirmationDialogCreated(confirmationMessage, project.getId());
+            } else {
+                view.onVoteFail(view.getContext().getString(R.string.dialog_error_vote_disable));
+            }
+        }
+
+    }
 
     @Override
     public void cancelRequests() {

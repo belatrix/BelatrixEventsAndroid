@@ -18,4 +18,5 @@ public interface EventRepository {
     void upcomingList(ServerCallback<List<Event>> callBack);
     void pastList(ServerCallback<List<Event>> callBack);
     void interactionList(int eventId, ServerCallback<List<Project>> callBack);
+    void interactionVote(int interactionId, ServerCallback<Project> callBack);
 }

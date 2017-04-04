@@ -1,6 +1,7 @@
 package com.belatrixsf.events.presentation.ui.fragments;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
@@ -36,8 +37,6 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
 
     @Inject
     EventListFragmentPresenter presenter;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
     @BindView(R.id.no_data_textview)
     TextView noDataTextView;
     @BindView(R.id.recycler_events)
@@ -47,6 +46,8 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
     TextView eventTitleTextView;
     @BindString(R.string.menu_title_share)
     String stringShare;
+    @BindView(R.id.swipe_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public EventListFragment() {
     }
@@ -83,6 +84,12 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
         recyclerView.setLayoutManager(gridLayoutManager);
         presenter.actionGetEventList();
         eventTitleTextView.setText(presenter.getEventTitle());
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.actionGetEventList();
+            }
+        });
     }
 
 
@@ -103,13 +110,13 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
     @Override
     public void showEventList(List<Event> list) {
         noDataTextView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         listAdapter.updateData(list);
     }
 
     @Override
-    public void onItemClicked(int position, View view) {
-        Event event = (Event) view.getTag();
-        startActivity(EventDetailActivity.makeIntent(getActivity(),event));
+    public void onItemClicked(Event event, ImageView view) {
+        EventDetailActivity.startActivity(getActivity(),event,view);
     }
 
     @Override
@@ -134,12 +141,12 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
 
     @Override
     public void showProgressIndicator() {
-       progressBar.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
     public void hideProgressIndicator() {
-        progressBar.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(false);
     }
     @Override
     public void onDestroyView() {
@@ -149,6 +156,7 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
 
     @Override
     public void showEmptyView() {
+        recyclerView.setVisibility(View.INVISIBLE);
         noDataTextView.setVisibility(View.VISIBLE);
     }
 

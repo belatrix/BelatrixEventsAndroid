@@ -52,4 +52,11 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
         Call<List<Project>> call = eventAPI.interactionList(eventId);
         executeRequest(callBack, call);
     }
+
+
+    @Override
+    public void interactionVote(int interactionId, ServerCallback<Project> callBack) {
+        Call<Project> call = eventAPI.interactionVote(interactionId);
+        executeRequest(callBack, call);
+    }
 }

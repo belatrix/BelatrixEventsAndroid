@@ -11,13 +11,28 @@
         android:orientation="vertical"
         tools:context=".presentation.ui.activities.MainActivity">
 
-        <ImageView
-            android:id="@+id/image_home"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:src="@drawable/event_placeholder"
-            android:layout_weight="0.8"
-            android:scaleType="centerCrop"/>
+            android:layout_weight="0.8">
+
+            <ImageView
+                android:background="@drawable/item_background"
+                android:id="@+id/image_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:transitionName="@string/transition_photo"
+                android:src="@drawable/event_placeholder" />
+
+            <TextView
+                android:id="@+id/title_home"
+                style="@style/TextAppearance.MyApp.Title.Expanded"
+                android:layout_gravity="bottom|left"
+                android:layout_margin="@dimen/dimen_3_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </FrameLayout>
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -43,7 +58,5 @@
                     android:layout_height="@dimen/dimen_16_10" />
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-
     </LinearLayout>
-
 </android.support.v4.widget.SwipeRefreshLayout>

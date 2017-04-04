@@ -24,7 +24,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -38,7 +37,6 @@ import com.belatrixsf.events.BxEventsApplication;
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.DaggerUIComponent;
 import com.belatrixsf.events.di.component.UIComponent;
-import com.belatrixsf.events.di.module.UIModule;
 import com.belatrixsf.events.utils.DialogUtils;
 import com.belatrixsf.events.utils.SnackbarUtils;
 
@@ -57,16 +55,15 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
     UIComponent uiComponent;
     @BindString(R.string.menu_title_share)
     protected String stringShare;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-    }
+    @BindString(R.string.dialog_title_error)
+    protected String stringError;
+    @BindString(R.string.app_name)
+    protected String stringAppName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         uiComponent = DaggerUIComponent.builder().applicationComponent(BxEventsApplication.get(this).getComponent()).build();
+        super.onCreate(savedInstanceState);
     }
 
     public UIComponent getUiComponent() {
@@ -94,6 +91,13 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
     }
 
     @Override
+    public void removeFragment(int containerId) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.remove(getSupportFragmentManager().findFragmentById(containerId));
+        transaction.commit();
+    }
+
+    @Override
     public void showError(String message) {
         if (errorAlertDialog == null) {
             errorAlertDialog = DialogUtils.createErrorDialog(this, null);
@@ -109,7 +113,10 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
 
     @Override
     public void setTitle(String title) {
-        if (!activityHandleTitle() && getSupportActionBar() != null) {
+        if (toolbar != null){
+            toolbar.setTitle(title);
+        }
+        else if (!activityHandleTitle() && getSupportActionBar() != null) {
             getSupportActionBar().setTitle(title);
         }
     }
@@ -216,5 +223,9 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
     @Override
     public void finishActivity() {
         finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
     }
 }

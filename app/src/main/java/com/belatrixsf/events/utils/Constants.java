@@ -5,7 +5,7 @@ package com.belatrixsf.events.utils;
  */
 
 public class Constants {
-
+    public static final String EVENT_KEY = "_event_id";
     public static final String EVENT_TYPE = "event_type";
     public static final String EVENT_TITLE = "event_title";
     public static final String EVENT_TYPE_UPCOMING = "event_type_upcoming";

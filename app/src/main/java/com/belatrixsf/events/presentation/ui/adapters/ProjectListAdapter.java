@@ -44,7 +44,6 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
     private List<Project> list;
     private RecyclerViewClickListener clickListener;
-    private boolean areVotesVisible = false;
 
     public ProjectListAdapter(RecyclerViewClickListener clickListener) {
         this(clickListener, new ArrayList<Project>());
@@ -84,11 +83,6 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     public void clear() {
         list.clear();
         notifyDataSetChanged();
-    }
-
-    public void showVotes() {
-        areVotesVisible = true;
-        //notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

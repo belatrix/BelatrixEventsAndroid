@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
@@ -41,6 +42,8 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
     Drawable placeHolderDrawable;
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.title_home)
+    TextView titleTextView;
     @Inject
     HomeFragmentPresenter presenter;
 
@@ -64,8 +67,11 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
     }
 
     @OnClick(R.id.image_home)
-    public void onClickHomeEvent(){
-        startActivity(EventDetailActivity.makeIntent(getActivity(),presenter.getEvent()));
+    public void onClickHomeEvent() {
+        Event event = presenter.getEvent();
+        if (event != null) {
+           EventDetailActivity.startActivity(getActivity(), presenter.getEvent(),homeImageView);
+        }
     }
 
     @Override
@@ -90,6 +96,7 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
     public void showHomeEvent(Event event) {
         presenter.setEvent(event);
         ImageFactory.getLoader().loadFromUrl(event.getImage(), homeImageView, null, placeHolderDrawable, ImageLoader.ScaleType.FIT_CENTER);
+        titleTextView.setText(event.getTitle());
     }
 
     @Override
@@ -98,4 +105,17 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null){
+            presenter.setEvent((Event) savedInstanceState.getParcelable(Constants.EVENT_KEY));
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(Constants.EVENT_KEY, presenter.getEvent());
+        super.onSaveInstanceState(outState);
+    }
 }

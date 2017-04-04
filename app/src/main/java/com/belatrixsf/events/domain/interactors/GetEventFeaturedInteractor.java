@@ -1,14 +1,11 @@
 package com.belatrixsf.events.domain.interactors;
 
 import com.belatrixsf.events.data.datasource.ServerCallback;
-import com.belatrixsf.events.data.datasource.rest.retrofit.server.Contributor;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.repository.EventRepository;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

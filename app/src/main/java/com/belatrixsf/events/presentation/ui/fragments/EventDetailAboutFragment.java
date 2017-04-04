@@ -1,23 +1,26 @@
 package com.belatrixsf.events.presentation.ui.fragments;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
-import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
+import com.belatrixsf.events.domain.model.Location;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
+import com.belatrixsf.events.utils.Constants;
 import com.belatrixsf.events.utils.DateUtils;
 
 import butterknife.BindView;
-
+import butterknife.OnClick;
 /**
  * created by dvelasquez
  */
@@ -31,8 +34,6 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
     TextView linkTextView;
     @BindView(R.id.date)
     TextView dateTextView;
-    @BindView(R.id.map_location)
-    WebView mapLocation;
     Event event;
 
     public EventDetailAboutFragment() {
@@ -41,14 +42,14 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
     public static EventDetailAboutFragment newInstance(Event event) {
         EventDetailAboutFragment fragment = new EventDetailAboutFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(EventDetailActivity.EVENT_KEY, event);
+        bundle.putParcelable(Constants.EVENT_KEY, event);
         fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        event = getArguments().getParcelable(EventDetailActivity.EVENT_KEY);
+        event = getArguments().getParcelable(Constants.EVENT_KEY);
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -61,13 +62,21 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
     protected void initViews() {
         descriptionTextView.setText(event.getDetails());
         locationTextView.setText(event.getAddress());
+        SpannableString s = SpannableString.valueOf(locationTextView.getText());
+        s.setSpan(new URLSpan(s.toString()), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        locationTextView.setText(s);
         linkTextView.setText(event.getRegisterLink());
         dateTextView.setText(DateUtils.formatDate(event.getDatetime(),DateUtils.DATE_FORMAT_3,DateUtils.DATE_FORMAT_4 ));
-        WebSettings webSettings = mapLocation.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        //ws.setSupportZoom(false);
-        mapLocation.setWebViewClient(new WebViewClient());
-        mapLocation.loadUrl("https://www.google.com/maps/place/-12.09986273+-77.01899618/@-12.09986273,-77.01899618,15z");
+    }
+
+    @OnClick(R.id.location)
+    public void onClickLocation(){
+        Location location = event.getLocation();
+        String latitude = location.getLatitude();
+        String longitude = location.getLongitude();
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+        Uri.parse("geo:0,0?q="+latitude+"," +  longitude+" (" + location.getName() + ")"));
+        startActivity(intent);
     }
 
     @Override

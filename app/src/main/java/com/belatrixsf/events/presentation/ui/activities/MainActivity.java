@@ -2,6 +2,7 @@ package com.belatrixsf.events.presentation.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,7 @@ import com.belatrixsf.events.R;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFragment;
 
+import butterknife.BindString;
 import butterknife.BindView;
 
 public class MainActivity extends BelatrixBaseActivity {
@@ -27,7 +29,8 @@ public class MainActivity extends BelatrixBaseActivity {
     TextView menuLoginTextView;
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
-
+    @BindString(R.string.belatrix_url)
+    String stringURL;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
@@ -71,11 +74,15 @@ public class MainActivity extends BelatrixBaseActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
+                    case R.id.menu_finder:
+                        startActivity(FinderActivity.makeIntent(MainActivity.this));
+                        break;
                     case R.id.menu_about:
                         startActivity(AboutActivity.makeIntent(MainActivity.this));
                         break;
                     case R.id.menu_help:
-                        //TODO: HelpActivity
+                        Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(stringURL));
+                        startActivity(intent);
                         break;
                 }
                 return true;

@@ -8,6 +8,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.Path;
 
 /**
@@ -27,4 +28,6 @@ public interface EventAPI {
     Call<List<Event>> pastList();
     @GET("event/{event_id}/interaction/list")
     Call<List<Project>> interactionList(@Path("event_id") int eventId);
+    @PATCH("event/interaction/{interaction_id}/vote")
+    Call<Project> interactionVote(@Path("interaction_id") int interactionId);
 }

@@ -32,6 +32,7 @@ public interface FragmentListener {
 
     void replaceFragment(Fragment fragment, boolean addToBackStack);
     void replaceFragment(int containerId, Fragment fragment, boolean addToBackStack);
+    void removeFragment(int containerId);
     void showError(String message);
     void showProgressDialog();
     void showProgressDialog(String message);

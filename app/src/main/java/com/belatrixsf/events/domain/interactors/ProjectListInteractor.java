@@ -75,15 +75,13 @@ public class ProjectListInteractor extends AbstractInteractor<ProjectListInterac
 
     public static final class Params {
         int eventId;
-        boolean orderRequired;
 
-        public Params(int eventId, boolean orderRequired) {
+        public Params(int eventId) {
             this.eventId = eventId;
-            this.orderRequired = orderRequired;
         }
 
-        public static ProjectListInteractor.Params forEvent(int eventId, boolean orderRequired){
-            return new ProjectListInteractor.Params(eventId,orderRequired);
+        public static ProjectListInteractor.Params forEvent(int eventId){
+            return new ProjectListInteractor.Params(eventId);
         }
 
     }

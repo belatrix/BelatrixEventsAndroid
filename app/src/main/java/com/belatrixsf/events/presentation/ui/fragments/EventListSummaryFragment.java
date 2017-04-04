@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,8 +23,11 @@ import com.belatrixsf.events.presentation.ui.adapters.EventListAdapter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrixsf.events.utils.Constants;
 import com.belatrixsf.events.utils.DialogUtils;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -104,9 +108,8 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ev
     }
 
     @Override
-    public void onItemClicked(int position, View view) {
-        Event event = (Event) view.getTag();
-        startActivity(EventDetailActivity.makeIntent(getActivity(),event));
+    public void onItemClicked(Event event, ImageView view) {
+        EventDetailActivity.startActivity(getActivity(),event,view);
     }
 
     @Override
@@ -131,6 +134,7 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ev
 
     @Override
     public void showProgressIndicator() {
+        eventMoreTextView.setVisibility(View.GONE);
        progressBar.setVisibility(View.VISIBLE);
     }
 

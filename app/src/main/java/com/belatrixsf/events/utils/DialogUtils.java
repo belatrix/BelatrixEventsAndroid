@@ -43,11 +43,12 @@ public class DialogUtils {
         return new AlertDialog.Builder(activity)
                 .setTitle(title)
                 .setMessage(message)
+                .setPositiveButton("OK",null)
                 .create();
     }
 
-    public static AlertDialog createSimpleDialog(Activity activity, String title, String message, String okButton) {
-        return new AlertDialog.Builder(activity)
+    public static AlertDialog createSimpleDialog(Activity activity, String title, String message, String okButton, boolean animation) {
+        return new AlertDialog.Builder(activity,(animation?R.style.DialogSlideAnim:R.style.Base_Theme_AppCompat_Light_Dialog))
                 .setTitle(title)
                 .setPositiveButton(okButton,null)
                 .setMessage(message)

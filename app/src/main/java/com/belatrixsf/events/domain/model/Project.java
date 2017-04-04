@@ -3,10 +3,6 @@ package com.belatrixsf.events.domain.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 /**
  * Created by dvelasquez on 2/24/17.
  */
@@ -26,20 +22,15 @@ public class Project implements Comparable<Project>,Parcelable {
     private int id;
     private String text;
     private int votes;
-    private transient boolean highest;
+
+    public Project(){
+
+    }
 
     public Project(Parcel parcel){
         id = parcel.readInt();
         text = parcel.readString();
         votes = parcel.readInt();
-    }
-
-    public boolean isHighest() {
-        return highest;
-    }
-
-    public void setHighest(boolean highest) {
-        this.highest = highest;
     }
 
     public int getVotes() {
@@ -65,24 +56,6 @@ public class Project implements Comparable<Project>,Parcelable {
     public void setText(String text) {
         this.text = text;
     }
-
-    //TODO: Remove this
-    public static List<Project> getDummyData(){
-        Random random = new Random();
-
-        List<Project> projectList = new ArrayList<>();/*
-        for(int i = 1; i < 21 ; i++){
-            projectList.add(new Project(i,"Proyecto "+ i ,getRandomInt(random,1,250)));
-        }
-        */
-        return projectList;
-    }
-
-    public static int getRandomInt(Random random, int min, int max)
-    {
-        return random.nextInt(max - min + 1) + min;
-    }
-
 
     @Override
     public int compareTo(Project project) {

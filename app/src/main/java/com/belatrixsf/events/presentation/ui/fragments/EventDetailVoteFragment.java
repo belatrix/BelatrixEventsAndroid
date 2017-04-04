@@ -16,10 +16,10 @@ import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
 import com.belatrixsf.events.presentation.presenters.EventDetailVoteFragmentPresenter;
-import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.adapters.ProjectListAdapter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrixsf.events.presentation.ui.common.DividerItemDecoration;
+import com.belatrixsf.events.utils.Constants;
 import com.belatrixsf.events.utils.DialogUtils;
 
 import java.util.List;
@@ -28,7 +28,6 @@ import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
-import timber.log.Timber;
 
 /**
  * created by dvelasquez
@@ -46,9 +45,13 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     ProjectListAdapter listAdapter;
     @BindString(R.string.app_name)
     String stringTitle;
+    @BindString(R.string.dialog_option_note)
+    String stringNote;
     @BindString(R.string.dialog_option_participate)
     String stringParticipate;
     boolean alreadyShown;
+
+
 
     public EventDetailVoteFragment() {
     }
@@ -56,7 +59,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     public static EventDetailVoteFragment newInstance(Event event) {
         EventDetailVoteFragment fragment = new EventDetailVoteFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(EventDetailActivity.EVENT_KEY, event);
+        bundle.putParcelable(Constants.EVENT_KEY, event);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -94,7 +97,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
         alreadyShown = true;
         Event event = presenter.getEvent();
         String message = (event.getInteractionText() != null && !event.getInteractionText().isEmpty() ? event.getInteractionText() : "");
-        DialogUtils.createSimpleDialog(getActivity(), event.getTitle(), message, stringParticipate).show();
+        DialogUtils.createSimpleDialog(getActivity(), event.getTitle(), message, stringParticipate,true).show();
     }
 
     private void loadData() {
@@ -103,8 +106,8 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        if (getArguments().containsKey(EventDetailActivity.EVENT_KEY)) {
-            presenter.setEvent((Event) getArguments().getParcelable(EventDetailActivity.EVENT_KEY));
+        if (getArguments().containsKey(Constants.EVENT_KEY)) {
+            presenter.setEvent((Event) getArguments().getParcelable(Constants.EVENT_KEY));
         }
         super.onViewCreated(view, savedInstanceState);
     }
@@ -124,20 +127,23 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     public void onItemClicked(int position, View view) {
-        if (presenter.getEvent().isInteractionActive()) {
-            final Project project = (Project) view.getTag();
-            DialogUtils.createConfirmationDialogWithTitle(getActivity(), stringTitle, getString(R.string.event_dialog_confirm_vote, project.getText()), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    presenter.voteForProject(project.getId());
-                }
-            }, null).show();
-        }
+        final Project project = (Project) view.getTag();
+        presenter.buildConfirmationMessage(project);
+    }
+
+    @Override
+    public void onConfirmationDialogCreated(String message, final int projectId) {
+        DialogUtils.createConfirmationDialogWithTitle(getActivity(), stringTitle, message, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                presenter.voteForProject(projectId);
+            }
+        }, null).show();
     }
 
     @Override
     public void onVoteFail(String errorMessage) {
-
+        DialogUtils.createSimpleDialog(getActivity(),stringTitle, errorMessage).show();
     }
 
     @Override
@@ -148,9 +154,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     public void onVoteSuccessful() {
-        listAdapter.showVotes();
-        presenter.getProjectListOrdered(presenter.getEvent().getId());
-        //show message / toast / etc
+        presenter.getProjectList(presenter.getEvent().getId());
     }
 
     @Override

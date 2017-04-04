@@ -1,9 +1,9 @@
 package com.belatrixsf.events.presentation.ui.activities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -16,10 +16,12 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
@@ -31,6 +33,7 @@ import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrixsf.events.presentation.ui.common.DisableableAppBarLayoutBehavior;
 import com.belatrixsf.events.presentation.ui.fragments.EventDetailAboutFragment;
 import com.belatrixsf.events.presentation.ui.fragments.EventDetailVoteFragment;
+import com.belatrixsf.events.utils.Constants;
 import com.belatrixsf.events.utils.DateUtils;
 import com.belatrixsf.events.utils.DialogUtils;
 import com.belatrixsf.events.utils.media.ImageFactory;
@@ -48,14 +51,12 @@ import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
-import timber.log.Timber;
 
 public class EventDetailActivity extends BelatrixBaseActivity implements EasyPermissions.PermissionCallbacks{
 
     private static final int RC_CALENDAR_PERM = 1023;
-    public static final String EVENT_KEY = "_event_id";
 
-    @BindView(R.id.event_picture)
+    @BindView(R.id.image_event)
     ImageView pictureImageView;
     @BindView(R.id.bottom_navigation)
     AHBottomNavigation bottomNavigation;
@@ -63,6 +64,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     String navigationColor;
     @BindString(R.string.event_detail_added_calendar)
     String stringEventAdded;
+    @BindString(R.string.event_detail_already_added_calendar)
+    String stringEventAlreadyAdded;
     private Event event;
     public static final int TAB_ABOUT = 0;
     public static final int TAB_VOTE = 1;
@@ -88,7 +91,9 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         setToolbar(toolbar);
         setNavigationToolbar();
         if (savedInstanceState == null) {
-            event = getIntent().getParcelableExtra(EVENT_KEY);
+            event = getIntent().getParcelableExtra(Constants.EVENT_KEY);
+        } else {
+            restoreInstance(savedInstanceState);
         }
         initViews();
     }
@@ -107,6 +112,7 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
                 if (!wasSelected) {
                     switch (position) {
                         case TAB_ABOUT:
+                            appBarLayout.setExpanded(true, true);
                             enableAppBarLayout(true);
                             replaceFragment(eventDetailAboutFragment, false);
                             break;
@@ -126,9 +132,34 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         ImageFactory.getLoader().loadFromUrl(event.getImage(),
                 pictureImageView,
                 null,
+                new ImageLoader.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        startTransition();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        startTransition();
+                    }
+                },
                 eventPlaceHolderDrawable,
                 ImageLoader.ScaleType.CENTER_CROP
         );
+    }
+
+    private void startTransition() {
+        if (pictureImageView == null) {
+            return;
+        }
+        pictureImageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                pictureImageView.getViewTreeObserver().removeOnPreDrawListener(this);
+                ActivityCompat.startPostponedEnterTransition(EventDetailActivity.this);
+                return false;
+            }
+        });
     }
 
     private void enableAppBarLayout(boolean value){
@@ -146,6 +177,7 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
         bottomNavigation.setAccentColor(Color.parseColor(navigationColor));
         bottomNavigation.setBehaviorTranslationEnabled(false);
+        swipeRefreshLayout.setDistanceToTriggerSync(300);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -161,10 +193,12 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         collapsingToolbarLayout.setTitle(title);
     }
 
-    public static Intent makeIntent(Context context, Event event) {
+    public static void startActivity(Activity context, Event event, ImageView imageView) {
         Intent intent = new Intent(context, EventDetailActivity.class);
-        intent.putExtra(EVENT_KEY, event);
-        return intent;
+        intent.putExtra(Constants.EVENT_KEY, event);
+        ViewCompat.setTransitionName(imageView, context.getString(R.string.transition_photo));
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(context, imageView, context.getString(R.string.transition_photo));
+        context.startActivity(intent, options.toBundle());
     }
 
     @OnClick(R.id.button_add_calendar)
@@ -176,26 +210,35 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     @AfterPermissionGranted(RC_CALENDAR_PERM)
     @SuppressWarnings("MissingPermission")
     public void addToCalendar(){
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA) && !calendarSaved) {
-            Date date = DateUtils.getDateFromtString(event.getDatetime(), DateUtils.DATE_FORMAT_3);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            ContentResolver cr = this.getContentResolver();
-            ContentValues values = new ContentValues();
-            values.put(CalendarContract.Events.DTSTART, cal.getTimeInMillis());
-            values.put(CalendarContract.Events.TITLE, event.getTitle());
-            values.put(CalendarContract.Events.DESCRIPTION, event.getDetails());
-            TimeZone timeZone = TimeZone.getDefault();
-            values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
-            values.put(CalendarContract.Events.CALENDAR_ID, 1);
-            //values.put(CalendarContract.Events.RRULE, "FREQ=DAILY;UNTIL="+ dtUntill);
-            //for one hour
-            values.put(CalendarContract.Events.DURATION, "+P1H");
-            values.put(CalendarContract.Events.HAS_ALARM, 1);
-            // insert event to calendar
-            Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
-            showSnackBar(stringEventAdded);
-            calendarSaved = true;
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_CALENDAR)) {
+            if (!calendarSaved) {
+                try {
+                    Date date = DateUtils.getDateFromtString(event.getDatetime(), DateUtils.DATE_FORMAT_3);
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(date);
+                    ContentResolver cr = this.getContentResolver();
+                    ContentValues values = new ContentValues();
+                    values.put(CalendarContract.Events.DTSTART, cal.getTimeInMillis());
+                    values.put(CalendarContract.Events.TITLE, event.getTitle());
+                    values.put(CalendarContract.Events.DESCRIPTION, event.getDetails());
+                    TimeZone timeZone = TimeZone.getDefault();
+                    values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
+                    values.put(CalendarContract.Events.CALENDAR_ID, 1);
+                    //values.put(CalendarContract.Events.RRULE, "FREQ=DAILY;UNTIL="+ dtUntill);
+                    //for one hour
+                    values.put(CalendarContract.Events.DURATION, "+P1H");
+                    values.put(CalendarContract.Events.HAS_ALARM, 1);
+                    // insert event to calendar
+                    Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
+                    showSnackBar(stringEventAdded);
+                    calendarSaved = true;
+                }catch (Exception e){
+                    e.printStackTrace();
+                    DialogUtils.createSimpleDialog(this,stringAppName, stringError).show();
+                }
+            } else {
+                showSnackBar(stringEventAlreadyAdded);
+            }
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_ask_again),
                     RC_CALENDAR_PERM, Manifest.permission.WRITE_CALENDAR);
@@ -221,10 +264,19 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
 
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
-        Timber.d("onPermissionsDenied:" + requestCode + ":" + perms.size());
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             new AppSettingsDialog.Builder(this).build().show();
         }
+    }
+
+    private void restoreInstance(Bundle saveInstance){
+        event = saveInstance.getParcelable(Constants.EVENT_KEY);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(Constants.EVENT_KEY, event);
+        super.onSaveInstanceState(outState);
     }
 
 }

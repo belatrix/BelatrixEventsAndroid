@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.belatrixsf.events.domain.interactors.ProjectListInteractor;
 import com.belatrixsf.events.domain.interactors.ProjectVoteInteractor;
+import com.belatrixsf.events.domain.model.Project;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +47,7 @@ public class EventDetailVoteFragmentPresenterTest {
         presenter.voteForProject(1);
         verify(view).showProgressIndicator();
         verify(mockVoteInteractor,times(1)).execute(dummyCallbackArgumentCaptor.capture(), any(ProjectVoteInteractor.Params.class));
-        dummyCallbackArgumentCaptor.getValue().onSuccess(true);
+        dummyCallbackArgumentCaptor.getValue().onSuccess(new Project());
         verify(view).onVoteSuccessful();
         verify(view).hideProgressIndicator();
     }

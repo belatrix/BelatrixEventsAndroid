@@ -109,7 +109,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         @OnClick(R.id.layout_container)
         public void onClick(View view) {
             if (clickListener != null) {
-                clickListener.onItemClicked(getLayoutPosition(), itemView);
+                clickListener.onItemClicked((Event) itemView.getTag(), eventImageView);
             }
         }
 
@@ -123,7 +123,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     public interface RecyclerViewClickListener {
 
-        void onItemClicked(int position, View view);
+        void onItemClicked(Event event, ImageView view);
         void onItemMoreClicked(View view);
     }
 

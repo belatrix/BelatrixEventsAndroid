@@ -11,6 +11,7 @@ import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.repository.EventRepository;
 import com.belatrixsf.events.domain.repository.Repository;
+import com.belatrixsf.events.utils.cache.Cache;
 
 import javax.inject.Singleton;
 
@@ -29,10 +30,10 @@ public interface ApplicationComponent {
 
     @Singleton
     Context context();
-    //BxEventsApplication application();
     void inject(BxEventsApplication bxEventsApplication);
     MainThread mainThread();
     Executor executor();
     Repository repository();
     EventRepository eventRepository();
+    Cache provideCache();
 }

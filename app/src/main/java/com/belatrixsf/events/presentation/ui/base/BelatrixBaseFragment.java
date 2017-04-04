@@ -64,18 +64,17 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if (getActivity() instanceof BelatrixBaseActivity){
             BelatrixBaseActivity baseActivity = (BelatrixBaseActivity) getActivity();
             initDependencies(baseActivity.getUiComponent());
         }
-
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
+        super.onViewCreated(view, savedInstanceState);
         initViews();
     }
 
