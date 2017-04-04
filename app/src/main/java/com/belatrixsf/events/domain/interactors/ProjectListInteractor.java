@@ -1,56 +1,76 @@
 package com.belatrixsf.events.domain.interactors;
 
+import com.belatrixsf.events.data.datasource.ServerCallback;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 import com.belatrixsf.events.domain.model.Project;
+import com.belatrixsf.events.domain.repository.EventRepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
 
 
-public class ProjectListInteractor extends AbstractInteractor<List<Project>,ProjectListInteractor.Params> {
+public class ProjectListInteractor extends AbstractInteractor<ProjectListInteractor.CallBack,ProjectListInteractor.Params> {
 
+    public interface CallBack {
+        void onSuccess(List<Project> result);
+        void onError();
+    }
+
+    @Inject
+    EventRepository eventRepository;
 
     @Inject
     public ProjectListInteractor(Executor mThreadExecutor, MainThread mMainThread) {
         super(mThreadExecutor, mMainThread);
     }
 
-
     @Override
     public void run(Params ...params) {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         Params p = params[0];
-        if (p.eventId == 10){
-            mMainThread.post(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onResult(new ArrayList<Project>());
-                }
-            });
-        } else {
-            final List<Project> list = Project.getDummyData();
-            if (p.orderRequired) {
-                Collections.sort(list);
-                list.get(0).setHighest(true);
+        eventRepository.interactionList(p.eventId, new ServerCallback<List<Project>>() {
+            @Override
+            public void onSuccess(final List<Project> response) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onSuccess(response);
+                    }
+                });
             }
-            mMainThread.post(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onResult(list);
-                }
-            });
-        }
 
+            @Override
+            public void onFail(int statusCode, String errorMessage) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onError();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onError();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void onError(Exception e) {
+        runOnUIThread(new Runnable() {
+            @Override
+            public void run() {
+                callback.onError();
+            }
+        });
     }
 
     public static final class Params {

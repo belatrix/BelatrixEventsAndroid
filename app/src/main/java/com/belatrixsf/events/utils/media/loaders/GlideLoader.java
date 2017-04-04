@@ -103,6 +103,9 @@ public class GlideLoader implements ImageLoader {
             case FIT_CENTER:
                 load.fitCenter();
                 break;
+             default:
+                 load.centerCrop();
+                break;
         }
         load.placeholder(placeholder);
         if (context != null && transformation != null) {

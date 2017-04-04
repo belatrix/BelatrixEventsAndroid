@@ -4,6 +4,7 @@ import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -36,12 +37,17 @@ public class ThreadExecutor implements Executor {
     }
 
     @Override
-    public void execute(final AbstractInteractor interactor) {
-        mThreadPoolExecutor.submit(new Runnable() {
+    public Future execute(final AbstractInteractor interactor) {
+        return mThreadPoolExecutor.submit(new Runnable() {
             @Override
             public void run() {
                 // run the main logic
-                interactor.run(interactor.getParams());
+                try {
+                    interactor.run(interactor.getParams());
+                }catch (Exception e){
+                    interactor.onError(e);
+                    e.printStackTrace();
+                }
 
                 // mark it as finished
                 interactor.onFinished();

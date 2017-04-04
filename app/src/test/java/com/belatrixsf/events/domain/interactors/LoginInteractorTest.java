@@ -1,27 +1,11 @@
 package com.belatrixsf.events.domain.interactors;
 
-import com.belatrixsf.events.domain.executor.Executor;
-import com.belatrixsf.events.domain.executor.MainThread;
-import com.belatrixsf.events.domain.interactors.base.Callback;
-import com.belatrixsf.events.domain.repository.Repository;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 /**
  * Created by dvelasquez on 2/28/17.
  */
 public class LoginInteractorTest {
 
+    /*
     LoginInteractor interactor;
     @Mock
     Executor executor;
@@ -64,5 +48,5 @@ public class LoginInteractorTest {
         verify(mainThread).post(any(Runnable.class));
         assertFalse(repository.login(username,password));
     }
-
+*/
 }

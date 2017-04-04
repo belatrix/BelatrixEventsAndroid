@@ -17,7 +17,6 @@ import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFragment;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class MainActivity extends BelatrixBaseActivity {
 
@@ -25,9 +24,6 @@ public class MainActivity extends BelatrixBaseActivity {
     DrawerLayout drawerLayout;
     @BindView(R.id.navigation)
     NavigationView navigationView;
-    @BindView(R.id.menu_logout)
-    TextView menuLogoutTextView;
-    @BindView(R.id.menu_login)
     TextView menuLoginTextView;
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
@@ -40,21 +36,9 @@ public class MainActivity extends BelatrixBaseActivity {
         setContentView(R.layout.activity_main);
         setToolbar();
         setupViews();
-        loadParams();
     }
 
-    private void loadParams() {
-        int loginType = getIntent().getIntExtra(LoginActivity.LOGIN_PARAM,0);
-        if (loginType == LoginActivity.IS_LOGGED){
-            menuLoginTextView.setVisibility(View.GONE);
-            menuLogoutTextView.setVisibility(View.VISIBLE);
-            ((TextView)navigationView.getHeaderView(0).findViewById(R.id.full_name)).setText("Diego Velásquez");
-        } else {
-            menuLoginTextView.setVisibility(View.VISIBLE);
-            menuLogoutTextView.setVisibility(View.GONE);
-            navigationView.getMenu().findItem(R.id.menu_events).setVisible(false);
-        }
-    }
+
 
     protected void setupViews() {
         setupNavigationDrawerMenu();
@@ -62,18 +46,6 @@ public class MainActivity extends BelatrixBaseActivity {
         replaceFragment(HomeFragment.newInstance(),false);
     }
 
-
-    @OnClick(R.id.menu_login)
-    public void clickLogin(){
-        startActivity(LoginActivity.makeIntent(this));
-        finishActivity();
-    }
-
-    @OnClick(R.id.menu_logout)
-    public void clickLogout(){
-        startActivity(LoginActivity.makeIntent(this));
-        finishActivity();
-    }
 
 
     private void setupNavigationDrawerMenu(){
@@ -99,9 +71,6 @@ public class MainActivity extends BelatrixBaseActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
-                    case R.id.menu_events:
-                        startActivity(ManageEventActivity.makeIntent(MainActivity.this));
-                        break;
                     case R.id.menu_about:
                         startActivity(AboutActivity.makeIntent(MainActivity.this));
                         break;
@@ -133,5 +102,8 @@ public class MainActivity extends BelatrixBaseActivity {
         return intent;
     }
 
+    public static Intent makeIntent(Context context) {
+       return new Intent(context, MainActivity.class);
+    }
 
 }

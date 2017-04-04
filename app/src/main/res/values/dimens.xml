@@ -30,13 +30,17 @@
     <dimen name="dimen_12_10">120dp</dimen>
     <dimen name="dimen_13_10">130dp</dimen>
     <dimen name="dimen_15_10">150dp</dimen>
+    <dimen name="dimen_16_10">160dp</dimen>
     <dimen name="dimen_18_10">180dp</dimen>
     <dimen name="dimen_22_10">220dp</dimen>
+    <dimen name="dimen_25_10">250dp</dimen>
 
     <dimen name="text_8">8sp</dimen>
     <dimen name="text_10">10sp</dimen>
     <dimen name="text_12">12sp</dimen>
+    <dimen name="text_14">14sp</dimen>
     <dimen name="text_16">16sp</dimen>
+    <dimen name="text_18">18sp</dimen>
     <dimen name="text_20">20sp</dimen>
     <dimen name="text_24">24sp</dimen>
     <dimen name="text_28">28sp</dimen>

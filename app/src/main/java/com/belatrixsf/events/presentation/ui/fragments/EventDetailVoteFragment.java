@@ -15,7 +15,7 @@ import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
-import com.belatrixsf.events.presentation.presenters.EventDetailVotePresenter;
+import com.belatrixsf.events.presentation.presenters.EventDetailVoteFragmentPresenter;
 import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.adapters.ProjectListAdapter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
@@ -28,11 +28,12 @@ import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
+import timber.log.Timber;
 
 /**
  * created by dvelasquez
  */
-public class EventDetailVoteFragment extends BelatrixBaseFragment implements EventDetailVotePresenter.View, ProjectListAdapter.RecyclerViewClickListener {
+public class EventDetailVoteFragment extends BelatrixBaseFragment implements EventDetailVoteFragmentPresenter.View, ProjectListAdapter.RecyclerViewClickListener {
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -41,12 +42,13 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     @BindView(R.id.recycler_programs)
     RecyclerView recyclerView;
     @Inject
-    EventDetailVotePresenter presenter;
+    EventDetailVoteFragmentPresenter presenter;
     ProjectListAdapter listAdapter;
     @BindString(R.string.app_name)
     String stringTitle;
-
-    Event event;
+    @BindString(R.string.dialog_option_participate)
+    String stringParticipate;
+    boolean alreadyShown;
 
     public EventDetailVoteFragment() {
     }
@@ -77,17 +79,40 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
-        presenter.getProjectList(event.getId());
+        loadData();
+        if(!alreadyShown) {
+            showFirstDialog();
+        }
+    }
+
+    @Override
+    public void refreshData() {
+       loadData();
+    }
+
+    private void showFirstDialog() {
+        alreadyShown = true;
+        Event event = presenter.getEvent();
+        String message = (event.getInteractionText() != null && !event.getInteractionText().isEmpty() ? event.getInteractionText() : "");
+        DialogUtils.createSimpleDialog(getActivity(), event.getTitle(), message, stringParticipate).show();
+    }
+
+    private void loadData() {
+        presenter.getProjectList(presenter.getEvent().getId());
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        event = getArguments().getParcelable(EventDetailActivity.EVENT_KEY);
+        if (getArguments().containsKey(EventDetailActivity.EVENT_KEY)) {
+            presenter.setEvent((Event) getArguments().getParcelable(EventDetailActivity.EVENT_KEY));
+        }
         super.onViewCreated(view, savedInstanceState);
     }
 
     @Override
     public void showProjectList(List<Project> list) {
+        noDataTextView.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         listAdapter.updateData(list);
     }
 
@@ -97,16 +122,17 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
         return inflater.inflate(R.layout.fragment_event_detail_vote, container, false);
     }
 
-
     @Override
     public void onItemClicked(int position, View view) {
-        final Project project = (Project) view.getTag();
-        DialogUtils.createConfirmationDialogWithTitle(getActivity(), stringTitle, getString(R.string.event_dialog_confirm_vote, project.getName()), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                presenter.voteForProject(project.getId());
-            }
-        }, null).show();
+        if (presenter.getEvent().isInteractionActive()) {
+            final Project project = (Project) view.getTag();
+            DialogUtils.createConfirmationDialogWithTitle(getActivity(), stringTitle, getString(R.string.event_dialog_confirm_vote, project.getText()), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    presenter.voteForProject(project.getId());
+                }
+            }, null).show();
+        }
     }
 
     @Override
@@ -114,15 +140,8 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     }
 
-
     @Override
-    public void hideNoDataView() {
-        noDataTextView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void showNoDataView() {
+    public void showEmptyView() {
         noDataTextView.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
     }
@@ -130,7 +149,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     @Override
     public void onVoteSuccessful() {
         listAdapter.showVotes();
-        presenter.getProjectListOrdered(event.getId());
+        presenter.getProjectListOrdered(presenter.getEvent().getId());
         //show message / toast / etc
     }
 

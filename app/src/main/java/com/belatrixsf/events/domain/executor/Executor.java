@@ -2,6 +2,8 @@ package com.belatrixsf.events.domain.executor;
 
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
 
+import java.util.concurrent.Future;
+
 /**
  * This executor is responsible for running interactors on background threads.
  * <p/>
@@ -14,5 +16,5 @@ public interface Executor {
      *
      * @param interactor The interactor to run.
      */
-    void execute(final AbstractInteractor interactor);
+    Future execute(final AbstractInteractor interactor);
 }

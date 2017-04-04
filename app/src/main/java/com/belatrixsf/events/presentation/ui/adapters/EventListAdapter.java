@@ -20,27 +20,28 @@
 */
 package com.belatrixsf.events.presentation.ui.adapters;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.domain.model.Event;
+import com.belatrixsf.events.utils.media.ImageFactory;
+import com.belatrixsf.events.utils.media.loaders.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
-
-    static final int FIRST_POSITION = 1;
-    static final int SECOND_POSITION = 2;
-    static final int THIRD_POSITION = 3;
 
     private List<Event> list;
     private RecyclerViewClickListener clickListener;
@@ -63,9 +64,15 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Event object = list.get(position);
-        String fullName = object.getName();
+        String fullName = object.getTitle();
         holder.eventTextView.setText(fullName);
         holder.itemView.setTag(object);
+        ImageFactory.getLoader().loadFromUrl(object.getImage(),
+                holder.eventImageView,
+                null,
+                holder.eventPlaceHolderDrawable,
+                ImageLoader.ScaleType.CENTER_CROP
+        );
     }
 
     @Override
@@ -86,7 +93,10 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.event_name) public TextView eventTextView;
+        @BindView(R.id.event_title) public TextView eventTextView;
+        @BindView(R.id.event_picture) public ImageView eventImageView;
+        @BindDrawable(R.drawable.event_placeholder)
+        Drawable eventPlaceHolderDrawable;
 
         private RecyclerViewClickListener clickListener;
 
@@ -99,7 +109,14 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         @OnClick(R.id.layout_container)
         public void onClick(View view) {
             if (clickListener != null) {
-                clickListener.onItemClicked(getLayoutPosition(), view);
+                clickListener.onItemClicked(getLayoutPosition(), itemView);
+            }
+        }
+
+        @OnClick(R.id.event_more)
+        public void onMoreClick(View view){
+            if (clickListener != null) {
+                clickListener.onItemMoreClicked(itemView);
             }
         }
     }
@@ -107,7 +124,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public interface RecyclerViewClickListener {
 
         void onItemClicked(int position, View view);
-
+        void onItemMoreClicked(View view);
     }
 
 }
