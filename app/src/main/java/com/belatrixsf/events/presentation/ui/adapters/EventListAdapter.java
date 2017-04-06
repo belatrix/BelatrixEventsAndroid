@@ -70,7 +70,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         ImageFactory.getLoader().loadFromUrl(object.getImage(),
                 holder.eventImageView,
                 null,
-                holder.eventPlaceHolderDrawable,
+                null,
                 ImageLoader.ScaleType.FIT_CENTER
         );
     }

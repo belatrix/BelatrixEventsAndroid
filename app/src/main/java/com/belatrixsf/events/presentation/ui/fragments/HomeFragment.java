@@ -109,7 +109,7 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
     @Override
     public void showHomeEvent(Event event) {
         presenter.setEvent(event);
-        ImageFactory.getLoader().loadFromUrl(event.getImage(), homeImageView, null, placeHolderDrawable, ImageLoader.ScaleType.FIT_CENTER);
+        ImageFactory.getLoader().loadFromUrl(event.getImage(), homeImageView, null, null, ImageLoader.ScaleType.FIT_CENTER);
         titleTextView.setText(event.getTitle());
     }
 
