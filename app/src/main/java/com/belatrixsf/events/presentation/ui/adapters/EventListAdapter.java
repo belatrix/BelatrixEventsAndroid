@@ -113,7 +113,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             }
         }
 
-        @OnClick(R.id.event_more)
+        @OnClick({R.id.event_title, R.id.image_more})
         public void onMoreClick(View view){
             if (clickListener != null) {
                 clickListener.onItemMoreClicked(itemView);

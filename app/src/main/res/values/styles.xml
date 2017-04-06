@@ -125,7 +125,7 @@
     </style>
 
     <!-- Animation for dialog box -->
-    <style name="DialogSlideAnim" parent="Base.Theme.AppCompat.Light.Dialog">
+    <style name="DialogSlideAnim" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>
 </resources>

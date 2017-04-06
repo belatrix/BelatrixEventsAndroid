@@ -1,5 +1,6 @@
 package com.belatrixsf.events.presentation.ui.fragments;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -45,10 +46,9 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     ProjectListAdapter listAdapter;
     @BindString(R.string.app_name)
     String stringTitle;
-    @BindString(R.string.dialog_option_note)
-    String stringNote;
     @BindString(R.string.dialog_option_participate)
     String stringParticipate;
+    Dialog dialog;
 
     public EventDetailVoteFragment() {
     }
@@ -130,22 +130,25 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     @Override
     public void onItemClicked(int position, View view) {
         final Project project = (Project) view.getTag();
-        presenter.buildConfirmationMessage(project);
+        if (dialog != null && !dialog.isShowing() || dialog == null)
+            presenter.buildConfirmationMessage(project);
     }
 
     @Override
     public void onConfirmationDialogCreated(String message, final int projectId) {
-        DialogUtils.createConfirmationDialogWithTitle(getActivity(), stringTitle, message, new DialogInterface.OnClickListener() {
+        dialog = DialogUtils.createConfirmationDialogWithTitle(getActivity(), stringTitle, message, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 presenter.voteForProject(projectId);
             }
-        }, null).show();
+        }, null);
+        dialog.show();
     }
 
     @Override
     public void onVoteFail(String errorMessage) {
-        DialogUtils.createSimpleDialog(getActivity(),stringTitle, errorMessage).show();
+        dialog = DialogUtils.createSimpleDialog(getActivity(),stringTitle, errorMessage);
+        dialog.show();
     }
 
     @Override

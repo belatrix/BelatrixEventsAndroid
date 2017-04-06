@@ -34,7 +34,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dimen_4_5"
             android:gravity="center"
-            android:paddingBottom="@dimen/dimen_2_5"
+            android:paddingBottom="@dimen/dimen_5"
             android:paddingLeft="@dimen/dimen_4_5"
             android:paddingRight="@dimen/dimen_4_5"
             android:paddingTop="@dimen/dimen_5"

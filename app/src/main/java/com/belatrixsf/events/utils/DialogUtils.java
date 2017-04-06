@@ -47,8 +47,8 @@ public class DialogUtils {
                 .create();
     }
 
-    public static AlertDialog createSimpleDialog(Activity activity, String title, String message, String okButton, boolean animation) {
-        return new AlertDialog.Builder(activity,(animation?R.style.DialogSlideAnim:R.style.Base_Theme_AppCompat_Light_Dialog))
+    public static android.support.v7.app.AlertDialog createSimpleDialog(Activity activity, String title, String message, String okButton, boolean animation) {
+        return new android.support.v7.app.AlertDialog.Builder(activity,(animation?R.style.DialogSlideAnim:R.style.Base_Theme_AppCompat_Light_Dialog))
                 .setTitle(title)
                 .setPositiveButton(okButton,null)
                 .setMessage(message)
