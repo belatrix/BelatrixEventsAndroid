@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="@dimen/dimen_13_10"
+        android:layout_height="@dimen/dimen_13_10"
+        android:layout_above="@+id/full_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dimen_3_5"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/dimen_4_5"
+        android:gravity="left"
+        android:text="Elije tu ciudad"
+        android:textSize="@dimen/text_20" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/accept"
+        android:layout_below="@id/title" />
+
+
+    <Button
+        android:id="@+id/accept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/later"
+        android:text="Aceptar" />
+
+    <Button
+        android:id="@+id/later"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Elegir luego" />
+
+</RelativeLayout>

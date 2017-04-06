@@ -23,11 +23,11 @@ public interface EventAPI {
             @Path("owner") String owner,
             @Path("repo") String repo);
     @GET("event/featured/")
-    Call<Event> featured(@Query("city") int cityId);
+    Call<Event> featured(@Query("city") Integer cityId);
     @GET("event/upcoming/list/")
-    Call<List<Event>> upcomingList(@Query("city") int cityId);
+    Call<List<Event>> upcomingList(@Query("city") Integer cityId);
     @GET("event/past/list/")
-    Call<List<Event>> pastList(@Query("city") int cityId);
+    Call<List<Event>> pastList(@Query("city") Integer cityId);
     @GET("event/{event_id}/interaction/list")
     Call<List<Project>> interactionList(@Path("event_id") int eventId);
     @PATCH("event/interaction/{interaction_id}/vote")

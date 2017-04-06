@@ -49,6 +49,8 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
     private Unbinder unbinder;
     @BindString(R.string.menu_title_share)
     protected String stringShare;
+    @BindString(R.string.app_name)
+    protected String stringAppName;
 
     @Override
     public void onAttach(Context context) {

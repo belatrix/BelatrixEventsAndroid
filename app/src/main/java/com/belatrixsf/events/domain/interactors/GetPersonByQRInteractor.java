@@ -4,8 +4,8 @@ import com.belatrixsf.events.data.datasource.ServerCallback;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
-import com.belatrixsf.events.domain.model.Event;
-import com.belatrixsf.events.domain.repository.EventRepository;
+import com.belatrixsf.events.domain.model.Employee;
+import com.belatrixsf.events.domain.repository.EmployeeRepository;
 
 import javax.inject.Inject;
 
@@ -13,9 +13,15 @@ public class GetPersonByQRInteractor extends AbstractInteractor<GetPersonByQRInt
 
 
     public interface CallBack {
-        void onSuccess();
+        void onEmployeeSuccess(Employee response);
+
+        void onEmployeeNotFound();
+
         void onError();
     }
+
+    @Inject
+    EmployeeRepository employeeRepository;
 
     @Inject
     public GetPersonByQRInteractor(Executor mThreadExecutor, MainThread mMainThread) {
@@ -26,18 +32,38 @@ public class GetPersonByQRInteractor extends AbstractInteractor<GetPersonByQRInt
     @Override
     public void run(Params... params) {
         String qrCode = params[0].qrCode;
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        runOnUIThread(new Runnable() {
+        employeeRepository.employee(qrCode, new ServerCallback<Employee>() {
             @Override
-            public void run() {
-                callback.onSuccess();
+            public void onSuccess(final Employee response) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onEmployeeSuccess(response);
+                    }
+                });
+            }
+
+            @Override
+            public void onFail(int statusCode, String errorMessage) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onEmployeeNotFound();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                runOnUIThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        callback.onError();
+                    }
+                });
             }
         });
+
 
     }
 
@@ -59,7 +85,7 @@ public class GetPersonByQRInteractor extends AbstractInteractor<GetPersonByQRInt
             this.qrCode = qrCode;
         }
 
-        public static Params forQR(String qrCode){
+        public static Params forQR(String qrCode) {
             return new Params(qrCode);
         }
     }

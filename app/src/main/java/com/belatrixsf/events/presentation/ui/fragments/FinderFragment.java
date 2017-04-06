@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
+import com.belatrixsf.events.domain.model.Employee;
 import com.belatrixsf.events.presentation.presenters.FinderFragmentPresenter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
+import com.belatrixsf.events.utils.DialogUtils;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -64,8 +66,14 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
     }
 
     @Override
-    public void onResult() {
+    public void onEmployeeSuccess(Employee employee) {
         resultView.setVisibility(View.VISIBLE);
+        //show employee fields
+    }
+
+    @Override
+    public void onEmployeeError(String errorMessage) {
+        DialogUtils.createSimpleDialog(getActivity(),stringAppName,errorMessage).show();
     }
 
     @Override

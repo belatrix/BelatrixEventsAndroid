@@ -20,7 +20,9 @@
 */
 package com.belatrixsf.events.presentation.presenters;
 
+import com.belatrixsf.events.R;
 import com.belatrixsf.events.domain.interactors.GetPersonByQRInteractor;
+import com.belatrixsf.events.domain.model.Employee;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
 import javax.inject.Inject;
@@ -31,7 +33,8 @@ import javax.inject.Inject;
 public class FinderFragmentPresenter extends BelatrixBasePresenter<FinderFragmentPresenter.View> {
 
     public interface View extends BelatrixBaseView {
-        void onResult();
+        void onEmployeeSuccess(Employee employee);
+        void onEmployeeError(String errorMessage);
     }
 
     @Inject
@@ -46,14 +49,21 @@ public class FinderFragmentPresenter extends BelatrixBasePresenter<FinderFragmen
         view.showProgressIndicator();
         getPersonByQRInteractor.execute(new GetPersonByQRInteractor.CallBack() {
             @Override
-            public void onSuccess() {
+            public void onEmployeeSuccess(Employee employee) {
                 view.hideProgressIndicator();
-                view.onResult();
+                view.onEmployeeSuccess(employee);
+            }
+
+            @Override
+            public void onEmployeeNotFound() {
+                view.hideProgressIndicator();
+                view.onEmployeeError("empleado not found");
             }
 
             @Override
             public void onError() {
                 view.hideProgressIndicator();
+                view.onEmployeeError(view.getContext().getString(R.string.dialog_title_error));
             }
         }, GetPersonByQRInteractor.Params.forQR(qrCode));
     }

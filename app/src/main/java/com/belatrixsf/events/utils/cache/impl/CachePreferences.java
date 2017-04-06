@@ -8,12 +8,13 @@ import com.belatrixsf.events.utils.cache.Cache;
  * Created by dvelasquez on 4/4/17.
  */
 
-public class CachePreferences implements Cache{
+public class CachePreferences implements Cache {
 
     SharedPreferences preferences;
 
     private static final String PREFIX_EVENT = "_event";
     private static final String PARAM_CITY = "_city_";
+    private static final String PARAM_START_APP = "_start_app_";
     private static final String PARAM_FIRST_TIME = "_firstTime_";
 
     public CachePreferences(SharedPreferences preferences) {
@@ -31,27 +32,43 @@ public class CachePreferences implements Cache{
     }
 
     @Override
-    public void saveCity(int cityId) {
-        preferences.edit().putInt(PARAM_CITY,cityId).commit();
+    public void saveCity(Integer cityId) {
+        preferences.edit().putInt(PARAM_CITY, cityId).commit();
     }
 
     @Override
-    public int getCity() {
-        return preferences.getInt(PARAM_CITY,1);
+    public Integer getCity() {
+        int city = preferences.getInt(PARAM_CITY, 0);
+        if (city != 0) {
+            return city;
+        } else
+            return null;
     }
 
     @Override
-    public void clearFirstTime() {
-        preferences.edit().putBoolean(PARAM_FIRST_TIME,true).commit();
+    public void clearStartAppFlag() {
+        preferences.edit().putBoolean(PARAM_START_APP, true).commit();
     }
+
+    @Override
+    public void updateStartAppFlag() {
+        preferences.edit().putBoolean(PARAM_START_APP, false).commit();
+    }
+
+    @Override
+    public boolean isFirstTimeStartApp() {
+        return preferences.getBoolean(PARAM_START_APP, true);
+    }
+
 
     @Override
     public void updateFirstTime() {
-        preferences.edit().putBoolean(PARAM_FIRST_TIME,false).commit();
+        preferences.edit().putBoolean(PARAM_FIRST_TIME, false).commit();
     }
 
     @Override
     public boolean isFirstTime() {
-        return preferences.getBoolean(PARAM_FIRST_TIME,true);
+        return preferences.getBoolean(PARAM_FIRST_TIME, true);
     }
+
 }

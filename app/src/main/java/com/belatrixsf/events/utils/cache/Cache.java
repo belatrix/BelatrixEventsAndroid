@@ -7,10 +7,21 @@ package com.belatrixsf.events.utils.cache;
 public interface Cache {
 
     void saveVote(int eventId);
+
     boolean alreadyVoted(int eventId);
-    void saveCity(int cityId);
-    int getCity();
-    void clearFirstTime();
-    boolean isFirstTime();
+
+    void saveCity(Integer cityId);
+
+    Integer getCity();
+
+    void clearStartAppFlag();
+
+    boolean isFirstTimeStartApp();
+
+    void updateStartAppFlag();
+
     void updateFirstTime();
+
+    boolean isFirstTime();
+
 }

@@ -111,11 +111,11 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
     }
 
     public void updateFirstTime() {
-        cache.updateFirstTime();
+        cache.updateStartAppFlag();
     }
 
     public boolean isFirstTime(){
-        return cache.isFirstTime();
+        return cache.isFirstTimeStartApp();
     }
 
 }

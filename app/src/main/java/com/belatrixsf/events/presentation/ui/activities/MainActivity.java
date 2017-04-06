@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
@@ -49,13 +48,18 @@ public class MainActivity extends BelatrixBaseActivity {
     @Override
     protected void initDependencies(UIComponent uiComponent) {
         uiComponent.inject(this);
+        /*
+        if (cache.isFirstTime()){
+           startActivity(CitySelectionActivity.makeIntent(this));
+            cache.updateFirstTime();
+        }*/
     }
 
     protected void setupViews() {
         setupNavigationDrawerMenu();
         setupNavigationDrawerListener();
         replaceFragment(HomeFragment.newInstance(),false);
-        cache.clearFirstTime();
+        cache.clearStartAppFlag();
     }
 
 

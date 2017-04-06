@@ -31,19 +31,19 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
     }
 
     @Override
-    public void featured(int cityId, ServerCallback<Event> callBack) {
+    public void featured(Integer cityId, ServerCallback<Event> callBack) {
         Call<Event> call = eventAPI.featured(cityId);
         executeRequest(callBack, call);
     }
 
     @Override
-    public void upcomingList(int cityId, ServerCallback<List<Event>> callBack) {
+    public void upcomingList(Integer cityId, ServerCallback<List<Event>> callBack) {
         Call<List<Event>> call = eventAPI.upcomingList(cityId);
         executeRequest(callBack, call);
     }
 
     @Override
-    public void pastList(int cityId, ServerCallback<List<Event>> callBack) {
+    public void pastList(Integer cityId, ServerCallback<List<Event>> callBack) {
         Call<List<Event>> call = eventAPI.pastList(cityId);
         executeRequest(callBack, call);
     }

@@ -15,9 +15,9 @@ import java.util.List;
 public interface EventRepository {
 
     void getHomeEvent(ServerCallback<List<Contributor>> callBack);
-    void featured(int cityId, ServerCallback<Event> callBack);
-    void upcomingList(int cityId, ServerCallback<List<Event>> callBack);
-    void pastList(int cityId, ServerCallback<List<Event>> callBack);
+    void featured(Integer cityId, ServerCallback<Event> callBack);
+    void upcomingList(Integer cityId, ServerCallback<List<Event>> callBack);
+    void pastList(Integer cityId, ServerCallback<List<Event>> callBack);
     void interactionList(int eventId, ServerCallback<List<Project>> callBack);
     void interactionVote(int interactionId, ServerCallback<Project> callBack);
     void cityList(ServerCallback<List<City>> callBack);
