@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrixsf.events.R;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
@@ -81,6 +82,11 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
 
     EventDetailAboutFragment eventDetailAboutFragment;
     EventDetailVoteFragment eventDetailVoteFragment;
+
+    @Override
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

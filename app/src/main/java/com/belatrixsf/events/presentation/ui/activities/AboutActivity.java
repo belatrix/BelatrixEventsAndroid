@@ -26,10 +26,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.belatrixsf.events.R;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.AboutFragment;
 
 public class AboutActivity extends BelatrixBaseActivity {
+
+    @Override
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

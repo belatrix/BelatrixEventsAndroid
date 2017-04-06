@@ -9,7 +9,7 @@ import com.belatrixsf.events.domain.repository.EventRepository;
 
 import javax.inject.Inject;
 
-public class GetEventFeaturedInteractor extends AbstractInteractor<GetEventFeaturedInteractor.CallBack, Void> {
+public class GetEventFeaturedInteractor extends AbstractInteractor<GetEventFeaturedInteractor.CallBack, GetEventFeaturedInteractor.Params> {
 
 
     public interface CallBack {
@@ -27,8 +27,9 @@ public class GetEventFeaturedInteractor extends AbstractInteractor<GetEventFeatu
 
 
     @Override
-    public void run(Void... params) {
-        eventRepository.featured(new ServerCallback<Event>() {
+    public void run(Params... params) {
+        int cityId = params[0].cityId;
+        eventRepository.featured(cityId ,new ServerCallback<Event>() {
             @Override
             public void onSuccess(final Event response) {
                 runOnUIThread(new Runnable() {
@@ -69,5 +70,18 @@ public class GetEventFeaturedInteractor extends AbstractInteractor<GetEventFeatu
                 callback.onError();
             }
         });
+    }
+
+    public static class Params {
+
+        private int cityId;
+
+        private Params(int cityId) {
+            this.cityId = cityId;
+        }
+
+        public static Params forCity(int cityId){
+            return new Params(cityId);
+        }
     }
 }

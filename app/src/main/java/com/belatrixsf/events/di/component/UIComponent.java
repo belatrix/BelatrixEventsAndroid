@@ -2,6 +2,10 @@ package com.belatrixsf.events.di.component;
 
 import com.belatrixsf.events.di.module.UIModule;
 import com.belatrixsf.events.di.scope.UIScope;
+import com.belatrixsf.events.presentation.ui.activities.AboutActivity;
+import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
+import com.belatrixsf.events.presentation.ui.activities.EventListActivity;
+import com.belatrixsf.events.presentation.ui.activities.FinderActivity;
 import com.belatrixsf.events.presentation.ui.activities.MainActivity;
 import com.belatrixsf.events.presentation.ui.fragments.AboutFragment;
 import com.belatrixsf.events.presentation.ui.fragments.EventDetailVoteFragment;
@@ -21,6 +25,10 @@ import dagger.Component;
         modules = UIModule.class)
 public interface UIComponent {
     void inject(MainActivity activity);
+    void inject(EventDetailActivity activity);
+    void inject(FinderActivity activity);
+    void inject(AboutActivity activity);
+    void inject(EventListActivity activity);
     void inject(HomeFragment fragment);
     void inject(EventDetailVoteFragment fragment);
     void inject(EventListSummaryFragment fragment);

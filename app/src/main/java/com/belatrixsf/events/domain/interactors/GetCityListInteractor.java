@@ -4,19 +4,18 @@ import com.belatrixsf.events.data.datasource.ServerCallback;
 import com.belatrixsf.events.domain.executor.Executor;
 import com.belatrixsf.events.domain.executor.MainThread;
 import com.belatrixsf.events.domain.interactors.base.AbstractInteractor;
-import com.belatrixsf.events.domain.model.Event;
+import com.belatrixsf.events.domain.model.City;
 import com.belatrixsf.events.domain.repository.EventRepository;
-import com.belatrixsf.events.utils.Constants;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 
-public class GetEventListInteractor extends AbstractInteractor<GetEventListInteractor.CallBack,GetEventListInteractor.Params> {
+public class GetCityListInteractor extends AbstractInteractor<GetCityListInteractor.CallBack,Void> {
 
     public interface CallBack {
-        void onSuccess(List<Event> result);
+        void onSuccess(List<City> result);
         void onError();
     }
 
@@ -24,25 +23,19 @@ public class GetEventListInteractor extends AbstractInteractor<GetEventListInter
     EventRepository eventRepository;
 
     @Inject
-    public GetEventListInteractor(Executor mThreadExecutor, MainThread mMainThread) {
+    public GetCityListInteractor(Executor mThreadExecutor, MainThread mMainThread) {
         super(mThreadExecutor, mMainThread);
     }
 
 
     @Override
-    public void run(Params ...params) {
-        String eventType = params[0].eventType;
-        int cityId = params[0].cityId;
-        if (eventType.equalsIgnoreCase(Constants.EVENT_TYPE_UPCOMING)){
-            eventRepository.upcomingList(cityId,serverCallback);
-        } else {
-            eventRepository.pastList(cityId,serverCallback);
-        }
+    public void run(Void ...params) {
+        eventRepository.cityList(serverCallback);
     }
 
-    ServerCallback serverCallback = new ServerCallback<List<Event>>() {
+    ServerCallback serverCallback = new ServerCallback<List<City>>() {
         @Override
-        public void onSuccess(final List<Event> response) {
+        public void onSuccess(final List<City> response) {
             runOnUIThread(new Runnable() {
                 @Override
                 public void run() {
@@ -82,18 +75,4 @@ public class GetEventListInteractor extends AbstractInteractor<GetEventListInter
         });
     }
 
-    public static class Params {
-
-        private String eventType;
-        private int cityId;
-
-        private Params(String eventType, int cityId) {
-            this.eventType = eventType;
-            this.cityId = cityId;
-        }
-
-        public static Params forEventType(String type, int cityId){
-            return new Params(type,cityId);
-        }
-    }
 }

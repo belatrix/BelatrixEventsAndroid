@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.belatrixsf.events.R;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.FinderFragment;
 
@@ -14,6 +15,11 @@ public class FinderActivity extends BelatrixBaseActivity  {
 
     @BindString(R.string.menu_title_finder)
     String stringFinder;
+
+    @Override
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,12 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.belatrixsf.events.R;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.EventListFragment;
 import com.belatrixsf.events.utils.Constants;
 
 public class EventListActivity extends BelatrixBaseActivity  {
 
+    @Override
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

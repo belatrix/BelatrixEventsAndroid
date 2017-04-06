@@ -4,6 +4,7 @@ import com.belatrixsf.events.domain.interactors.GetEventFeaturedInteractor;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
+import com.belatrixsf.events.utils.cache.Cache;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,8 @@ public class HomeFragmentPresenter extends BelatrixBasePresenter<HomeFragmentPre
     String eventTitle;
 
     Event event;
+    @Inject
+    Cache cache;
 
     public Event getEvent() {
         return event;
@@ -60,7 +63,7 @@ public class HomeFragmentPresenter extends BelatrixBasePresenter<HomeFragmentPre
             public void onError() {
 
             }
-        });
+        }, GetEventFeaturedInteractor.Params.forCity(cache.getCity()));
     }
 
 

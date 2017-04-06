@@ -47,7 +47,7 @@ import butterknife.ButterKnife;
 /**
  * @author PedroCarrillo
  */
-public class BelatrixBaseActivity extends AppCompatActivity implements FragmentListener {
+public abstract class BelatrixBaseActivity extends AppCompatActivity implements FragmentListener {
 
     private AlertDialog errorAlertDialog;
     private ProgressDialog progressDialog;
@@ -60,9 +60,12 @@ public class BelatrixBaseActivity extends AppCompatActivity implements FragmentL
     @BindString(R.string.app_name)
     protected String stringAppName;
 
+    abstract protected void initDependencies(UIComponent uiComponent);
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         uiComponent = DaggerUIComponent.builder().applicationComponent(BxEventsApplication.get(this).getComponent()).build();
+        initDependencies(uiComponent);
         super.onCreate(savedInstanceState);
     }
 

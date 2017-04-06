@@ -2,6 +2,7 @@ package com.belatrixsf.events.presentation.ui.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,9 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.title_home)
     TextView titleTextView;
+    @BindView(R.id.scrollview)
+    NestedScrollView scrollview;
+
     @Inject
     HomeFragmentPresenter presenter;
 
@@ -89,6 +93,7 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
     private void loadViews() {
         replaceChildFragment(EventListSummaryFragment.newInstance(Constants.EVENT_TYPE_UPCOMING, eventTitleNear), R.id.frame_events_near);
         replaceChildFragment(EventListSummaryFragment.newInstance(Constants.EVENT_TYPE_PAST, eventTitlePast), R.id.frame_events_past);
+        scrollview.smoothScrollTo(0,0);
         presenter.actionLoadHomeEvent();
     }
 

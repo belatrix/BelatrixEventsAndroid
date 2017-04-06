@@ -49,11 +49,13 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     String stringNote;
     @BindString(R.string.dialog_option_participate)
     String stringParticipate;
-    boolean alreadyShown;
-
-
 
     public EventDetailVoteFragment() {
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+        DialogUtils.createSimpleDialog(getActivity(),stringTitle,errorMessage).show();
     }
 
     public static EventDetailVoteFragment newInstance(Event event) {
@@ -83,9 +85,6 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), android.R.drawable.divider_horizontal_bright)));
         loadData();
-        if(!alreadyShown) {
-            showFirstDialog();
-        }
     }
 
     @Override
@@ -94,7 +93,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     }
 
     private void showFirstDialog() {
-        alreadyShown = true;
+        presenter.updateFirstTime();
         Event event = presenter.getEvent();
         String message = (event.getInteractionText() != null && !event.getInteractionText().isEmpty() ? event.getInteractionText() : "");
         DialogUtils.createSimpleDialog(getActivity(), event.getTitle(), message, stringParticipate,true).show();
@@ -114,6 +113,9 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     public void showProjectList(List<Project> list) {
+        if(presenter.isFirstTime()  && presenter.getEvent().isInteractionActive()){
+            showFirstDialog();
+        }
         noDataTextView.setVisibility(View.GONE);
         recyclerView.setVisibility(View.VISIBLE);
         listAdapter.updateData(list);

@@ -8,15 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
 import com.belatrixsf.events.di.component.UIComponent;
+import com.belatrixsf.events.presentation.presenters.FinderFragmentPresenter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -28,13 +32,17 @@ import pub.devrel.easypermissions.EasyPermissions;
 /**
  * created by dvelasquez
  */
-public class FinderFragment extends BelatrixBaseFragment implements EasyPermissions.PermissionCallbacks{
+public class FinderFragment extends BelatrixBaseFragment implements EasyPermissions.PermissionCallbacks, FinderFragmentPresenter.View{
 
     private static final int RC_CAMERA_PERM = 1024;
     @BindString(R.string.scan_qr_code)
     String stringScanQR;
-    @BindView(R.id.qr_result)
-    TextView qrResultTextView;
+    @BindView(R.id.result)
+    View resultView;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+    @Inject
+    FinderFragmentPresenter presenter;
 
     public FinderFragment() {
     }
@@ -52,8 +60,24 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
     @Override
     protected void initDependencies(UIComponent uiComponent) {
         uiComponent.inject(this);
+        presenter.setView(this);
     }
 
+    @Override
+    public void onResult() {
+        resultView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showProgressIndicator() {
+        progressBar.setVisibility(View.VISIBLE);
+        resultView.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void hideProgressIndicator() {
+        progressBar.setVisibility(View.GONE);
+    }
 
     @Override
     protected void initViews() {
@@ -99,11 +123,15 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
         if ( result != null ) {
             if ( result.getContents() == null ) {
             } else {
-                qrResultTextView.setText(result.getContents());
+                findQR(result.getContents());
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void findQR(String qrCode){
+        presenter.actionFindPerson(qrCode);
     }
 
     public final class FragmentIntentIntegrator extends IntentIntegrator {

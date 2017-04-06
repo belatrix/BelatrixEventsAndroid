@@ -4,6 +4,7 @@ import com.belatrixsf.events.domain.interactors.GetEventListInteractor;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrixsf.events.presentation.presenters.base.BelatrixBaseView;
+import com.belatrixsf.events.utils.cache.Cache;
 
 import java.util.List;
 
@@ -22,7 +23,8 @@ public class EventListFragmentPresenter extends BelatrixBasePresenter<EventListF
 
     String eventType;
     String eventTitle;
-
+    @Inject
+    Cache cache;
 
     public String getEventType() {
         return eventType;
@@ -61,7 +63,7 @@ public class EventListFragmentPresenter extends BelatrixBasePresenter<EventListF
                 view.hideProgressIndicator();
                 view.showEmptyView();
             }
-        }, GetEventListInteractor.Params.forEventType(eventType));
+        }, GetEventListInteractor.Params.forEventType(eventType,cache.getCity()));
     }
 
 

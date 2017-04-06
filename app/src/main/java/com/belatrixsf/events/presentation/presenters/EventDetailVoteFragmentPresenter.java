@@ -21,6 +21,7 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
         void onVoteFail(String errorMessage);
         void onConfirmationDialogCreated(String message, int projectId);
         void showEmptyView();
+        void onError(String errorMessage);
     }
 
     ProjectListInteractor interactor;
@@ -78,6 +79,7 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
             @Override
             public void onError() {
                 view.hideProgressIndicator();
+                view.onError(view.getContext().getString(R.string.dialog_title_error));
             }
         }, ProjectListInteractor.Params.forEvent(eventId));
     }
@@ -107,4 +109,13 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
         interactor.cancel();
         projectVoteInteractor.cancel();
     }
+
+    public void updateFirstTime() {
+        cache.updateFirstTime();
+    }
+
+    public boolean isFirstTime(){
+        return cache.isFirstTime();
+    }
+
 }

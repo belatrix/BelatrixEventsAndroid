@@ -37,6 +37,7 @@
     <string name="menu_title_share">Compartir</string>
     <!--Messages-->
     <string name="no_data_found">No se encontraron datos</string>
+    <string name="text_scan_qr">Escanea un código QR</string>
 
     <!--Event-->
     <string name="event_button_more">Ver más</string>

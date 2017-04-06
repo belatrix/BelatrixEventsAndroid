@@ -3,6 +3,7 @@ package com.belatrixsf.events.data.datasource.rest.retrofit.server;
 import com.belatrixsf.events.data.datasource.ServerCallback;
 import com.belatrixsf.events.data.datasource.rest.retrofit.api.EventAPI;
 import com.belatrixsf.events.data.datasource.rest.retrofit.base.BaseRepository;
+import com.belatrixsf.events.domain.model.City;
 import com.belatrixsf.events.domain.model.Event;
 import com.belatrixsf.events.domain.model.Project;
 import com.belatrixsf.events.domain.repository.EventRepository;
@@ -30,20 +31,20 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
     }
 
     @Override
-    public void featured(ServerCallback<Event> callBack) {
-        Call<Event> call = eventAPI.featured();
+    public void featured(int cityId, ServerCallback<Event> callBack) {
+        Call<Event> call = eventAPI.featured(cityId);
         executeRequest(callBack, call);
     }
 
     @Override
-    public void upcomingList(ServerCallback<List<Event>> callBack) {
-        Call<List<Event>> call = eventAPI.upcomingList();
+    public void upcomingList(int cityId, ServerCallback<List<Event>> callBack) {
+        Call<List<Event>> call = eventAPI.upcomingList(cityId);
         executeRequest(callBack, call);
     }
 
     @Override
-    public void pastList(ServerCallback<List<Event>> callBack) {
-        Call<List<Event>> call = eventAPI.pastList();
+    public void pastList(int cityId, ServerCallback<List<Event>> callBack) {
+        Call<List<Event>> call = eventAPI.pastList(cityId);
         executeRequest(callBack, call);
     }
 
@@ -57,6 +58,12 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
     @Override
     public void interactionVote(int interactionId, ServerCallback<Project> callBack) {
         Call<Project> call = eventAPI.interactionVote(interactionId);
+        executeRequest(callBack, call);
+    }
+
+    @Override
+    public void cityList(ServerCallback<List<City>> callBack) {
+        Call<List<City>> call = eventAPI.cityList();
         executeRequest(callBack, call);
     }
 }

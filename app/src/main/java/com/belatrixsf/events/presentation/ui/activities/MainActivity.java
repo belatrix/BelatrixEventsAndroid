@@ -14,8 +14,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.belatrixsf.events.R;
+import com.belatrixsf.events.di.component.UIComponent;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFragment;
+import com.belatrixsf.events.utils.cache.Cache;
+
+import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -26,12 +30,13 @@ public class MainActivity extends BelatrixBaseActivity {
     DrawerLayout drawerLayout;
     @BindView(R.id.navigation)
     NavigationView navigationView;
-    TextView menuLoginTextView;
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
     @BindString(R.string.belatrix_url)
     String stringURL;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    @Inject
+    Cache cache;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +46,16 @@ public class MainActivity extends BelatrixBaseActivity {
         setupViews();
     }
 
-
+    @Override
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+    }
 
     protected void setupViews() {
         setupNavigationDrawerMenu();
         setupNavigationDrawerListener();
         replaceFragment(HomeFragment.newInstance(),false);
+        cache.clearFirstTime();
     }
 
 
