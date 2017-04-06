@@ -30,6 +30,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * created by dvelasquez
@@ -146,6 +147,10 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ev
     public void onDestroyView() {
         presenter.cancelRequests();
         super.onDestroyView();
+    }
+
+    public void cancelRequest(){
+        presenter.cancelRequests();
     }
 
     @Override

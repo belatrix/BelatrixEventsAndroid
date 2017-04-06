@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/event_picture"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="@dimen/dimen_10_7"
+            android:layout_height="@dimen/dimen_10_7"
             android:layout_above="@+id/event_title"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
@@ -46,7 +46,7 @@
             android:layout_height="@dimen/dimen_5_5"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginRight="@dimen/dimen_5"
+            android:layout_marginRight="@dimen/dimen_3_5"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="2"

@@ -71,7 +71,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
                 holder.eventImageView,
                 null,
                 holder.eventPlaceHolderDrawable,
-                ImageLoader.ScaleType.CENTER_CROP
+                ImageLoader.ScaleType.FIT_CENTER
         );
     }
 

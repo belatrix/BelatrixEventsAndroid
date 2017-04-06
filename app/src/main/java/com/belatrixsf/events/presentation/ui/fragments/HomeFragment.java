@@ -91,6 +91,15 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
     }
 
     private void loadViews() {
+
+        EventListSummaryFragment fragment1 = (EventListSummaryFragment)getChildFragmentManager().findFragmentById(R.id.frame_events_near);
+        EventListSummaryFragment fragment2 = (EventListSummaryFragment)getChildFragmentManager().findFragmentById(R.id.frame_events_past);
+        if (fragment1 != null){
+            fragment1.cancelRequest();
+        }
+        if (fragment2 != null){
+            fragment2.cancelRequest();
+        }
         replaceChildFragment(EventListSummaryFragment.newInstance(Constants.EVENT_TYPE_UPCOMING, eventTitleNear), R.id.frame_events_near);
         replaceChildFragment(EventListSummaryFragment.newInstance(Constants.EVENT_TYPE_PAST, eventTitlePast), R.id.frame_events_past);
         scrollview.smoothScrollTo(0,0);
