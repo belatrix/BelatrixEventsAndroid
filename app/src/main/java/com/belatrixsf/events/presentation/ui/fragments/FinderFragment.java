@@ -101,7 +101,7 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
             integrator.initiateScan();
         } else {
             EasyPermissions.requestPermissions(getActivity(), getString(R.string.rationale_ask_again),
-                    RC_CAMERA_PERM, Manifest.permission.WRITE_CALENDAR);
+                    RC_CAMERA_PERM, Manifest.permission.CAMERA);
         }
     }
 
