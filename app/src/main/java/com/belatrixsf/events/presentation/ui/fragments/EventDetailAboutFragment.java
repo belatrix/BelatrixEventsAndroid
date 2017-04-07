@@ -1,5 +1,6 @@
 package com.belatrixsf.events.presentation.ui.fragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -74,9 +75,17 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
         Location location = event.getLocation();
         String latitude = location.getLatitude();
         String longitude = location.getLongitude();
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-        Uri.parse("geo:0,0?q="+latitude+"," +  longitude+" (" + location.getName() + ")"));
-        startActivity(intent);
+        try {
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse("geo:0,0?q=" + latitude + "," + longitude + " (" + location.getName() + ")"));
+            startActivity(intent);
+        } catch (ActivityNotFoundException e){
+            e.printStackTrace();
+            String mapURL = String.format("https://www.google.com/maps/place/%s+%s/@%s,%s,15z",latitude, longitude, latitude, longitude);
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse(mapURL));
+            startActivity(intent);
+        }
     }
 
     @Override
