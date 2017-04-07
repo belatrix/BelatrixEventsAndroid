@@ -32,7 +32,7 @@ public class GetEventListInteractor extends AbstractInteractor<GetEventListInter
     @Override
     public void run(Params ...params) {
         String eventType = params[0].eventType;
-        int cityId = params[0].cityId;
+        Integer cityId = params[0].cityId;
         if (eventType.equalsIgnoreCase(Constants.EVENT_TYPE_UPCOMING)){
             eventRepository.upcomingList(cityId,serverCallback);
         } else {
@@ -85,14 +85,14 @@ public class GetEventListInteractor extends AbstractInteractor<GetEventListInter
     public static class Params {
 
         private String eventType;
-        private int cityId;
+        private Integer cityId;
 
-        private Params(String eventType, int cityId) {
+        private Params(String eventType, Integer cityId) {
             this.eventType = eventType;
             this.cityId = cityId;
         }
 
-        public static Params forEventType(String type, int cityId){
+        public static Params forEventType(String type, Integer cityId){
             return new Params(type,cityId);
         }
     }

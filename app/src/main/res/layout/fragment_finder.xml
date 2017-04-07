@@ -1,8 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:clickable="true"
     android:orientation="vertical"
     tools:context=".presentation.ui.activities.MainActivity">
 
@@ -19,9 +21,9 @@
         android:textColor="@color/darkAccent" />
 
     <TextView
-        android:layout_below="@id/scan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/scan"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/text_scan_qr"
@@ -34,71 +36,97 @@
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/dimen_8_5"
         android:background="@color/subTitle"
-        android:elevation="@dimen/dimen_2_5">
+        android:elevation="@dimen/dimen_2_5"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardElevation="@dimen/dimen_2_5">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
             android:id="@+id/result"
             android:visibility="invisible"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_6_5"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/photo"
-                android:layout_width="@dimen/dimen_10_6"
-                android:layout_height="@dimen/dimen_10_6"
-                android:src="@drawable/sinfante" />
-
-            <TextView
-                android:id="@+id/full_name"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5"
+                android:layout_margin="@dimen/dimen_6_5"
                 android:gravity="center"
-                android:text="Sergio Infante"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/role_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:gravity="center"
-                android:text="Scrum Master" />
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="@dimen/dimen_10_6"
+                    android:layout_height="@dimen/dimen_10_6"
+                    android:src="@drawable/contact_placeholder" />
 
-            <TextView
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:autoLink="email"
-                android:gravity="center"
-                android:text="sinfante@belatrixsf.com" />
+                <TextView
+                    android:id="@+id/full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:gravity="center"
+                    android:text=""
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/twitter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:autoLink="web"
-                android:gravity="center"
-                android:text="https://twitter.com/neosergio" />
+                <TextView
+                    android:id="@+id/role_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:gravity="center"
+                    android:text="Scrum Master" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:autoLink="email"
+                    android:gravity="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/twitter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:autoLink="web"
+                    android:gravity="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/github"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:autoLink="web"
+                    android:gravity="center"
+                    android:text="" />
+
+                <TextView
+                    android:id="@+id/website"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_5"
+                    android:autoLink="web"
+                    android:gravity="center"
+                    android:text="" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:visibility="gone"
-            android:layout_gravity="center"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorAccent"
-            android:indeterminateTintMode="src_atop" />
+            android:indeterminateTintMode="src_atop"
+            android:visibility="gone" />
 
     </android.support.v7.widget.CardView>
 

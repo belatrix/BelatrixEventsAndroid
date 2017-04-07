@@ -2,12 +2,14 @@ package com.belatrixsf.events.presentation.ui.fragments;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -17,6 +19,8 @@ import com.belatrixsf.events.domain.model.Employee;
 import com.belatrixsf.events.presentation.presenters.FinderFragmentPresenter;
 import com.belatrixsf.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrixsf.events.utils.DialogUtils;
+import com.belatrixsf.events.utils.media.ImageFactory;
+import com.belatrixsf.events.utils.media.loaders.ImageLoader;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -24,6 +28,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,7 +39,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 /**
  * created by dvelasquez
  */
-public class FinderFragment extends BelatrixBaseFragment implements EasyPermissions.PermissionCallbacks, FinderFragmentPresenter.View{
+public class FinderFragment extends BelatrixBaseFragment implements EasyPermissions.PermissionCallbacks, FinderFragmentPresenter.View {
 
     private static final int RC_CAMERA_PERM = 1024;
     @BindString(R.string.scan_qr_code)
@@ -45,6 +50,23 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
     ProgressBar progressBar;
     @Inject
     FinderFragmentPresenter presenter;
+    @BindView(R.id.full_name)
+    TextView nameTextView;
+    @BindView(R.id.role_name)
+    TextView roleTextView;
+    @BindView(R.id.email)
+    TextView emailTextView;
+    @BindView(R.id.twitter)
+    TextView twitterTextView;
+    @BindView(R.id.github)
+    TextView githubTextView;
+    @BindView(R.id.website)
+    TextView websiteTextView;
+    @BindView(R.id.avatar)
+    ImageView avatarImageView;
+    @BindDrawable(R.drawable.contact_placeholder)
+    Drawable contactDrawable;
+
 
     public FinderFragment() {
     }
@@ -68,12 +90,57 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
     @Override
     public void onEmployeeSuccess(Employee employee) {
         resultView.setVisibility(View.VISIBLE);
-        //show employee fields
+        String name = employee.getName();
+        String email = employee.getEmail();
+        String role = employee.getRole();
+        String twitter = employee.getTwitter();
+        String github = employee.getGithub();
+        String website = employee.getWebsite();
+
+        if (name != null && !name.isEmpty()) {
+            nameTextView.setText(name);
+            showField(nameTextView);
+        }
+        if (email != null && !email.isEmpty()) {
+            emailTextView.setText(email);
+            showField(emailTextView);
+        }
+        if (role != null && !role.isEmpty()) {
+            roleTextView.setText(role);
+            showField(roleTextView);
+        }
+        if (twitter != null && !twitter.isEmpty()) {
+            twitterTextView.setText(twitter);
+            showField(twitterTextView);
+        }
+        if (github != null && !github.isEmpty()) {
+            githubTextView.setText(github);
+            showField(githubTextView);
+        }
+        if (website != null && !website.isEmpty()) {
+            websiteTextView.setText(website);
+            showField(websiteTextView);
+        }
+
+        ImageFactory.getLoader().loadFromUrl(employee.getAvatar(),
+                avatarImageView,
+                null,
+                null,
+                ImageLoader.ScaleType.FIT_CENTER
+        );
+    }
+
+    private void showField(TextView textView){
+        textView.setVisibility(View.VISIBLE);
+    }
+
+    private void hideField(TextView textView){
+        textView.setVisibility(View.GONE);
     }
 
     @Override
     public void onEmployeeError(String errorMessage) {
-        DialogUtils.createSimpleDialog(getActivity(),stringAppName,errorMessage).show();
+        DialogUtils.createSimpleDialog(getActivity(), stringAppName, errorMessage).show();
     }
 
     @Override
@@ -93,8 +160,18 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
     }
 
     @OnClick(R.id.scan)
-    public void onClickScan(){
+    public void onClickScan() {
         scanQR();
+    }
+
+    private void hideFields() {
+        avatarImageView.setImageDrawable(contactDrawable);
+        hideField(nameTextView);
+        hideField(roleTextView);
+        hideField(emailTextView);
+        hideField(githubTextView);
+        hideField(websiteTextView);
+        hideField(twitterTextView);
     }
 
     @AfterPermissionGranted(RC_CAMERA_PERM)
@@ -128,8 +205,8 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if ( result != null ) {
-            if ( result.getContents() == null ) {
+        if (result != null) {
+            if (result.getContents() == null) {
             } else {
                 findQR(result.getContents());
             }
@@ -138,7 +215,8 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
         }
     }
 
-    private void findQR(String qrCode){
+    private void findQR(String qrCode) {
+        hideFields();
         presenter.actionFindPerson(qrCode);
     }
 
@@ -175,4 +253,9 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
         }
     }
 
+    @Override
+    public void onDestroyView() {
+        presenter.cancelRequests();
+        super.onDestroyView();
+    }
 }

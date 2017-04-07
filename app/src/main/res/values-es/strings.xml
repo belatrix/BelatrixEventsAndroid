@@ -48,7 +48,16 @@
     <string name="event_dialog_confirm_vote">Está seguro de su elección \"%1$s\"?</string>
     <string name="event_detail_added_calendar">Evento fue agregado a su calendario</string>
     <string name="event_detail_already_added_calendar">Evento ya fue agregado a su calendario</string>
+
+    <!-- Finder -->
     <string name="scan_qr_code">Escanear Código QR</string>
+    <string name="finder_employee_not_found">Empleado no encontrado</string>
+
+    <!--CITY -->
+    <string name="button_text_accept">Aceptar</string>
+    <string name="button_text_later">Elegir luego</string>
+    <string name="alert_text_select_city">Debes seleccionar una ciudad</string>
+
     <!--About-->
     <string name="about_what">Qué</string>
     <string name="about_why">Por qué</string>

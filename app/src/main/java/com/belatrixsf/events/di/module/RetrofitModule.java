@@ -1,6 +1,7 @@
 package com.belatrixsf.events.di.module;
 
 import com.belatrixsf.events.BuildConfig;
+import com.belatrixsf.events.data.datasource.rest.retrofit.api.EmployeeAPI;
 import com.belatrixsf.events.data.datasource.rest.retrofit.api.EventAPI;
 
 import javax.inject.Singleton;
@@ -61,6 +62,12 @@ public class RetrofitModule {
     @Provides
     public EventAPI provideEventAPI(Retrofit retrofit) {
         return retrofit.create(EventAPI.class);
+    }
+
+    @Singleton
+    @Provides
+    public EmployeeAPI provideEmployeeAPI(Retrofit retrofit) {
+        return retrofit.create(EmployeeAPI.class);
     }
 
 }

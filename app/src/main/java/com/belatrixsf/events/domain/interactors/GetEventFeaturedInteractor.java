@@ -28,7 +28,7 @@ public class GetEventFeaturedInteractor extends AbstractInteractor<GetEventFeatu
 
     @Override
     public void run(Params... params) {
-        int cityId = params[0].cityId;
+        Integer cityId = params[0].cityId;
         eventRepository.featured(cityId ,new ServerCallback<Event>() {
             @Override
             public void onSuccess(final Event response) {
@@ -74,13 +74,13 @@ public class GetEventFeaturedInteractor extends AbstractInteractor<GetEventFeatu
 
     public static class Params {
 
-        private int cityId;
+        private Integer cityId;
 
-        private Params(int cityId) {
+        private Params(Integer cityId) {
             this.cityId = cityId;
         }
 
-        public static Params forCity(int cityId){
+        public static Params forCity(Integer cityId){
             return new Params(cityId);
         }
     }

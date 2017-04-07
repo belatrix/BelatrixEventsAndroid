@@ -57,7 +57,7 @@ public class FinderFragmentPresenter extends BelatrixBasePresenter<FinderFragmen
             @Override
             public void onEmployeeNotFound() {
                 view.hideProgressIndicator();
-                view.onEmployeeError("empleado not found");
+                view.onEmployeeError(view.getContext().getString(R.string.finder_employee_not_found));
             }
 
             @Override

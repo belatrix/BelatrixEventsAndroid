@@ -48,11 +48,6 @@ public class MainActivity extends BelatrixBaseActivity {
     @Override
     protected void initDependencies(UIComponent uiComponent) {
         uiComponent.inject(this);
-        /*
-        if (cache.isFirstTime()){
-           startActivity(CitySelectionActivity.makeIntent(this));
-            cache.updateFirstTime();
-        }*/
     }
 
     protected void setupViews() {
@@ -118,6 +113,7 @@ public class MainActivity extends BelatrixBaseActivity {
 
     public static Intent makeIntent(Context context, Bundle params) {
         Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtras(params);
         return intent;
     }

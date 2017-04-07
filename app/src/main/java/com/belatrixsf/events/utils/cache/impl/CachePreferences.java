@@ -37,6 +37,11 @@ public class CachePreferences implements Cache {
     }
 
     @Override
+    public void removeCity() {
+        preferences.edit().remove(PARAM_CITY).commit();
+    }
+
+    @Override
     public Integer getCity() {
         int city = preferences.getInt(PARAM_CITY, 0);
         if (city != 0) {

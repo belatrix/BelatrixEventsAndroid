@@ -21,17 +21,39 @@
 package com.belatrixsf.events.presentation.ui.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import com.belatrixsf.events.di.component.UIComponent;
+import com.belatrixsf.events.presentation.ui.base.BelatrixBaseActivity;
+import com.belatrixsf.events.utils.cache.Cache;
+
+import javax.inject.Inject;
 
 /**
- * Created by echuquilin on 11/08/16.
+ * Created by dvelasquez on 31/03/17.
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BelatrixBaseActivity {
+
+    @Inject
+    Cache cache;
+
+    @Override
+    protected void initDependencies(UIComponent uiComponent) {
+        uiComponent.inject(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startActivity(CitySelectionActivity.makeIntent(this));
+        /*
+        if (cache.isFirstTime()){
+           startActivity(CitySelectionActivity.makeIntent(this));
+            cache.updateFirstTime();
+        }*/
+
+        /*
         startActivity(MainActivity.makeIntent(this));
+        */
         finish();
     }
 }

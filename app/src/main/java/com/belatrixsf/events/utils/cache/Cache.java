@@ -12,6 +12,8 @@ public interface Cache {
 
     void saveCity(Integer cityId);
 
+    void removeCity();
+
     Integer getCity();
 
     void clearStartAppFlag();

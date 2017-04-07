@@ -8,6 +8,7 @@ import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.activities.EventListActivity;
 import com.belatrixsf.events.presentation.ui.activities.FinderActivity;
 import com.belatrixsf.events.presentation.ui.activities.MainActivity;
+import com.belatrixsf.events.presentation.ui.activities.SplashActivity;
 import com.belatrixsf.events.presentation.ui.fragments.AboutFragment;
 import com.belatrixsf.events.presentation.ui.fragments.CitySelectionFragment;
 import com.belatrixsf.events.presentation.ui.fragments.EventDetailVoteFragment;
@@ -26,6 +27,7 @@ import dagger.Component;
         dependencies = ApplicationComponent.class,
         modules = UIModule.class)
 public interface UIComponent {
+    void inject(SplashActivity activity);
     void inject(MainActivity activity);
     void inject(EventDetailActivity activity);
     void inject(FinderActivity activity);
