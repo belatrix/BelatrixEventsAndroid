@@ -44,16 +44,12 @@ public class SplashActivity extends BelatrixBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startActivity(CitySelectionActivity.makeIntent(this));
-        /*
-        if (cache.isFirstTime()){
-           startActivity(CitySelectionActivity.makeIntent(this));
+        if (cache.isFirstTime()) {
+            startActivity(CitySelectionActivity.makeIntent(this));
             cache.updateFirstTime();
-        }*/
-
-        /*
-        startActivity(MainActivity.makeIntent(this));
-        */
+        } else {
+            startActivity(MainActivity.makeIntent(this));
+        }
         finish();
     }
 }

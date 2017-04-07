@@ -1,5 +1,6 @@
 package com.belatrixsf.events.presentation.ui.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -82,6 +83,9 @@ public class MainActivity extends BelatrixBaseActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
+                    case R.id.menu_settings:
+                        startActivity(SettingsActivity.makeIntent(MainActivity.this));
+                        break;
                     case R.id.menu_finder:
                         startActivity(FinderActivity.makeIntent(MainActivity.this));
                         break;
@@ -120,6 +124,14 @@ public class MainActivity extends BelatrixBaseActivity {
 
     public static Intent makeIntent(Context context) {
        return new Intent(context, MainActivity.class);
+    }
+
+    public static Intent makeIntentWithoutAnimation(Activity context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        context.overridePendingTransition(0, 0);
+        return intent;
     }
 
 }

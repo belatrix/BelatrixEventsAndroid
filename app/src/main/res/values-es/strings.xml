@@ -29,7 +29,7 @@
     <string name="drawer_close">Close</string>
     <string name="menu_title_home">Home</string>
     <string name="menu_title_activities">Activities</string>
-    <string name="menu_title_settings">Settings</string>
+    <string name="menu_title_settings">Configuraciones</string>
     <string name="menu_title_about">Acerca de</string>
     <string name="menu_title_finder">Belatrix Finder</string>
     <string name="menu_title_events">Eventos</string>
@@ -57,6 +57,10 @@
     <string name="button_text_accept">Aceptar</string>
     <string name="button_text_later">Elegir luego</string>
     <string name="alert_text_select_city">Debes seleccionar una ciudad</string>
+
+    <!--SETTINGS -->
+    <string name="label_settings_city">Ciudad</string>
+    <string name="label_settings_select_city">Seleccione una ciudad</string>
 
     <!--About-->
     <string name="about_what">Qué</string>

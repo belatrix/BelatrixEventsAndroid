@@ -131,6 +131,7 @@ public class CitySelectionFragment extends BelatrixBaseFragment implements  City
     @Override
     public void onCityError(String errorMessage) {
         disableButtons();
+        laterButton.setVisibility(View.VISIBLE);
         DialogUtils.createSimpleDialog(getActivity(),stringAppName, errorMessage).show();
     }
 

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_container"
-    android:layout_width="@dimen/dimen_10_10"
-    android:layout_height="@dimen/dimen_12_10"
+    android:layout_width="@dimen/dimen_12_10"
+    android:layout_height="@dimen/dimen_13_10"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/event_picture"
-            android:layout_width="@dimen/dimen_10_7"
-            android:layout_height="@dimen/dimen_10_7"
+            android:layout_width="@dimen/dimen_10_9"
+            android:layout_height="@dimen/dimen_10_9"
             android:layout_above="@+id/event_title"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"

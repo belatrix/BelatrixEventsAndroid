@@ -44,6 +44,11 @@
             android:screenOrientation="portrait"
             android:name=".presentation.ui.activities.CitySelectionActivity" />
         <activity
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait"
+            android:label="@string/menu_title_settings"
+            android:name=".presentation.ui.activities.SettingsActivity" />
+        <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />

@@ -8,6 +8,7 @@ import com.belatrixsf.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrixsf.events.presentation.ui.activities.EventListActivity;
 import com.belatrixsf.events.presentation.ui.activities.FinderActivity;
 import com.belatrixsf.events.presentation.ui.activities.MainActivity;
+import com.belatrixsf.events.presentation.ui.activities.SettingsActivity;
 import com.belatrixsf.events.presentation.ui.activities.SplashActivity;
 import com.belatrixsf.events.presentation.ui.fragments.AboutFragment;
 import com.belatrixsf.events.presentation.ui.fragments.CitySelectionFragment;
@@ -16,6 +17,7 @@ import com.belatrixsf.events.presentation.ui.fragments.EventListFragment;
 import com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment;
 import com.belatrixsf.events.presentation.ui.fragments.FinderFragment;
 import com.belatrixsf.events.presentation.ui.fragments.HomeFragment;
+import com.belatrixsf.events.presentation.ui.fragments.SettingsFragment;
 
 import dagger.Component;
 
@@ -29,6 +31,7 @@ import dagger.Component;
 public interface UIComponent {
     void inject(SplashActivity activity);
     void inject(MainActivity activity);
+    void inject(SettingsActivity activity);
     void inject(EventDetailActivity activity);
     void inject(FinderActivity activity);
     void inject(AboutActivity activity);
@@ -41,4 +44,5 @@ public interface UIComponent {
     void inject(AboutFragment fragment);
     void inject(FinderFragment fragment);
     void inject(CitySelectionFragment fragment);
+    void inject(SettingsFragment fragment);
 }

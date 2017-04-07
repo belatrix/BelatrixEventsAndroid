@@ -59,6 +59,10 @@
     <string name="button_text_later">Choose later</string>
     <string name="alert_text_select_city">You should select a City</string>
 
+    <!--SETTINGS -->
+    <string name="label_settings_city">City</string>
+    <string name="label_settings_select_city">Select a City</string>
+
     <!--About-->
     <string name="about_what">What</string>
     <string name="about_why">Why</string>
