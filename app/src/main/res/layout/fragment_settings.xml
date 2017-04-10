@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/label_settings_city"
-            android:textSize="@dimen/text_20" />
+            android:textSize="@dimen/text_16" />
 
         <FrameLayout
             android:layout_width="0dp"
@@ -45,6 +45,37 @@
                 android:visibility="gone" />
 
         </FrameLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_8_5"
+        android:layout_margin="@dimen/dimen_4_5"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/label_settings_notification"
+            android:textSize="@dimen/text_16" />
+
+        <Switch
+            android:id="@+id/notification"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center_vertical" />
+
+
     </LinearLayout>
 
 

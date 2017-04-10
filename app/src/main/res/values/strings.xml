@@ -62,6 +62,7 @@
     <!--SETTINGS -->
     <string name="label_settings_city">City</string>
     <string name="label_settings_select_city">Select a City</string>
+    <string name="label_settings_notification">Enable Notifications</string>
 
     <!--About-->
     <string name="about_what">What</string>

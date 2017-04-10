@@ -48,13 +48,13 @@
 
                 <FrameLayout
                     android:id="@+id/frame_events_near"
-                    class="com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment"
+                    class="com.belatrix.events.presentation.ui.fragments.EventListSummaryFragment"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_16_10" />
 
                 <FrameLayout
                     android:id="@+id/frame_events_past"
-                    class="com.belatrixsf.events.presentation.ui.fragments.EventListSummaryFragment"
+                    class="com.belatrix.events.presentation.ui.fragments.EventListSummaryFragment"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_16_10" />
             </LinearLayout>
