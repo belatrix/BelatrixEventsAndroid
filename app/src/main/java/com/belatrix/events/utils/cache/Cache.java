@@ -34,4 +34,7 @@ public interface Cache {
 
     void saveDeviceToken(String value);
 
+    void saveDeviceId(Integer deviceId);
+
+    Integer getDeviceId();
 }
