@@ -35,11 +35,10 @@ public class DeviceRepositoryImpl extends BaseRepository implements DeviceReposi
     @Override
     public void update(Integer deviceId, Integer cityId, ServerCallback<Device> callBack) {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("id",deviceId);
         if (cityId != null){
             jsonObject.addProperty("city",cityId);
         }
-        Call<Device> call = deviceAPI.update(jsonObject);
+        Call<Device> call = deviceAPI.update(deviceId,jsonObject);
         executeRequest(callBack, call);
     }
 }

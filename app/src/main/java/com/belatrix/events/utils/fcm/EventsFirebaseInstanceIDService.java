@@ -59,7 +59,7 @@ public class EventsFirebaseInstanceIDService extends FirebaseInstanceIdService {
             public void onError() {
                 Timber.d("onError: Token was not registered");
             }
-        }, RegisterDeviceInteractor.Params.forRegisterDevice(refreshedToken));
+        }, RegisterDeviceInteractor.Params.forRegisterDevice(refreshedToken,cache.getCity()));
         super.onTokenRefresh();
     }
 

@@ -9,6 +9,7 @@ import com.belatrix.events.di.module.RetrofitModule;
 import com.belatrix.events.di.module.ThreadModule;
 import com.belatrix.events.domain.executor.Executor;
 import com.belatrix.events.domain.executor.MainThread;
+import com.belatrix.events.domain.repository.DeviceRepository;
 import com.belatrix.events.domain.repository.EmployeeRepository;
 import com.belatrix.events.domain.repository.EventRepository;
 import com.belatrix.events.domain.repository.Repository;
@@ -49,6 +50,8 @@ public interface ApplicationComponent {
     EventRepository eventRepository();
 
     EmployeeRepository employeeRepository();
+
+    DeviceRepository deviceRepository();
 
     Cache provideCache();
 }
