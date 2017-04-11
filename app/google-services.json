@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "32213390157",
+    "firebase_url": "https://belatrix-events.firebaseio.com",
+    "project_id": "belatrix-events",
+    "storage_bucket": "belatrix-events.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32213390157:android:0c49c5ea88fed3f7",
+        "android_client_info": {
+          "package_name": "com.belatrix.events"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32213390157-b8vrmhh8vlqs0klkj5phrr7vtu0qd6ik.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg4tAw0gKvv2d1rtVGHOIm1Bz-IBhUG3E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

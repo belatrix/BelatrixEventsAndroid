@@ -27,6 +27,7 @@
         <TextView
             android:id="@+id/event_more_textview"
             android:textAllCaps="true"
+            android:background="@drawable/item_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

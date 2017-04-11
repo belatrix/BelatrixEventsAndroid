@@ -115,7 +115,17 @@
         <item name="android:shadowDy">5</item>
         <item name="android:shadowDx">5</item>
         <item name="android:shadowRadius">5</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:shadowColor">@android:color/black</item>
     </style>
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_dialog</item>
+    </style>
+
+    <!-- Animation for dialog box -->
+    <style name="DialogSlideAnim" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+    </style>
 </resources>

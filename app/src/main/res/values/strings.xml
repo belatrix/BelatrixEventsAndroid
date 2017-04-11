@@ -1,22 +1,19 @@
 <resources>
-    <string name="app_name">Bx Events</string>
+    <string name="app_name">Belatrix Events</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
-
+    <string name="belatrix_url" translatable="false">http://www.belatrixsf.com</string>
+    <string name="typography" translatable="false">serif</string>
     <!-- Dialogs -->
     <string name="dialog_title_error">Oops something went wrong!</string>
     <string name="dialog_message_loading">Loading&#8230;</string>
-    <string name="dialog_confirmation_logout">Are you sure you want to logout?</string>
     <string name="dialog_option_positive">Yes</string>
     <string name="dialog_option_negative">No</string>
     <string name="dialog_option_confirm">Got it!</string>
     <string name="dialog_option_participate">Participate</string>
-
-    <!-- Error -->
-    <string name="error_incorrect_fields">Make sure the fields are filled correctly</string>
-
-    <!-- Hint -->
-    <string name="hint_write_comment">Write a comment</string>
+    <string name="dialog_option_note">Note: Once confirmed, you will not be able to vote</string>
+    <string name="dialog_error_vote_already">You can only vote once</string>
+    <string name="dialog_error_vote_disable">Votes are not yet enabled</string>
 
     <!-- Title -->
     <string name="title_main">Belatrix Events</string>
@@ -35,52 +32,45 @@
     <string name="menu_title_activities">Activities</string>
     <string name="menu_title_settings">Settings</string>
     <string name="menu_title_about">About</string>
+    <string name="menu_title_finder">Belatrix Finder</string>
     <string name="menu_title_events">Events</string>
     <string name="menu_title_help">Help</string>
     <string name="menu_title_share">Share</string>
-
     <!--Messages-->
     <string name="no_data_found">No data found</string>
-
-    <!--Recommendation-->
-    <string name="message_placeholder"></string>
-    <string name="fullname_placeholder">Anonymous</string>
-    <string name="level_placeholder">No data</string>
-
-    <!--Notifications-->
-    <string name="notification_datetime_placeholder">No Date</string>
-    <string name="notification_message_placeholder">No Message</string>
-    <string name="title_detail">Detail</string>
-    <string name="title_date">DateHour</string>
+    <string name="text_scan_qr">Scan a QR code</string>
 
     <!--Event-->
-    <string name="title_title_placeholder">No Title</string>
-    <string name="title_date_placeholder">No Date</string>
-    <string name="event_collaborators">Collaborators: %s</string>
-    <string name="event_participants">Participants: %s</string>
-    <string name="event_collaborators_no_data">Collaborators: No data</string>
-    <string name="event_participants_no_data">Participants: No data</string>
     <string name="event_button_more">More</string>
     <string name="event_title_near">My upcoming events</string>
     <string name="event_title_past">Past events</string>
-    <string name="event_title_other">Other locations events</string>
     <string name="tab_event_about">About</string>
-    <string name="tab_event_news">News</string>
     <string name="tab_event_interact">Interact</string>
-    <string name="event_dialog_confirm_register">Do you want register this event?</string>
-    <string name="event_dialog_confirm_unregister">Do you want unregister this event?</string>
-    <string name="event_dialog_result_registered">Event registration confirmed</string>
-    <string name="event_dialog_result_unregistered">Event unregistration confirmed</string>
-    <string name="event_dialog_confirm_vote">Do you want to vote for Project \"%1$s\"?</string>
+    <string name="event_dialog_confirm_vote">Are you sure of your choice \"%1$s\"?</string>
     <string name="event_detail_added_calendar">Event was added to your calendar</string>
+    <string name="event_detail_already_added_calendar">Event was already added to your calendar</string>
+
+    <!--Finder -->
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="finder_employee_not_found">Employee not found</string>
+
+    <!--CITY -->
+    <string name="button_text_accept">Accept</string>
+    <string name="button_text_later">Choose later</string>
+    <string name="alert_text_select_city">You should select a City</string>
+
+    <!--SETTINGS -->
+    <string name="label_settings_city">City</string>
+    <string name="label_settings_select_city">Select a City</string>
+    <string name="label_settings_notification">Enable Notifications</string>
 
     <!--About-->
     <string name="about_what">What</string>
     <string name="about_why">Why</string>
     <string name="about_who">Who</string>
-    <string name="about_what_message">Belatrix Connect tries to motivated social engagement and teammate recognition through reputation points system based on technical criteria topics about Software Development, also Belatrix Connect wants to be a social connection between people interested in events or talks organized by Belatrix.</string>
+    <string name="about_what_message">Belatrix Events tries to motivate people to participate in the events organized by Belatrix Software at a global level, looking for consolidation as a leading technology company.</string>
     <string name="about_why_message">Because we want to take action and improve our working environment. Because we can. Because we believe in technology and mobile world.</string>
-    <string name="about_who_message">Belatrix Connect was created by people really motivated doing geeky stuff and living passionated about mobile technology.</string>
+    <string name="about_who_message">Belatrix Events was created by people really motivated doing geeky stuff and living passionated about mobile technology.</string>
     <string name="support_tittle">Support</string>
     <string name="support_email">mobilelab@belatrixsf.com</string>
     <string name="license_title">License</string>
@@ -104,23 +94,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</string>
     <string name="collaborators_title">Collaborators</string>
-
-    <!--Actions-->
-    <string name="action_recommend">Recommend</string>
-    <string name="action_search">Search</string>
-    <string name="done">DONE</string>
-    <string name="ranking_tag">ranking_tag</string>
-
     <!-- Transition names -->
-    <string name="transition_photo">transition_photo</string>
-
-    <!--Content details-->
-    <string name="location_content_desc">Location icon</string>
-    <string name="profile_image_content_desc">Profile image</string>
-    <string name="close_content_desc">Close button</string>
-    <string name="email_content_desc">Email icon</string>
-    <string name="profile_pic_needed">You need to upload a profile picture</string>
-    <string name="string_register">Register</string>
-    <string name="string_unregister">Registered</string>
+    <string name="transition_photo" translatable="false">transition_photo</string>
 
 </resources>

@@ -6,8 +6,8 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.belatrixsf.events"
-        minSdkVersion 15
+        applicationId "com.belatrix.events"
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -57,6 +57,7 @@ def bottomNavigationVersion = "2.0.1"
 def daggerMockVersion = "0.6.4"
 def glideVersion = "3.7.0"
 def okhttpVersionCore = "3.6.0"
+def firebaseLibrariesVersion = "9.0.2"
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -67,6 +68,8 @@ dependencies {
     apt "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     // general
+    compile "com.google.firebase:firebase-core:${firebaseLibrariesVersion}"
+    compile "com.google.firebase:firebase-messaging:${firebaseLibrariesVersion}"
     compile "com.android.support:design:${supportLibrariesVersion}"
     compile "com.android.support:cardview-v7:${supportLibrariesVersion}"
     compile "com.jakewharton.timber:timber:${timberVersion}"
@@ -82,7 +85,12 @@ dependencies {
     //design
     //compile  "com.github.ronaldsmartin:Material-ViewPagerIndicator:${viewPagerIndicatorVersion}"
     compile "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}"
-    compile "com.github.fabioCollini:DaggerMock:${daggerMockVersion}"
     compile "com.github.bumptech.glide:glide:${glideVersion}"
     compile "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar"
+    //scan
+    compile 'com.journeyapps:zxing-android-embedded:3.5.0@aar'
+    compile 'com.google.zxing:core:3.2.0'
 }
+
+
+apply plugin: 'com.google.gms.google-services'
