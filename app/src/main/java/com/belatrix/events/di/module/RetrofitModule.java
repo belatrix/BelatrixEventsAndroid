@@ -1,6 +1,7 @@
 package com.belatrix.events.di.module;
 
 import com.belatrix.events.BuildConfig;
+import com.belatrix.events.data.datasource.rest.retrofit.api.DeviceAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EmployeeAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EventAPI;
 
@@ -70,4 +71,9 @@ public class RetrofitModule {
         return retrofit.create(EmployeeAPI.class);
     }
 
+    @Singleton
+    @Provides
+    public DeviceAPI provideDeviceAPI(Retrofit retrofit) {
+        return retrofit.create(DeviceAPI.class);
+    }
 }

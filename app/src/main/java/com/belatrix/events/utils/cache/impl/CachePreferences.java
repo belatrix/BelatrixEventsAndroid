@@ -18,6 +18,7 @@ public class CachePreferences implements Cache {
     private static final String PARAM_FIRST_TIME = "_firstTime_";
     private static final String PARAM_NOTIFICATION = "_notification_";
     private static final String PARAM_DEVICE_TOKEN = "_token_";
+    private static final String PARAM_DEVICE_ID = "_device_id_";
 
     public CachePreferences(SharedPreferences preferences) {
         this.preferences = preferences;
@@ -96,6 +97,16 @@ public class CachePreferences implements Cache {
     @Override
     public void saveDeviceToken(String value) {
         preferences.edit().putString(PARAM_DEVICE_TOKEN, value).commit();
+    }
+
+    @Override
+    public Integer getDeviceId() {
+        return preferences.getInt(PARAM_DEVICE_ID,0);
+    }
+
+    @Override
+    public void saveDeviceId(Integer value) {
+        preferences.edit().putInt(PARAM_DEVICE_ID, value).commit();
     }
 
 }
