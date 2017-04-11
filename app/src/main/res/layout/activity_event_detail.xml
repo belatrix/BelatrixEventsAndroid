@@ -14,7 +14,7 @@
         android:layout_height="@dimen/dimen_22_10"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_behavior="com.belatrixsf.events.presentation.ui.common.DisableableAppBarLayoutBehavior">
+        app:layout_behavior="com.belatrix.events.presentation.ui.common.DisableableAppBarLayoutBehavior">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing"
