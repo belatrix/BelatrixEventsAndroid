@@ -10,7 +10,7 @@ import com.belatrix.events.domain.repository.DeviceRepository;
 import javax.inject.Inject;
 
 
-public class RegisterFCMInteractor extends AbstractInteractor<RegisterFCMInteractor.CallBack, RegisterFCMInteractor.Params> {
+public class UpdateDeviceInteractor extends AbstractInteractor<UpdateDeviceInteractor.CallBack, UpdateDeviceInteractor.Params> {
 
     public interface CallBack {
         void onSuccess(Device device);
@@ -21,15 +21,16 @@ public class RegisterFCMInteractor extends AbstractInteractor<RegisterFCMInterac
     DeviceRepository deviceRepository;
 
     @Inject
-    public RegisterFCMInteractor(Executor mThreadExecutor, MainThread mMainThread) {
+    public UpdateDeviceInteractor(Executor mThreadExecutor, MainThread mMainThread) {
         super(mThreadExecutor, mMainThread);
     }
 
 
     @Override
     public void run(Params... params) {
-        String token = params[0].token;
-        deviceRepository.register(token, new ServerCallback<Device>() {
+        Integer deviceId = params[0].deviceId;
+        Integer cityId = params[0].cityId;
+        deviceRepository.update(deviceId, cityId, new ServerCallback<Device>() {
             @Override
             public void onSuccess(final Device result) {
                 runOnUIThread(new Runnable() {
@@ -60,8 +61,6 @@ public class RegisterFCMInteractor extends AbstractInteractor<RegisterFCMInterac
                 });
             }
         });
-
-
     }
 
     @Override
@@ -75,14 +74,16 @@ public class RegisterFCMInteractor extends AbstractInteractor<RegisterFCMInterac
     }
 
     public static final class Params {
-        String token;
+        Integer deviceId;
+        Integer cityId;
 
-        public Params(String token) {
-            this.token = token;
+        public Params(Integer deviceId, Integer cityId) {
+            this.deviceId = deviceId;
+            this.cityId = cityId;
         }
 
-        public static RegisterFCMInteractor.Params forRegisterFCM(String token) {
-            return new RegisterFCMInteractor.Params(token);
+        public static UpdateDeviceInteractor.Params forUpdateDevice(Integer deviceId, Integer cityId) {
+            return new UpdateDeviceInteractor.Params(deviceId,cityId);
         }
 
     }
