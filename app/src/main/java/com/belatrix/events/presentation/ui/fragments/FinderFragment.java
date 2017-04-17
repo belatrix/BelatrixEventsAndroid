@@ -21,8 +21,6 @@ import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.utils.DialogUtils;
 import com.belatrix.events.utils.media.ImageFactory;
 import com.belatrix.events.utils.media.loaders.ImageLoader;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.List;
 
@@ -178,12 +176,14 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
     @SuppressWarnings("MissingPermission")
     public void scanQR() {
         if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.CAMERA)) {
+            /*
             FragmentIntentIntegrator integrator = new FragmentIntentIntegrator(this);
             integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
             integrator.setPrompt(stringScanQR);
             integrator.setCameraId(0);  // Use a specific camera of the device
             integrator.setBeepEnabled(true);
             integrator.initiateScan();
+            */
         } else {
             EasyPermissions.requestPermissions(getActivity(), getString(R.string.rationale_ask_again),
                     RC_CAMERA_PERM, Manifest.permission.CAMERA);
@@ -202,7 +202,7 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
         return inflater.inflate(R.layout.fragment_finder, container, false);
     }
 
-
+/*
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
@@ -234,7 +234,7 @@ public class FinderFragment extends BelatrixBaseFragment implements EasyPermissi
             fragment.startActivityForResult(intent, code);
         }
     }
-
+*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

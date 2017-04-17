@@ -6,10 +6,6 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/menu_title_settings" />
         <item
-            android:id="@+id/menu_finder"
-            android:icon="@drawable/ic_search"
-            android:title="@string/menu_title_finder" />
-        <item
             android:id="@+id/menu_activities"
             android:icon="@drawable/ic_activity"
             android:title="@string/menu_title_activities" />
