@@ -203,7 +203,6 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     public static void startActivity(Activity context, Event event, ImageView imageView) {
         Intent intent = new Intent(context, EventDetailActivity.class);
         intent.putExtra(Constants.EVENT_KEY, event);
-        Timber.d("image view tiene drawable :" + hasImage(imageView));
         ViewCompat.setTransitionName(imageView, context.getString(R.string.transition_photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(context, imageView, context.getString(R.string.transition_photo));
         context.startActivity(intent, options.toBundle());
