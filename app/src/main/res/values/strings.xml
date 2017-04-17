@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Belatrix Events</string>
+    <string name="app_name">Belatrix Hackatrix</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
     <string name="belatrix_url" translatable="false">http://www.belatrixsf.com</string>
@@ -16,7 +16,7 @@
     <string name="dialog_error_vote_disable">Votes are not yet enabled</string>
 
     <!-- Title -->
-    <string name="title_main">Belatrix Events</string>
+    <string name="title_main">Belatrix Hackatrix</string>
     <string name="title_event_list_activity">Events</string>
     <string name="title_event_detail_activity">Event Detail</string>
     <string name="title_about_activity">About</string>
@@ -68,9 +68,9 @@
     <string name="about_what">What</string>
     <string name="about_why">Why</string>
     <string name="about_who">Who</string>
-    <string name="about_what_message">Belatrix Events tries to motivate people to participate in the events organized by Belatrix Software at a global level, looking for consolidation as a leading technology company.</string>
+    <string name="about_what_message">Belatrix Hackatrix tries to motivate people to participate in the events organized by Belatrix Software at a global level, looking for consolidation as a leading technology company.</string>
     <string name="about_why_message">Because we want to take action and improve our working environment. Because we can. Because we believe in technology and mobile world.</string>
-    <string name="about_who_message">Belatrix Events was created by people really motivated doing geeky stuff and living passionated about mobile technology.</string>
+    <string name="about_who_message">Belatrix Hackatrix was created by people really motivated doing geeky stuff and living passionated about mobile technology.</string>
     <string name="support_tittle">Support</string>
     <string name="support_email">mobilelab@belatrixsf.com</string>
     <string name="license_title">License</string>

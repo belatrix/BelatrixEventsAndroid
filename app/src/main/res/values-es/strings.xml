@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Belatrix Eventos</string>
+    <string name="app_name">Belatrix Hackatrix</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -15,7 +15,7 @@
     <string name="dialog_error_vote_disable">Los votos aún no están habilitados</string>
 
     <!-- Title -->
-    <string name="title_main">Belatrix Eventos</string>
+    <string name="title_main">Belatrix Hackatrix</string>
     <string name="title_event_list_activity">Eventos</string>
     <string name="title_event_detail_activity">Detalle de Evento</string>
     <string name="title_about_activity">Acerca de</string>
@@ -67,9 +67,9 @@
     <string name="about_what">Qué</string>
     <string name="about_why">Por qué</string>
     <string name="about_who">Quienes</string>
-    <string name="about_what_message">Belatrix Events busca motivar a las personas a participar en los eventos organizados por Belatrix Software a nivel global, buscando a futuro la consolidación como una empresa lider en tecnología.</string>
+    <string name="about_what_message">Belatrix Hackatrix busca motivar a las personas a participar en los eventos organizados por Belatrix Software a nivel global, buscando a futuro la consolidación como una empresa lider en tecnología.</string>
     <string name="about_why_message">Queremos poner a disposicion una serie de aplicaciones móviles que permitan interactuar a las personas con nuestra empresa.</string>
-    <string name="about_who_message">Belatrix Events fue creada por personas realmente motivadas por el desarrollo de software y que viven apasionadas por la tecnología móvil.</string>
+    <string name="about_who_message">Belatrix Hackatrix fue creada por personas realmente motivadas por el desarrollo de software y que viven apasionadas por la tecnología móvil.</string>
     <string name="support_tittle">Soporte</string>
     <string name="support_email">mobilelab@belatrixsf.com</string>
     <string name="license_title">Licencia</string>

@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -52,6 +53,7 @@ import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
+import timber.log.Timber;
 
 public class EventDetailActivity extends BelatrixBaseActivity implements EasyPermissions.PermissionCallbacks{
 
@@ -93,8 +95,6 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         ActivityCompat.postponeEnterTransition(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setToolbar(toolbar);
         setNavigationToolbar();
         if (savedInstanceState == null) {
             event = getIntent().getParcelableExtra(Constants.EVENT_KEY);
@@ -105,6 +105,23 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     }
 
     private void initViews() {
+        ImageFactory.getLoader().loadFromUrl(event.getImage(),
+                pictureImageView,
+                null,
+                new ImageLoader.Callback() {
+                    @Override
+                    public void onSuccess() {
+                        startTransition();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        startTransition();
+                    }
+                },
+                eventPlaceHolderDrawable,
+                ImageLoader.ScaleType.CENTER_CROP
+        );
         setupViews();
         replaceFragment(eventDetailAboutFragment, false);
         if (event.isHasInteractions()){
@@ -135,23 +152,7 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
             }
         });
         setTitle(event.getTitle());
-        ImageFactory.getLoader().loadFromUrl(event.getImage(),
-                pictureImageView,
-                null,
-                new ImageLoader.Callback() {
-                    @Override
-                    public void onSuccess() {
-                        startTransition();
-                    }
 
-                    @Override
-                    public void onFailure() {
-                        startTransition();
-                    }
-                },
-                eventPlaceHolderDrawable,
-                ImageLoader.ScaleType.CENTER_CROP
-        );
     }
 
     private void startTransition() {
@@ -202,9 +203,21 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     public static void startActivity(Activity context, Event event, ImageView imageView) {
         Intent intent = new Intent(context, EventDetailActivity.class);
         intent.putExtra(Constants.EVENT_KEY, event);
+        Timber.d("image view tiene drawable :" + hasImage(imageView));
         ViewCompat.setTransitionName(imageView, context.getString(R.string.transition_photo));
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(context, imageView, context.getString(R.string.transition_photo));
         context.startActivity(intent, options.toBundle());
+    }
+
+    private static boolean hasImage(@NonNull ImageView view) {
+        Drawable drawable = view.getDrawable();
+        boolean hasImage = (drawable != null);
+
+        if (hasImage && (drawable instanceof BitmapDrawable)) {
+            hasImage = ((BitmapDrawable)drawable).getBitmap() != null;
+        }
+
+        return hasImage;
     }
 
     @OnClick(R.id.button_add_calendar)
