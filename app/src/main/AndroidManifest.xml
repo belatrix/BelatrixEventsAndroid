@@ -53,6 +53,10 @@
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
+        <activity android:name=".presentation.ui.activities.NotificationListActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/menu_title_activities"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.belatrix.events.presentation.ui.activities.SplashActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"

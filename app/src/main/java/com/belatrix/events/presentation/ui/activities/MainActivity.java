@@ -89,6 +89,9 @@ public class MainActivity extends BelatrixBaseActivity {
                     case R.id.menu_finder:
                         startActivity(FinderActivity.makeIntent(MainActivity.this));
                         break;
+                    case R.id.menu_activities:
+                        startActivity(NotificationListActivity.makeIntent(MainActivity.this));
+                        break;
                     case R.id.menu_about:
                         startActivity(AboutActivity.makeIntent(MainActivity.this));
                         break;

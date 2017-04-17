@@ -3,6 +3,7 @@ package com.belatrix.events.di.component;
 import com.belatrix.events.di.module.UIModule;
 import com.belatrix.events.di.scope.UIScope;
 import com.belatrix.events.presentation.ui.activities.AboutActivity;
+import com.belatrix.events.presentation.ui.activities.NotificationListActivity;
 import com.belatrix.events.presentation.ui.activities.CitySelectionActivity;
 import com.belatrix.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrix.events.presentation.ui.activities.EventListActivity;
@@ -11,6 +12,7 @@ import com.belatrix.events.presentation.ui.activities.MainActivity;
 import com.belatrix.events.presentation.ui.activities.SettingsActivity;
 import com.belatrix.events.presentation.ui.activities.SplashActivity;
 import com.belatrix.events.presentation.ui.fragments.AboutFragment;
+import com.belatrix.events.presentation.ui.fragments.NotificationListFragment;
 import com.belatrix.events.presentation.ui.fragments.CitySelectionFragment;
 import com.belatrix.events.presentation.ui.fragments.EventDetailVoteFragment;
 import com.belatrix.events.presentation.ui.fragments.EventListFragment;
@@ -37,6 +39,7 @@ public interface UIComponent {
     void inject(AboutActivity activity);
     void inject(EventListActivity activity);
     void inject(CitySelectionActivity activity);
+    void inject(NotificationListActivity activity);
     void inject(HomeFragment fragment);
     void inject(EventDetailVoteFragment fragment);
     void inject(EventListSummaryFragment fragment);
@@ -45,4 +48,5 @@ public interface UIComponent {
     void inject(FinderFragment fragment);
     void inject(CitySelectionFragment fragment);
     void inject(SettingsFragment fragment);
+    void inject(NotificationListFragment fragment);
 }

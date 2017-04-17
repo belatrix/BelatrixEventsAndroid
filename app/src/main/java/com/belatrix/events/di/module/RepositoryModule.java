@@ -3,12 +3,15 @@ package com.belatrix.events.di.module;
 import com.belatrix.events.data.datasource.rest.retrofit.api.DeviceAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EmployeeAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EventAPI;
+import com.belatrix.events.data.datasource.rest.retrofit.api.NotificationAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.server.DeviceRepositoryImpl;
 import com.belatrix.events.data.datasource.rest.retrofit.server.EmployeeRepositoryImpl;
 import com.belatrix.events.data.datasource.rest.retrofit.server.EventRepositoryImpl;
+import com.belatrix.events.data.datasource.rest.retrofit.server.NotificationRepositoryImpl;
 import com.belatrix.events.domain.repository.DeviceRepository;
 import com.belatrix.events.domain.repository.EmployeeRepository;
 import com.belatrix.events.domain.repository.EventRepository;
+import com.belatrix.events.domain.repository.NotificationRepository;
 
 import javax.inject.Singleton;
 
@@ -37,5 +40,11 @@ public class RepositoryModule {
     @Provides
     public DeviceRepository provideDeviceRepository(DeviceAPI deviceAPI) {
         return new DeviceRepositoryImpl(deviceAPI);
+    }
+
+    @Singleton
+    @Provides
+    public NotificationRepository provideNotificationRepository(NotificationAPI notificationAPI) {
+        return new NotificationRepositoryImpl(notificationAPI);
     }
 }

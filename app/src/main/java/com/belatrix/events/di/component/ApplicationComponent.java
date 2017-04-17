@@ -11,6 +11,7 @@ import com.belatrix.events.domain.executor.Executor;
 import com.belatrix.events.domain.executor.MainThread;
 import com.belatrix.events.domain.repository.EmployeeRepository;
 import com.belatrix.events.domain.repository.EventRepository;
+import com.belatrix.events.domain.repository.NotificationRepository;
 import com.belatrix.events.domain.repository.Repository;
 import com.belatrix.events.utils.cache.Cache;
 import com.belatrix.events.utils.fcm.EventsFirebaseInstanceIDService;
@@ -49,6 +50,8 @@ public interface ApplicationComponent {
     EventRepository eventRepository();
 
     EmployeeRepository employeeRepository();
+
+    NotificationRepository notificationRepository();
 
     Cache provideCache();
 }
