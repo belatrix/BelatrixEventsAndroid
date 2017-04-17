@@ -9,5 +9,6 @@ import com.belatrix.events.domain.model.Device;
 
 public interface DeviceRepository {
 
-    void register(String deviceCode, ServerCallback<Device> callBack);
+    void register(String deviceCode, Integer cityId , ServerCallback<Device> callBack);
+    void update(Integer deviceId, Integer cityId , ServerCallback<Device> callBack);
 }

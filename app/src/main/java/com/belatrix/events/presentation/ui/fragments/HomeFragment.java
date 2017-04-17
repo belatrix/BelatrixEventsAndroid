@@ -132,4 +132,10 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
         outState.putParcelable(Constants.EVENT_KEY, presenter.getEvent());
         super.onSaveInstanceState(outState);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.cancelRequests();
+    }
 }

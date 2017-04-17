@@ -143,4 +143,9 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.cancelRequests();
+    }
 }

@@ -101,7 +101,11 @@ public class CachePreferences implements Cache {
 
     @Override
     public Integer getDeviceId() {
-        return preferences.getInt(PARAM_DEVICE_ID,0);
+        int value =  preferences.getInt(PARAM_DEVICE_ID,0);
+        if (value != 0) {
+            return value;
+        } else
+            return null;
     }
 
     @Override

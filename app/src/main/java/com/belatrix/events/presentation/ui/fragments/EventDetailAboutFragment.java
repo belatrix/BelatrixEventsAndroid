@@ -73,18 +73,20 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
     @OnClick(R.id.location)
     public void onClickLocation(){
         Location location = event.getLocation();
-        String latitude = location.getLatitude();
-        String longitude = location.getLongitude();
-        try {
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                    Uri.parse("geo:0,0?q=" + latitude + "," + longitude + " (" + location.getName() + ")"));
-            startActivity(intent);
-        } catch (ActivityNotFoundException e){
-            e.printStackTrace();
-            String mapURL = String.format("https://www.google.com/maps/place/%s+%s/@%s,%s,15z",latitude, longitude, latitude, longitude);
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                    Uri.parse(mapURL));
-            startActivity(intent);
+        if (location != null) {
+            String latitude = location.getLatitude();
+            String longitude = location.getLongitude();
+            try {
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse("geo:0,0?q=" + latitude + "," + longitude + " (" + location.getName() + ")"));
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+                String mapURL = String.format("https://www.google.com/maps/place/%s+%s/@%s,%s,15z", latitude, longitude, latitude, longitude);
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse(mapURL));
+                startActivity(intent);
+            }
         }
     }
 

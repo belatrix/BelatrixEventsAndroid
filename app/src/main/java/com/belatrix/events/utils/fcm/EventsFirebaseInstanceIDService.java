@@ -21,7 +21,7 @@
 package com.belatrix.events.utils.fcm;
 
 import com.belatrix.events.BxEventsApplication;
-import com.belatrix.events.domain.interactors.RegisterFCMInteractor;
+import com.belatrix.events.domain.interactors.RegisterDeviceInteractor;
 import com.belatrix.events.domain.model.Device;
 import com.belatrix.events.utils.cache.Cache;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -36,7 +36,7 @@ public class EventsFirebaseInstanceIDService extends FirebaseInstanceIdService {
     @Inject
     Cache cache;
     @Inject
-    RegisterFCMInteractor registerFCMInteractor;
+    RegisterDeviceInteractor registerDeviceInteractor;
 
     @Override
     public void onCreate() {
@@ -48,7 +48,7 @@ public class EventsFirebaseInstanceIDService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         cache.saveDeviceToken(refreshedToken);
-        registerFCMInteractor.execute(new RegisterFCMInteractor.CallBack() {
+        registerDeviceInteractor.execute(new RegisterDeviceInteractor.CallBack() {
             @Override
             public void onSuccess(Device device) {
                 Timber.d("onSuccess: Token was registered: " + refreshedToken );
@@ -59,7 +59,7 @@ public class EventsFirebaseInstanceIDService extends FirebaseInstanceIdService {
             public void onError() {
                 Timber.d("onError: Token was not registered");
             }
-        }, RegisterFCMInteractor.Params.forRegisterFCM(refreshedToken));
+        }, RegisterDeviceInteractor.Params.forRegisterDevice(refreshedToken,cache.getCity()));
         super.onTokenRefresh();
     }
 
