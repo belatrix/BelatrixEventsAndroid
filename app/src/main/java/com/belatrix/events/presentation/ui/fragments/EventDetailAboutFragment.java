@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,13 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
         SpannableString s = SpannableString.valueOf(locationTextView.getText());
         s.setSpan(new URLSpan(s.toString()), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         locationTextView.setText(s);
+        if (TextUtils.isEmpty(event.getAddress())) {
+            locationTextView.setVisibility(View.GONE);
+        }
         linkTextView.setText(event.getRegisterLink());
+        if (TextUtils.isEmpty(event.getRegisterLink())) {
+            linkTextView.setVisibility(View.GONE);
+        }
         dateTextView.setText(DateUtils.formatDate(event.getDatetime(),DateUtils.DATE_FORMAT_3,DateUtils.DATE_FORMAT_4 ));
     }
 
