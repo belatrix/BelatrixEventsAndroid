@@ -37,6 +37,7 @@ public class MainActivity extends BelatrixBaseActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     @Inject
     Cache cache;
+    public static final String PARAM_FROM_NOTIFICATION = "param_from_notification";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,12 @@ public class MainActivity extends BelatrixBaseActivity {
         setContentView(R.layout.activity_main);
         setToolbar();
         setupViews();
+        if (getIntent().hasExtra(PARAM_FROM_NOTIFICATION)){
+            boolean isFromNotification = getIntent().getBooleanExtra(PARAM_FROM_NOTIFICATION, false);
+            if (isFromNotification){
+                startActivity(NotificationListActivity.makeIntent(MainActivity.this));
+            }
+        }
     }
 
     @Override

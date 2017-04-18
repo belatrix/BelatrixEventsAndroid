@@ -32,6 +32,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.belatrix.events.BxEventsApplication;
 import com.belatrix.events.R;
+import com.belatrix.events.presentation.ui.activities.MainActivity;
 import com.belatrix.events.presentation.ui.activities.SplashActivity;
 import com.belatrix.events.utils.cache.Cache;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -71,7 +72,8 @@ public class EventsFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(String messageTitle, String messageBody) {
-        Intent intent = new Intent(this, SplashActivity.class);
+        Intent intent = MainActivity.makeIntent(this);
+        intent.putExtra(MainActivity.PARAM_FROM_NOTIFICATION, true);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
