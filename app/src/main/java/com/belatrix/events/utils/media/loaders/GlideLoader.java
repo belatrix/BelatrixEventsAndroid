@@ -28,6 +28,7 @@ import com.belatrix.events.utils.media.transformations.glide.BorderedCircleGlide
 import com.belatrix.events.utils.media.transformations.glide.CircleGlideTransformation;
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
@@ -107,6 +108,7 @@ public class GlideLoader implements ImageLoader {
                  load.centerCrop();
                 break;
         }
+        load.diskCacheStrategy(DiskCacheStrategy.ALL);
         load.placeholder(placeholder);
         if (context != null && transformation != null) {
             switch (transformation) {
