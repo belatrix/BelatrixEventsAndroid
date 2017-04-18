@@ -116,8 +116,10 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
         if(presenter.isFirstTime()  && presenter.getEvent().isInteractionActive()){
             showFirstDialog();
         }
-        noDataTextView.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
+        if (noDataTextView != null)
+            noDataTextView.setVisibility(View.GONE);
+        if (recyclerView != null)
+            recyclerView.setVisibility(View.VISIBLE);
         listAdapter.updateData(list);
     }
 
@@ -153,8 +155,10 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     public void showEmptyView() {
-        noDataTextView.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.GONE);
+        if (noDataTextView != null)
+            noDataTextView.setVisibility(View.VISIBLE);
+        if (recyclerView != null)
+            recyclerView.setVisibility(View.GONE);
     }
 
     @Override
@@ -170,8 +174,10 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     public void hideProgressIndicator() {
-        progressBar.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.VISIBLE);
+        if (progressBar != null)
+            progressBar.setVisibility(View.GONE);
+        if (recyclerView != null)
+            recyclerView.setVisibility(View.VISIBLE);
     }
 
     @Override

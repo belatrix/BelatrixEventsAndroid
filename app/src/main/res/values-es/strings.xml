@@ -64,12 +64,12 @@
     <string name="label_settings_notification">Habilitar Notificaciones</string>
 
     <!--About-->
-    <string name="about_what">Qué</string>
-    <string name="about_why">Por qué</string>
-    <string name="about_who">Quienes</string>
-    <string name="about_what_message">Belatrix Hackatrix busca motivar a las personas a participar en los eventos organizados por Belatrix Software a nivel global, buscando a futuro la consolidación como una empresa lider en tecnología.</string>
-    <string name="about_why_message">Queremos poner a disposicion una serie de aplicaciones móviles que permitan interactuar a las personas con nuestra empresa.</string>
-    <string name="about_who_message">Belatrix Hackatrix fue creada por personas realmente motivadas por el desarrollo de software y que viven apasionadas por la tecnología móvil.</string>
+    <string name="about_what">¿Qué?</string>
+    <string name="about_why">¿Por qué?</string>
+    <string name="about_who">¿Quién?</string>
+    <string name="about_what_message">La hackatrix fue creada para motivar a las personas a participar en eventos organizados por Belatrix Software a nivel global, buscando su consolidación como una empresa de tecnología.</string>
+    <string name="about_why_message">Porque queremos tomar acción y mejorar nuestro ambiente de trabajo. Porque sabemos que podemos hacerlo, y porque nos apasiona la tecnología en general.</string>
+    <string name="about_who_message">Esta aplicación fue creada por personas realmente motivadas y apasionadas por la tecnología y el desarrollo móvil.</string>
     <string name="support_tittle">Soporte</string>
     <string name="support_email">mobilelab@belatrixsf.com</string>
     <string name="license_title">Licencia</string>

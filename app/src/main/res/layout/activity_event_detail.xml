@@ -11,7 +11,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_22_10"
+        android:layout_height="@dimen/dimen_25_10"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_behavior="com.belatrix.events.presentation.ui.common.DisableableAppBarLayoutBehavior">
