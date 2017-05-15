@@ -46,6 +46,7 @@
     <string name="tab_event_about">Información</string>
     <string name="tab_event_interact">Interactuar</string>
     <string name="event_dialog_confirm_vote">Está seguro de su elección \"%1$s\"?</string>
+    <string name="event_invalid_calendar">Calendario inválido</string>
     <string name="event_detail_added_calendar">Evento fue agregado a su calendario</string>
     <string name="event_detail_already_added_calendar">Evento ya fue agregado a su calendario</string>
 

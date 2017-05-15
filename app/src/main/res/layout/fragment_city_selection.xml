@@ -20,7 +20,7 @@
         android:layout_marginBottom="@dimen/dimen_2_5"
         android:layout_marginLeft="@dimen/dimen_8_5"
         android:layout_marginTop="@dimen/dimen_2_5"
-        android:text="Elije tu ciudad"
+        android:text="@string/label_settings_select_city"
         android:textSize="@dimen/text_20" />
 
     <FrameLayout

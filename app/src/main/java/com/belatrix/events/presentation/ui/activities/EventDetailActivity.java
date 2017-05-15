@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -20,7 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -53,36 +54,55 @@ import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
-import timber.log.Timber;
 
-public class EventDetailActivity extends BelatrixBaseActivity implements EasyPermissions.PermissionCallbacks{
+public class EventDetailActivity extends BelatrixBaseActivity implements EasyPermissions.PermissionCallbacks {
 
     private static final int RC_CALENDAR_PERM = 1023;
 
+    private static final int RC_CALENDAR_PERM_READ = 1024;
+
+    private static final int INVALID_CALENDAR_ID = -1;
+
+    private static final int CALENDAR_NO_READ_RP = 0;
+
     @BindView(R.id.image_event)
     ImageView pictureImageView;
+
     @BindView(R.id.bottom_navigation)
     AHBottomNavigation bottomNavigation;
+
     @BindString(R.string.bottom_navigation_color)
     String navigationColor;
+
     @BindString(R.string.event_detail_added_calendar)
     String stringEventAdded;
+
+    @BindString(R.string.event_invalid_calendar)
+    String stringInvalidCalendar;
+
     @BindString(R.string.event_detail_already_added_calendar)
     String stringEventAlreadyAdded;
+
     private Event event;
+
     public static final int TAB_ABOUT = 0;
+
     public static final int TAB_VOTE = 1;
+
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
+
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
+
     @BindView(R.id.collapsing)
     CollapsingToolbarLayout collapsingToolbarLayout;
+
     @BindDrawable(R.drawable.event_placeholder)
     Drawable eventPlaceHolderDrawable;
-    boolean calendarSaved;
 
     EventDetailAboutFragment eventDetailAboutFragment;
+
     EventDetailVoteFragment eventDetailVoteFragment;
 
     @Override
@@ -124,7 +144,7 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         );
         setupViews();
         replaceFragment(eventDetailAboutFragment, false);
-        if (event.isHasInteractions()){
+        if (event.isHasInteractions()) {
             bottomNavigation.setVisibility(View.VISIBLE);
         } else {
             bottomNavigation.setVisibility(View.GONE);
@@ -169,7 +189,7 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         });
     }
 
-    private void enableAppBarLayout(boolean value){
+    private void enableAppBarLayout(boolean value) {
         CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) appBarLayout.getLayoutParams();
         ((DisableableAppBarLayoutBehavior) layoutParams.getBehavior()).setEnabled(value);
     }
@@ -177,8 +197,10 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     private void setupViews() {
         eventDetailAboutFragment = EventDetailAboutFragment.newInstance(event);
         eventDetailVoteFragment = EventDetailVoteFragment.newInstance(event);
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_event_about, R.drawable.ic_about, R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_event_interact, R.drawable.ic_about, R.color.colorAccent);
+        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_event_about, R.drawable.ic_about,
+                R.color.colorAccent);
+        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_event_interact, R.drawable.ic_about,
+                R.color.colorAccent);
         bottomNavigation.addItem(item1);
         bottomNavigation.addItem(item2);
         bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
@@ -189,7 +211,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(false);
-                BelatrixBaseFragment fragment = (BelatrixBaseFragment)getSupportFragmentManager().findFragmentById(R.id.main_content);
+                BelatrixBaseFragment fragment = (BelatrixBaseFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.main_content);
                 fragment.refreshData();
             }
         });
@@ -204,7 +227,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         Intent intent = new Intent(context, EventDetailActivity.class);
         intent.putExtra(Constants.EVENT_KEY, event);
         ViewCompat.setTransitionName(imageView, context.getString(R.string.transition_photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(context, imageView, context.getString(R.string.transition_photo));
+        ActivityOptionsCompat options = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(context, imageView, context.getString(R.string.transition_photo));
         context.startActivity(intent, options.toBundle());
     }
 
@@ -213,60 +237,112 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         boolean hasImage = (drawable != null);
 
         if (hasImage && (drawable instanceof BitmapDrawable)) {
-            hasImage = ((BitmapDrawable)drawable).getBitmap() != null;
+            hasImage = ((BitmapDrawable) drawable).getBitmap() != null;
         }
 
         return hasImage;
     }
 
     @OnClick(R.id.button_add_calendar)
-    public void onClickAddCalendar(){
-        addToCalendar();
+    public void onClickAddCalendar() {
+        Long calendarId = getCalendarId();
+        if (calendarId == INVALID_CALENDAR_ID) {
+            showSnackBar(stringInvalidCalendar);
+        } else if (calendarId == CALENDAR_NO_READ_RP) {
+            EasyPermissions.requestPermissions(this, getString(R.string.rationale_ask_again),
+                    RC_CALENDAR_PERM_READ, Manifest.permission.READ_CALENDAR);
+        } else {
+            addToCalendar(calendarId);
+        }
     }
-
 
     @AfterPermissionGranted(RC_CALENDAR_PERM)
     @SuppressWarnings("MissingPermission")
-    public void addToCalendar(){
+    public void addToCalendar(long calendarId) {
         if (EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_CALENDAR)) {
-            if (!calendarSaved) {
-                try {
-                    Date date = DateUtils.getDateFromtString(event.getDatetime(), DateUtils.DATE_FORMAT_3);
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(date);
-                    ContentResolver cr = this.getContentResolver();
-                    ContentValues values = new ContentValues();
-                    values.put(CalendarContract.Events.DTSTART, cal.getTimeInMillis());
-                    values.put(CalendarContract.Events.TITLE, event.getTitle());
-                    values.put(CalendarContract.Events.DESCRIPTION, event.getDetails());
-                    TimeZone timeZone = TimeZone.getDefault();
-                    values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
-                    values.put(CalendarContract.Events.CALENDAR_ID, 1);
-                    //values.put(CalendarContract.Events.RRULE, "FREQ=DAILY;UNTIL="+ dtUntill);
-                    //for one hour
-                    values.put(CalendarContract.Events.DURATION, "+P1H");
-                    values.put(CalendarContract.Events.HAS_ALARM, 1);
-                    // insert event to calendar
-                    Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
-                    showSnackBar(stringEventAdded);
-                    calendarSaved = true;
-                }catch (Exception e){
-                    e.printStackTrace();
-                    DialogUtils.createSimpleDialog(this,stringAppName, stringError).show();
-                }
-            } else {
-                showSnackBar(stringEventAlreadyAdded);
-            }
+            createEvent(this.getContentResolver(), calendarId);
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_ask_again),
                     RC_CALENDAR_PERM, Manifest.permission.WRITE_CALENDAR);
         }
     }
 
+    @SuppressWarnings("MissingPermission")
+    private void createEvent(ContentResolver resolver, long calendarId) {
+        Cursor cursor;
+        ContentValues values = new ContentValues();
+        // Check if the calendar event exists first.  If it does, we don't want to add a duplicate one.
+        cursor = resolver.query(
+                CalendarContract.Events.CONTENT_URI,                       // URI
+                new String[]{CalendarContract.Events._ID},                // Projection
+                CalendarContract.Events.CALENDAR_ID + "=? and "            // Selection
+                        + CalendarContract.Events.TITLE + "=?",
+                new String[]{                                              // Selection args
+                        Long.valueOf(calendarId).toString(),
+                        event.getTitle()
+                },
+                null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            showSnackBar(stringEventAlreadyAdded);
+            // Calendar event already exists for this session.
+            cursor.close();
+        } else {
+            Date date = DateUtils.getDateFromtString(event.getDatetime(), DateUtils.DATE_FORMAT_3);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            values.clear();
+            values.put(CalendarContract.Events.DTSTART, cal.getTimeInMillis());
+            values.put(CalendarContract.Events.DESCRIPTION, event.getDetails());
+            TimeZone timeZone = TimeZone.getDefault();
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, timeZone.getID());
+            values.put(CalendarContract.Events.TITLE, event.getTitle());
+            values.put(CalendarContract.Events.CALENDAR_ID, calendarId);
+            //for one hour
+            values.put(CalendarContract.Events.DURATION, "+P1H");
+            values.put(CalendarContract.Events.HAS_ALARM, 1);
+            Uri eventUri = resolver.insert(CalendarContract.Events.CONTENT_URI, values);
+            if (eventUri != null) {
+                String eventId = eventUri.getLastPathSegment();
+                showSnackBar(stringEventAdded);
+                Log.v("NEW EVENT ID", eventId);
+            }
+        }
+    }
+
+    @AfterPermissionGranted(RC_CALENDAR_PERM_READ)
+    @SuppressWarnings("MissingPermission")
+    private long getCalendarId() {
+        if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_CALENDAR)) {
+            String[] EVENT_PROJECTION = new String[]{
+                    CalendarContract.Calendars._ID,                           // 0
+            };
+
+            Cursor cur;
+            ContentResolver cr = getContentResolver();
+            Uri uri = CalendarContract.Calendars.CONTENT_URI;
+            String selection = "(" + CalendarContract.Calendars.ACCOUNT_TYPE + " = ?)";
+            String[] selectionArgs = new String[]{"com.google"};
+            cur = cr.query(uri, EVENT_PROJECTION, selection, selectionArgs, null);
+
+            // Use the cursor to step through the returned records
+            long calendarId = INVALID_CALENDAR_ID;//invalid
+            if (cur != null && cur.moveToFirst()) {
+                calendarId = cur.getLong(0);
+                System.out.println(calendarId);
+                cur.close();
+            }
+            return calendarId;
+        } else {
+            return CALENDAR_NO_READ_RP;
+        }
+    }
+
     @OnClick(R.id.button_share)
-    public void onClickShare(){
-        String sharingText = (event.getSharingText() != null && !event.getSharingText().isEmpty() ? event.getSharingText(): event.getTitle());
-        DialogUtils.shareContent(this,sharingText+"\n"+event.getImage(), stringShare);
+    public void onClickShare() {
+        String sharingText = (event.getSharingText() != null && !event.getSharingText().isEmpty() ? event.getSharingText()
+                : event.getTitle());
+        DialogUtils.shareContent(this, sharingText + "\n" + event.getImage(), stringShare);
     }
 
 
@@ -287,7 +363,7 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         }
     }
 
-    private void restoreInstance(Bundle saveInstance){
+    private void restoreInstance(Bundle saveInstance) {
         event = saveInstance.getParcelable(Constants.EVENT_KEY);
     }
 
