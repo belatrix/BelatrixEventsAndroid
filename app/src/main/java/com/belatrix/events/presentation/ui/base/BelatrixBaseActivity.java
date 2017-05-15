@@ -22,9 +22,14 @@ package com.belatrix.events.presentation.ui.base;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -59,7 +64,9 @@ public abstract class BelatrixBaseActivity extends AppCompatActivity implements 
     protected String stringError;
     @BindString(R.string.app_name)
     protected String stringAppName;
-
+    @BindString(R.string.no_internet_connection_message)
+    protected String stringNoInternet;
+    private Snackbar noInternetSnackBar;
     abstract protected void initDependencies(UIComponent uiComponent);
 
     @Override
@@ -67,6 +74,19 @@ public abstract class BelatrixBaseActivity extends AppCompatActivity implements 
         uiComponent = DaggerUIComponent.builder().applicationComponent(BxEventsApplication.get(this).getComponent()).build();
         initDependencies(uiComponent);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        IntentFilter actionFilters = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(mConnReceiver, actionFilters);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(mConnReceiver);
     }
 
     public UIComponent getUiComponent() {
@@ -230,5 +250,35 @@ public abstract class BelatrixBaseActivity extends AppCompatActivity implements 
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+    }
+
+    private final BroadcastReceiver mConnReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (context != null) {
+               boolean isConnected = isNetworkAvailable(context);
+                if (!isConnected) {
+                    noInternetSnackBar =  SnackbarUtils.createInformationSnackBar(toolbar, stringNoInternet, null, Snackbar.LENGTH_INDEFINITE, null);
+                    noInternetSnackBar.show();
+                }else{
+                    if(noInternetSnackBar!=null && noInternetSnackBar.isShown()){
+                        noInternetSnackBar.dismiss();
+                    }
+                }
+            }
+        }
+    };
+
+    private static ConnectivityManager getConnectivityManager(@NonNull Context context) {
+        return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    }
+
+    public static boolean isNetworkAvailable(@NonNull Context context) {
+        boolean result = false;
+        ConnectivityManager connectivityManager = getConnectivityManager(context);
+        if (connectivityManager != null && connectivityManager.getActiveNetworkInfo() != null) {
+            result = connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
+        }
+        return result;
     }
 }

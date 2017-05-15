@@ -4,7 +4,7 @@
     <string name="no_data_option">-</string>
 
     <!-- Dialogs -->
-    <string name="dialog_title_error">Oops something went wrong!</string>
+    <string name="dialog_title_error">Lo sentimos, algo salió mal!</string>
     <string name="dialog_message_loading">Loading&#8230;</string>
     <string name="dialog_option_positive">Si</string>
     <string name="dialog_option_negative">No</string>
@@ -38,6 +38,7 @@
     <!--Messages-->
     <string name="no_data_found">No se encontraron datos</string>
     <string name="text_scan_qr">Escanea un código QR</string>
+    <string name="no_internet_connection_message">Lo siento, hemos perdido la conexión de Internet</string>
 
     <!--Event-->
     <string name="event_button_more">Ver más</string>

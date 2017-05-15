@@ -39,6 +39,7 @@
     <!--Messages-->
     <string name="no_data_found">No data found</string>
     <string name="text_scan_qr">Scan a QR code</string>
+    <string name="no_internet_connection_message">Sorry, we lost internet connection</string>
 
     <!--Event-->
     <string name="event_button_more">More</string>

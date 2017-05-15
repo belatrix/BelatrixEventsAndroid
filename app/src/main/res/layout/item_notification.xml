@@ -18,6 +18,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="An amazing push message!"
-        android:lines="2"
         android:ellipsize="end" />
 </LinearLayout>
