@@ -59,8 +59,6 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
 
     private static final int RC_CALENDAR_PERM = 1023;
 
-    private static final int RC_CALENDAR_PERM_READ = 1024;
-
     private static final int INVALID_CALENDAR_ID = -1;
 
     private static final int CALENDAR_NO_READ_RP = 0;
@@ -195,6 +193,11 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     }
 
     private void setupViews() {
+        boolean isUpcoming = event.isUpcoming();
+        //set visibility for calendar and share buttons
+        findViewById(R.id.button_add_calendar).setVisibility(isUpcoming ? View.VISIBLE : View.GONE);
+        findViewById(R.id.button_share).setVisibility(isUpcoming ? View.VISIBLE : View.GONE);
+
         eventDetailAboutFragment = EventDetailAboutFragment.newInstance(event);
         eventDetailVoteFragment = EventDetailVoteFragment.newInstance(event);
         AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_event_about, R.drawable.ic_about,
@@ -245,30 +248,28 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
 
     @OnClick(R.id.button_add_calendar)
     public void onClickAddCalendar() {
-        Long calendarId = getCalendarId();
-        if (calendarId == INVALID_CALENDAR_ID) {
-            showSnackBar(stringInvalidCalendar);
-        } else if (calendarId == CALENDAR_NO_READ_RP) {
-            EasyPermissions.requestPermissions(this, getString(R.string.rationale_ask_again),
-                    RC_CALENDAR_PERM_READ, Manifest.permission.READ_CALENDAR);
-        } else {
-            addToCalendar(calendarId);
-        }
+        addToCalendar();
     }
 
     @AfterPermissionGranted(RC_CALENDAR_PERM)
     @SuppressWarnings("MissingPermission")
-    public void addToCalendar(long calendarId) {
-        if (EasyPermissions.hasPermissions(this, Manifest.permission.WRITE_CALENDAR)) {
+    public void addToCalendar() {
+        String[] permissionsCalendar = new String[]{Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR};
+        if (EasyPermissions.hasPermissions(this, permissionsCalendar)) {
+            Long calendarId = getCalendarId();
             createEvent(this.getContentResolver(), calendarId);
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.rationale_ask_again),
-                    RC_CALENDAR_PERM, Manifest.permission.WRITE_CALENDAR);
+                    RC_CALENDAR_PERM, permissionsCalendar);
         }
     }
 
     @SuppressWarnings("MissingPermission")
     private void createEvent(ContentResolver resolver, long calendarId) {
+        if (calendarId == INVALID_CALENDAR_ID) {
+            showSnackBar(stringInvalidCalendar);
+            return;
+        }
         Cursor cursor;
         ContentValues values = new ContentValues();
         // Check if the calendar event exists first.  If it does, we don't want to add a duplicate one.
@@ -310,7 +311,6 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         }
     }
 
-    @AfterPermissionGranted(RC_CALENDAR_PERM_READ)
     @SuppressWarnings("MissingPermission")
     private long getCalendarId() {
         if (EasyPermissions.hasPermissions(this, Manifest.permission.READ_CALENDAR)) {
