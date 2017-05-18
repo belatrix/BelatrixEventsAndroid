@@ -56,30 +56,6 @@
                 android:layout_height="1dp"
                 android:background="@color/divider" />
 
-            <TextView
-                android:id="@+id/menu_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_default_item"
-                android:drawableLeft="@drawable/ic_exit"
-                android:drawablePadding="@dimen/dimen_6_5"
-                android:padding="@dimen/dimen_16"
-                android:text="@string/menu_title_logout"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
-
-
-            <TextView
-                android:id="@+id/menu_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/selector_default_item"
-                android:drawableLeft="@drawable/ic_exit"
-                android:drawablePadding="@dimen/dimen_6_5"
-                android:padding="@dimen/dimen_16"
-                android:text="@string/menu_title_login"
-                android:textColor="@color/black"
-                android:textStyle="bold" />
         </LinearLayout>
 
     </RelativeLayout>

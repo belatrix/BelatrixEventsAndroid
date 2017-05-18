@@ -1,35 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.belatrixsf.events">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.belatrix.events"
+    android:label="@string/title_main"
+    tools:replace="label">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".BxEventsApplication"
+        android:name="com.belatrix.events.BxEventsApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/title_main"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".presentation.ui.activities.MainActivity" />
+        android:theme="@style/AppTheme"
+        tools:replace="android:label">
         <activity
-            android:name=".presentation.ui.activities.LoginActivity"
+            android:name="com.belatrix.events.presentation.ui.activities.MainActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.LauncherActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".presentation.ui.activities.AboutActivity"
+            android:name="com.belatrix.events.presentation.ui.activities.AboutActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/title_about_activity"
-            android:theme="@style/Translucent" />
-        <activity
-            android:name=".presentation.ui.activities.EventDetailActivity"
-            android:theme="@style/Translucent" />
-        <activity
-            android:name=".presentation.ui.activities.ManageEventActivity" />
-        <activity
-            android:name=".presentation.ui.activities.SplashActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/Translucent" />
+        <activity
+            android:name="com.belatrix.events.presentation.ui.activities.EventDetailActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.belatrix.events.presentation.ui.activities.EventListActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.belatrix.events.presentation.ui.activities.FinderActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.belatrix.events.presentation.ui.activities.CitySelectionActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.belatrix.events.presentation.ui.activities.SettingsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/menu_title_settings"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".presentation.ui.activities.NotificationListActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="@string/menu_title_activities"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.belatrix.events.presentation.ui.activities.SplashActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,6 +65,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".utils.fcm.EventsFirebaseMessagingService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".utils.fcm.EventsFirebaseInstanceIDService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

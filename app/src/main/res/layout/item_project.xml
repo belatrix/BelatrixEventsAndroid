@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_container"
     android:gravity="center_vertical"
     android:orientation="horizontal"
+    android:clickable="true"
     style="@style/LargeItemList">
 
     <TextView
         android:id="@+id/event_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="@dimen/text_16"
+        android:layout_weight="1.7"
+        android:textSize="@dimen/text_14"
         android:maxLines="2"
+        android:fontFamily="@string/font_family_regular"
+        android:layout_marginRight="@dimen/dimen_2_5"
         android:textColor="@color/black"
-        android:paddingLeft="@dimen/activity_margin"
-        tools:text="@string/title_full_name" />
+        android:paddingLeft="@dimen/activity_margin" />
 
 
     <LinearLayout
         android:id="@+id/view_votes"
         android:layout_width="0dp"
-        android:layout_weight="1"
-        android:gravity="right"
+        android:layout_weight="0.3"
+        android:gravity="center"
         android:orientation="vertical"
         android:paddingRight="@dimen/activity_margin"
         android:layout_height="wrap_content">
@@ -31,10 +32,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_16"
+            android:fontFamily="@string/font_family_regular"
             android:maxLines="1"
+            android:textStyle="bold"
             android:gravity="center"
-            android:textColor="@color/black"
-            tools:text="@string/title_full_name" />
+            android:text="20"
+            android:textColor="@color/black" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,8 +46,7 @@
             android:maxLines="1"
             android:gravity="center"
             android:text="Votos"
-            android:textColor="@color/black"
-            tools:text="@string/title_full_name" />
+            android:textColor="@color/black" />
 
 
     </LinearLayout>

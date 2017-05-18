@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="home_image_weight">9</integer>
+    <integer name="home_list_weight">16</integer>
+    <integer name="grid_column_items">3</integer>
+</resources>

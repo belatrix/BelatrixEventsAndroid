@@ -1,6 +1,3 @@
-apply from: "${project.rootDir}/QA/quality.gradle"
-apply from: "${project.rootDir}/buildsystem/dependencies.gradle"
-
 buildscript {
     repositories {
         jcenter()

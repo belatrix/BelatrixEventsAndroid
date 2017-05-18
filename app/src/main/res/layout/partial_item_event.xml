@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.belatrix.events.presentation.ui.common.SquareRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                                 android:orientation="vertical"
+                                                                 android:layout_width="match_parent"
+                                                                 android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/event_picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
+        android:src="@drawable/event_placeholder"
+        android:transitionName="@string/transition_photo"/>
+
+
+    <TextView
+        android:id="@+id/event_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/dimen_8"
+        android:ellipsize="end"
+        android:gravity="bottom"
+        android:lines="2"
+        android:background="@drawable/background_event_title"
+        style="@style/TextAppearance.MyApp.CardViewTitle.Expanded"
+        tools:text="Title with description"/>
+
+</com.belatrix.events.presentation.ui.common.SquareRelativeLayout>
