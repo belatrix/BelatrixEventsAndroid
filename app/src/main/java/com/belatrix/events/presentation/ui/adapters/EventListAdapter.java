@@ -21,6 +21,7 @@
 package com.belatrix.events.presentation.ui.adapters;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,19 +46,22 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 
     private List<Event> list;
     private RecyclerViewClickListener clickListener;
+    @LayoutRes
+    private int eventLayout;
 
-    public EventListAdapter(RecyclerViewClickListener clickListener) {
-        this(clickListener, new ArrayList<Event>());
+    public EventListAdapter(RecyclerViewClickListener clickListener,@LayoutRes int eventLayout) {
+        this(clickListener, new ArrayList<Event>(), eventLayout);
     }
 
-    public EventListAdapter(RecyclerViewClickListener clickListener, List<Event> list) {
+    public EventListAdapter(RecyclerViewClickListener clickListener, List<Event> list, @LayoutRes int eventLayout) {
         this.list = list;
+        this.eventLayout = eventLayout;
         this.clickListener = clickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(eventLayout, parent, false);
         return new ViewHolder(layoutView, clickListener);
     }
 
@@ -113,7 +117,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
             }
         }
 
-        @OnClick({R.id.event_title, R.id.image_more})
+//          Disable onMoreClick
+//        @OnClick({R.id.event_title})
         public void onMoreClick(View view){
             if (clickListener != null) {
                 clickListener.onItemMoreClicked(itemView);

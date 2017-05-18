@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_2_5"
-                android:fontFamily="serif"
+                android:fontFamily="@string/font_family_regular"
                 android:text="@string/about_what_message" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_2_5"
-                android:fontFamily="serif"
+                android:fontFamily="@string/font_family_regular"
                 android:text="@string/about_why_message" />
 
             <TextView
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_2_5"
-                android:fontFamily="serif"
+                android:fontFamily="@string/font_family_regular"
                 android:text="@string/about_who_message" />
 
         </LinearLayout>
@@ -114,7 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight=".7"
-                    android:fontFamily="serif"
+                    android:fontFamily="@string/font_family_regular"
                     android:text="@string/support_email" />
 
             </LinearLayout>
@@ -146,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_2_5"
-                android:fontFamily="serif"
+                android:fontFamily="@string/font_family_regular"
                 android:text="@string/license" />
 
         </LinearLayout>

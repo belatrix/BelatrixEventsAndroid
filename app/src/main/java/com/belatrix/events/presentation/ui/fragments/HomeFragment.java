@@ -2,6 +2,7 @@ package com.belatrix.events.presentation.ui.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -111,6 +112,7 @@ public class HomeFragment extends BelatrixBaseFragment implements HomeFragmentPr
         presenter.setEvent(event);
         ImageFactory.getLoader().loadFromUrl(event.getImage(), homeImageView, null, null, ImageLoader.ScaleType.FIT_CENTER);
         titleTextView.setText(event.getTitle());
+        titleTextView.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.background_event_title));
     }
 
     @Override

@@ -1,9 +1,8 @@
 <resources>
-    <string name="app_name">Belatrix Hackatrix</string>
+    <string name="app_name">Hackatrix</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
     <string name="belatrix_url" translatable="false">http://www.belatrixsf.com</string>
-    <string name="typography" translatable="false">serif</string>
     <!-- Dialogs -->
     <string name="dialog_title_error">Oops something went wrong!</string>
     <string name="dialog_message_loading">Loading&#8230;</string>
@@ -16,7 +15,7 @@
     <string name="dialog_error_vote_disable">Votes are not yet enabled</string>
 
     <!-- Title -->
-    <string name="title_main">Belatrix Hackatrix</string>
+    <string name="title_main">Hackatrix</string>
     <string name="title_event_list_activity">Events</string>
     <string name="title_event_detail_activity">Event Detail</string>
     <string name="title_about_activity">About</string>
@@ -98,5 +97,12 @@ SOFTWARE.</string>
     <string name="collaborators_title">Collaborators</string>
     <!-- Transition names -->
     <string name="transition_photo" translatable="false">transition_photo</string>
+
+    <string name="font_family_light">sans-serif-light</string>
+    <string name="font_family_medium">sans-serif-medium</string>
+    <string name="font_family_regular">sans-serif</string>
+    <string name="font_family_condensed">sans-serif-condensed</string>
+    <string name="font_family_black">sans-serif-black</string>
+    <string name="font_family_thin">sans-serif-thin</string>
 
 </resources>

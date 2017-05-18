@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Belatrix Hackatrix</string>
+    <string name="app_name">Hackatrix</string>
     <string name="no_data">No data found</string>
     <string name="no_data_option">-</string>
 
@@ -15,7 +15,7 @@
     <string name="dialog_error_vote_disable">Los votos aún no están habilitados</string>
 
     <!-- Title -->
-    <string name="title_main">Belatrix Hackatrix</string>
+    <string name="title_main">Hackatrix</string>
     <string name="title_event_list_activity">Eventos</string>
     <string name="title_event_detail_activity">Detalle de Evento</string>
     <string name="title_about_activity">Acerca de</string>
@@ -49,7 +49,7 @@
     <string name="event_dialog_confirm_vote">Está seguro de su elección \"%1$s\"?</string>
     <string name="event_invalid_calendar">Calendario inválido</string>
     <string name="event_detail_added_calendar">Evento fue agregado a su calendario</string>
-    <string name="event_detail_already_added_calendar">Evento ya fue agregado a su calendario</string>
+    <string name="event_detail_already_added_calendar">Ya agregaste anteriormente este evento al calendario</string>
 
     <!-- Finder -->
     <string name="scan_qr_code">Escanear Código QR</string>

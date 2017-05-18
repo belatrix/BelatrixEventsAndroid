@@ -77,7 +77,7 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ev
 
     @Override
     protected void initViews() {
-        listAdapter = new EventListAdapter(this);
+        listAdapter = new EventListAdapter(this, R.layout.item_event_list);
         recyclerView.setAdapter(listAdapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -102,7 +102,6 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ev
 
     @Override
     public void showEventList(List<Event> list) {
-        eventMoreTextView.setVisibility(View.VISIBLE);
         noDataTextView.setVisibility(View.GONE);
         listAdapter.updateData(list);
     }
@@ -134,7 +133,6 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ev
 
     @Override
     public void showProgressIndicator() {
-        eventMoreTextView.setVisibility(View.GONE);
        progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -154,8 +152,12 @@ public class EventListSummaryFragment extends BelatrixBaseFragment implements Ev
 
     @Override
     public void showEmptyView() {
-        eventMoreTextView.setVisibility(View.GONE);
         noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showMoreEventsButton(boolean show) {
+        eventMoreTextView.setVisibility(show?View.VISIBLE:View.GONE);
     }
 
     @OnClick(R.id.event_more_textview)

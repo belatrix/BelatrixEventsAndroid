@@ -37,4 +37,10 @@ public interface Cache {
     void saveDeviceId(Integer deviceId);
 
     Integer getDeviceId();
+
+    void saveVersionCode(int versionCode);
+
+    Integer getVersionCode();
+
+    void deleteVotes();
 }

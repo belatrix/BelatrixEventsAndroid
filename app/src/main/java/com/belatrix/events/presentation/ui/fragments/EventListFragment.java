@@ -20,6 +20,7 @@ import com.belatrix.events.presentation.presenters.EventListFragmentPresenter;
 import com.belatrix.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrix.events.presentation.ui.adapters.EventListAdapter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
+import com.belatrix.events.presentation.ui.common.ItemOffsetDecoration;
 import com.belatrix.events.utils.Constants;
 import com.belatrix.events.utils.DialogUtils;
 
@@ -75,13 +76,14 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
 
     @Override
     protected void initViews() {
-        listAdapter = new EventListAdapter(this);
+        listAdapter = new EventListAdapter(this,R.layout.item_event_grid);
         recyclerView.setAdapter(listAdapter);
-        recyclerView.setNestedScrollingEnabled(false);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.grid_column_items));
         gridLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(gridLayoutManager);
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getActivity(), R.dimen.grid_off_set);
+        recyclerView.addItemDecoration(itemDecoration);
         presenter.actionGetEventList();
         eventTitleTextView.setText(presenter.getEventTitle());
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -158,6 +160,11 @@ public class EventListFragment extends BelatrixBaseFragment implements EventList
     public void showEmptyView() {
         recyclerView.setVisibility(View.INVISIBLE);
         noDataTextView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showMoreEventsButton(boolean show) {
+        //this fragment doesn't have more button
     }
 
 }

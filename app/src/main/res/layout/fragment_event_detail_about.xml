@@ -1,58 +1,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/dimen_5"
-    android:clickable="true"
-    android:orientation="vertical"
-    android:padding="@dimen/activity_margin">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:clickable="true"
+              android:orientation="vertical"
+              android:layout_marginBottom="48dp"
+              android:padding="@dimen/activity_margin">
 
     <TextView
         android:id="@+id/date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:drawableLeft="@drawable/ic_event_time"
-        android:drawablePadding="@dimen/dimen_5"
-        android:fontFamily="@string/typography"
+        android:drawablePadding="32dp"
+        style="@style/TextAppearance.AppCompat.Small"
         android:gravity="center_vertical"
-        android:text="10/10/2017 7:00pm"
-        tools:text="DateHour" />
+        tools:text="10/10/2017 7:00pm"/>
 
     <TextView
         android:id="@+id/location"
         android:background="@drawable/item_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
+        android:drawablePadding="32dp"
         android:layout_marginTop="@dimen/dimen_5"
         android:drawableLeft="@drawable/ic_event_location"
-        android:fontFamily="@string/typography"
+        style="@style/TextAppearance.AppCompat.Small"
         android:gravity="center_vertical"
-        android:text="Oficinas Belatrix"
-        tools:text="Location" />
+        tools:text="Oficinas Belatrix"/>
 
     <TextView
         android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_2_5"
-        android:fontFamily="@string/typography"
+        android:layout_marginLeft="56dp"
         android:gravity="center_vertical"
-        android:text="Oficinas Belatrix"
-        android:textColor="@color/black"
-        tools:text="Description" />
+        android:fontFamily="@string/font_family_regular"
+        style="@style/TextAppearance.AppCompat.Body1"
+        tools:text="Description"/>
 
     <TextView
         android:id="@+id/link"
         android:background="@drawable/item_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="56dp"
         android:layout_marginTop="@dimen/dimen_3_5"
         android:autoLink="web"
-        android:fontFamily="@string/typography"
         android:gravity="center_vertical"
         android:linksClickable="true"
-        android:text="Oficinas Belatrix"
         android:textColor="@color/black"
-        tools:text="Description" />
+        style="@style/TextAppearance.AppCompat.Small"
+        tools:text="link"/>
 
 </LinearLayout>

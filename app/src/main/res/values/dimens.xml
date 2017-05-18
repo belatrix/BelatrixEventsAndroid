@@ -50,5 +50,6 @@
 
     <!-- Defaults -->
     <dimen name="default_picture_stroke_width">7dp</dimen>
+    <dimen name="grid_off_set">2dp</dimen>
 
 </resources>

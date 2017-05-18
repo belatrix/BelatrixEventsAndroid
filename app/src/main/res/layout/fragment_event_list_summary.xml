@@ -14,14 +14,17 @@
         <TextView
             android:id="@+id/event_title_textview"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dimen_4_5"
-            android:layout_marginTop="@dimen/dimen_5"
+            android:layout_marginLeft="@dimen/dimen_16"
+            android:layout_marginStart="@dimen/dimen_16"
             android:gravity="center"
-            android:text="@string/event_title_near"
-            android:textColor="@color/black" />
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
+            android:text="@string/event_title_near"/>
 
 
         <TextView
@@ -32,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dimen_4_5"
+            android:layout_marginRight="@dimen/dimen_16"
             android:gravity="center"
             android:paddingBottom="@dimen/dimen_5"
             android:paddingLeft="@dimen/dimen_4_5"

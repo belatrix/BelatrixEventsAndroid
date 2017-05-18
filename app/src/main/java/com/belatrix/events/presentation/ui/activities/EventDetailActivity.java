@@ -146,6 +146,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
             bottomNavigation.setVisibility(View.VISIBLE);
         } else {
             bottomNavigation.setVisibility(View.GONE);
+            //todo: issue found when bottomNavigation is shown and event detail is too long.
+            // Extra padding added to fragment_event_detail_about to prevent cut text
         }
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override

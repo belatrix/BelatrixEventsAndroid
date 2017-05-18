@@ -22,6 +22,7 @@ package com.belatrix.events.presentation.ui.activities;
 
 import android.os.Bundle;
 
+import com.belatrix.events.BuildConfig;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrix.events.utils.cache.Cache;
@@ -44,6 +45,7 @@ public class SplashActivity extends BelatrixBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkAppUpdated();
         if (cache.isFirstTime()) {
             startActivity(CitySelectionActivity.makeIntent(this));
             cache.updateFirstTime();
@@ -51,5 +53,14 @@ public class SplashActivity extends BelatrixBaseActivity {
             startActivity(MainActivity.makeIntent(this));
         }
         finish();
+    }
+
+    private void checkAppUpdated(){
+        int versionCode = cache.getVersionCode();
+        if(versionCode != BuildConfig.VERSION_CODE) {
+            //on app updated
+            cache.deleteVotes();
+        }
+        cache.saveVersionCode(BuildConfig.VERSION_CODE);
     }
 }

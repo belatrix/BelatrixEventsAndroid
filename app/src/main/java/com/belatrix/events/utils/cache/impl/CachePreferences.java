@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 
 import com.belatrix.events.utils.cache.Cache;
 
+import java.util.Map;
+
 /**
  * Created by dvelasquez on 4/4/17.
  */
@@ -19,6 +21,7 @@ public class CachePreferences implements Cache {
     private static final String PARAM_NOTIFICATION = "_notification_";
     private static final String PARAM_DEVICE_TOKEN = "_token_";
     private static final String PARAM_DEVICE_ID = "_device_id_";
+    private static final String PARAM_VERSION_CODE = "VERSION_CODE";
 
     public CachePreferences(SharedPreferences preferences) {
         this.preferences = preferences;
@@ -106,6 +109,29 @@ public class CachePreferences implements Cache {
             return value;
         } else
             return null;
+    }
+
+    @Override
+    public void saveVersionCode(int versionCode) {
+        preferences.edit().putInt(PARAM_VERSION_CODE, versionCode).apply();
+    }
+
+    @Override
+    public Integer getVersionCode() {
+        return preferences.getInt(PARAM_VERSION_CODE, 0);
+    }
+
+    @Override
+    public void deleteVotes() {
+        //todo: create a separate vote preferences file
+        Map<String, ?> all= preferences.getAll();
+        for (Map.Entry<String, ?> entry : all.entrySet())
+        {
+            String voteKey= entry.getKey();
+            if(voteKey.startsWith(PREFIX_EVENT)){
+                preferences.edit().putBoolean(voteKey, false).apply();
+            }
+        }
     }
 
     @Override

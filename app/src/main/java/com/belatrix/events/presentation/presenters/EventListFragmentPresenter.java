@@ -17,6 +17,7 @@ public class EventListFragmentPresenter extends BelatrixBasePresenter<EventListF
     public interface View extends BelatrixBaseView {
         void showEventList(List<Event> list);
         void showEmptyView();
+        void showMoreEventsButton(boolean show);
     }
 
     GetEventListInteractor getEventListInteractor;
@@ -47,13 +48,18 @@ public class EventListFragmentPresenter extends BelatrixBasePresenter<EventListF
 
     public void actionGetEventList() {
         view.showProgressIndicator();
+        view.showMoreEventsButton(false);
         getEventListInteractor.execute(new GetEventListInteractor.CallBack() {
             @Override
             public void onSuccess(List<Event> result) {
                 view.hideProgressIndicator();
                 if (result!= null && !result.isEmpty()) {
                     view.showEventList(result);
+                    if(result.size()>2){
+                        view.showMoreEventsButton(true);
+                    }
                 } else {
+                    view.showMoreEventsButton(false);
                     view.showEmptyView();
                 }
             }
@@ -61,6 +67,7 @@ public class EventListFragmentPresenter extends BelatrixBasePresenter<EventListF
             @Override
             public void onError() {
                 view.hideProgressIndicator();
+                view.showMoreEventsButton(false);
                 view.showEmptyView();
             }
         }, GetEventListInteractor.Params.forEventType(eventType,cache.getCity()));

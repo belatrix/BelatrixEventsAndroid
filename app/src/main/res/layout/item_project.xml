@@ -13,7 +13,7 @@
         android:layout_weight="1.7"
         android:textSize="@dimen/text_14"
         android:maxLines="2"
-        android:fontFamily="@string/typography"
+        android:fontFamily="@string/font_family_regular"
         android:layout_marginRight="@dimen/dimen_2_5"
         android:textColor="@color/black"
         android:paddingLeft="@dimen/activity_margin" />
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_16"
-            android:fontFamily="@string/typography"
+            android:fontFamily="@string/font_family_regular"
             android:maxLines="1"
             android:textStyle="bold"
             android:gravity="center"
