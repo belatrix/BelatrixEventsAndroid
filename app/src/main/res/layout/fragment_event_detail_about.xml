@@ -1,54 +1,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipToPadding="false"
-    android:orientation="vertical">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:clickable="true"
+              android:orientation="vertical"
+              android:layout_marginBottom="48dp"
+              android:padding="@dimen/activity_margin">
 
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:drawableLeft="@drawable/ic_event_time"
+        android:drawablePadding="32dp"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:gravity="center_vertical"
+        tools:text="10/10/2017 7:00pm"/>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/location"
+        android:background="@drawable/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:drawablePadding="32dp"
+        android:layout_marginTop="@dimen/dimen_5"
+        android:drawableLeft="@drawable/ic_event_location"
+        style="@style/TextAppearance.AppCompat.Small"
+        android:gravity="center_vertical"
+        tools:text="Oficinas Belatrix"/>
+
+    <TextView
+        android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_margin">
+        android:layout_marginTop="@dimen/dimen_2_5"
+        android:layout_marginLeft="56dp"
+        android:gravity="center_vertical"
+        android:fontFamily="@string/font_family_regular"
+        style="@style/TextAppearance.AppCompat.Body1"
+        tools:text="Description"/>
 
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="serif"
-            android:drawableLeft="@drawable/ic_event_time"
-            android:gravity="center_vertical"
-            android:text="10/10/2017 7:00pm"
-            android:drawablePadding="@dimen/dimen_5"
-            tools:text="DateHour" />
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_5"
-            android:fontFamily="serif"
-            android:text="Oficinas Belatrix"
-            android:drawableLeft="@drawable/ic_event_location"
-            android:gravity="center_vertical"
-            android:drawablePadding="@dimen/dimen_5"
-            tools:text="Location" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dimen_5"
-            android:fontFamily="serif"
-            android:text="Oficinas Belatrix"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:drawablePadding="@dimen/dimen_5"
-            tools:text="Description" />
-
-    </LinearLayout>
-
+    <TextView
+        android:id="@+id/link"
+        android:background="@drawable/item_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="@dimen/dimen_3_5"
+        android:autoLink="web"
+        android:gravity="center_vertical"
+        android:linksClickable="true"
+        android:textColor="@color/black"
+        style="@style/TextAppearance.AppCompat.Small"
+        tools:text="link"/>
 
 </LinearLayout>

@@ -1,56 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="DataSelectionView" >
-        <attr name="hint_text" format="string"/>
+    <declare-styleable title="DataSelectionView" >
+        <attr title="hint_text" format="string"/>
     </declare-styleable>
 
-    <declare-styleable name="KeywordView" >
-        <attr name="key_text" format="string"/>
+    <declare-styleable title="KeywordView" >
+        <attr title="key_text" format="string"/>
     </declare-styleable>
 
-    <declare-styleable name="VerticalMarqueeTextView">
+    <declare-styleable title="VerticalMarqueeTextView">
         <attr
-            name="autoStartMarquee"
+            title="autoStartMarquee"
             format="boolean" />
         <attr
-            name="marqueeSpeed"
+            title="marqueeSpeed"
             format="reference|integer" />
         <attr
-            name="text"
+            title="text"
             format="reference|string" />
         <attr
-            name="textSize"
+            title="textSize"
             format="reference|dimension" />
         <attr
-            name="textColor"
+            title="textColor"
             format="reference|color" />
         <attr
-            name="textAppearance"
+            title="textAppearance"
             format="reference" />
-        <attr name="textStyle">
+        <attr title="textStyle">
             <enum
-                name="normal"
+                title="normal"
                 value="0" />
             <enum
-                name="bold"
+                title="bold"
                 value="1" />
             <enum
-                name="italic"
+                title="italic"
                 value="2" />
         </attr>
-        <attr name="typeface">
+        <attr title="typeface">
             <enum
-                name="normal"
+                title="normal"
                 value="0" />
             <enum
-                name="sans"
+                title="sans"
                 value="1" />
             <enum
-                name="serif"
+                title="serif"
                 value="2" />
             <enum
-                name="monospace"
+                title="monospace"
                 value="3" />
         </attr>
     </declare-styleable>

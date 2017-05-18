@@ -1,53 +1,63 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:orientation="vertical"
-    tools:context=".presentation.ui.activities.MainActivity">
+    android:layout_height="match_parent">
 
-
-
-
-    <fragment
-        class="com.belatrixsf.events.presentation.ui.fragments.HomeFeaturedFragment"
-        android:id="@+id/view_pager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_weight="1"
-        tools:layout="@layout/fragment_home_featured">
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        tools:context=".presentation.ui.activities.MainActivity">
 
-    </fragment>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/belatrix"
-        android:layout_weight="2">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_events"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="0dp"
+            android:layout_weight="@integer/home_image_weight">
 
-        <TextView
-            android:id="@+id/no_data_textview"
+            <ImageView
+                android:background="@drawable/item_background"
+                android:id="@+id/image_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:transitionName="@string/transition_photo"
+                android:src="@drawable/event_placeholder" />
+
+            <TextView
+                android:id="@+id/title_home"
+                style="@style/TextAppearance.MyApp.Title.Expanded"
+                android:layout_gravity="bottom|left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_16"/>
+        </FrameLayout>
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeightSmall"
-            android:gravity="center"
-            android:text="@string/no_data_found"
-            android:visibility="gone" />
+            android:layout_height="0dp"
+            android:id="@+id/scrollview"
+            android:layout_weight="@integer/home_list_weight">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/belatrix"
+                android:orientation="vertical">
 
+                <FrameLayout
+                    android:id="@+id/frame_events_near"
+                    class="com.belatrix.events.presentation.ui.fragments.EventListSummaryFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </FrameLayout>
-
-
-</LinearLayout>
+                <FrameLayout
+                    android:id="@+id/frame_events_past"
+                    class="com.belatrix.events.presentation.ui.fragments.EventListSummaryFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

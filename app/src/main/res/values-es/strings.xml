@@ -1,0 +1,99 @@
+<resources>
+    <string name="app_name">Hackatrix</string>
+    <string name="no_data">No data found</string>
+    <string name="no_data_option">-</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_title_error">Lo sentimos, algo salió mal!</string>
+    <string name="dialog_message_loading">Loading&#8230;</string>
+    <string name="dialog_option_positive">Si</string>
+    <string name="dialog_option_negative">No</string>
+    <string name="dialog_option_confirm">OK!</string>
+    <string name="dialog_option_participate">Participar</string>
+    <string name="dialog_option_note">Nota: Una vez dada confirmación no se podrá volver a votar</string>
+    <string name="dialog_error_vote_already">Solo puedes votar una vez</string>
+    <string name="dialog_error_vote_disable">Los votos aún no están habilitados</string>
+
+    <!-- Title -->
+    <string name="title_main">Hackatrix</string>
+    <string name="title_event_list_activity">Eventos</string>
+    <string name="title_event_detail_activity">Detalle de Evento</string>
+    <string name="title_about_activity">Acerca de</string>
+    <string name="title_help_activity">Ayuda</string>
+
+    <!-- Home -->
+    <string name="bottom_navigation_color">#448AFF</string>
+
+    <!-- Menu -->
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="menu_title_home">Home</string>
+    <string name="menu_title_activities">Novedades</string>
+    <string name="menu_title_settings">Configuraciones</string>
+    <string name="menu_title_about">Acerca de</string>
+    <string name="menu_title_finder">Belatrix Finder</string>
+    <string name="menu_title_events">Eventos</string>
+    <string name="menu_title_help">Ayuda</string>
+    <string name="menu_title_share">Compartir</string>
+    <!--Messages-->
+    <string name="no_data_found">No se encontraron datos</string>
+    <string name="text_scan_qr">Escanea un código QR</string>
+    <string name="no_internet_connection_message">Lo siento, hemos perdido la conexión de Internet</string>
+
+    <!--Event-->
+    <string name="event_button_more">Ver más</string>
+    <string name="event_title_near">Eventos próximos</string>
+    <string name="event_title_past">Eventos pasados</string>
+    <string name="tab_event_about">Información</string>
+    <string name="tab_event_interact">Interactuar</string>
+    <string name="event_dialog_confirm_vote">Está seguro de su elección \"%1$s\"?</string>
+    <string name="event_invalid_calendar">Calendario inválido</string>
+    <string name="event_detail_added_calendar">Evento fue agregado a su calendario</string>
+    <string name="event_detail_already_added_calendar">Ya agregaste anteriormente este evento al calendario</string>
+
+    <!-- Finder -->
+    <string name="scan_qr_code">Escanear Código QR</string>
+    <string name="finder_employee_not_found">Empleado no encontrado</string>
+
+    <!--CITY -->
+    <string name="button_text_accept">Aceptar</string>
+    <string name="button_text_later">Elegir luego</string>
+    <string name="alert_text_select_city">Debes seleccionar una ciudad</string>
+
+    <!--SETTINGS -->
+    <string name="label_settings_city">Ciudad</string>
+    <string name="label_settings_select_city">Seleccione una ciudad</string>
+    <string name="label_settings_notification">Habilitar Notificaciones</string>
+
+    <!--About-->
+    <string name="about_what">¿Qué?</string>
+    <string name="about_why">¿Por qué?</string>
+    <string name="about_who">¿Quién?</string>
+    <string name="about_what_message">La hackatrix fue creada para motivar a las personas a participar en eventos organizados por Belatrix Software a nivel global, buscando su consolidación como una empresa de tecnología.</string>
+    <string name="about_why_message">Porque queremos tomar acción y mejorar nuestro ambiente de trabajo. Porque sabemos que podemos hacerlo, y porque nos apasiona la tecnología en general.</string>
+    <string name="about_who_message">Esta aplicación fue creada por personas realmente motivadas y apasionadas por la tecnología y el desarrollo móvil.</string>
+    <string name="support_tittle">Soporte</string>
+    <string name="support_email">mobilelab@belatrixsf.com</string>
+    <string name="license_title">Licencia</string>
+    <string name="license">The MIT License (MIT)
+\nCopyright &#169; 2016 BELATRIX
+\nPermission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+\n\nThe above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</string>
+    <string name="collaborators_title">Colaboradores</string>
+
+</resources>
