@@ -43,7 +43,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Notification object = this.list.get(position);
         String notificationDate = object.getDateTime();
-        holder.dateTextView.setText(DateUtils.formatDate(notificationDate,
+        holder.dateTextView.setText(DateUtils.formatDateWithTimeZone(notificationDate,
                 DateUtils.DATE_FORMAT_5,
                 DateUtils.DATE_FORMAT_4));
         holder.messageTextView.setText(object.getText());

@@ -24,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -39,10 +40,10 @@ public class DateUtils {
 
     public static String formatDate(String date, String inputFormat, String outputFormat){
         try {
-            SimpleDateFormat inFormat = new SimpleDateFormat(inputFormat);
+            SimpleDateFormat inFormat = new SimpleDateFormat(inputFormat, Locale.getDefault());
             Date newDate = inFormat.parse(date);
 
-            SimpleDateFormat outformat = new SimpleDateFormat(outputFormat);
+            SimpleDateFormat outformat = new SimpleDateFormat(outputFormat, Locale.getDefault());
             return outformat.format(newDate);
         } catch (ParseException e) {
             e.printStackTrace();
@@ -52,14 +53,14 @@ public class DateUtils {
 
     public static String formatDateWithTimeZone(String date, String inputFormat, String outputFormat){
         try {
-            SimpleDateFormat inFormat = new SimpleDateFormat(inputFormat);
+            SimpleDateFormat inFormat = new SimpleDateFormat(inputFormat, Locale.getDefault());
             inFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date newDate = inFormat.parse(date);
 
             Calendar cal = Calendar.getInstance();
             TimeZone tz = cal.getTimeZone();
 
-            SimpleDateFormat outformat = new SimpleDateFormat(outputFormat);
+            SimpleDateFormat outformat = new SimpleDateFormat(outputFormat, Locale.getDefault());
             outformat.setTimeZone(tz);
             return outformat.format(newDate);
         } catch (ParseException e) {
