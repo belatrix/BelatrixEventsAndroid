@@ -23,6 +23,6 @@ public class EmployeeRepositoryImpl extends BaseRepository implements EmployeeRe
 
     @Override
     public Observable<Employee> employee(String employeId) {
-        return employeeAPI.employee(employeId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return subscribeOn(employeeAPI.employee(employeId));
     }
 }

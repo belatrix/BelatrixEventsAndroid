@@ -25,6 +25,6 @@ public class NotificationRepositoryImpl extends BaseRepository implements Notifi
 
     @Override
     public Observable<List<Notification>> notificationList(Integer cityId) {
-       return notificationAPI.notificationList(cityId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+       return subscribeOn(notificationAPI.notificationList(cityId));
     }
 }

@@ -35,22 +35,22 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
 
     @Override
     public Observable<Event> featured(Integer cityId) {
-        return eventAPI.featured(cityId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return subscribeOn(eventAPI.featured(cityId));
     }
 
     @Override
     public Observable<List<Event>> upcomingList(Integer cityId) {
-        return eventAPI.upcomingList(cityId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return subscribeOn(eventAPI.upcomingList(cityId));
     }
 
     @Override
     public Observable<List<Event>> pastList(Integer cityId) {
-        return eventAPI.pastList(cityId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return subscribeOn(eventAPI.pastList(cityId));
     }
 
     @Override
     public Observable<List<Project>> interactionList(int eventId) {
-       return eventAPI.interactionList(eventId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+       return subscribeOn(eventAPI.interactionList(eventId));
     }
 
 

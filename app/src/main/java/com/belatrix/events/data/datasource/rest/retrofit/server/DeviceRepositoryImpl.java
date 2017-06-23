@@ -29,8 +29,9 @@ public class DeviceRepositoryImpl extends BaseRepository implements DeviceReposi
         if (cityId != null){
             jsonObject.addProperty("city",cityId);
         }
-        return deviceAPI.register(jsonObject).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return subscribeOn(deviceAPI.register(jsonObject));
     }
+
 
     @Override
     public Observable<Device> update(Integer deviceId, Integer cityId) {
@@ -38,6 +39,6 @@ public class DeviceRepositoryImpl extends BaseRepository implements DeviceReposi
         if (cityId != null){
             jsonObject.addProperty("city",cityId);
         }
-        return deviceAPI.update(deviceId,jsonObject).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return subscribeOn(deviceAPI.update(deviceId,jsonObject));
     }
 }
