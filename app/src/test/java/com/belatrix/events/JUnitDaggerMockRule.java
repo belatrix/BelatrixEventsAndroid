@@ -2,7 +2,6 @@ package com.belatrix.events;
 
 import com.belatrix.events.di.component.ApplicationComponent;
 import com.belatrix.events.di.module.ApplicationModule;
-import com.belatrix.events.di.module.ThreadModule;
 import com.belatrix.events.domain.executor.MainThread;
 
 import it.cosenonjaviste.daggermock.DaggerMockRule;

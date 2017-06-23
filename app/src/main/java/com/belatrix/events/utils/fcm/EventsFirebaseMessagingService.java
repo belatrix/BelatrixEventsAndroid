@@ -33,7 +33,6 @@ import android.support.v4.app.NotificationCompat;
 import com.belatrix.events.BxEventsApplication;
 import com.belatrix.events.R;
 import com.belatrix.events.presentation.ui.activities.MainActivity;
-import com.belatrix.events.presentation.ui.activities.SplashActivity;
 import com.belatrix.events.utils.cache.Cache;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

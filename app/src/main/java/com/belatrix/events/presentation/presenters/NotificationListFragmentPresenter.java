@@ -33,7 +33,7 @@ public class NotificationListFragmentPresenter extends BelatrixBasePresenter<Not
 
     public void actionGetNotificationList() {
         view.showProgressIndicator();
-        getNotificationListInteractor.execute(new GetNotificationListInteractor.CallBack() {
+        getNotificationListInteractor.getNotificationList(new GetNotificationListInteractor.CallBack() {
             @Override
             public void onSuccess(List<Notification> result) {
                 view.hideProgressIndicator();

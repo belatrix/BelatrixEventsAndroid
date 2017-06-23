@@ -37,7 +37,7 @@ public class SettingsFragmentPresenter extends BelatrixBasePresenter<SettingsFra
 
     public void actionLoadCities() {
         view.showProgressIndicator();
-        getCityListInteractor.execute(new GetCityListInteractor.CallBack() {
+        getCityListInteractor.getCityList(new GetCityListInteractor.CallBack() {
             @Override
             public void onSuccess(List<City> result) {
                 view.hideProgressIndicator();
@@ -55,8 +55,9 @@ public class SettingsFragmentPresenter extends BelatrixBasePresenter<SettingsFra
     public void actionSaveCityId(Integer cityId){
         cache.saveCity(cityId);
         Integer deviceId = cache.getDeviceId();
+        Timber.d("DEVICE ID : " , deviceId);
         if (deviceId != null) {
-            updateDeviceInteractor.execute(new UpdateDeviceInteractor.CallBack() {
+            updateDeviceInteractor.updateDevice(new UpdateDeviceInteractor.CallBack() {
                 @Override
                 public void onSuccess(Device device) {
                     Timber.d("device CITY Updated ");

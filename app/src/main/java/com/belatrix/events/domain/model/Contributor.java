@@ -1,4 +1,4 @@
-package com.belatrix.events.data.datasource.rest.retrofit.server;
+package com.belatrix.events.domain.model;
 
 public class Contributor {
 

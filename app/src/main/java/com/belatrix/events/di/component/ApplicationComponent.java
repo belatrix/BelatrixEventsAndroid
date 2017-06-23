@@ -6,9 +6,6 @@ import com.belatrix.events.BxEventsApplication;
 import com.belatrix.events.di.module.ApplicationModule;
 import com.belatrix.events.di.module.RepositoryModule;
 import com.belatrix.events.di.module.RetrofitModule;
-import com.belatrix.events.di.module.ThreadModule;
-import com.belatrix.events.domain.executor.Executor;
-import com.belatrix.events.domain.executor.MainThread;
 import com.belatrix.events.domain.repository.DeviceRepository;
 import com.belatrix.events.domain.repository.EmployeeRepository;
 import com.belatrix.events.domain.repository.EventRepository;
@@ -27,8 +24,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class,
-        ThreadModule.class, RetrofitModule.class, RepositoryModule.class
+@Component(modules = {ApplicationModule.class, RetrofitModule.class, RepositoryModule.class
 
 })
 public interface ApplicationComponent {
@@ -41,10 +37,6 @@ public interface ApplicationComponent {
     void inject(EventsFirebaseInstanceIDService eventsFirebaseInstanceIDService);
 
     void inject(EventsFirebaseMessagingService eventsFirebaseMessagingService);
-
-    MainThread mainThread();
-
-    Executor executor();
 
     Repository repository();
 

@@ -1,7 +1,8 @@
 package com.belatrix.events.domain.repository;
 
-import com.belatrix.events.data.datasource.ServerCallback;
 import com.belatrix.events.domain.model.Device;
+
+import io.reactivex.Observable;
 
 /**
  * Created by diegoveloper on 3/31/17.
@@ -9,6 +10,6 @@ import com.belatrix.events.domain.model.Device;
 
 public interface DeviceRepository {
 
-    void register(String deviceCode, Integer cityId , ServerCallback<Device> callBack);
-    void update(Integer deviceId, Integer cityId , ServerCallback<Device> callBack);
+    Observable<Device> register(String deviceCode, Integer cityId);
+    Observable<Device> update(Integer deviceId, Integer cityId);
 }

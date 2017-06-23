@@ -1,12 +1,13 @@
 package com.belatrix.events.domain.repository;
 
-import com.belatrix.events.data.datasource.ServerCallback;
-import com.belatrix.events.data.datasource.rest.retrofit.server.Contributor;
 import com.belatrix.events.domain.model.City;
+import com.belatrix.events.domain.model.Contributor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Project;
 
 import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
  * Created by diegoveloper on 3/31/17.
@@ -14,11 +15,11 @@ import java.util.List;
 
 public interface EventRepository {
 
-    void getHomeEvent(ServerCallback<List<Contributor>> callBack);
-    void featured(Integer cityId, ServerCallback<Event> callBack);
-    void upcomingList(Integer cityId, ServerCallback<List<Event>> callBack);
-    void pastList(Integer cityId, ServerCallback<List<Event>> callBack);
-    void interactionList(int eventId, ServerCallback<List<Project>> callBack);
-    void interactionVote(int interactionId, ServerCallback<Project> callBack);
-    void cityList(ServerCallback<List<City>> callBack);
+    Observable<List<Contributor>> getHomeEvent();
+    Observable<Event> featured(Integer cityId);
+    Observable<List<Event>> upcomingList(Integer cityId);
+    Observable<List<Event>> pastList(Integer cityId);
+    Observable<List<Project>> interactionList(int eventId);
+    Observable<Project> interactionVote(int interactionId);
+    Observable<List<City>> cityList();
 }
