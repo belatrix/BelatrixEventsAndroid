@@ -53,7 +53,7 @@ public class HomeFragmentPresenter extends BelatrixBasePresenter<HomeFragmentPre
 
 
     public void actionLoadHomeEvent() {
-        getEventFeaturedInteractor.execute(new GetEventFeaturedInteractor.CallBack() {
+        getEventFeaturedInteractor.getFeatured(new GetEventFeaturedInteractor.CallBack() {
             @Override
             public void onSuccess(Event event) {
                 view.showHomeEvent(event);

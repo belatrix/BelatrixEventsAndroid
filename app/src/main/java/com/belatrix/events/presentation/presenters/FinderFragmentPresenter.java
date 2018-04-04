@@ -25,6 +25,7 @@ import com.belatrix.events.domain.interactors.GetPersonByQRInteractor;
 import com.belatrix.events.domain.model.Employee;
 import com.belatrix.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrix.events.presentation.presenters.base.BelatrixBaseView;
+
 import javax.inject.Inject;
 
 /**
@@ -47,7 +48,7 @@ public class FinderFragmentPresenter extends BelatrixBasePresenter<FinderFragmen
 
     public void actionFindPerson(final String qrCode){
         view.showProgressIndicator();
-        getPersonByQRInteractor.execute(new GetPersonByQRInteractor.CallBack() {
+        getPersonByQRInteractor.getPersonByQR(new GetPersonByQRInteractor.CallBack() {
             @Override
             public void onEmployeeSuccess(Employee employee) {
                 view.hideProgressIndicator();

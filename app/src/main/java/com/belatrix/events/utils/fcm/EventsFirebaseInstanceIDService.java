@@ -48,7 +48,7 @@ public class EventsFirebaseInstanceIDService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         final String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         cache.saveDeviceToken(refreshedToken);
-        registerDeviceInteractor.execute(new RegisterDeviceInteractor.CallBack() {
+        registerDeviceInteractor.registerDevice(new RegisterDeviceInteractor.CallBack() {
             @Override
             public void onSuccess(Device device) {
                 Timber.d("onSuccess: Token was registered: " + refreshedToken );

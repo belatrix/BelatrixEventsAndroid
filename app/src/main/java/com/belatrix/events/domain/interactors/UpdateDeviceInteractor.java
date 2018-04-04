@@ -1,16 +1,15 @@
 package com.belatrix.events.domain.interactors;
 
-import com.belatrix.events.data.datasource.ServerCallback;
-import com.belatrix.events.domain.executor.Executor;
-import com.belatrix.events.domain.executor.MainThread;
 import com.belatrix.events.domain.interactors.base.AbstractInteractor;
 import com.belatrix.events.domain.model.Device;
 import com.belatrix.events.domain.repository.DeviceRepository;
 
 import javax.inject.Inject;
 
+import io.reactivex.functions.Consumer;
 
-public class UpdateDeviceInteractor extends AbstractInteractor<UpdateDeviceInteractor.CallBack, UpdateDeviceInteractor.Params> {
+
+public class UpdateDeviceInteractor extends AbstractInteractor {
 
     public interface CallBack {
         void onSuccess(Device device);
@@ -21,54 +20,21 @@ public class UpdateDeviceInteractor extends AbstractInteractor<UpdateDeviceInter
     DeviceRepository deviceRepository;
 
     @Inject
-    public UpdateDeviceInteractor(Executor mThreadExecutor, MainThread mMainThread) {
-        super(mThreadExecutor, mMainThread);
+    public UpdateDeviceInteractor() {
     }
 
-
-    @Override
-    public void run(Params... params) {
-        Integer deviceId = params[0].deviceId;
-        Integer cityId = params[0].cityId;
-        deviceRepository.update(deviceId, cityId, new ServerCallback<Device>() {
+    public void updateDevice(final UpdateDeviceInteractor.CallBack callBack, Params params) {
+        Integer deviceId = params.deviceId;
+        Integer cityId = params.cityId;
+        disposable = deviceRepository.update(deviceId, cityId).subscribe(new Consumer<Device>() {
             @Override
-            public void onSuccess(final Device result) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onSuccess(result);
-                    }
-                });
+            public void accept(Device device) throws Exception {
+                callBack.onSuccess(device);
             }
-
+        }, new Consumer<Throwable>() {
             @Override
-            public void onFail(int statusCode, String errorMessage) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onError();
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onError();
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
-    public void onError(Exception e) {
-        runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
-                callback.onError();
+            public void accept(Throwable throwable) throws Exception {
+                callBack.onError();
             }
         });
     }
@@ -85,7 +51,6 @@ public class UpdateDeviceInteractor extends AbstractInteractor<UpdateDeviceInter
         public static UpdateDeviceInteractor.Params forUpdateDevice(Integer deviceId, Integer cityId) {
             return new UpdateDeviceInteractor.Params(deviceId,cityId);
         }
-
     }
 
 }

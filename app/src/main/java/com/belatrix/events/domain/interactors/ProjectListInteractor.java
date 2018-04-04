@@ -1,8 +1,5 @@
 package com.belatrix.events.domain.interactors;
 
-import com.belatrix.events.data.datasource.ServerCallback;
-import com.belatrix.events.domain.executor.Executor;
-import com.belatrix.events.domain.executor.MainThread;
 import com.belatrix.events.domain.interactors.base.AbstractInteractor;
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.repository.EventRepository;
@@ -11,8 +8,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.functions.Consumer;
 
-public class ProjectListInteractor extends AbstractInteractor<ProjectListInteractor.CallBack,ProjectListInteractor.Params> {
+
+public class ProjectListInteractor extends AbstractInteractor{
 
     public interface CallBack {
         void onSuccess(List<Project> result);
@@ -23,51 +22,19 @@ public class ProjectListInteractor extends AbstractInteractor<ProjectListInterac
     EventRepository eventRepository;
 
     @Inject
-    public ProjectListInteractor(Executor mThreadExecutor, MainThread mMainThread) {
-        super(mThreadExecutor, mMainThread);
+    public ProjectListInteractor() {
     }
 
-    @Override
-    public void run(Params ...params) {
-        Params p = params[0];
-        eventRepository.interactionList(p.eventId, new ServerCallback<List<Project>>() {
+    public void getInteractionList(final ProjectListInteractor.CallBack callback, Params params) {
+        Params p = params;
+        disposable = eventRepository.interactionList(p.eventId).subscribe(new Consumer<List<Project>>() {
             @Override
-            public void onSuccess(final List<Project> response) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onSuccess(response);
-                    }
-                });
+            public void accept(List<Project> projects) throws Exception {
+                callback.onSuccess(projects);
             }
-
+        }, new Consumer<Throwable>() {
             @Override
-            public void onFail(int statusCode, String errorMessage) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onError();
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onError();
-                    }
-                });
-            }
-        });
-    }
-
-    @Override
-    public void onError(Exception e) {
-        runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
+            public void accept(Throwable throwable) throws Exception {
                 callback.onError();
             }
         });

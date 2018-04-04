@@ -4,7 +4,7 @@ import com.belatrix.events.domain.model.Notification;
 
 import java.util.List;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -14,5 +14,5 @@ import retrofit2.http.Query;
 
 public interface NotificationAPI {
     @GET("notifications/all/")
-    Call<List<Notification>> notificationList(@Query("city") Integer cityId);
+    Observable<List<Notification>> notificationList(@Query("city") Integer cityId);
 }

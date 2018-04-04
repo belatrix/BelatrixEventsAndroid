@@ -1,16 +1,18 @@
 package com.belatrix.events.data.datasource.rest.retrofit.server;
 
-import com.belatrix.events.data.datasource.ServerCallback;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EventAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.base.BaseRepository;
 import com.belatrix.events.domain.model.City;
+import com.belatrix.events.domain.model.Contributor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.repository.EventRepository;
 
 import java.util.List;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by diegoveloper on 3/31/17.
@@ -25,45 +27,40 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
     }
 
     @Override
-    public void getHomeEvent(ServerCallback<List<Contributor>> callBack) {
-        Call<List<Contributor>> call = eventAPI.repoContributors("square", "retrofit");
-        executeRequest(callBack, call);
+    public Observable<List<Contributor>> getHomeEvent() {
+        //Call<List<Contributor>> call = eventAPI.repoContributors("square", "retrofit");
+        //executeRequest(callBack, call);
+        return null;
     }
 
     @Override
-    public void featured(Integer cityId, ServerCallback<Event> callBack) {
-        Call<Event> call = eventAPI.featured(cityId);
-        executeRequest(callBack, call);
+    public Observable<Event> featured(Integer cityId) {
+        return subscribeOn(eventAPI.featured(cityId));
     }
 
     @Override
-    public void upcomingList(Integer cityId, ServerCallback<List<Event>> callBack) {
-        Call<List<Event>> call = eventAPI.upcomingList(cityId);
-        executeRequest(callBack, call);
+    public Observable<List<Event>> upcomingList(Integer cityId) {
+        return subscribeOn(eventAPI.upcomingList(cityId));
     }
 
     @Override
-    public void pastList(Integer cityId, ServerCallback<List<Event>> callBack) {
-        Call<List<Event>> call = eventAPI.pastList(cityId);
-        executeRequest(callBack, call);
+    public Observable<List<Event>> pastList(Integer cityId) {
+        return subscribeOn(eventAPI.pastList(cityId));
     }
 
     @Override
-    public void interactionList(int eventId, ServerCallback<List<Project>> callBack) {
-        Call<List<Project>> call = eventAPI.interactionList(eventId);
-        executeRequest(callBack, call);
+    public Observable<List<Project>> interactionList(int eventId) {
+       return subscribeOn(eventAPI.interactionList(eventId));
     }
 
 
     @Override
-    public void interactionVote(int interactionId, ServerCallback<Project> callBack) {
-        Call<Project> call = eventAPI.interactionVote(interactionId);
-        executeRequest(callBack, call);
+    public Observable<Project> interactionVote(int interactionId) {
+        return eventAPI.interactionVote(interactionId).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
-    public void cityList(ServerCallback<List<City>> callBack) {
-        Call<List<City>> call = eventAPI.cityList();
-        executeRequest(callBack, call);
+    public Observable<List<City>> cityList() {
+        return eventAPI.cityList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

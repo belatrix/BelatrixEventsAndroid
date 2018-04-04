@@ -1,7 +1,8 @@
 package com.belatrix.events.domain.repository;
 
-import com.belatrix.events.data.datasource.ServerCallback;
 import com.belatrix.events.domain.model.Employee;
+
+import io.reactivex.Observable;
 
 /**
  * Created by diegoveloper on 3/31/17.
@@ -9,5 +10,5 @@ import com.belatrix.events.domain.model.Employee;
 
 public interface EmployeeRepository {
 
-    void employee(String employeeId, ServerCallback<Employee> callBack);
+    Observable<Employee> employee(String employeeId);
 }
