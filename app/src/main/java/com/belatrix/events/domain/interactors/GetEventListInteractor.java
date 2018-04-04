@@ -1,8 +1,5 @@
 package com.belatrix.events.domain.interactors;
 
-import com.belatrix.events.data.datasource.ServerCallback;
-import com.belatrix.events.domain.executor.Executor;
-import com.belatrix.events.domain.executor.MainThread;
 import com.belatrix.events.domain.interactors.base.AbstractInteractor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.repository.EventRepository;
@@ -12,8 +9,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
-public class GetEventListInteractor extends AbstractInteractor<GetEventListInteractor.CallBack,GetEventListInteractor.Params> {
+
+public class GetEventListInteractor extends AbstractInteractor {
 
     public interface CallBack {
         void onSuccess(List<Event> result);
@@ -24,59 +24,28 @@ public class GetEventListInteractor extends AbstractInteractor<GetEventListInter
     EventRepository eventRepository;
 
     @Inject
-    public GetEventListInteractor(Executor mThreadExecutor, MainThread mMainThread) {
-        super(mThreadExecutor, mMainThread);
+    public GetEventListInteractor() {
     }
 
-
-    @Override
-    public void run(Params ...params) {
-        String eventType = params[0].eventType;
-        Integer cityId = params[0].cityId;
+    public void getEventList(final GetEventListInteractor.CallBack callback, Params params) {
+        String eventType = params.eventType;
+        Integer cityId = params.cityId;
         if (eventType.equalsIgnoreCase(Constants.EVENT_TYPE_UPCOMING)){
-            eventRepository.upcomingList(cityId,serverCallback);
+            getList(eventRepository.upcomingList(cityId), callback);
         } else {
-            eventRepository.pastList(cityId,serverCallback);
+            getList(eventRepository.pastList(cityId), callback);
         }
     }
 
-    ServerCallback serverCallback = new ServerCallback<List<Event>>() {
-        @Override
-        public void onSuccess(final List<Event> response) {
-            runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onSuccess(response);
-                }
-            });
-        }
-
-        @Override
-        public void onFail(int statusCode, final String errorMessage) {
-            runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onError();
-                }
-            });
-        }
-
-        @Override
-        public void onError(String errorMessage) {
-            runOnUIThread(new Runnable() {
-                @Override
-                public void run() {
-                    callback.onError();
-                }
-            });
-        }
-    };
-
-    @Override
-    public void onError(Exception e) {
-        runOnUIThread(new Runnable() {
+    private void getList(Observable<List<Event>> observable, final GetEventListInteractor.CallBack callback){
+        disposable = observable.subscribe(new Consumer<List<Event>>() {
             @Override
-            public void run() {
+            public void accept(List<Event> events) throws Exception {
+                callback.onSuccess(events);
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
                 callback.onError();
             }
         });

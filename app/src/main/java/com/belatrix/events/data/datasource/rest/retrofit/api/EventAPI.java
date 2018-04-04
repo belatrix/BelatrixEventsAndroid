@@ -1,13 +1,13 @@
 package com.belatrix.events.data.datasource.rest.retrofit.api;
 
-import com.belatrix.events.data.datasource.rest.retrofit.server.Contributor;
 import com.belatrix.events.domain.model.City;
+import com.belatrix.events.domain.model.Contributor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Project;
 
 import java.util.List;
 
-import retrofit2.Call;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.Path;
@@ -19,19 +19,19 @@ import retrofit2.http.Query;
 
 public interface EventAPI {
     @GET("repos/{owner}/{repo}/contributors")
-    Call<List<Contributor>> repoContributors(
+    Observable<List<Contributor>> repoContributors(
             @Path("owner") String owner,
             @Path("repo") String repo);
     @GET("event/featured/")
-    Call<Event> featured(@Query("city") Integer cityId);
+    Observable<Event> featured(@Query("city") Integer cityId);
     @GET("event/upcoming/list/")
-    Call<List<Event>> upcomingList(@Query("city") Integer cityId);
+    Observable<List<Event>> upcomingList(@Query("city") Integer cityId);
     @GET("event/past/list/")
-    Call<List<Event>> pastList(@Query("city") Integer cityId);
+    Observable<List<Event>> pastList(@Query("city") Integer cityId);
     @GET("event/{event_id}/interaction/list")
-    Call<List<Project>> interactionList(@Path("event_id") int eventId);
+    Observable<List<Project>> interactionList(@Path("event_id") int eventId);
     @PATCH("event/interaction/{interaction_id}/vote")
-    Call<Project> interactionVote(@Path("interaction_id") int interactionId);
+    Observable<Project> interactionVote(@Path("interaction_id") int interactionId);
     @GET("event/city/list/")
-    Call<List<City>> cityList();
+    Observable<List<City>> cityList();
 }

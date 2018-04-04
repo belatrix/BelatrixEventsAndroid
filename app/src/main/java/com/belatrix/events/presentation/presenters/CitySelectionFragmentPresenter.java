@@ -46,7 +46,7 @@ public class CitySelectionFragmentPresenter extends BelatrixBasePresenter<CitySe
 
     public void actionLoadCities() {
         view.showProgressIndicator();
-        getCityListInteractor.execute(new GetCityListInteractor.CallBack() {
+        getCityListInteractor.getCityList(new GetCityListInteractor.CallBack() {
             @Override
             public void onSuccess(List<City> result) {
                 view.hideProgressIndicator();
@@ -65,7 +65,7 @@ public class CitySelectionFragmentPresenter extends BelatrixBasePresenter<CitySe
         cache.saveCity(getSelectedCity());
         Integer deviceId = cache.getDeviceId();
         if (deviceId != null) {
-            updateDeviceInteractor.execute(new UpdateDeviceInteractor.CallBack() {
+            updateDeviceInteractor.updateDevice(new UpdateDeviceInteractor.CallBack() {
                 @Override
                 public void onSuccess(Device device) {
                     Timber.d("device CITY Updated ");

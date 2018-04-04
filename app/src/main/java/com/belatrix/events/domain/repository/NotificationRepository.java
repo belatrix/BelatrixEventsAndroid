@@ -1,9 +1,10 @@
 package com.belatrix.events.domain.repository;
 
-import com.belatrix.events.data.datasource.ServerCallback;
 import com.belatrix.events.domain.model.Notification;
 
 import java.util.List;
+
+import io.reactivex.Observable;
 
 /**
  * Created by raulrashuaman on 4/12/17.
@@ -11,5 +12,5 @@ import java.util.List;
 
 public interface NotificationRepository {
 
-    void notificationList(Integer cityId, ServerCallback<List<Notification>> callBack);
+    Observable<List<Notification>> notificationList(Integer cityId);
 }

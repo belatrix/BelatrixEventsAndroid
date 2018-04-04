@@ -1,22 +1,19 @@
 package com.belatrix.events.domain.interactors;
 
-import com.belatrix.events.data.datasource.ServerCallback;
-import com.belatrix.events.domain.executor.Executor;
-import com.belatrix.events.domain.executor.MainThread;
 import com.belatrix.events.domain.interactors.base.AbstractInteractor;
 import com.belatrix.events.domain.model.Employee;
 import com.belatrix.events.domain.repository.EmployeeRepository;
 
 import javax.inject.Inject;
 
-public class GetPersonByQRInteractor extends AbstractInteractor<GetPersonByQRInteractor.CallBack, GetPersonByQRInteractor.Params> {
+import io.reactivex.functions.Consumer;
+
+public class GetPersonByQRInteractor extends AbstractInteractor {
 
 
     public interface CallBack {
         void onEmployeeSuccess(Employee response);
-
         void onEmployeeNotFound();
-
         void onError();
     }
 
@@ -24,54 +21,19 @@ public class GetPersonByQRInteractor extends AbstractInteractor<GetPersonByQRInt
     EmployeeRepository employeeRepository;
 
     @Inject
-    public GetPersonByQRInteractor(Executor mThreadExecutor, MainThread mMainThread) {
-        super(mThreadExecutor, mMainThread);
+    public GetPersonByQRInteractor() {
     }
 
-
-    @Override
-    public void run(Params... params) {
-        String qrCode = params[0].qrCode;
-        employeeRepository.employee(qrCode, new ServerCallback<Employee>() {
+    public void getPersonByQR(final GetPersonByQRInteractor.CallBack callback, Params params) {
+        String qrCode = params.qrCode;
+        disposable = employeeRepository.employee(qrCode).subscribe(new Consumer<Employee>() {
             @Override
-            public void onSuccess(final Employee response) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onEmployeeSuccess(response);
-                    }
-                });
+            public void accept(Employee employee) throws Exception {
+                callback.onEmployeeSuccess(employee);
             }
-
+        }, new Consumer<Throwable>() {
             @Override
-            public void onFail(int statusCode, String errorMessage) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onEmployeeNotFound();
-                    }
-                });
-            }
-
-            @Override
-            public void onError(String errorMessage) {
-                runOnUIThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        callback.onError();
-                    }
-                });
-            }
-        });
-
-
-    }
-
-    @Override
-    public void onError(Exception e) {
-        runOnUIThread(new Runnable() {
-            @Override
-            public void run() {
+            public void accept(Throwable throwable) throws Exception {
                 callback.onError();
             }
         });

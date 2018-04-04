@@ -47,7 +47,7 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
 
     public void voteForProject(int projectId){
         view.showProgressIndicator();
-        projectVoteInteractor.execute(new ProjectVoteInteractor.CallBack() {
+        projectVoteInteractor.actionVote(new ProjectVoteInteractor.CallBack() {
             @Override
             public void onSuccess(Project result) {
                 cache.saveVote(event.getId());
@@ -65,7 +65,7 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
 
     public void getProjectList(final int eventId) {
         view.showProgressIndicator();
-        interactor.execute(new ProjectListInteractor.CallBack() {
+        interactor.getInteractionList(new ProjectListInteractor.CallBack() {
             @Override
             public void onSuccess(final List<Project> result) {
                 view.hideProgressIndicator();

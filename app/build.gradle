@@ -46,10 +46,10 @@ android {
 
 def daggerVersion = '2.8'
 def butterKnifeVersion = '8.0.1'
-def retrofitVersion = '2.0.2'
+def retrofitVersion = '2.2.0'
 def jUnitVersion = '4.12'
 def mockitoVersion = '1.9.5'
-def okhttpVersion = '3.2.0'
+def okhttpVersion = '3.4.1'
 def supportLibrariesVersion = "25.0.1"
 def timberVersion = "4.1.0"
 //def viewPagerIndicatorVersion = "1.0.2"
@@ -58,6 +58,8 @@ def daggerMockVersion = "0.6.4"
 def glideVersion = "3.7.0"
 def okhttpVersionCore = "3.6.0"
 def firebaseLibrariesVersion = "9.0.2"
+def rxandroidVersion = '2.0.1'
+def rxjavaVersion = '2.0.2'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -78,7 +80,7 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
-    //compile "com.squareup.okhttp3:okhttp:${okhttpVersionCore}"
+    compile "com.squareup.okhttp3:okhttp:${okhttpVersion}"
     //tests
     testCompile "junit:junit:${jUnitVersion}"
     testCompile "org.mockito:mockito-core:${mockitoVersion}"
@@ -87,6 +89,10 @@ dependencies {
     compile "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}"
     compile "com.github.bumptech.glide:glide:${glideVersion}"
     compile "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar"
+    //rxjava-android
+    compile "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}"
+    compile  "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
     //scan
     //compile 'com.journeyapps:zxing-android-embedded:3.5.0@aar'
     //compile 'com.google.zxing:core:3.2.0'
