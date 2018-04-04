@@ -2,8 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
         applicationId "com.belatrix.hackatrix"
@@ -50,7 +50,7 @@ def retrofitVersion = '2.2.0'
 def jUnitVersion = '4.12'
 def mockitoVersion = '1.9.5'
 def okhttpVersion = '3.4.1'
-def supportLibrariesVersion = "25.0.1"
+def supportLibrariesVersion = "26.0.1"
 def timberVersion = "4.1.0"
 //def viewPagerIndicatorVersion = "1.0.2"
 def bottomNavigationVersion = "2.0.1"

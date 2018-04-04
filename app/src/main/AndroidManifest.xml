@@ -66,6 +66,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".presentation.ui.activities.QRDisplayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SemiTransparent"
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+
         <service
             android:name=".utils.fcm.EventsFirebaseMessagingService"
             android:enabled="true"

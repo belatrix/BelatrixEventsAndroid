@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
@@ -62,10 +63,18 @@ public class MainActivity extends BelatrixBaseActivity {
         setupNavigationDrawerMenu();
         setupNavigationDrawerListener();
         replaceFragment(HomeFragment.newInstance(),false);
+        ImageView imageView = navigationView.getHeaderView(0).findViewById(R.id.header_item);
+        imageView.setOnClickListener(onClickQRLink);
         cache.clearStartAppFlag();
     }
 
 
+    private View.OnClickListener onClickQRLink = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            QRDisplayActivity.startActivity(MainActivity.this);
+        }
+    };
 
     private void setupNavigationDrawerMenu(){
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
