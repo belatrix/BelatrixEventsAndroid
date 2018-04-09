@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.belatrix.hackatrix"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 27
         versionCode 5
         versionName "1.0.2"
+        vectorDrawables.useSupportLibrary = true
     }
 
     testOptions.unitTests.all {
@@ -45,19 +45,19 @@ android {
 }
 
 def daggerVersion = '2.8'
-def butterKnifeVersion = '8.0.1'
+def butterKnifeVersion = '8.5.1'
 def retrofitVersion = '2.2.0'
 def jUnitVersion = '4.12'
 def mockitoVersion = '1.9.5'
 def okhttpVersion = '3.4.1'
-def supportLibrariesVersion = "26.0.1"
-def timberVersion = "4.1.0"
+def supportLibrariesVersion = "27.1.0"
+def timberVersion = "4.5.0"
 //def viewPagerIndicatorVersion = "1.0.2"
-def bottomNavigationVersion = "2.0.1"
+def bottomNavigationVersion = "2.0.2"
 def daggerMockVersion = "0.6.4"
 def glideVersion = "3.7.0"
 def okhttpVersionCore = "3.6.0"
-def firebaseLibrariesVersion = "9.0.2"
+def firebaseLibrariesVersion = "12.0.1"
 def rxandroidVersion = '2.0.1'
 def rxjavaVersion = '2.0.2'
 
@@ -66,8 +66,8 @@ dependencies {
     //di
     compile "com.google.dagger:dagger:${daggerVersion}"
     compile "com.jakewharton:butterknife:${butterKnifeVersion}"
-    apt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
-    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     // general
     compile "com.google.firebase:firebase-core:${firebaseLibrariesVersion}"
@@ -75,7 +75,7 @@ dependencies {
     compile "com.android.support:design:${supportLibrariesVersion}"
     compile "com.android.support:cardview-v7:${supportLibrariesVersion}"
     compile "com.jakewharton.timber:timber:${timberVersion}"
-    compile 'pub.devrel:easypermissions:0.3.0'
+    compile 'pub.devrel:easypermissions:0.3.1'
     //network
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"

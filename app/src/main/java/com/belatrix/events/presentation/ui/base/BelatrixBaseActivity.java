@@ -248,9 +248,6 @@ public abstract class BelatrixBaseActivity extends AppCompatActivity implements 
         finish();
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-    }
 
     private final BroadcastReceiver mConnReceiver = new BroadcastReceiver() {
         @Override
