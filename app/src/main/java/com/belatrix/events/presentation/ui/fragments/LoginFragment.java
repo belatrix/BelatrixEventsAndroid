@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +16,8 @@ import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.presenters.LoginFragmentPresenter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
+import com.belatrix.events.presentation.ui.common.Validator;
 import com.belatrix.events.utils.account.AccountUtils;
-
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -40,6 +38,9 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
 
     @Inject
     AccountUtils accountUtils;
+
+    @Inject
+    Validator mValidator;
 
     @Inject
     LoginFragmentPresenter loginFragmentPresenter;
@@ -88,28 +89,37 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
 
     @OnClick(R.id.bt_login)
     public void onClickContinueEvent() {
-        String username = "", password = "";
-        boolean validUsername = true, validPassword = true;
+        String username = "", password = "", userError = "", passwordError = "";
         tilUser.setError(null);
         tilPassword.setError(null);
         tvError.setVisibility(View.GONE);
         if (tilUser.getEditText() != null) {
             username = tilUser.getEditText().getText().toString();
-            if (TextUtils.isEmpty(username)) {
-                validUsername = false;
-                tilUser.setError(String.format(Locale.getDefault(), getString(R.string.field_empty), getString(R.string.hint_user)));
+            userError = mValidator.validateStringField(getString(R.string.hint_user), username);
+            if (!userError.isEmpty()) {
+                tilUser.setError(userError);
             }
         }
         if (tilPassword.getEditText() != null) {
             password = tilPassword.getEditText().getText().toString();
-            if (TextUtils.isEmpty(password)) {
-                validPassword = false;
-                tilPassword.setError(String.format(Locale.getDefault(), getString(R.string.field_empty), getString(R.string.hint_password)));
+            passwordError = mValidator.validateStringField(getString(R.string.field_empty), password);
+            if (!passwordError.isEmpty()) {
+                tilUser.setError(passwordError);
             }
         }
-        if (validUsername && validPassword) {
+        if (passwordError.isEmpty() && userError.isEmpty()) {
             loginFragmentPresenter.signIn(username, password);
         }
+    }
+
+    @OnClick(R.id.tv_recover_password)
+    public void onClickRecoverPasswordEvent() {
+        replaceFragment(RecoverPasswordFragment.newInstance(getContext()), true);
+    }
+
+    @OnClick(R.id.tv_create_account)
+    public void onClickCreateAccountEvent() {
+
     }
 
     @Override
@@ -120,7 +130,7 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
     @Override
     public void onLoginError() {
         tvError.setVisibility(View.VISIBLE);
-        tvError.setText(R.string.error_login);
+        tvError.setText(R.string.error_server_login);
     }
 
     public interface LoginCallback {

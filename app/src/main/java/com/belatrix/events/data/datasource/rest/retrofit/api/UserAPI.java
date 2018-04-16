@@ -7,7 +7,11 @@ import retrofit2.http.POST;
 
 public interface UserAPI {
 
-//TODO SET SIGN IN URL
+    //TODO SET SIGN IN URL
     @POST("")
     Observable<User> signIn(String username, String password);
+
+    //TODO SET RECOVER PASSWORD URL
+    @POST
+    Observable<Boolean> recoverPassword(String email);
 }

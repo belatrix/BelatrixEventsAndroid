@@ -1,23 +1,23 @@
 /* The MIT License (MIT)
-* Copyright (c) 2016 BELATRIX
-* Permission is hereby granted, free of charge, to any person obtaining a copy
-* of this software and associated documentation files (the "Software"), to deal
-* in the Software without restriction, including without limitation the rights
-* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-* copies of the Software, and to permit persons to whom the Software is
-* furnished to do so, subject to the following conditions:
+ * Copyright (c) 2016 BELATRIX
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
 
-* The above copyright notice and this permission notice shall be included in all
-* copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
 
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-* SOFTWARE.
-*/
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.belatrix.events.presentation.ui.base;
 
 import android.app.Activity;
@@ -39,18 +39,18 @@ import butterknife.Unbinder;
  * @author PedroCarrillo
  * @author gyosida
  * @author dvelasquez
- *         <p/>
- *         BelatrixBaseFragment will implement the BelatrixBaseView interface and manage
- *         common fragment stuff to avoid boilerplate code
+ * <p/>
+ * BelatrixBaseFragment will implement the BelatrixBaseView interface and manage
+ * common fragment stuff to avoid boilerplate code
  */
 public abstract class BelatrixBaseFragment extends Fragment implements BelatrixBaseView {
 
     protected FragmentListener fragmentListener;
-    private Unbinder unbinder;
     @BindString(R.string.menu_title_share)
     protected String stringShare;
     @BindString(R.string.app_name)
     protected String stringAppName;
+    private Unbinder unbinder;
 
     @Override
     public void onAttach(Context context) {
@@ -66,7 +66,7 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        if (getActivity() instanceof BelatrixBaseActivity){
+        if (getActivity() instanceof BelatrixBaseActivity) {
             BelatrixBaseActivity baseActivity = (BelatrixBaseActivity) getActivity();
             initDependencies(baseActivity.getUiComponent());
         }
@@ -165,6 +165,9 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
 
     protected abstract void initViews();
 
+    protected void replaceFragment(Fragment fragment, boolean addToBackStack) {
+        fragmentListener.replaceFragment(fragment, addToBackStack);
+    }
 
     protected void replaceChildFragment(Fragment fragment, int fragmentReplacedId) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
@@ -173,7 +176,7 @@ public abstract class BelatrixBaseFragment extends Fragment implements BelatrixB
         transaction.commit();
     }
 
-    public void refreshData(){
+    public void refreshData() {
 
     }
 

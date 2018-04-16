@@ -103,6 +103,9 @@ SOFTWARE.</string>
     <string name="recover_password">Recuperar contraseña</string>
     <string name="create_account">Crear una cuenta</string>
     <string name="field_empty">El campo %s está vacío.</string>
-    <string name="error_login">Hubo un error al tratar de iniciar sesión</string>
+    <string name="error_server_login">Hubo un error al tratar de iniciar sesión</string>
     <string name="login_title">Ingresar usuario</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="recover">Recuperar</string>
+    <string name="email_invalid">El correo electrónico es inválido</string>
 </resources>

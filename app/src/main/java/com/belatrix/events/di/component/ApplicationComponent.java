@@ -13,6 +13,7 @@ import com.belatrix.events.domain.repository.EventRepository;
 import com.belatrix.events.domain.repository.NotificationRepository;
 import com.belatrix.events.domain.repository.Repository;
 import com.belatrix.events.domain.repository.UserRepository;
+import com.belatrix.events.presentation.ui.common.Validator;
 import com.belatrix.events.utils.cache.Cache;
 import com.belatrix.events.utils.fcm.EventsFirebaseInstanceIDService;
 import com.belatrix.events.utils.fcm.EventsFirebaseMessagingService;
@@ -56,6 +57,8 @@ public interface ApplicationComponent {
     Cache provideCache();
 
     AccountManager providesAccountManager();
+
+    Validator providesValidator();
 
     @Named("account_type")
     String accountType();
