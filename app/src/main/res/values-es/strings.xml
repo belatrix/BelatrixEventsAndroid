@@ -28,6 +28,7 @@
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="menu_title_home">Home</string>
+    <string name="menu_title_profile">Perfil</string>
     <string name="menu_title_activities">Novedades</string>
     <string name="menu_title_settings">Configuraciones</string>
     <string name="menu_title_about">Acerca de</string>
@@ -95,5 +96,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</string>
     <string name="collaborators_title">Colaboradores</string>
-
+    <string name="sign_in_or_sign_up">Entrar o crear cuenta</string>
+    <string name="hint_user">Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="sign_in">Ingresar</string>
+    <string name="recover_password">Recuperar contraseña</string>
+    <string name="create_account">Crear una cuenta</string>
+    <string name="field_empty">El campo %s está vacío.</string>
+    <string name="error_login">Hubo un error al tratar de iniciar sesión</string>
+    <string name="login_title">Ingresar usuario</string>
 </resources>

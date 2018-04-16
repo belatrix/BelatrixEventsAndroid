@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.belatrix.events"
-    android:label="@string/title_main"
-    tools:replace="label">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.belatrix.events"
+          android:label="@string/title_main"
+          tools:replace="label">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
 
     <application
         android:name="com.belatrix.events.BxEventsApplication"
@@ -22,36 +25,37 @@
         <activity
             android:name="com.belatrix.events.presentation.ui.activities.MainActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.belatrix.events.presentation.ui.activities.AboutActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/title_about_activity"
             android:screenOrientation="portrait"
-            android:theme="@style/Translucent" />
+            android:theme="@style/Translucent"/>
         <activity
             android:name="com.belatrix.events.presentation.ui.activities.EventDetailActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.belatrix.events.presentation.ui.activities.EventListActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.belatrix.events.presentation.ui.activities.FinderActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.belatrix.events.presentation.ui.activities.CitySelectionActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.belatrix.events.presentation.ui.activities.SettingsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/menu_title_settings"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".presentation.ui.activities.NotificationListActivity"
+        <activity
+            android:name=".presentation.ui.activities.NotificationListActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:label="@string/menu_title_activities"
             android:screenOrientation="portrait"/>
@@ -60,25 +64,29 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".presentation.ui.activities.AuthenticatorActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presentation.ui.activities.QRDisplayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.SemiTransparent"
-            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <service
             android:name=".utils.fcm.EventsFirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
         <service
@@ -86,8 +94,18 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
+        </service>
+
+        <service
+            android:name=".utils.account.BelatrixEventsAuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator"/>
         </service>
     </application>
 

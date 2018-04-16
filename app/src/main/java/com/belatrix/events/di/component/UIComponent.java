@@ -18,7 +18,9 @@ import com.belatrix.events.presentation.ui.fragments.EventListFragment;
 import com.belatrix.events.presentation.ui.fragments.EventListSummaryFragment;
 import com.belatrix.events.presentation.ui.fragments.FinderFragment;
 import com.belatrix.events.presentation.ui.fragments.HomeFragment;
+import com.belatrix.events.presentation.ui.fragments.LoginFragment;
 import com.belatrix.events.presentation.ui.fragments.NotificationListFragment;
+import com.belatrix.events.presentation.ui.fragments.RecoverPasswordFragment;
 import com.belatrix.events.presentation.ui.fragments.SettingsFragment;
 
 import dagger.Component;
@@ -32,21 +34,42 @@ import dagger.Component;
         modules = UIModule.class)
 public interface UIComponent {
     void inject(SplashActivity activity);
+
     void inject(MainActivity activity);
+
     void inject(SettingsActivity activity);
+
     void inject(EventDetailActivity activity);
+
     void inject(FinderActivity activity);
+
     void inject(AboutActivity activity);
+
     void inject(EventListActivity activity);
+
     void inject(CitySelectionActivity activity);
+
     void inject(NotificationListActivity activity);
+
     void inject(HomeFragment fragment);
+
     void inject(EventDetailVoteFragment fragment);
+
     void inject(EventListSummaryFragment fragment);
+
     void inject(EventListFragment fragment);
+
     void inject(AboutFragment fragment);
+
     void inject(FinderFragment fragment);
+
     void inject(CitySelectionFragment fragment);
+
     void inject(SettingsFragment fragment);
+
     void inject(NotificationListFragment fragment);
+
+    void inject(LoginFragment fragment);
+
+    void inject(RecoverPasswordFragment fragment);
 }

@@ -27,5 +27,6 @@
     <color name="facebookDark">#1d2c4c</color>
     <color name="twitter">#00aced</color>
     <color name="twitterDark">#005676</color>
+    <color name="red">#a0ff0000</color>
 
 </resources>

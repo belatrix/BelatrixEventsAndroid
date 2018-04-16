@@ -6,3 +6,7 @@ local.properties
 .idea/gradle.xml
 .idea/libraries
 server.properties
+.idea/tasks.xml
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/caches

@@ -1,5 +1,6 @@
 package com.belatrix.events.di.component;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 
 import com.belatrix.events.BxEventsApplication;
@@ -11,10 +12,12 @@ import com.belatrix.events.domain.repository.EmployeeRepository;
 import com.belatrix.events.domain.repository.EventRepository;
 import com.belatrix.events.domain.repository.NotificationRepository;
 import com.belatrix.events.domain.repository.Repository;
+import com.belatrix.events.domain.repository.UserRepository;
 import com.belatrix.events.utils.cache.Cache;
 import com.belatrix.events.utils.fcm.EventsFirebaseInstanceIDService;
 import com.belatrix.events.utils.fcm.EventsFirebaseMessagingService;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -48,5 +51,12 @@ public interface ApplicationComponent {
 
     NotificationRepository notificationRepository();
 
+    UserRepository userRepository();
+
     Cache provideCache();
+
+    AccountManager providesAccountManager();
+
+    @Named("account_type")
+    String accountType();
 }

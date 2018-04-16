@@ -1,15 +1,18 @@
 package com.belatrix.events.di.module;
 
+import android.accounts.AccountManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.belatrix.events.R;
 import com.belatrix.events.data.datasource.memory.InMemoryRepository;
 import com.belatrix.events.domain.repository.Repository;
 import com.belatrix.events.utils.cache.Cache;
 import com.belatrix.events.utils.cache.impl.CachePreferences;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -35,7 +38,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public Repository repository (){
+    public Repository repository() {
         return new InMemoryRepository();
     }
 
@@ -56,6 +59,19 @@ public class ApplicationModule {
     Cache provideCache(SharedPreferences sharedPreferences) {
         Cache cache = new CachePreferences(sharedPreferences);
         return cache;
+    }
+
+    @Provides
+    @Singleton
+    AccountManager providesAccountManager(Context context) {
+        return AccountManager.get(context);
+    }
+
+    @Provides
+    @Singleton
+    @Named("account_type")
+    String providesAccountType(Context context) {
+        return context.getString(R.string.account_type);
     }
 
 }
