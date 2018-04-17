@@ -10,4 +10,6 @@ public interface UserRepository {
     Observable<User> signIn(String username, String password);
 
     Observable<Boolean> recoverPassword(String email);
+
+    Observable<Boolean> createAccount(String user, String email, String name, String password);
 }

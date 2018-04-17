@@ -19,6 +19,7 @@ import com.belatrix.events.presentation.ui.common.Validator;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -29,6 +30,9 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
 
     @BindView(R.id.tv_error)
     TextView tvError;
+
+    @BindString(R.string.hint_email)
+    String hintEmail;
 
     @Inject
     RecoverPasswordPresenter recoverPasswordPresenter;
@@ -49,7 +53,6 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
 
     @Override
     protected void initViews() {
-        tilEmail.setErrorEnabled(true);
         setTitle(getString(R.string.recover_password));
     }
 
@@ -62,12 +65,13 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
     @OnClick(R.id.bt_recover_password)
     public void onClickRecoverEvent() {
         String email = "", emailError = "";
-        tilEmail.setError("");
+        tilEmail.setErrorEnabled(false);
         tvError.setVisibility(View.GONE);
         if (tilEmail.getEditText() != null) {
             email = tilEmail.getEditText().getText().toString();
-            emailError = mValidator.validateEmailField(getString(R.string.hint_email), email);
+            emailError = mValidator.validateEmailField(hintEmail, email);
             if (!emailError.isEmpty()) {
+                tilEmail.setErrorEnabled(true);
                 tilEmail.setError(emailError);
             }
         }

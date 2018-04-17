@@ -21,6 +21,7 @@ import com.belatrix.events.utils.account.AccountUtils;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -35,6 +36,12 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
 
     @BindView(R.id.tv_error)
     TextView tvError;
+
+    @BindString(R.string.hint_user)
+    String hintUser;
+
+    @BindString(R.string.hint_password)
+    String hintPassword;
 
     @Inject
     AccountUtils accountUtils;
@@ -90,21 +97,23 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
     @OnClick(R.id.bt_login)
     public void onClickContinueEvent() {
         String username = "", password = "", userError = "", passwordError = "";
-        tilUser.setError(null);
-        tilPassword.setError(null);
+        tilUser.setErrorEnabled(false);
+        tilPassword.setErrorEnabled(false);
         tvError.setVisibility(View.GONE);
         if (tilUser.getEditText() != null) {
             username = tilUser.getEditText().getText().toString();
-            userError = mValidator.validateStringField(getString(R.string.hint_user), username);
+            userError = mValidator.validateStringField(hintUser, username);
             if (!userError.isEmpty()) {
+                tilUser.setErrorEnabled(true);
                 tilUser.setError(userError);
             }
         }
         if (tilPassword.getEditText() != null) {
             password = tilPassword.getEditText().getText().toString();
-            passwordError = mValidator.validateStringField(getString(R.string.field_empty), password);
+            passwordError = mValidator.validateStringField(hintPassword, password);
             if (!passwordError.isEmpty()) {
-                tilUser.setError(passwordError);
+                tilPassword.setErrorEnabled(true);
+                tilPassword.setError(passwordError);
             }
         }
         if (passwordError.isEmpty() && userError.isEmpty()) {
@@ -119,7 +128,7 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
 
     @OnClick(R.id.tv_create_account)
     public void onClickCreateAccountEvent() {
-
+        replaceFragment(CreateAccountFragment.newInstance(getContext()), true);
     }
 
     @Override

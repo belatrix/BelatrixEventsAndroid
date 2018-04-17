@@ -74,6 +74,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dimen_6_5"
         android:padding="8dp"
-        android:text="@string/create_account"
+        android:text="@string/create_an_account"
         android:textColor="@color/colorPrimary"/>
 </LinearLayout>

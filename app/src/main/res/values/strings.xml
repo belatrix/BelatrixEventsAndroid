@@ -114,7 +114,7 @@ SOFTWARE.</string>
     <string name="hint_password">Password</string>
     <string name="sign_in">Sign in</string>
     <string name="recover_password">Recover password</string>
-    <string name="create_account">Create an account</string>
+    <string name="create_an_account">Create an account</string>
     <string name="field_empty">The field %s is empty.</string>
     <string name="error_server_login">There was an error while trying to log in</string>
     <string name="login_title">Enter user</string>
@@ -122,4 +122,9 @@ SOFTWARE.</string>
     <string name="recover">Recover</string>
     <string name="email_invalid">The email you enter is invalid</string>
     <string name="error_server_recover_password">There was an error while trying to recover your password</string>
+    <string name="error_server_create_account">There was an error while trying to create your account</string>
+    <string name="hint_name">Full name</string>
+    <string name="hint_confirm_password">Confirm your password</string>
+    <string name="create_account">Create account</string>
+    <string name="error_passwords_not_equals">Passwords doesn\'t match</string>
 </resources>
