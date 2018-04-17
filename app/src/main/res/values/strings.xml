@@ -122,9 +122,15 @@ SOFTWARE.</string>
     <string name="recover">Recover</string>
     <string name="email_invalid">The email you enter is invalid</string>
     <string name="error_server_recover_password">There was an error while trying to recover your password</string>
+    <string name="error_server_change_password">There was an error while trying to change your password</string>
     <string name="error_server_create_account">There was an error while trying to create your account</string>
     <string name="hint_name">Full name</string>
     <string name="hint_confirm_password">Confirm your password</string>
     <string name="create_account">Create account</string>
     <string name="error_passwords_not_equals">Passwords doesn\'t match</string>
+    <string name="hint_old_password">Actual password</string>
+    <string name="hint_new_password">New password</string>
+    <string name="hint_confirm_new_password">Confirm new password</string>
+    <string name="change">Change</string>
+    <string name="change_password">Change password</string>
 </resources>

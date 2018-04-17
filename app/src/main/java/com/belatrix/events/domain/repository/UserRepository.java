@@ -12,4 +12,6 @@ public interface UserRepository {
     Observable<Boolean> recoverPassword(String email);
 
     Observable<Boolean> createAccount(String user, String email, String name, String password);
+
+    Observable<Boolean> changePassword(String oldPassword, String newPassword);
 }

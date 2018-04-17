@@ -29,4 +29,9 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
     public Observable<Boolean> createAccount(String user, String email, String name, String password) {
         return subscribeOn(mUserAPI.createAccount(user, email, name, password));
     }
+
+    @Override
+    public Observable<Boolean> changePassword(String oldPassword, String newPassword) {
+        return subscribeOn(mUserAPI.changePassword(oldPassword, newPassword));
+    }
 }

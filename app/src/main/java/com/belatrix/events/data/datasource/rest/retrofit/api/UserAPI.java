@@ -17,4 +17,7 @@ public interface UserAPI {
 
     @POST
     Observable<Boolean> createAccount(String user, String email, String name, String password);
+
+    @POST
+    Observable<Boolean> changePassword(String oldPassword, String newPassword);
 }

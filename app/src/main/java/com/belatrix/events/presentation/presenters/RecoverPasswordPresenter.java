@@ -27,7 +27,7 @@ public class RecoverPasswordPresenter extends BelatrixBasePresenter<RecoverPassw
 
     @Override
     public void onRecoverSuccessful() {
-        if(view == null){
+        if (view == null) {
             return;
         }
         view.dismissProgressDialog();
@@ -36,7 +36,7 @@ public class RecoverPasswordPresenter extends BelatrixBasePresenter<RecoverPassw
 
     @Override
     public void onRecoverError() {
-        if(view == null){
+        if (view == null) {
             return;
         }
         view.dismissProgressDialog();

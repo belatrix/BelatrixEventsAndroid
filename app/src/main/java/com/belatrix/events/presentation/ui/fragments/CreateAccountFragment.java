@@ -119,8 +119,8 @@ public class CreateAccountFragment extends BelatrixBaseFragment implements Creat
     private String validateConfirmPasswordInput(TextInputLayout inputConfirmPassword, String passwordValue, String field) {
         String confirmPassword = validateStringInput(inputConfirmPassword, field);
         if (!passwordValue.equals(confirmPassword)) {
-            tilConfirmPassword.setErrorEnabled(true);
-            tilConfirmPassword.setError(getString(R.string.error_passwords_not_equals));
+            inputConfirmPassword.setErrorEnabled(true);
+            inputConfirmPassword.setError(getString(R.string.error_passwords_not_equals));
             return "";
         }
         return passwordValue;
