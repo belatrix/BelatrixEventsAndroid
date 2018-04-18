@@ -82,8 +82,8 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
 
     @Override
     public void onRecoverPasswordSuccessful() {
-        if (getActivity() != null) {
-            getActivity().onBackPressed();
+        if (getContext() != null) {
+            replaceFragment(ChangePasswordFragment.newInstance(getContext()), true);
         }
     }
 

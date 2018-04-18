@@ -1,5 +1,6 @@
 package com.belatrix.events.presentation.ui.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -44,9 +45,27 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     @Inject
     Validator mValidator;
 
+    private ChangePasswordCallback mChangePasswordCallback;
+
     public static Fragment newInstance(Context context) {
         Bundle args = new Bundle();
         return Fragment.instantiate(context, ChangePasswordFragment.class.getName(), args);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof ChangePasswordCallback) {
+            mChangePasswordCallback = (ChangePasswordCallback) activity;
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ChangePasswordCallback) {
+            mChangePasswordCallback = (ChangePasswordCallback) context;
+        }
     }
 
     @Override
@@ -83,9 +102,7 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
 
     @Override
     public void onChangePasswordSuccessful() {
-        if (getActivity() != null) {
-            getActivity().onBackPressed();
-        }
+        mChangePasswordCallback.onChangedPassword();
     }
 
     @Override
@@ -116,5 +133,9 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
             }
         }
         return value;
+    }
+
+    public interface ChangePasswordCallback {
+        void onChangedPassword();
     }
 }

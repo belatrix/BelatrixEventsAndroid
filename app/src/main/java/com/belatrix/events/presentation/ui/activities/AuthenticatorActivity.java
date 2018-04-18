@@ -4,15 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
+import com.belatrix.events.presentation.ui.fragments.ChangePasswordFragment;
 import com.belatrix.events.presentation.ui.fragments.LoginFragment;
 
-public class AuthenticatorActivity extends BelatrixBaseActivity implements LoginFragment.LoginCallback {
+public class AuthenticatorActivity extends BelatrixBaseActivity implements LoginFragment.LoginCallback, ChangePasswordFragment.ChangePasswordCallback {
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, AuthenticatorActivity.class);
@@ -69,5 +71,14 @@ public class AuthenticatorActivity extends BelatrixBaseActivity implements Login
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onChangedPassword() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        for (int i = 0; i < count; i++) {
+            getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
+        replaceFragment(LoginFragment.newInstance(AuthenticatorActivity.this), false);
     }
 }
