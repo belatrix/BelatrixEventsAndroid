@@ -1,17 +1,20 @@
 package com.belatrix.events.domain.repository;
 
 
+import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
 import com.belatrix.events.domain.model.User;
 
 import io.reactivex.Observable;
 
 public interface UserRepository {
 
-    Observable<User> signIn(String username, String password);
+    Observable<UserAuthenticationResponse> signIn(String username, String password);
 
-    Observable<Boolean> recoverPassword(String email);
+    Observable<String> recoverPassword(String email);
 
-    Observable<Boolean> createAccount(String user, String email, String name, String password);
+    Observable<User> createAccount(String email);
 
-    Observable<Boolean> changePassword(String oldPassword, String newPassword);
+    Observable<User> changePassword(int userId, String oldPassword, String newPassword);
+
+    Observable<User> getUser(int userId);
 }

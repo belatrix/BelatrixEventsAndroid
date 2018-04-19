@@ -20,14 +20,14 @@ public class CreateAccountPresenter extends BelatrixBasePresenter<CreateAccountP
         createAccountInteractor.cancel();
     }
 
-    public void createAccount(String user, String email, String name, String password) {
+    public void createAccount(String email) {
         view.showProgressDialog();
-        createAccountInteractor.createAccount(this, user, email, name, password);
+        createAccountInteractor.createAccount(this, email);
     }
 
     @Override
     public void onCreateAccountSuccessful() {
-        if(view == null){
+        if (view == null) {
             return;
         }
         view.dismissProgressDialog();
@@ -36,7 +36,7 @@ public class CreateAccountPresenter extends BelatrixBasePresenter<CreateAccountP
 
     @Override
     public void onCreateAccountFailed() {
-        if(view == null){
+        if (view == null) {
             return;
         }
         view.dismissProgressDialog();

@@ -35,12 +35,23 @@ public class LoginFragmentPresenter extends BelatrixBasePresenter<LoginFragmentP
     }
 
     @Override
+    public void onChangePassword(int userId) {
+        if (view == null) {
+            return;
+        }
+        view.dismissProgressDialog();
+        view.onChangePassword(userId);
+    }
+
+    @Override
     public void onSignInError() {
         view.dismissProgressDialog();
         view.onLoginError();
     }
 
     public interface View extends BelatrixBaseView {
+        void onChangePassword(int userId);
+
         void onLoginSuccessful();
 
         void onLoginError();

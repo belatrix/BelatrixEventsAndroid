@@ -26,10 +26,14 @@ import butterknife.OnClick;
 
 public class ChangePasswordFragment extends BelatrixBaseFragment implements ChangePasswordPresenter.View {
 
+    private final static String ARGS_USER_ID = "args_user_id";
+
     @BindView(R.id.til_old_password)
     TextInputLayout tilOldPassword;
+
     @BindView(R.id.til_new_password)
     TextInputLayout tilNewPassword;
+
     @BindView(R.id.til_confirm_new_password)
     TextInputLayout tilConfirmNewPassword;
 
@@ -45,26 +49,38 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     @Inject
     Validator mValidator;
 
-    private ChangePasswordCallback mChangePasswordCallback;
+    private LoginFragment.LoginCallback mLoginCallback;
 
-    public static Fragment newInstance(Context context) {
+    private int userId;
+
+    public static Fragment newInstance(Context context, int userId) {
         Bundle args = new Bundle();
+        args.putInt(ARGS_USER_ID, userId);
         return Fragment.instantiate(context, ChangePasswordFragment.class.getName(), args);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof ChangePasswordCallback) {
-            mChangePasswordCallback = (ChangePasswordCallback) activity;
+        if (activity instanceof LoginFragment.LoginCallback) {
+            mLoginCallback = (LoginFragment.LoginCallback) activity;
         }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof ChangePasswordCallback) {
-            mChangePasswordCallback = (ChangePasswordCallback) context;
+        if (context instanceof LoginFragment.LoginCallback) {
+            mLoginCallback = (LoginFragment.LoginCallback) context;
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            userId = args.getInt(ARGS_USER_ID);
         }
     }
 
@@ -96,13 +112,13 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
         newPassword = validateStringInput(tilNewPassword, hintPassword);
         confirmNewPassword = validateConfirmPasswordInput(tilConfirmNewPassword, newPassword, hintPassword);
         if (!oldPassword.isEmpty() && !newPassword.isEmpty() && !confirmNewPassword.isEmpty()) {
-            changePasswordPresenter.changePassword(oldPassword, newPassword);
+            changePasswordPresenter.changePassword(userId, oldPassword, newPassword);
         }
     }
 
     @Override
     public void onChangePasswordSuccessful() {
-        mChangePasswordCallback.onChangedPassword();
+        mLoginCallback.onLoginSuccessful();
     }
 
     @Override
@@ -133,9 +149,5 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
             }
         }
         return value;
-    }
-
-    public interface ChangePasswordCallback {
-        void onChangedPassword();
     }
 }

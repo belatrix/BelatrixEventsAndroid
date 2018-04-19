@@ -25,35 +25,15 @@ import butterknife.OnClick;
 
 public class CreateAccountFragment extends BelatrixBaseFragment implements CreateAccountPresenter.View {
 
-    @BindView(R.id.til_user)
-    TextInputLayout tilUser;
 
     @BindView(R.id.til_email)
     TextInputLayout tilEmail;
 
-    @BindView(R.id.til_name)
-    TextInputLayout tilName;
-
-    @BindView(R.id.til_password)
-    TextInputLayout tilPassword;
-
-    @BindView(R.id.til_confirm_password)
-    TextInputLayout tilConfirmPassword;
-
     @BindView(R.id.tv_error)
     TextView tvError;
 
-    @BindString(R.string.hint_user)
-    String hintUser;
-
     @BindString(R.string.hint_email)
     String hintEmail;
-
-    @BindString(R.string.hint_name)
-    String hintName;
-
-    @BindString(R.string.hint_password)
-    String hintPassword;
 
     @Inject
     CreateAccountPresenter createAccountPresenter;
@@ -85,45 +65,13 @@ public class CreateAccountFragment extends BelatrixBaseFragment implements Creat
 
     @OnClick(R.id.bt_create_account)
     public void onClickCreateAccountEvent() {
-        String user, email, name, password, confirmPassword;
-        tilUser.setErrorEnabled(false);
+        String email;
         tilEmail.setErrorEnabled(false);
-        tilName.setErrorEnabled(false);
-        tilPassword.setErrorEnabled(false);
-        tilConfirmPassword.setErrorEnabled(false);
         tvError.setVisibility(View.GONE);
-        user = validateStringInput(tilUser, hintUser);
         email = validateEmailInput(tilEmail, hintEmail);
-        name = validateStringInput(tilName, hintName);
-        password = validateStringInput(tilPassword, hintPassword);
-        confirmPassword = validateConfirmPasswordInput(tilConfirmPassword, password, hintPassword);
-        if (!user.isEmpty() && !email.isEmpty() && !name.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()) {
-            createAccountPresenter.createAccount(user, email, name, password);
+        if (!email.isEmpty()) {
+            createAccountPresenter.createAccount(email);
         }
-    }
-
-    private String validateStringInput(TextInputLayout textInputLayout, String field) {
-        String value = "", error;
-        if (textInputLayout.getEditText() != null) {
-            value = textInputLayout.getEditText().getText().toString();
-            error = mValidator.validateStringField(field, value);
-            if (!error.isEmpty()) {
-                textInputLayout.setErrorEnabled(true);
-                textInputLayout.setError(error);
-                return "";
-            }
-        }
-        return value;
-    }
-
-    private String validateConfirmPasswordInput(TextInputLayout inputConfirmPassword, String passwordValue, String field) {
-        String confirmPassword = validateStringInput(inputConfirmPassword, field);
-        if (!passwordValue.equals(confirmPassword)) {
-            inputConfirmPassword.setErrorEnabled(true);
-            inputConfirmPassword.setError(getString(R.string.error_passwords_not_equals));
-            return "";
-        }
-        return passwordValue;
     }
 
     private String validateEmailInput(TextInputLayout textInputLayout, String field) {

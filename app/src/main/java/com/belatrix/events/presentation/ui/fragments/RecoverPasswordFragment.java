@@ -1,5 +1,6 @@
 package com.belatrix.events.presentation.ui.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,9 +41,33 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
     @Inject
     Validator mValidator;
 
+    private RecoverPasswordCallback mRecoverPasswordCallback;
+
     public static Fragment newInstance(Context context) {
         Bundle args = new Bundle();
         return Fragment.instantiate(context, RecoverPasswordFragment.class.getName(), args);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof RecoverPasswordCallback) {
+            mRecoverPasswordCallback = (RecoverPasswordCallback) activity;
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof RecoverPasswordCallback) {
+            mRecoverPasswordCallback = (RecoverPasswordCallback) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mRecoverPasswordCallback = null;
     }
 
     @Override
@@ -82,8 +107,8 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
 
     @Override
     public void onRecoverPasswordSuccessful() {
-        if (getContext() != null) {
-            replaceFragment(ChangePasswordFragment.newInstance(getContext()), true);
+        if (mRecoverPasswordCallback != null) {
+            mRecoverPasswordCallback.onRecoverPassword();
         }
     }
 
@@ -91,5 +116,9 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
     public void onRecoverPasswordError() {
         tvError.setVisibility(View.VISIBLE);
         tvError.setText(R.string.error_server_recover_password);
+    }
+
+    public interface RecoverPasswordCallback {
+        void onRecoverPassword();
     }
 }

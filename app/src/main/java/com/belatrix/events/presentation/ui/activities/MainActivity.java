@@ -114,7 +114,7 @@ public class MainActivity extends BelatrixBaseActivity {
         if (accountUtils.existsAccount()) {
             tvName.setVisibility(View.VISIBLE);
             tvEmail.setVisibility(View.VISIBLE);
-            tvName.setText(accountUtils.getName());
+            tvName.setText(accountUtils.getFullName());
             tvEmail.setText(accountUtils.getEmail());
             tvEmail.setOnClickListener(null);
             navigationView.getMenu().findItem(R.id.menu_profile).setVisible(true);

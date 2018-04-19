@@ -20,9 +20,9 @@ public class ChangePasswordPresenter extends BelatrixBasePresenter<ChangePasswor
         mChangePasswordInteractor.cancel();
     }
 
-    public void changePassword(String oldPassword, String newPassword) {
+    public void changePassword(int userId, String oldPassword, String newPassword) {
         view.showProgressDialog();
-        mChangePasswordInteractor.changePassword(this, oldPassword, newPassword);
+        mChangePasswordInteractor.changePassword(this, userId, oldPassword, newPassword);
     }
 
     @Override

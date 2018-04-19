@@ -142,6 +142,11 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
         tvError.setText(R.string.error_server_login);
     }
 
+    @Override
+    public void onChangePassword(int userId) {
+        replaceFragment(ChangePasswordFragment.newInstance(getContext(), userId), true);
+    }
+
     public interface LoginCallback {
         void onLoginSuccessful();
     }

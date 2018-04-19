@@ -11,10 +11,10 @@ import android.view.MenuItem;
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
-import com.belatrix.events.presentation.ui.fragments.ChangePasswordFragment;
 import com.belatrix.events.presentation.ui.fragments.LoginFragment;
+import com.belatrix.events.presentation.ui.fragments.RecoverPasswordFragment;
 
-public class AuthenticatorActivity extends BelatrixBaseActivity implements LoginFragment.LoginCallback, ChangePasswordFragment.ChangePasswordCallback {
+public class AuthenticatorActivity extends BelatrixBaseActivity implements LoginFragment.LoginCallback, RecoverPasswordFragment.RecoverPasswordCallback {
 
     public static Intent makeIntent(Context context) {
         return new Intent(context, AuthenticatorActivity.class);
@@ -74,7 +74,7 @@ public class AuthenticatorActivity extends BelatrixBaseActivity implements Login
     }
 
     @Override
-    public void onChangedPassword() {
+    public void onRecoverPassword() {
         int count = getSupportFragmentManager().getBackStackEntryCount();
         for (int i = 0; i < count; i++) {
             getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
