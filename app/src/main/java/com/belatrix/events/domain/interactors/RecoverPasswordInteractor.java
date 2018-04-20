@@ -6,6 +6,7 @@ import com.belatrix.events.domain.repository.UserRepository;
 import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
+import okhttp3.ResponseBody;
 
 public class RecoverPasswordInteractor extends AbstractInteractor {
 
@@ -17,9 +18,9 @@ public class RecoverPasswordInteractor extends AbstractInteractor {
     }
 
     public void recoverPassword(final Callback callback, String email) {
-        disposable = mUserRepository.recoverPassword(email).subscribe(new Consumer<String>() {
+        disposable = mUserRepository.recoverPassword(email).subscribe(new Consumer<ResponseBody>() {
             @Override
-            public void accept(String sString) {
+            public void accept(ResponseBody responseBody) {
                 callback.onRecoverSuccessful();
             }
         }, new Consumer<Throwable>() {

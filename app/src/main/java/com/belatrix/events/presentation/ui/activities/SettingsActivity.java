@@ -12,11 +12,18 @@ import com.belatrix.events.utils.cache.Cache;
 
 import javax.inject.Inject;
 
-public class SettingsActivity extends BelatrixBaseActivity  {
+public class SettingsActivity extends BelatrixBaseActivity {
 
     @Inject
     Cache cache;
     Integer currentCity;
+
+    public static Intent makeIntent(Activity context) {
+        Intent intent = new Intent(context, SettingsActivity.class);
+        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        // context.overridePendingTransition(0, 0);
+        return intent;
+    }
 
     @Override
     protected void initDependencies(UIComponent uiComponent) {
@@ -27,26 +34,22 @@ public class SettingsActivity extends BelatrixBaseActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        replaceFragment(SettingsFragment.newInstance(),false);
+        replaceFragment(SettingsFragment.newInstance(), false);
         setNavigationToolbar();
         currentCity = cache.getCity();
     }
 
-    public static Intent makeIntent(Activity context) {
-        Intent intent = new Intent(context, SettingsActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-       // context.overridePendingTransition(0, 0);
-        return intent;
-    }
-
     @Override
     public boolean isFinishing() {
-        int city1 = currentCity != null ? currentCity.intValue(): -1;
-        int city2 = cache.getCity() != null ? cache.getCity().intValue(): -1;
+        int city1 = currentCity != null ? currentCity.intValue() : -1;
+        int city2 = cache.getCity() != null ? cache.getCity().intValue() : -1;
         //reload main activity if user changed the city
-        if (city1 != city2){
+        if (city1 != city2) {
             startActivity(MainActivity.makeIntentWithoutAnimation(this));
         }
+//        TODO REMOVE RESULT OK AFTER THE ADDITION OF THE SIGN OUT BUTTON
+        setResult(RESULT_OK);
         return super.isFinishing();
     }
+
 }

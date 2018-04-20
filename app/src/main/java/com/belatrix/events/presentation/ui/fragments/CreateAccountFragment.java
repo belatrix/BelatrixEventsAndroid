@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.belatrix.events.R;
@@ -66,6 +67,12 @@ public class CreateAccountFragment extends BelatrixBaseFragment implements Creat
     @OnClick(R.id.bt_create_account)
     public void onClickCreateAccountEvent() {
         String email;
+        if (tilEmail != null && getActivity() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(tilEmail.getWindowToken(), 0);
+            }
+        }
         tilEmail.setErrorEnabled(false);
         tvError.setVisibility(View.GONE);
         email = validateEmailInput(tilEmail, hintEmail);

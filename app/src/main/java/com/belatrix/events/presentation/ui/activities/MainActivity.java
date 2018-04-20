@@ -31,6 +31,7 @@ public class MainActivity extends BelatrixBaseActivity {
 
     public static final String PARAM_FROM_NOTIFICATION = "param_from_notification";
     private static final int REQ_AUTHENTICATION = 432;
+    private static final int REQ_SETTINGS = 234;
 
     @BindView(R.id.drawer)
     DrawerLayout drawerLayout;
@@ -155,7 +156,7 @@ public class MainActivity extends BelatrixBaseActivity {
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
                     case R.id.menu_settings:
-                        startActivity(SettingsActivity.makeIntent(MainActivity.this));
+                        startActivityForResult(SettingsActivity.makeIntent(MainActivity.this), REQ_SETTINGS);
                         break;
                     // case R.id.menu_finder:
                     //   startActivity(FinderActivity.makeIntent(MainActivity.this));
@@ -189,7 +190,7 @@ public class MainActivity extends BelatrixBaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQ_AUTHENTICATION) {
+        if (requestCode == REQ_AUTHENTICATION || requestCode == REQ_SETTINGS) {
             setupProfile();
         } else {
             super.onActivityResult(requestCode, resultCode, data);

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.belatrix.events.R;
@@ -90,7 +91,13 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
     @OnClick(R.id.bt_recover_password)
     public void onClickRecoverEvent() {
         String email = "", emailError = "";
-        tilEmail.setErrorEnabled(false);
+        if (tilEmail != null && getActivity() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(tilEmail.getWindowToken(), 0);
+            }
+            tilEmail.setErrorEnabled(false);
+        }
         tvError.setVisibility(View.GONE);
         if (tilEmail.getEditText() != null) {
             email = tilEmail.getEditText().getText().toString();

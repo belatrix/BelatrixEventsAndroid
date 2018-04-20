@@ -5,7 +5,6 @@ import android.accounts.AccountManager;
 import android.os.Build;
 import android.os.Bundle;
 
-import javax.inject.Inject;
 import javax.inject.Named;
 
 public class AccountUtils {
@@ -22,7 +21,6 @@ public class AccountUtils {
     private AccountManager mAccountManager;
     private Account mAccount;
 
-    @Inject
     public AccountUtils(AccountManager accountManager, @Named("account_type") String accountType) {
         this.mAccountManager = accountManager;
         this.mAccountType = accountType;
@@ -105,8 +103,9 @@ public class AccountUtils {
     }
 
     public void signOut() {
+        boolean accountRemoved = false;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            mAccountManager.removeAccountExplicitly(mAccount);
+            accountRemoved = mAccountManager.removeAccountExplicitly(mAccount);
         } else {
             mAccountManager.removeAccount(mAccount, null, null);
         }

@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import com.belatrix.events.R;
 import com.belatrix.events.data.datasource.memory.InMemoryRepository;
 import com.belatrix.events.domain.repository.Repository;
+import com.belatrix.events.utils.account.AccountUtils;
 import com.belatrix.events.utils.cache.Cache;
 import com.belatrix.events.utils.cache.impl.CachePreferences;
 
@@ -72,6 +73,12 @@ public class ApplicationModule {
     @Named("account_type")
     String providesAccountType(Context context) {
         return context.getString(R.string.account_type);
+    }
+
+    @Provides
+    @Singleton
+    AccountUtils providesAccountUtils(AccountManager accountManager, @Named("account_type") String accountType) {
+        return new AccountUtils(accountManager, accountType);
     }
 
 }

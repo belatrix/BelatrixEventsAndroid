@@ -133,4 +133,5 @@ SOFTWARE.</string>
     <string name="hint_confirm_new_password">Confirm new password</string>
     <string name="change">Change</string>
     <string name="change_password">Change password</string>
+    <string name="sign_out">Sign out</string>
 </resources>

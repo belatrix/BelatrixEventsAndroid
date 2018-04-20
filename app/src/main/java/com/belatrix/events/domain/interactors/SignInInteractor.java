@@ -26,9 +26,9 @@ public class SignInInteractor extends AbstractInteractor {
             @Override
             public void accept(UserAuthenticationResponse userAuthenticationResponse) {
                 if (userAuthenticationResponse.isPasswordResetRequired()) {
-                    callback.onChangePassword(userAuthenticationResponse.getUserId());
+                    callback.onChangePassword(userAuthenticationResponse.getToken(), userAuthenticationResponse.getUserId());
                 } else {
-                    fetchUserData(callback, userAuthenticationResponse.getUserId(), password);
+                    fetchUserData(callback, userAuthenticationResponse.getToken(), userAuthenticationResponse.getUserId(), password);
                 }
             }
         }, new Consumer<Throwable>() {
@@ -39,8 +39,8 @@ public class SignInInteractor extends AbstractInteractor {
         });
     }
 
-    private void fetchUserData(final SignInInteractor.Callback callback, final int userId, final String password) {
-        disposable = mUserRepository.getUser(userId).subscribe(new Consumer<User>() {
+    private void fetchUserData(final SignInInteractor.Callback callback, final String token, final int userId, final String password) {
+        disposable = mUserRepository.getUser(token, userId).subscribe(new Consumer<User>() {
             @Override
             public void accept(User user) {
                 mAccountUtils.createAccount(userId, user.getFirstName(), user.getLastName(), user.isStaff(), user.isActive(), user.isParticipant(), user.getEmail(), password);
@@ -55,7 +55,7 @@ public class SignInInteractor extends AbstractInteractor {
     }
 
     public interface Callback {
-        void onChangePassword(int userId);
+        void onChangePassword(String token, int userId);
 
         void onSignInSuccessful();
 

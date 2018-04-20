@@ -11,7 +11,7 @@ public class ChangePasswordPresenter extends BelatrixBasePresenter<ChangePasswor
     private final ChangePasswordInteractor mChangePasswordInteractor;
 
     @Inject
-    public ChangePasswordPresenter(ChangePasswordInteractor changePasswordInteractor) {
+    ChangePasswordPresenter(ChangePasswordInteractor changePasswordInteractor) {
         this.mChangePasswordInteractor = changePasswordInteractor;
     }
 
@@ -20,9 +20,9 @@ public class ChangePasswordPresenter extends BelatrixBasePresenter<ChangePasswor
         mChangePasswordInteractor.cancel();
     }
 
-    public void changePassword(int userId, String oldPassword, String newPassword) {
+    public void changePassword(String token, int userId, String oldPassword, String newPassword) {
         view.showProgressDialog();
-        mChangePasswordInteractor.changePassword(this, userId, oldPassword, newPassword);
+        mChangePasswordInteractor.changePassword(this, token, userId, oldPassword, newPassword);
     }
 
     @Override

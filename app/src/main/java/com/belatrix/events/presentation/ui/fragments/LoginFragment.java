@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.belatrix.events.R;
@@ -97,6 +98,12 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
     @OnClick(R.id.bt_login)
     public void onClickContinueEvent() {
         String username = "", password = "", userError = "", passwordError = "";
+        if (tilUser != null && getActivity() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(tilUser.getWindowToken(), 0);
+            }
+        }
         tilUser.setErrorEnabled(false);
         tilPassword.setErrorEnabled(false);
         tvError.setVisibility(View.GONE);
@@ -123,11 +130,23 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
 
     @OnClick(R.id.tv_recover_password)
     public void onClickRecoverPasswordEvent() {
+        if (tilUser != null && getActivity() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(tilUser.getWindowToken(), 0);
+            }
+        }
         replaceFragment(RecoverPasswordFragment.newInstance(getContext()), true);
     }
 
     @OnClick(R.id.tv_create_account)
     public void onClickCreateAccountEvent() {
+        if (tilUser != null && getActivity() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(tilUser.getWindowToken(), 0);
+            }
+        }
         replaceFragment(CreateAccountFragment.newInstance(getContext()), true);
     }
 
@@ -143,8 +162,8 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
     }
 
     @Override
-    public void onChangePassword(int userId) {
-        replaceFragment(ChangePasswordFragment.newInstance(getContext(), userId), true);
+    public void onChangePassword(String token, int userId) {
+        replaceFragment(ChangePasswordFragment.newInstance(getContext(), token, userId), true);
     }
 
     public interface LoginCallback {

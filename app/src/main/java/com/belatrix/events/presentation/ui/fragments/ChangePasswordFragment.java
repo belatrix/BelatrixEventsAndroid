@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.belatrix.events.R;
@@ -27,6 +28,7 @@ import butterknife.OnClick;
 public class ChangePasswordFragment extends BelatrixBaseFragment implements ChangePasswordPresenter.View {
 
     private final static String ARGS_USER_ID = "args_user_id";
+    private final static String ARGS_TOKEN = "args_token";
 
     @BindView(R.id.til_old_password)
     TextInputLayout tilOldPassword;
@@ -51,11 +53,13 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
 
     private LoginFragment.LoginCallback mLoginCallback;
 
+    private String mToken;
     private int userId;
 
-    public static Fragment newInstance(Context context, int userId) {
+    public static Fragment newInstance(Context context, String token, int userId) {
         Bundle args = new Bundle();
         args.putInt(ARGS_USER_ID, userId);
+        args.putString(ARGS_TOKEN, token);
         return Fragment.instantiate(context, ChangePasswordFragment.class.getName(), args);
     }
 
@@ -80,6 +84,7 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
+            mToken = args.getString(ARGS_TOKEN);
             userId = args.getInt(ARGS_USER_ID);
         }
     }
@@ -104,6 +109,12 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     @OnClick(R.id.bt_change_password)
     public void onClickChangePasswordEvent() {
         String oldPassword, newPassword, confirmNewPassword;
+        if (tilConfirmNewPassword != null && getActivity() != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(tilConfirmNewPassword.getWindowToken(), 0);
+            }
+        }
         tilOldPassword.setErrorEnabled(false);
         tilNewPassword.setErrorEnabled(false);
         tilConfirmNewPassword.setErrorEnabled(false);
@@ -112,7 +123,7 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
         newPassword = validateStringInput(tilNewPassword, hintPassword);
         confirmNewPassword = validateConfirmPasswordInput(tilConfirmNewPassword, newPassword, hintPassword);
         if (!oldPassword.isEmpty() && !newPassword.isEmpty() && !confirmNewPassword.isEmpty()) {
-            changePasswordPresenter.changePassword(userId, oldPassword, newPassword);
+            changePasswordPresenter.changePassword(mToken, userId, oldPassword, newPassword);
         }
     }
 

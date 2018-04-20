@@ -7,6 +7,7 @@ import com.belatrix.events.domain.model.User;
 import com.belatrix.events.domain.repository.UserRepository;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 public class UserRepositoryImpl extends BaseRepository implements UserRepository {
 
@@ -22,7 +23,7 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
     }
 
     @Override
-    public Observable<String> recoverPassword(String email) {
+    public Observable<ResponseBody> recoverPassword(String email) {
         return subscribeOn(mUserAPI.recoverPassword(email));
     }
 
@@ -32,12 +33,12 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
     }
 
     @Override
-    public Observable<User> changePassword(int userId, String oldPassword, String newPassword) {
-        return subscribeOn(mUserAPI.changePassword(userId, oldPassword, newPassword));
+    public Observable<User> changePassword(String token, int userId, String oldPassword, String newPassword) {
+        return subscribeOn(mUserAPI.changePassword("Token " + token, userId, oldPassword, newPassword));
     }
 
     @Override
-    public Observable<User> getUser(int userId) {
-        return subscribeOn(mUserAPI.getUserDetail(userId));
+    public Observable<User> getUser(String token, int userId) {
+        return subscribeOn(mUserAPI.getUserDetail("Token " + token, userId));
     }
 }
