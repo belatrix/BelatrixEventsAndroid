@@ -1,0 +1,114 @@
+package com.belatrix.events.utils.account;
+
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.os.Build;
+import android.os.Bundle;
+
+import javax.inject.Named;
+
+public class AccountUtils {
+
+    private final static String ACCOUNT_USER_ID = "acccount_user_id";
+    private final static String ACCOUNT_FIRST_NAME = "acccount_first_name";
+    private final static String ACCOUNT_LAST_NAME = "acccount_last_name";
+    private final static String ACCOUNT_IS_STAFF = "acccount_is_staff";
+    private final static String ACCOUNT_IS_ACTIVE = "acccount_is_active";
+    private final static String ACCOUNT_IS_PARTICIPANT = "acccount_is_participant";
+
+    private final String mAccountType;
+
+    private AccountManager mAccountManager;
+    private Account mAccount;
+
+    public AccountUtils(AccountManager accountManager, @Named("account_type") String accountType) {
+        this.mAccountManager = accountManager;
+        this.mAccountType = accountType;
+    }
+
+    private Account getAccount() {
+        if (mAccount == null) {
+            Account[] accounts = mAccountManager.getAccountsByType(mAccountType);
+            if (accounts.length > 0) {
+                mAccount = accounts[0];
+                return mAccount;
+            }
+            return null;
+        } else {
+            return mAccount;
+        }
+    }
+
+    public boolean existsAccount() {
+        return getAccount() != null;
+    }
+
+    public int getUserId() {
+        if (mAccount == null) {
+            return -1;
+        }
+        return Integer.parseInt(mAccountManager.getUserData(mAccount, ACCOUNT_USER_ID));
+    }
+
+    public String getFullName() {
+        if (mAccount == null) {
+            return "";
+        }
+        return mAccountManager.getUserData(mAccount, ACCOUNT_FIRST_NAME) + " " + mAccountManager.getUserData(mAccount, ACCOUNT_LAST_NAME);
+    }
+
+    public String getFirstName() {
+        if (mAccount == null) {
+            return "";
+        }
+        return mAccountManager.getUserData(mAccount, ACCOUNT_FIRST_NAME);
+    }
+
+    public String getLastName() {
+        if (mAccount == null) {
+            return "";
+        }
+        return mAccountManager.getUserData(mAccount, ACCOUNT_LAST_NAME);
+    }
+
+    public String getEmail() {
+        if (mAccount == null) {
+            return "";
+        }
+        return mAccount.name;
+    }
+
+    public boolean isStaff() {
+        return mAccount != null && Boolean.parseBoolean(mAccountManager.getUserData(mAccount, ACCOUNT_IS_STAFF));
+    }
+
+    public boolean isActive() {
+        return mAccount != null && Boolean.parseBoolean(mAccountManager.getUserData(mAccount, ACCOUNT_IS_ACTIVE));
+    }
+
+    public boolean isParticipant() {
+        return mAccount != null && Boolean.parseBoolean(mAccountManager.getUserData(mAccount, ACCOUNT_IS_PARTICIPANT));
+    }
+
+    public void createAccount(int userId, String firstName, String lastName, boolean isStaff, boolean isActive, boolean isParticipant, String email, String password) {
+        Bundle args = new Bundle();
+        args.putInt(ACCOUNT_USER_ID, userId);
+        args.putString(ACCOUNT_FIRST_NAME, firstName);
+        args.putString(ACCOUNT_LAST_NAME, lastName);
+        args.putBoolean(ACCOUNT_IS_STAFF, isStaff);
+        args.putBoolean(ACCOUNT_IS_ACTIVE, isActive);
+        args.putBoolean(ACCOUNT_IS_PARTICIPANT, isParticipant);
+        Account account = new Account(email, mAccountType);
+        mAccountManager.addAccountExplicitly(account, password, args);
+    }
+
+    public void signOut() {
+        boolean accountRemoved = false;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            accountRemoved = mAccountManager.removeAccountExplicitly(mAccount);
+        } else {
+            mAccountManager.removeAccount(mAccount, null, null);
+        }
+        mAccount = null;
+    }
+}

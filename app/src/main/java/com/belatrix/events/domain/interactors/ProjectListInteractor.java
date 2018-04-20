@@ -4,6 +4,8 @@ import com.belatrix.events.domain.interactors.base.AbstractInteractor;
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.repository.EventRepository;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,12 +13,7 @@ import javax.inject.Inject;
 import io.reactivex.functions.Consumer;
 
 
-public class ProjectListInteractor extends AbstractInteractor{
-
-    public interface CallBack {
-        void onSuccess(List<Project> result);
-        void onError();
-    }
+public class ProjectListInteractor extends AbstractInteractor {
 
     @Inject
     EventRepository eventRepository;
@@ -30,6 +27,12 @@ public class ProjectListInteractor extends AbstractInteractor{
         disposable = eventRepository.interactionList(p.eventId).subscribe(new Consumer<List<Project>>() {
             @Override
             public void accept(List<Project> projects) throws Exception {
+                Collections.sort(projects, new Comparator<Project>() {
+                    @Override
+                    public int compare(Project o1, Project o2) {
+                        return Integer.valueOf(o2.getVotes()).compareTo(o1.getVotes());
+                    }
+                });
                 callback.onSuccess(projects);
             }
         }, new Consumer<Throwable>() {
@@ -40,6 +43,12 @@ public class ProjectListInteractor extends AbstractInteractor{
         });
     }
 
+    public interface CallBack {
+        void onSuccess(List<Project> result);
+
+        void onError();
+    }
+
     public static final class Params {
         int eventId;
 
@@ -47,7 +56,7 @@ public class ProjectListInteractor extends AbstractInteractor{
             this.eventId = eventId;
         }
 
-        public static ProjectListInteractor.Params forEvent(int eventId){
+        public static ProjectListInteractor.Params forEvent(int eventId) {
             return new ProjectListInteractor.Params(eventId);
         }
 

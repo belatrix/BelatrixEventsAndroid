@@ -17,6 +17,7 @@ import com.belatrix.events.domain.model.City;
 import com.belatrix.events.presentation.presenters.SettingsFragmentPresenter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.utils.DialogUtils;
+import com.belatrix.events.utils.account.AccountUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * created by dvelasquez
@@ -43,6 +45,8 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
     @BindView(R.id.notification)
     Switch notificationSwitch;
 
+    @Inject
+    AccountUtils mAccountUtils;
 
     public SettingsFragment() {
     }
@@ -100,10 +104,10 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
         cityListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0){
+                if (position == 0) {
                     presenter.actionClearCity();
                 } else {
-                    presenter.actionSaveCityId(list.get(position-1).getId());
+                    presenter.actionSaveCityId(list.get(position - 1).getId());
                 }
             }
 
@@ -121,7 +125,7 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
             for (int i = 0; i < size; i++) {
                 City city = cityList.get(i);
                 if (city.getId() == cityId.intValue()) {
-                    selectedPosition = i +1;
+                    selectedPosition = i + 1;
                     break;
                 }
             }
@@ -147,5 +151,13 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
     public void onDestroyView() {
         super.onDestroyView();
         presenter.cancelRequests();
+    }
+
+    @OnClick(R.id.bt_sign_out)
+    public void onClickSignOutEvent() {
+        if (getActivity() != null) {
+            mAccountUtils.signOut();
+            getActivity().finish();
+        }
     }
 }

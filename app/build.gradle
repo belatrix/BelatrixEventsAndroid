@@ -1,16 +1,16 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "com.belatrix.hackatrix"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 27
         versionCode 5
         versionName "1.0.2"
+        vectorDrawables.useSupportLibrary = true
     }
 
     testOptions.unitTests.all {
@@ -45,54 +45,54 @@ android {
 }
 
 def daggerVersion = '2.8'
-def butterKnifeVersion = '8.0.1'
+def butterKnifeVersion = '8.5.1'
 def retrofitVersion = '2.2.0'
 def jUnitVersion = '4.12'
 def mockitoVersion = '1.9.5'
-def okhttpVersion = '3.4.1'
-def supportLibrariesVersion = "26.0.1"
-def timberVersion = "4.1.0"
+def okhttpVersion = '3.4.2'
+def supportLibrariesVersion = "27.1.1"
+def timberVersion = "4.6.0"
 //def viewPagerIndicatorVersion = "1.0.2"
-def bottomNavigationVersion = "2.0.1"
+def bottomNavigationVersion = "2.0.2"
 def daggerMockVersion = "0.6.4"
 def glideVersion = "3.7.0"
 def okhttpVersionCore = "3.6.0"
-def firebaseLibrariesVersion = "9.0.2"
+def firebaseLibrariesVersion = "12.0.1"
 def rxandroidVersion = '2.0.1'
 def rxjavaVersion = '2.0.2'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //di
-    compile "com.google.dagger:dagger:${daggerVersion}"
-    compile "com.jakewharton:butterknife:${butterKnifeVersion}"
-    apt "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
-    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
+    implementation "com.google.dagger:dagger:${daggerVersion}"
+    implementation "com.jakewharton:butterknife:${butterKnifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     // general
-    compile "com.google.firebase:firebase-core:${firebaseLibrariesVersion}"
-    compile "com.google.firebase:firebase-messaging:${firebaseLibrariesVersion}"
-    compile "com.android.support:design:${supportLibrariesVersion}"
-    compile "com.android.support:cardview-v7:${supportLibrariesVersion}"
-    compile "com.jakewharton.timber:timber:${timberVersion}"
-    compile 'pub.devrel:easypermissions:0.3.0'
+    implementation "com.google.firebase:firebase-core:${firebaseLibrariesVersion}"
+    implementation "com.google.firebase:firebase-messaging:${firebaseLibrariesVersion}"
+    implementation "com.android.support:design:${supportLibrariesVersion}"
+    implementation "com.android.support:cardview-v7:${supportLibrariesVersion}"
+    implementation "com.jakewharton.timber:timber:${timberVersion}"
+    implementation 'pub.devrel:easypermissions:0.3.1'
     //network
-    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
-    compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
-    compile "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+    implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
     //tests
-    testCompile "junit:junit:${jUnitVersion}"
-    testCompile "org.mockito:mockito-core:${mockitoVersion}"
+    testImplementation "junit:junit:${jUnitVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     //design
     //compile  "com.github.ronaldsmartin:Material-ViewPagerIndicator:${viewPagerIndicatorVersion}"
-    compile "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}"
-    compile "com.github.bumptech.glide:glide:${glideVersion}"
-    compile "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar"
+    implementation "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}"
+    implementation "com.github.bumptech.glide:glide:${glideVersion}"
+    implementation "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar"
     //rxjava-android
-    compile "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}"
-    compile  "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
-    compile "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
+    implementation "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}"
+    implementation  "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
     //scan
     //compile 'com.journeyapps:zxing-android-embedded:3.5.0@aar'
     //compile 'com.google.zxing:core:3.2.0'

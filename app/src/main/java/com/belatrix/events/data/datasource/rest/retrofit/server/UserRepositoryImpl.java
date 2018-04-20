@@ -1,0 +1,44 @@
+package com.belatrix.events.data.datasource.rest.retrofit.server;
+
+import com.belatrix.events.data.datasource.rest.retrofit.api.UserAPI;
+import com.belatrix.events.data.datasource.rest.retrofit.base.BaseRepository;
+import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
+import com.belatrix.events.domain.model.User;
+import com.belatrix.events.domain.repository.UserRepository;
+
+import io.reactivex.Observable;
+import okhttp3.ResponseBody;
+
+public class UserRepositoryImpl extends BaseRepository implements UserRepository {
+
+    private final UserAPI mUserAPI;
+
+    public UserRepositoryImpl(UserAPI userAPI) {
+        this.mUserAPI = userAPI;
+    }
+
+    @Override
+    public Observable<UserAuthenticationResponse> signIn(String username, String password) {
+        return subscribeOn(mUserAPI.signIn(username, password));
+    }
+
+    @Override
+    public Observable<ResponseBody> recoverPassword(String email) {
+        return subscribeOn(mUserAPI.recoverPassword(email));
+    }
+
+    @Override
+    public Observable<User> createAccount(String email) {
+        return subscribeOn(mUserAPI.createAccount(email));
+    }
+
+    @Override
+    public Observable<User> changePassword(String token, int userId, String oldPassword, String newPassword) {
+        return subscribeOn(mUserAPI.changePassword("Token " + token, userId, oldPassword, newPassword));
+    }
+
+    @Override
+    public Observable<User> getUser(String token, int userId) {
+        return subscribeOn(mUserAPI.getUserDetail("Token " + token, userId));
+    }
+}

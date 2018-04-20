@@ -21,6 +21,18 @@ public class BxEventsApplication extends Application {
     private static Context context;
     ApplicationComponent component;
 
+    public static Context getContext() {
+        return context;
+    }
+
+    public static BxEventsApplication get(Activity activity) {
+        return (BxEventsApplication) activity.getApplication();
+    }
+
+    private void configGlide() {
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,30 +42,18 @@ public class BxEventsApplication extends Application {
         configGlide();
     }
 
-    private  void configGlide() {
-        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
-    }
-
-    private void configLogger(){
+    private void configLogger() {
         if (BuildConfig.DEBUG) {
             Timber.plant(new DebugTree());
         }
     }
 
-    private void configDagger(){
+    private void configDagger() {
         component = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
         component.inject(this);
     }
 
-    public static Context getContext() {
-        return context;
-    }
-
-    public  ApplicationComponent getComponent() {
+    public ApplicationComponent getComponent() {
         return component;
-    }
-
-    public static BxEventsApplication get(Activity activity) {
-        return (BxEventsApplication) activity.getApplication();
     }
 }
