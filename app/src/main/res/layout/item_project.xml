@@ -12,8 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.7"
         android:textSize="@dimen/text_14"
-        android:maxLines="2"
-        android:ellipsize="end"
         android:fontFamily="@string/font_family_regular"
         android:layout_marginRight="@dimen/dimen_2_5"
         android:textColor="@color/black"
