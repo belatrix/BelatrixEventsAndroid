@@ -7,6 +7,11 @@ import android.content.Context;
 import com.belatrix.events.di.component.ApplicationComponent;
 import com.belatrix.events.di.component.DaggerApplicationComponent;
 import com.belatrix.events.di.module.ApplicationModule;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
+import com.bumptech.glide.load.model.GlideUrl;
+
+import java.io.InputStream;
 
 import timber.log.Timber;
 import timber.log.Timber.DebugTree;
@@ -20,12 +25,12 @@ public class BxEventsApplication extends Application {
         return context;
     }
 
-//    private  void configGlide() {
-//        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
-//    }
-
     public static BxEventsApplication get(Activity activity) {
         return (BxEventsApplication) activity.getApplication();
+    }
+
+    private void configGlide() {
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
     }
 
     @Override
@@ -34,7 +39,7 @@ public class BxEventsApplication extends Application {
         context = this;
         configLogger();
         configDagger();
-//        configGlide();
+        configGlide();
     }
 
     private void configLogger() {
