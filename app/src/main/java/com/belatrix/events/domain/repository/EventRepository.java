@@ -1,5 +1,8 @@
 package com.belatrix.events.domain.repository;
 
+import android.arch.lifecycle.LiveData;
+
+import com.belatrix.events.data.datasource.common.Resource;
 import com.belatrix.events.domain.model.City;
 import com.belatrix.events.domain.model.Contributor;
 import com.belatrix.events.domain.model.Event;
@@ -16,10 +19,18 @@ import io.reactivex.Observable;
 public interface EventRepository {
 
     Observable<List<Contributor>> getHomeEvent();
+
     Observable<Event> featured(Integer cityId);
+
     Observable<List<Event>> upcomingList(Integer cityId);
+
     Observable<List<Event>> pastList(Integer cityId);
+
     Observable<List<Project>> interactionList(int eventId);
+
     Observable<Project> interactionVote(int interactionId);
+
     Observable<List<City>> cityList();
+
+    LiveData<Resource<List<Event>>> getListEvent(Integer cityId);
 }

@@ -29,9 +29,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class, RetrofitModule.class, RepositoryModule.class
-
-})
+@Component(modules = {ApplicationModule.class, RetrofitModule.class, RepositoryModule.class})
 public interface ApplicationComponent {
 
     @Singleton

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -44,6 +45,8 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
     String stringSelectCity;
     @BindView(R.id.notification)
     Switch notificationSwitch;
+    @BindView(R.id.bt_sign_out)
+    Button btSignOut;
 
     @Inject
     AccountUtils mAccountUtils;
@@ -77,6 +80,7 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
                 presenter.saveNotification(isChecked);
             }
         });
+        btSignOut.setVisibility(mAccountUtils.existsAccount() ? View.VISIBLE : View.GONE);
     }
 
     @Override

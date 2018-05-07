@@ -16,6 +16,8 @@ import com.belatrix.events.domain.repository.EventRepository;
 import com.belatrix.events.domain.repository.NotificationRepository;
 import com.belatrix.events.domain.repository.UserRepository;
 
+import java.util.concurrent.Executors;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -31,7 +33,7 @@ public class RepositoryModule {
     @Singleton
     @Provides
     public EventRepository provideEventRepository(EventAPI eventAPI) {
-        return new EventRepositoryImpl(eventAPI);
+        return new EventRepositoryImpl(eventAPI, Executors.newSingleThreadExecutor());
     }
 
     @Singleton

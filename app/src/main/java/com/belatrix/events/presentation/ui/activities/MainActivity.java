@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
-import com.belatrix.events.presentation.ui.fragments.HomeFragment;
+import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.utils.account.AccountUtils;
 import com.belatrix.events.utils.cache.Cache;
 
@@ -106,7 +106,7 @@ public class MainActivity extends BelatrixBaseActivity {
         tvEmail = header.findViewById(R.id.tv_email);
         ImageView imageView = header.findViewById(R.id.header_item);
         imageView.setOnClickListener(onClickQRLink);
-        replaceFragment(HomeFragment.newInstance(), false);
+        replaceFragment(NewHomeFragment.newInstance(MainActivity.this, cache.getCity()), false);
         cache.clearStartAppFlag();
         setupProfile();
     }

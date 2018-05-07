@@ -19,8 +19,8 @@ import com.belatrix.events.presentation.ui.fragments.EventDetailVoteFragment;
 import com.belatrix.events.presentation.ui.fragments.EventListFragment;
 import com.belatrix.events.presentation.ui.fragments.EventListSummaryFragment;
 import com.belatrix.events.presentation.ui.fragments.FinderFragment;
-import com.belatrix.events.presentation.ui.fragments.HomeFragment;
 import com.belatrix.events.presentation.ui.fragments.LoginFragment;
+import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.NotificationListFragment;
 import com.belatrix.events.presentation.ui.fragments.RecoverPasswordFragment;
 import com.belatrix.events.presentation.ui.fragments.SettingsFragment;
@@ -53,8 +53,6 @@ public interface UIComponent {
 
     void inject(NotificationListActivity activity);
 
-    void inject(HomeFragment fragment);
-
     void inject(EventDetailVoteFragment fragment);
 
     void inject(EventListSummaryFragment fragment);
@@ -78,4 +76,6 @@ public interface UIComponent {
     void inject(CreateAccountFragment fragment);
 
     void inject(ChangePasswordFragment fragment);
+
+    void inject(NewHomeFragment fragment);
 }

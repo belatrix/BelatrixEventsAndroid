@@ -22,13 +22,19 @@ import dagger.Provides;
 @Module
 public class ApplicationModule {
 
+    private final Application application;
     private final Context context;
 
-    Application mApplication;
 
     public ApplicationModule(Application application) {
-        mApplication = application;
+        this.application = application;
         this.context = application.getApplicationContext();
+    }
+
+    @Provides
+    @Singleton
+    public Application providesApplication() {
+        return application;
     }
 
     @Provides
@@ -41,12 +47,6 @@ public class ApplicationModule {
     @Singleton
     public Repository repository() {
         return new InMemoryRepository();
-    }
-
-    @Provides
-    @Singleton
-    Application providesApplication() {
-        return mApplication;
     }
 
     @Provides
