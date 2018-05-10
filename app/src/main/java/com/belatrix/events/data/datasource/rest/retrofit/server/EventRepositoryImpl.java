@@ -10,6 +10,7 @@ import com.belatrix.events.domain.model.City;
 import com.belatrix.events.domain.model.Contributor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Project;
+import com.belatrix.events.domain.model.Vote;
 import com.belatrix.events.domain.repository.EventRepository;
 
 import java.io.IOException;
@@ -65,6 +66,10 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
         return subscribeOn(eventAPI.interactionList(eventId));
     }
 
+    @Override
+    public Observable<List<Vote>> voteList(int eventId) {
+        return subscribeOn(eventAPI.voteList(eventId));
+    }
 
     @Override
     public Observable<Project> interactionVote(int interactionId) {

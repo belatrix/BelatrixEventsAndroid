@@ -32,6 +32,7 @@ import butterknife.BindView;
 
 /**
  * created by dvelasquez
+ * modified by lburgos
  */
 public class EventDetailVoteFragment extends BelatrixBaseFragment implements EventDetailVoteFragmentPresenter.View, ProjectListAdapter.RecyclerViewClickListener {
 

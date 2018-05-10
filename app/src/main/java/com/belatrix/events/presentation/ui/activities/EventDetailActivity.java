@@ -6,7 +6,6 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -17,17 +16,19 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.domain.model.Event;
@@ -50,58 +51,61 @@ import java.util.TimeZone;
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class EventDetailActivity extends BelatrixBaseActivity implements EasyPermissions.PermissionCallbacks {
 
+    public static final int TAB_ABOUT = 0;
+    public static final int TAB_VOTE = 1;
     private static final int RC_CALENDAR_PERM = 1023;
-
     private static final int INVALID_CALENDAR_ID = -1;
-
     private static final int CALENDAR_NO_READ_RP = 0;
-
     @BindView(R.id.image_event)
     ImageView pictureImageView;
-
-    @BindView(R.id.bottom_navigation)
-    AHBottomNavigation bottomNavigation;
-
+    @BindView(R.id.tab_layout)
+    TabLayout tabLayout;
     @BindString(R.string.bottom_navigation_color)
     String navigationColor;
-
     @BindString(R.string.event_detail_added_calendar)
     String stringEventAdded;
-
     @BindString(R.string.event_invalid_calendar)
     String stringInvalidCalendar;
-
     @BindString(R.string.event_detail_already_added_calendar)
     String stringEventAlreadyAdded;
-
-    private Event event;
-
-    public static final int TAB_ABOUT = 0;
-
-    public static final int TAB_VOTE = 1;
-
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
-
     @BindView(R.id.swipe_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
-
     @BindView(R.id.collapsing)
     CollapsingToolbarLayout collapsingToolbarLayout;
-
     @BindDrawable(R.drawable.event_placeholder)
     Drawable eventPlaceHolderDrawable;
 
-    EventDetailAboutFragment eventDetailAboutFragment;
-
+    Fragment eventDetailAboutFragment;
     EventDetailVoteFragment eventDetailVoteFragment;
+    private Event event;
+
+    public static void startActivity(Activity context, Event event, ImageView imageView) {
+        Intent intent = new Intent(context, EventDetailActivity.class);
+        intent.putExtra(Constants.EVENT_KEY, event);
+        ViewCompat.setTransitionName(imageView, context.getString(R.string.transition_photo));
+        ActivityOptionsCompat options = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(context, imageView, context.getString(R.string.transition_photo));
+        context.startActivity(intent, options.toBundle());
+    }
+
+    private static boolean hasImage(@NonNull ImageView view) {
+        Drawable drawable = view.getDrawable();
+        boolean hasImage = (drawable != null);
+
+        if (hasImage && (drawable instanceof BitmapDrawable)) {
+            hasImage = ((BitmapDrawable) drawable).getBitmap() != null;
+        }
+
+        return hasImage;
+    }
 
     @Override
     protected void initDependencies(UIComponent uiComponent) {
@@ -142,33 +146,37 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         );
         setupViews();
         replaceFragment(eventDetailAboutFragment, false);
-        if (event.isHasInteractions()) {
-            bottomNavigation.setVisibility(View.VISIBLE);
-        } else {
-            bottomNavigation.setVisibility(View.GONE);
-            //todo: issue found when bottomNavigation is shown and event detail is too long.
-            // Extra padding added to fragment_event_detail_about to prevent cut text
-        }
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+//        if (event.isHasInteractions()) {
+//            tabLayout.setVisibility(View.VISIBLE);
+//        } else {
+//            tabLayout.setVisibility(View.GONE);
+//        }
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
-                if (!wasSelected) {
-                    switch (position) {
-                        case TAB_ABOUT:
-                            appBarLayout.setExpanded(true, true);
-                            enableAppBarLayout(true);
-                            replaceFragment(eventDetailAboutFragment, false);
-                            break;
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case TAB_ABOUT:
+                        appBarLayout.setExpanded(true, true);
+                        enableAppBarLayout(true);
+                        replaceFragment(eventDetailAboutFragment, false);
+                        break;
 
-                        case TAB_VOTE:
-                            appBarLayout.setExpanded(false, true);
-                            enableAppBarLayout(false);
-                            replaceFragment(eventDetailVoteFragment, false);
-                            break;
-
-                    }
+                    case TAB_VOTE:
+                        appBarLayout.setExpanded(false, true);
+                        enableAppBarLayout(false);
+                        replaceFragment(eventDetailVoteFragment, false);
+                        break;
                 }
-                return true;
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
         setTitle(event.getTitle());
@@ -195,22 +203,12 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     }
 
     private void setupViews() {
-        boolean isUpcoming = event.isUpcoming();
-        //set visibility for calendar and share buttons
-        findViewById(R.id.button_add_calendar).setVisibility(isUpcoming ? View.VISIBLE : View.GONE);
-        findViewById(R.id.button_share).setVisibility(isUpcoming ? View.VISIBLE : View.GONE);
-
-        eventDetailAboutFragment = EventDetailAboutFragment.newInstance(event);
+        eventDetailAboutFragment = EventDetailAboutFragment.newInstance(EventDetailActivity.this, event);
         eventDetailVoteFragment = EventDetailVoteFragment.newInstance(event);
-        AHBottomNavigationItem item1 = new AHBottomNavigationItem(R.string.tab_event_about, R.drawable.ic_about,
-                R.color.colorAccent);
-        AHBottomNavigationItem item2 = new AHBottomNavigationItem(R.string.tab_event_interact, R.drawable.ic_about,
-                R.color.colorAccent);
-        bottomNavigation.addItem(item1);
-        bottomNavigation.addItem(item2);
-        bottomNavigation.setTitleState(AHBottomNavigation.TitleState.ALWAYS_SHOW);
-        bottomNavigation.setAccentColor(Color.parseColor(navigationColor));
-        bottomNavigation.setBehaviorTranslationEnabled(false);
+
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_info).setText(R.string.tab_event_about));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_group).setText(R.string.tab_event_interact));
+
         swipeRefreshLayout.setDistanceToTriggerSync(300);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -224,33 +222,17 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.new_menu_event_detail, menu);
+        boolean isUpcoming = event.isUpcoming();
+        menu.findItem(R.id.action_share).setVisible(isUpcoming);
+        menu.findItem(R.id.action_calendar).setVisible(isUpcoming);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public void setTitle(String title) {
         collapsingToolbarLayout.setTitle(title);
-    }
-
-    public static void startActivity(Activity context, Event event, ImageView imageView) {
-        Intent intent = new Intent(context, EventDetailActivity.class);
-        intent.putExtra(Constants.EVENT_KEY, event);
-        ViewCompat.setTransitionName(imageView, context.getString(R.string.transition_photo));
-        ActivityOptionsCompat options = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(context, imageView, context.getString(R.string.transition_photo));
-        context.startActivity(intent, options.toBundle());
-    }
-
-    private static boolean hasImage(@NonNull ImageView view) {
-        Drawable drawable = view.getDrawable();
-        boolean hasImage = (drawable != null);
-
-        if (hasImage && (drawable instanceof BitmapDrawable)) {
-            hasImage = ((BitmapDrawable) drawable).getBitmap() != null;
-        }
-
-        return hasImage;
-    }
-
-    @OnClick(R.id.button_add_calendar)
-    public void onClickAddCalendar() {
-        addToCalendar();
     }
 
     @AfterPermissionGranted(RC_CALENDAR_PERM)
@@ -291,7 +273,7 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
             // Calendar event already exists for this session.
             cursor.close();
         } else {
-            Date date = DateUtils.getDateFromtString(event.getDatetime(), DateUtils.DATE_FORMAT_3);
+            Date date = DateUtils.getDateFromString(event.getDatetime(), DateUtils.DATE_FORMAT_3);
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             values.clear();
@@ -340,14 +322,6 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         }
     }
 
-    @OnClick(R.id.button_share)
-    public void onClickShare() {
-        String sharingText = (event.getSharingText() != null && !event.getSharingText().isEmpty() ? event.getSharingText()
-                : event.getTitle());
-        DialogUtils.shareContent(this, sharingText + "\n" + event.getImage(), stringShare);
-    }
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -375,4 +349,17 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_calendar:
+                addToCalendar();
+                break;
+            case R.id.action_share:
+                String sharingText = (event.getSharingText() != null && !event.getSharingText().isEmpty() ? event.getSharingText() : event.getTitle());
+                DialogUtils.shareContent(this, sharingText + "\n" + event.getImage(), stringShare);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

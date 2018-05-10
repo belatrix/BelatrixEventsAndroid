@@ -1,7 +1,10 @@
 package com.belatrix.events.domain.interactors;
 
+import android.text.TextUtils;
+
 import com.belatrix.events.domain.interactors.base.AbstractInteractor;
 import com.belatrix.events.domain.model.Project;
+import com.belatrix.events.domain.model.Vote;
 import com.belatrix.events.domain.repository.EventRepository;
 
 import java.util.Collections;
@@ -19,21 +22,44 @@ public class ProjectListInteractor extends AbstractInteractor {
     EventRepository eventRepository;
 
     @Inject
-    public ProjectListInteractor() {
+    ProjectListInteractor() {
     }
 
     public void getInteractionList(final ProjectListInteractor.CallBack callback, Params params) {
-        Params p = params;
+        final Params p = params;
         disposable = eventRepository.interactionList(p.eventId).subscribe(new Consumer<List<Project>>() {
             @Override
-            public void accept(List<Project> projects) throws Exception {
-                Collections.sort(projects, new Comparator<Project>() {
+            public void accept(final List<Project> projects) throws Exception {
+                disposable = eventRepository.voteList(p.eventId).subscribe(new Consumer<List<Vote>>() {
                     @Override
-                    public int compare(Project o1, Project o2) {
-                        return Integer.valueOf(o2.getVotes()).compareTo(o1.getVotes());
+                    public void accept(final List<Vote> votes) throws Exception {
+                        for (Project project : projects) {
+                            for (Vote vote : votes) {
+                                if (project.getId() == vote.getId()) {
+                                    project.setVotes(vote.getVotes());
+                                    break;
+                                }
+                            }
+                            if (TextUtils.isEmpty(project.getDescription())) {
+                                String[] aux = project.getTitle().split(" - ");
+                                project.setTitle(aux[0]);
+                                project.setDescription(aux[1]);
+                            }
+                        }
+                        Collections.sort(projects, new Comparator<Project>() {
+                            @Override
+                            public int compare(Project o1, Project o2) {
+                                return o1.getVotes() < o2.getVotes() ? -1 : o1.getVotes() > o2.getVotes() ? 1 : 0;
+                            }
+                        });
+                        callback.onSuccess(projects);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        callback.onError();
                     }
                 });
-                callback.onSuccess(projects);
             }
         }, new Consumer<Throwable>() {
             @Override

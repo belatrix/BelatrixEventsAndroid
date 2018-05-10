@@ -7,6 +7,7 @@ import com.belatrix.events.domain.model.City;
 import com.belatrix.events.domain.model.Contributor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Project;
+import com.belatrix.events.domain.model.Vote;
 
 import java.util.List;
 
@@ -27,6 +28,8 @@ public interface EventRepository {
     Observable<List<Event>> pastList(Integer cityId);
 
     Observable<List<Project>> interactionList(int eventId);
+
+    Observable<List<Vote>> voteList(int eventId);
 
     Observable<Project> interactionVote(int interactionId);
 

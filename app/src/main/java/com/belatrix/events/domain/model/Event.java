@@ -3,12 +3,10 @@ package com.belatrix.events.domain.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.belatrix.events.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by dvelasquez on 2/24/17.
@@ -145,14 +143,7 @@ public class Event implements Parcelable {
     }
 
     public Date getDate() {
-//        TODO CHECK DATE PATTERN, CURRENTLY NOT WORKING
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd'T'hh:mm:ss'Z'", Locale.getDefault());
-        try {
-            return sdf.parse(datetime);
-        } catch (ParseException pex) {
-            pex.printStackTrace();
-            return new Date();
-        }
+        return DateUtils.getDateFromString(datetime, DateUtils.DATE_FORMAT_3);
     }
 
     public String getRegisterLink() {

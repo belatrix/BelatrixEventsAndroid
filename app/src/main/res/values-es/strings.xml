@@ -49,6 +49,7 @@
     <string name="tab_event_interact">Interactuar</string>
     <string name="event_dialog_confirm_vote">Está seguro de su elección \"%1$s\"?</string>
     <string name="event_invalid_calendar">Calendario inválido</string>
+    <string name="event_calendar">Calendario</string>
     <string name="event_detail_added_calendar">Evento fue agregado a su calendario</string>
     <string name="event_detail_already_added_calendar">Ya agregaste anteriormente este evento al calendario</string>
 
@@ -120,4 +121,9 @@ SOFTWARE.</string>
     <string name="change">Cambiar</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="sign_out">Sign out</string>
+    <string name="about_the_event">Sobre el evento</string>
+    <string name="date">Fecha</string>
+    <string name="place">Lugar</string>
+    <string name="agenda">Agenda</string>
+    <string name="link">Link</string>
 </resources>

@@ -90,7 +90,7 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
             view.onVoteFail(view.getContext().getString(R.string.dialog_error_vote_already));
         } else {
             if (event.isInteractionActive()) {
-                final String projectName = project.getText();
+                final String projectName = project.getTitle();
                 String confirmationMessage = view.getContext().getString(R.string.event_dialog_confirm_vote, projectName);
                 if (event.getInteractionConfirmationText() != null && !event.getInteractionConfirmationText().isEmpty()) {
                     confirmationMessage = String.format(event.getInteractionConfirmationText(), projectName);

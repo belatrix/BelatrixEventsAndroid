@@ -4,6 +4,7 @@ import com.belatrix.events.domain.model.City;
 import com.belatrix.events.domain.model.Contributor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Project;
+import com.belatrix.events.domain.model.Vote;
 
 import java.util.List;
 
@@ -39,8 +40,11 @@ public interface EventAPI {
     @GET("event/past/list/")
     Call<List<Event>> pastEvent(@Query("city") Integer cityId);
 
-    @GET("event/{event_id}/interaction/list")
+    @GET("event/{event_id}/idea/list")
     Observable<List<Project>> interactionList(@Path("event_id") int eventId);
+
+    @GET("event/{event_id}/idea/vote")
+    Observable<List<Vote>> voteList(@Path("event_id") int eventId);
 
     @PATCH("event/interaction/{interaction_id}/vote")
     Observable<Project> interactionVote(@Path("interaction_id") int interactionId);

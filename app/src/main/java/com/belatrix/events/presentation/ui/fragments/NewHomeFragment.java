@@ -73,8 +73,7 @@ public class NewHomeFragment extends BelatrixBaseFragment implements NewEventAda
             @Override
             public void onRefresh() {
                 if (getArguments() != null && getArguments().containsKey(ARGS_CITY_ID)) {
-                    mEventViewModel.loadEvents(getArguments().getInt(ARGS_CITY_ID));
-                    mEventViewModel.getListEvent().observe(NewHomeFragment.this, NewHomeFragment.this);
+                    mEventViewModel.refresh(getArguments().getInt(ARGS_CITY_ID));
                 }
             }
         });

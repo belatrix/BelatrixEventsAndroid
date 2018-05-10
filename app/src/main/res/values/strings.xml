@@ -49,6 +49,7 @@
     <string name="tab_event_interact">Interact</string>
     <string name="event_dialog_confirm_vote">Are you sure of your choice \"%1$s\"?</string>
     <string name="event_invalid_calendar">Invalid Calendar</string>
+    <string name="event_calendar">Calendar</string>
     <string name="event_detail_added_calendar">Event was added to your calendar</string>
     <string name="event_detail_already_added_calendar">Event was already added to your calendar</string>
 
@@ -134,4 +135,10 @@ SOFTWARE.</string>
     <string name="change">Change</string>
     <string name="change_password">Change password</string>
     <string name="sign_out">Sign out</string>
+
+    <string name="about_the_event">About the event</string>
+    <string name="date">Date</string>
+    <string name="place">Place</string>
+    <string name="agenda">Agenda</string>
+    <string name="link">Link</string>
 </resources>

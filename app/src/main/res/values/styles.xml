@@ -112,10 +112,6 @@
 
     <style name="TextAppearance.MyApp.Title.Expanded" parent="TextAppearance.AppCompat.Title">
         <item name="android:textColor">@color/white</item>
-        <item name="android:shadowDy">5</item>
-        <item name="android:shadowDx">5</item>
-        <item name="android:shadowRadius">5</item>
-        <item name="android:shadowColor">@android:color/black</item>
     </style>
 
     <style name="TextAppearance.MyApp.CardViewTitle.Expanded" parent="TextAppearance.AppCompat.Caption">
@@ -146,6 +142,59 @@
     <style name="Theme.SemiTransparent" parent="Translucent">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="TextAppearance.Caption" parent="android:TextAppearance">
+        <item name="android:textSize">12sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:lineSpacingExtra">20dp</item>
+    </style>
+
+    <style name="TextAppearance.Caption.Dark" parent="android:TextAppearance">
+        <item name="android:textColor">@color/white_54</item>
+    </style>
+
+    <style name="TextAppearance.Caption.Light" parent="android:TextAppearance">
+        <item name="android:textColor">@color/black_54</item>
+    </style>
+
+    <style name="TextAppearance.Body1" parent="android:TextAppearance">
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">20dp</item>
+    </style>
+
+    <style name="TextAppearance.Body1.Dark" parent="android:TextAppearance">
+        <item name="android:textColor">@color/white_87</item>
+    </style>
+
+    <style name="TextAppearance.Body1.Light" parent="android:TextAppearance">
+        <item name="android:textColor">@color/black_87</item>
+    </style>
+
+    <style name="TextAppearance.Subheading" parent="android:TextAppearance">
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">20dp</item>
+    </style>
+
+    <style name="TextAppearance.Subheading.Dark" parent="android:TextAppearance">
+        <item name="android:textColor">@color/white_87</item>
+    </style>
+
+    <style name="TextAppearance.Subheading.Light" parent="android:TextAppearance">
+        <item name="android:textColor">@color/black_87</item>
+    </style>
+
+    <style name="TextAppearance.Heading" parent="android:TextAppearance">
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineSpacingExtra">32dp</item>
+    </style>
+
+    <style name="TextAppearance.Heading.Dark" parent="android:TextAppearance">
+        <item name="android:textColor">@color/white_87</item>
+    </style>
+
+    <style name="TextAppearance.Heading.Light" parent="android:TextAppearance">
+        <item name="android:textColor">@color/black_87</item>
     </style>
 
 </resources>
