@@ -46,7 +46,7 @@
     <string name="event_title_near">Eventos próximos</string>
     <string name="event_title_past">Eventos pasados</string>
     <string name="tab_event_about">Información</string>
-    <string name="tab_event_interact">Interactuar</string>
+    <string name="tab_event_interact">Ideas</string>
     <string name="event_dialog_confirm_vote">Está seguro de su elección \"%1$s\"?</string>
     <string name="event_invalid_calendar">Calendario inválido</string>
     <string name="event_calendar">Calendario</string>
