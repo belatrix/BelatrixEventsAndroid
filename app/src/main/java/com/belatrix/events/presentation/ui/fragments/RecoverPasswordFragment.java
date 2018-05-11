@@ -5,12 +5,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.belatrix.events.R;
@@ -27,8 +27,8 @@ import butterknife.OnClick;
 
 public class RecoverPasswordFragment extends BelatrixBaseFragment implements RecoverPasswordPresenter.View {
 
-    @BindView(R.id.til_email)
-    TextInputLayout tilEmail;
+    @BindView(R.id.et_email)
+    EditText etEmail;
 
     @BindView(R.id.tv_error)
     TextView tvError;
@@ -90,22 +90,19 @@ public class RecoverPasswordFragment extends BelatrixBaseFragment implements Rec
 
     @OnClick(R.id.bt_recover_password)
     public void onClickRecoverEvent() {
-        String email = "", emailError = "";
-        if (tilEmail != null && getActivity() != null) {
+        String email, emailError;
+        if (etEmail != null && getActivity() != null) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null) {
-                imm.hideSoftInputFromWindow(tilEmail.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(etEmail.getWindowToken(), 0);
             }
-            tilEmail.setErrorEnabled(false);
+            etEmail.setError(null);
         }
         tvError.setVisibility(View.GONE);
-        if (tilEmail.getEditText() != null) {
-            email = tilEmail.getEditText().getText().toString();
-            emailError = mValidator.validateEmailField(hintEmail, email);
-            if (!emailError.isEmpty()) {
-                tilEmail.setErrorEnabled(true);
-                tilEmail.setError(emailError);
-            }
+        email = etEmail.getText().toString();
+        emailError = mValidator.validateEmailField(hintEmail, email);
+        if (!emailError.isEmpty()) {
+            etEmail.setError(emailError);
         }
         if (emailError.isEmpty()) {
             recoverPasswordPresenter.recoverPassword(email);

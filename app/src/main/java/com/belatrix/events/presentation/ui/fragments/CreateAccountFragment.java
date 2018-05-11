@@ -4,12 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.belatrix.events.R;
@@ -27,8 +27,8 @@ import butterknife.OnClick;
 public class CreateAccountFragment extends BelatrixBaseFragment implements CreateAccountPresenter.View {
 
 
-    @BindView(R.id.til_email)
-    TextInputLayout tilEmail;
+    @BindView(R.id.et_email)
+    EditText etEmail;
 
     @BindView(R.id.tv_error)
     TextView tvError;
@@ -67,30 +67,27 @@ public class CreateAccountFragment extends BelatrixBaseFragment implements Creat
     @OnClick(R.id.bt_create_account)
     public void onClickCreateAccountEvent() {
         String email;
-        if (tilEmail != null && getActivity() != null) {
+        if (etEmail != null && getActivity() != null) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null) {
-                imm.hideSoftInputFromWindow(tilEmail.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(etEmail.getWindowToken(), 0);
             }
+            etEmail.setError(null);
         }
-        tilEmail.setErrorEnabled(false);
         tvError.setVisibility(View.GONE);
-        email = validateEmailInput(tilEmail, hintEmail);
+        email = validateEmailInput(etEmail, hintEmail);
         if (!email.isEmpty()) {
             createAccountPresenter.createAccount(email);
         }
     }
 
-    private String validateEmailInput(TextInputLayout textInputLayout, String field) {
-        String value = "", error;
-        if (textInputLayout.getEditText() != null) {
-            value = textInputLayout.getEditText().getText().toString();
-            error = mValidator.validateEmailField(field, value);
-            if (!error.isEmpty()) {
-                textInputLayout.setErrorEnabled(true);
-                textInputLayout.setError(error);
-                return "";
-            }
+    private String validateEmailInput(EditText editText, String field) {
+        String value, error;
+        value = editText.getText().toString();
+        error = mValidator.validateEmailField(field, value);
+        if (!error.isEmpty()) {
+            editText.setError(error);
+            return "";
         }
         return value;
     }
