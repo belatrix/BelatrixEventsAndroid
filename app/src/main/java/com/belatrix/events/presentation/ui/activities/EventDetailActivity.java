@@ -16,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -36,6 +37,7 @@ import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.presentation.ui.common.DisableableAppBarLayoutBehavior;
 import com.belatrix.events.presentation.ui.fragments.EventDetailAboutFragment;
+import com.belatrix.events.presentation.ui.fragments.EventDetailIdeaFragment;
 import com.belatrix.events.presentation.ui.fragments.EventDetailVoteFragment;
 import com.belatrix.events.utils.Constants;
 import com.belatrix.events.utils.DateUtils;
@@ -58,7 +60,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class EventDetailActivity extends BelatrixBaseActivity implements EasyPermissions.PermissionCallbacks {
 
     public static final int TAB_ABOUT = 0;
-    public static final int TAB_VOTE = 1;
+    public static final int TAB_IDEA = 1;
+    public static final int TAB_VOTE = 2;
     private static final int RC_CALENDAR_PERM = 1023;
     private static final int INVALID_CALENDAR_ID = -1;
     private static final int CALENDAR_NO_READ_RP = 0;
@@ -66,6 +69,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     ImageView pictureImageView;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
+    @BindView(R.id.fab_add_idea)
+    FloatingActionButton fabAddIdea;
     @BindString(R.string.bottom_navigation_color)
     String navigationColor;
     @BindString(R.string.event_detail_added_calendar)
@@ -84,7 +89,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     Drawable eventPlaceHolderDrawable;
 
     Fragment eventDetailAboutFragment;
-    EventDetailVoteFragment eventDetailVoteFragment;
+    Fragment eventDetailIdeaFragment;
+    Fragment eventDetailVoteFragment;
     private Event event;
 
     public static void startActivity(Activity context, Event event, ImageView imageView) {
@@ -146,11 +152,6 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         );
         setupViews();
         replaceFragment(eventDetailAboutFragment, false);
-//        if (event.isHasInteractions()) {
-//            tabLayout.setVisibility(View.VISIBLE);
-//        } else {
-//            tabLayout.setVisibility(View.GONE);
-//        }
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -159,13 +160,21 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
                         appBarLayout.setExpanded(true, true);
                         enableAppBarLayout(true);
                         replaceFragment(eventDetailAboutFragment, false);
+                        fabAddIdea.setVisibility(View.GONE);
                         break;
-
+                    case TAB_IDEA:
+                        appBarLayout.setExpanded(false, true);
+                        enableAppBarLayout(false);
+                        replaceFragment(eventDetailIdeaFragment, false);
+                        fabAddIdea.setVisibility(View.VISIBLE);
+                        break;
                     case TAB_VOTE:
                         appBarLayout.setExpanded(false, true);
                         enableAppBarLayout(false);
                         replaceFragment(eventDetailVoteFragment, false);
+                        fabAddIdea.setVisibility(View.GONE);
                         break;
+
                 }
             }
 
@@ -204,10 +213,12 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
 
     private void setupViews() {
         eventDetailAboutFragment = EventDetailAboutFragment.newInstance(EventDetailActivity.this, event);
-        eventDetailVoteFragment = EventDetailVoteFragment.newInstance(event);
+        eventDetailIdeaFragment = EventDetailIdeaFragment.newInstance(EventDetailActivity.this, event);
+        eventDetailVoteFragment = EventDetailVoteFragment.newInstance(EventDetailActivity.this, event);
 
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_info).setText(R.string.tab_event_about));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_group).setText(R.string.tab_event_interact));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_idea).setText(R.string.tab_event_idea));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_group).setText(R.string.tab_event_votes));
 
         swipeRefreshLayout.setDistanceToTriggerSync(300);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

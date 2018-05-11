@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="80dp"
+    android:orientation="vertical"
+    android:paddingBottom="12dp"
+    android:paddingEnd="72dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="72dp"
+    android:paddingStart="16dp"
+    android:paddingTop="12dp">
+
+    <TextView
+        android:id="@+id/event_name"
+        style="@style/TextAppearance.Subheading.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        tools:text="Title"/>
+
+    <TextView
+        android:id="@+id/event_description"
+        style="@style/TextAppearance.Body1.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="2"
+        android:textColor="@color/black_54"
+        tools:text="lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan tellus tortor, vel dignissim nibh iaculis sed. Mauris sed tempus urna, ac viverra est. Cras pretium odio ut massa dignissim,"/>
+
+</LinearLayout>

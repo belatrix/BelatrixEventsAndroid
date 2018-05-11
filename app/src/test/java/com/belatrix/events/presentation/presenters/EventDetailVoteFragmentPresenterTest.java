@@ -2,7 +2,7 @@ package com.belatrix.events.presentation.presenters;
 
 import android.content.Context;
 
-import com.belatrix.events.domain.interactors.ProjectListInteractor;
+import com.belatrix.events.domain.interactors.ListVotesInteractor;
 import com.belatrix.events.domain.interactors.ProjectVoteInteractor;
 import com.belatrix.events.domain.model.Project;
 
@@ -28,7 +28,7 @@ public class EventDetailVoteFragmentPresenterTest {
     @Mock
     private EventDetailVoteFragmentPresenter.View view;
     @Mock
-    private ProjectListInteractor mockListInteractor;
+    private ListVotesInteractor mockListInteractor;
     @Mock
     private ProjectVoteInteractor mockVoteInteractor;
     @Captor

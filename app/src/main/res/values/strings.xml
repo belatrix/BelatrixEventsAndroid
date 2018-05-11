@@ -46,7 +46,8 @@
     <string name="event_title_near">My upcoming events</string>
     <string name="event_title_past">Past events</string>
     <string name="tab_event_about">About</string>
-    <string name="tab_event_interact">Ideas</string>
+    <string name="tab_event_idea">Ideas</string>
+    <string name="tab_event_votes">Votos</string>
     <string name="event_dialog_confirm_vote">Are you sure of your choice \"%1$s\"?</string>
     <string name="event_invalid_calendar">Invalid Calendar</string>
     <string name="event_calendar">Calendar</string>

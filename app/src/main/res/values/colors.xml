@@ -31,8 +31,7 @@
 
     <color name="black_54">#8A000000</color>
     <color name="black_87">#DE000000</color>
-
     <color name="white_54">#8AFFFFFF</color>
     <color name="white_87">#DEFFFFFF</color>
-
+    <color name="off_white">#FBFCFC</color>
 </resources>

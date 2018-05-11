@@ -15,6 +15,7 @@ import com.belatrix.events.presentation.ui.fragments.AboutFragment;
 import com.belatrix.events.presentation.ui.fragments.ChangePasswordFragment;
 import com.belatrix.events.presentation.ui.fragments.CitySelectionFragment;
 import com.belatrix.events.presentation.ui.fragments.CreateAccountFragment;
+import com.belatrix.events.presentation.ui.fragments.EventDetailIdeaFragment;
 import com.belatrix.events.presentation.ui.fragments.EventDetailVoteFragment;
 import com.belatrix.events.presentation.ui.fragments.EventListFragment;
 import com.belatrix.events.presentation.ui.fragments.FinderFragment;
@@ -75,4 +76,6 @@ public interface UIComponent {
     void inject(ChangePasswordFragment fragment);
 
     void inject(NewHomeFragment fragment);
+
+    void inject(EventDetailIdeaFragment fragment);
 }

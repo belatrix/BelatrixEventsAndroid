@@ -16,9 +16,9 @@ import android.widget.TextView;
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.domain.model.Event;
-import com.belatrix.events.domain.model.Vote;
-import com.belatrix.events.presentation.presenters.EventDetailVoteFragmentPresenter;
-import com.belatrix.events.presentation.ui.adapters.VoteListAdapter;
+import com.belatrix.events.domain.model.Project;
+import com.belatrix.events.presentation.presenters.EventDetailIdeaFragmentPresenter;
+import com.belatrix.events.presentation.ui.adapters.IdeaListAdapter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.presentation.ui.common.DividerItemDecoration;
 import com.belatrix.events.utils.Constants;
@@ -35,7 +35,7 @@ import butterknife.BindView;
  * created by dvelasquez
  * modified by lburgos
  */
-public class EventDetailVoteFragment extends BelatrixBaseFragment implements EventDetailVoteFragmentPresenter.View, VoteListAdapter.RecyclerViewClickListener {
+public class EventDetailIdeaFragment extends BelatrixBaseFragment implements EventDetailIdeaFragmentPresenter.View, IdeaListAdapter.RecyclerViewClickListener {
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -44,20 +44,17 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     @BindView(R.id.recycler_programs)
     RecyclerView recyclerView;
     @Inject
-    EventDetailVoteFragmentPresenter presenter;
-    VoteListAdapter listAdapter;
+    EventDetailIdeaFragmentPresenter presenter;
+    IdeaListAdapter listAdapter;
     @BindString(R.string.app_name)
     String stringTitle;
     @BindString(R.string.dialog_option_participate)
     String stringParticipate;
 
-    public EventDetailVoteFragment() {
-    }
-
     public static Fragment newInstance(Context context, Event event) {
         Bundle args = new Bundle();
         args.putParcelable(Constants.EVENT_KEY, event);
-        return Fragment.instantiate(context, EventDetailVoteFragment.class.getName(), args);
+        return Fragment.instantiate(context, EventDetailIdeaFragment.class.getName(), args);
     }
 
     @Override
@@ -78,7 +75,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     protected void initViews() {
-        listAdapter = new VoteListAdapter(this);
+        listAdapter = new IdeaListAdapter(this);
         recyclerView.setAdapter(listAdapter);
         recyclerView.setNestedScrollingEnabled(false);
         if (getActivity() != null) {
@@ -101,7 +98,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     }
 
     private void loadData() {
-        presenter.getProjectList(presenter.getEvent().getId());
+        presenter.getIdeaList(presenter.getEvent().getId());
     }
 
     @Override
@@ -113,7 +110,7 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     }
 
     @Override
-    public void showVoteList(List<Vote> list) {
+    public void showProjectList(List<Project> list) {
         if (presenter.isFirstTime() && presenter.getEvent().isInteractionActive()) {
             showFirstDialog();
         }
@@ -124,14 +121,15 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
         listAdapter.updateData(list);
     }
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_event_detail_vote, container, false);
+        return inflater.inflate(R.layout.fragment_event_detail_idea, container, false);
     }
 
     @Override
     public void onItemClicked(int position, View view) {
-        final Vote vote = (Vote) view.getTag();
+        final Project project = (Project) view.getTag();
     }
 
     @Override

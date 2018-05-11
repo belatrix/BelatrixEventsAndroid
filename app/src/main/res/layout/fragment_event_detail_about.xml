@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/off_white"
+    android:orientation="vertical"
     android:paddingBottom="16dp"
-    android:paddingTop="16dp"
-    android:orientation="vertical">
+    android:paddingTop="16dp">
 
     <TextView
         style="@style/TextAppearance.Caption.Light"

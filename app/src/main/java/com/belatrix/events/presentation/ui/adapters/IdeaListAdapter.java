@@ -1,23 +1,3 @@
-/* The MIT License (MIT)
- * Copyright (c) 2016 BELATRIX
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.belatrix.events.presentation.ui.adapters;
 
 import android.support.annotation.NonNull;
@@ -32,22 +12,21 @@ import com.belatrix.events.domain.model.Project;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.ViewHolder> {
+public class IdeaListAdapter extends RecyclerView.Adapter<IdeaListAdapter.ViewHolder> {
 
     private List<Project> list;
     private RecyclerViewClickListener clickListener;
 
-    public ProjectListAdapter(RecyclerViewClickListener clickListener) {
+    public IdeaListAdapter(RecyclerViewClickListener clickListener) {
         this(clickListener, new ArrayList<Project>());
     }
 
-    private ProjectListAdapter(RecyclerViewClickListener clickListener, List<Project> list) {
+    private IdeaListAdapter(RecyclerViewClickListener clickListener, List<Project> list) {
         this.list = list;
         this.clickListener = clickListener;
     }
@@ -55,7 +34,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_project, parent, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_idea, parent, false);
         return new ViewHolder(layoutView, clickListener);
     }
 
@@ -65,7 +44,6 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         holder.eventTextView.setText(object.getTitle());
         holder.eventDescription.setText(object.getDescription());
         holder.itemView.setTag(object);
-        holder.projectVotesTextView.setText(String.format(Locale.getDefault(),"%d",object.getVotes()));
     }
 
     @Override
@@ -93,13 +71,9 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.event_name)
-        public TextView eventTextView;
-        @BindView(R.id.project_votes)
-        public TextView projectVotesTextView;
-        @BindView(R.id.view_votes)
-        public View votesView;
+        TextView eventTextView;
         @BindView(R.id.event_description)
-        public TextView eventDescription;
+        TextView eventDescription;
 
         private RecyclerViewClickListener clickListener;
 
@@ -116,5 +90,4 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
             }
         }
     }
-
 }

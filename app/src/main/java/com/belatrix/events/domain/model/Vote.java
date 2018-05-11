@@ -34,4 +34,8 @@ public class Vote {
     public int getVotes() {
         return mVotes;
     }
+
+    public void setTitle(String mTitle) {
+        this.mTitle = mTitle;
+    }
 }

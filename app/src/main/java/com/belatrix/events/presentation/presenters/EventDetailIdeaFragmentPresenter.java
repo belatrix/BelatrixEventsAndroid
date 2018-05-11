@@ -1,11 +1,9 @@
 package com.belatrix.events.presentation.presenters;
 
 import com.belatrix.events.R;
-import com.belatrix.events.domain.interactors.ListVotesInteractor;
-import com.belatrix.events.domain.interactors.ProjectVoteInteractor;
+import com.belatrix.events.domain.interactors.ListIdeaInteractor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Project;
-import com.belatrix.events.domain.model.Vote;
 import com.belatrix.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrix.events.presentation.presenters.base.BelatrixBaseView;
 import com.belatrix.events.utils.cache.Cache;
@@ -14,18 +12,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<EventDetailVoteFragmentPresenter.View> {
+public class EventDetailIdeaFragmentPresenter extends BelatrixBasePresenter<EventDetailIdeaFragmentPresenter.View>{
 
-    private final ListVotesInteractor interactor;
+    public interface View extends BelatrixBaseView {
+        void showProjectList(List<Project> list);
+        void showEmptyView();
+        void onError(String errorMessage);
+    }
+
+    private final ListIdeaInteractor interactor;
 
     @Inject
     Cache cache;
-    private Event event;
 
-    @Inject
-    EventDetailVoteFragmentPresenter(ListVotesInteractor interactor) {
-        this.interactor = interactor;
-    }
+    private Event event;
 
     public Event getEvent() {
         return event;
@@ -35,16 +35,21 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
         this.event = event;
     }
 
-    public void getProjectList(final int eventId) {
+    @Inject
+    EventDetailIdeaFragmentPresenter(ListIdeaInteractor interactor) {
+        this.interactor = interactor;
+    }
+
+    public void getIdeaList(final int eventId) {
         view.showProgressIndicator();
-        interactor.getInteractionList(new ListVotesInteractor.CallBack() {
+        interactor.getIdeaList(new ListIdeaInteractor.CallBack() {
             @Override
-            public void onSuccess(final List<Vote> result) {
+            public void onSuccess(List<Project> result) {
                 view.hideProgressIndicator();
-                if (result.isEmpty()) {
+                if (result.isEmpty()){
                     view.showEmptyView();
                 } else {
-                    view.showVoteList(result);
+                    view.showProjectList(result);
                 }
             }
 
@@ -53,7 +58,7 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
                 view.hideProgressIndicator();
                 view.onError(view.getContext().getString(R.string.dialog_title_error));
             }
-        }, ListVotesInteractor.Params.forEvent(eventId));
+        }, ListIdeaInteractor.Params.forEvent(eventId));
     }
 
     @Override
@@ -65,16 +70,8 @@ public class EventDetailVoteFragmentPresenter extends BelatrixBasePresenter<Even
         cache.updateStartAppFlag();
     }
 
-    public boolean isFirstTime() {
+    public boolean isFirstTime(){
         return cache.isFirstTimeStartApp();
-    }
-
-    public interface View extends BelatrixBaseView {
-        void showVoteList(List<Vote> list);
-
-        void showEmptyView();
-
-        void onError(String errorMessage);
     }
 
 }
