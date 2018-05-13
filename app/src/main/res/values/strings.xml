@@ -118,6 +118,7 @@ SOFTWARE.</string>
     <string name="recover_password">Forgot your password?</string>
     <string name="create_an_account">Create an account</string>
     <string name="field_empty">The field %s is empty.</string>
+    <string name="field_empty_2">This field is empty.</string>
     <string name="error_server_login">There was an error while trying to log in</string>
     <string name="login_title">Enter user</string>
     <string name="hint_email">Email</string>
@@ -144,7 +145,17 @@ SOFTWARE.</string>
     <string name="link">Link</string>
     <string name="email">Email</string>
 
-    <string name="sign_in_message">Ingresa tus credenciales para poder\niniciar sesión.</string>
-    <string name="recover_message">Ingresa tu correo electrónico para\npoder mandarte una nueva\ncontraseña.</string>
-    <string name="create_account_message">Ingresa tu correo electrónico con el que\nte inscribiste a la Hackatrix, para\nmandarte una nueva contraseña.</string>
+    <string name="sign_in_message">Enter your credentials to be able to log in.</string>
+    <string name="recover_message">Enter your email to\nsend a new password.</string>
+    <string name="create_account_message">Enter your email address with which you signed up for the Hackatrix, to request a new password.</string>
+    <string name="idea_title">Name of the idea</string>
+    <string name="idea_detail">About the idea</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
+    <string name="new_idea">New Idea</string>
+    <string name="new_idea_dialog">Are you sure you want to create this new idea?</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="idea_create_authenticator_error">You need to sign in to proceed</string>
+    <string name="idea_created">Your idea was created. A moderator will check it and validate it.</string>
 </resources>

@@ -73,6 +73,9 @@
         <activity
             android:name=".presentation.ui.activities.AuthenticatorActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".presentation.ui.activities.IdeaAddActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presentation.ui.activities.QRDisplayActivity"

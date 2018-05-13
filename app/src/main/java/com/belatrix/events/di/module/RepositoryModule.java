@@ -3,16 +3,19 @@ package com.belatrix.events.di.module;
 import com.belatrix.events.data.datasource.rest.retrofit.api.DeviceAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EmployeeAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EventAPI;
+import com.belatrix.events.data.datasource.rest.retrofit.api.IdeaAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.NotificationAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.UserAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.server.DeviceRepositoryImpl;
 import com.belatrix.events.data.datasource.rest.retrofit.server.EmployeeRepositoryImpl;
 import com.belatrix.events.data.datasource.rest.retrofit.server.EventRepositoryImpl;
+import com.belatrix.events.data.datasource.rest.retrofit.server.IdeaRepositoryImpl;
 import com.belatrix.events.data.datasource.rest.retrofit.server.NotificationRepositoryImpl;
 import com.belatrix.events.data.datasource.rest.retrofit.server.UserRepositoryImpl;
 import com.belatrix.events.domain.repository.DeviceRepository;
 import com.belatrix.events.domain.repository.EmployeeRepository;
 import com.belatrix.events.domain.repository.EventRepository;
+import com.belatrix.events.domain.repository.IdeaRepository;
 import com.belatrix.events.domain.repository.NotificationRepository;
 import com.belatrix.events.domain.repository.UserRepository;
 
@@ -58,5 +61,11 @@ public class RepositoryModule {
     @Provides
     public UserRepository providesUserRepository(UserAPI userAPI) {
         return new UserRepositoryImpl(userAPI);
+    }
+
+    @Singleton
+    @Provides
+    public IdeaRepository providesIdeaRepository(IdeaAPI ideaAPI){
+        return new IdeaRepositoryImpl(ideaAPI);
     }
 }

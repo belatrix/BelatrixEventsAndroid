@@ -78,6 +78,13 @@ public class AccountUtils {
         return mAccount.name;
     }
 
+    public String getToken() {
+        if (mAccount == null) {
+            return "";
+        }
+        return mAccountManager.peekAuthToken(mAccount, mAccountType);
+    }
+
     public boolean isStaff() {
         return mAccount != null && Boolean.parseBoolean(mAccountManager.getUserData(mAccount, ACCOUNT_IS_STAFF));
     }
@@ -90,16 +97,17 @@ public class AccountUtils {
         return mAccount != null && Boolean.parseBoolean(mAccountManager.getUserData(mAccount, ACCOUNT_IS_PARTICIPANT));
     }
 
-    public void createAccount(int userId, String firstName, String lastName, boolean isStaff, boolean isActive, boolean isParticipant, String email, String password) {
+    public void createAccount(int userId, String firstName, String lastName, String token, boolean isStaff, boolean isActive, boolean isParticipant, String email, String password) {
         Bundle args = new Bundle();
-        args.putInt(ACCOUNT_USER_ID, userId);
+        args.putString(ACCOUNT_USER_ID, Integer.toString(userId));
         args.putString(ACCOUNT_FIRST_NAME, firstName);
         args.putString(ACCOUNT_LAST_NAME, lastName);
-        args.putBoolean(ACCOUNT_IS_STAFF, isStaff);
-        args.putBoolean(ACCOUNT_IS_ACTIVE, isActive);
-        args.putBoolean(ACCOUNT_IS_PARTICIPANT, isParticipant);
+        args.putString(ACCOUNT_IS_STAFF, Boolean.toString(isStaff));
+        args.putString(ACCOUNT_IS_ACTIVE, Boolean.toString(isActive));
+        args.putString(ACCOUNT_IS_PARTICIPANT, Boolean.toString(isParticipant));
         Account account = new Account(email, mAccountType);
         mAccountManager.addAccountExplicitly(account, password, args);
+        mAccountManager.setAuthToken(account, mAccountType, token);
     }
 
     public void signOut() {

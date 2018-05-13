@@ -7,6 +7,7 @@ import com.belatrix.events.presentation.ui.activities.CitySelectionActivity;
 import com.belatrix.events.presentation.ui.activities.EventDetailActivity;
 import com.belatrix.events.presentation.ui.activities.EventListActivity;
 import com.belatrix.events.presentation.ui.activities.FinderActivity;
+import com.belatrix.events.presentation.ui.activities.IdeaAddActivity;
 import com.belatrix.events.presentation.ui.activities.MainActivity;
 import com.belatrix.events.presentation.ui.activities.NotificationListActivity;
 import com.belatrix.events.presentation.ui.activities.SettingsActivity;
@@ -78,4 +79,6 @@ public interface UIComponent {
     void inject(NewHomeFragment fragment);
 
     void inject(EventDetailIdeaFragment fragment);
+
+    void inject(IdeaAddActivity activity);
 }

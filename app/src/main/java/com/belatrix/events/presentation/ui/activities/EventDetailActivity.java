@@ -42,6 +42,7 @@ import com.belatrix.events.presentation.ui.fragments.EventDetailVoteFragment;
 import com.belatrix.events.utils.Constants;
 import com.belatrix.events.utils.DateUtils;
 import com.belatrix.events.utils.DialogUtils;
+import com.belatrix.events.utils.account.AccountUtils;
 import com.belatrix.events.utils.media.ImageFactory;
 import com.belatrix.events.utils.media.loaders.ImageLoader;
 
@@ -50,9 +51,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import javax.inject.Inject;
+
 import butterknife.BindDrawable;
 import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -65,6 +69,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     private static final int RC_CALENDAR_PERM = 1023;
     private static final int INVALID_CALENDAR_ID = -1;
     private static final int CALENDAR_NO_READ_RP = 0;
+    private static final int REQ_AUTHENTICATION = 3342;
+    private static final int REQ_CREATE_IDEA = 2242;
     @BindView(R.id.image_event)
     ImageView pictureImageView;
     @BindView(R.id.tab_layout)
@@ -79,6 +85,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     String stringInvalidCalendar;
     @BindString(R.string.event_detail_already_added_calendar)
     String stringEventAlreadyAdded;
+    @BindString(R.string.idea_created)
+    String stringIdeaCreated;
     @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
     @BindView(R.id.swipe_refresh_layout)
@@ -87,6 +95,8 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
     CollapsingToolbarLayout collapsingToolbarLayout;
     @BindDrawable(R.drawable.event_placeholder)
     Drawable eventPlaceHolderDrawable;
+    @Inject
+    AccountUtils mAccountUtils;
 
     Fragment eventDetailAboutFragment;
     Fragment eventDetailIdeaFragment;
@@ -372,5 +382,37 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.fab_add_idea)
+    void onAddIdeaClick() {
+        if (mAccountUtils.existsAccount()) {
+            Intent intent = IdeaAddActivity.makeIntent(EventDetailActivity.this, event.getId());
+            startActivityForResult(intent, REQ_CREATE_IDEA);
+        } else {
+            startActivityForResult(AuthenticatorActivity.makeIntent(EventDetailActivity.this), REQ_AUTHENTICATION);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQ_AUTHENTICATION:
+                if (resultCode == RESULT_OK) {
+                    Intent intent = IdeaAddActivity.makeIntent(EventDetailActivity.this, event.getId());
+                    startActivityForResult(intent, REQ_CREATE_IDEA);
+                }
+                break;
+            case REQ_CREATE_IDEA:
+                if (resultCode == RESULT_OK) {
+                    showSnackBar(stringIdeaCreated);
+                }
+                break;
+        }
+        if (requestCode == REQ_AUTHENTICATION) {
+
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

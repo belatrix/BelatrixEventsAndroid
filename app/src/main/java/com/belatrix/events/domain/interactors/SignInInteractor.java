@@ -43,7 +43,7 @@ public class SignInInteractor extends AbstractInteractor {
         disposable = mUserRepository.getUser(token, userId).subscribe(new Consumer<User>() {
             @Override
             public void accept(User user) {
-                mAccountUtils.createAccount(userId, user.getFirstName(), user.getLastName(), user.isStaff(), user.isActive(), user.isParticipant(), user.getEmail(), password);
+                mAccountUtils.createAccount(userId, user.getFirstName(), user.getLastName(), token, user.isStaff(), user.isActive(), user.isParticipant(), user.getEmail(), password);
                 callback.onSignInSuccessful();
             }
         }, new Consumer<Throwable>() {

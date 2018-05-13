@@ -4,6 +4,7 @@ import com.belatrix.events.BuildConfig;
 import com.belatrix.events.data.datasource.rest.retrofit.api.DeviceAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EmployeeAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.EventAPI;
+import com.belatrix.events.data.datasource.rest.retrofit.api.IdeaAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.NotificationAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.api.UserAPI;
 
@@ -91,5 +92,11 @@ public class RetrofitModule {
     @Provides
     public UserAPI provideUserAPI(Retrofit retrofit) {
         return retrofit.create(UserAPI.class);
+    }
+
+    @Singleton
+    @Provides
+    public IdeaAPI providesIdeaAPI(Retrofit retrofit) {
+        return retrofit.create(IdeaAPI.class);
     }
 }

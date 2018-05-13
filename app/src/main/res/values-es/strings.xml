@@ -131,4 +131,12 @@ SOFTWARE.</string>
 
     <string name="sign_in_message">Ingresa tus credenciales para poder\niniciar sesión.</string>
     <string name="recover_message">Ingresa tu correo electrónico para\npoder mandarte una nueva\ncontraseña.</string>
+    <string name="idea_title">Nombre de la idea</string>
+    <string name="idea_detail">Sobre la idea</string>
+    <string name="cancel">Cancelar</string>
+    <string name="accept">Aceptar</string>
+    <string name="new_idea">Nueva Idea</string>
+    <string name="new_idea_dialog">¿Estás seguro que quieres crear esta nueva idea?</string>
+    <string name="idea_create_authenticator_error">Debes iniciar sesión para continuar</string>
+    <string name="idea_created">Tu idea fue creada. Un moderador lo revisará y validará.</string>
 </resources>
