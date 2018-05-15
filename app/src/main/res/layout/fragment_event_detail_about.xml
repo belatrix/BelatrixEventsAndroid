@@ -9,7 +9,7 @@
     android:paddingTop="16dp">
 
     <TextView
-        style="@style/TextAppearance.Caption.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/tv_details"
-        style="@style/TextAppearance.Body1.Light"
+        style="@style/Typo.Body1.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -28,7 +28,7 @@
 
     <TextView
         android:id="@+id/tv_caption_date"
-        style="@style/TextAppearance.Caption.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/tv_date"
-        style="@style/TextAppearance.Body1.Light"
+        style="@style/Typo.Body1.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -48,7 +48,7 @@
 
     <TextView
         android:id="@+id/tv_caption_place"
-        style="@style/TextAppearance.Caption.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -62,11 +62,12 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
 
         <TextView
             android:id="@+id/tv_location"
-            style="@style/TextAppearance.Body1.Light"
+            style="@style/Typo.Body1.Light"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -83,7 +84,7 @@
 
     <TextView
         android:id="@+id/tv_caption_link"
-        style="@style/TextAppearance.Caption.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -93,7 +94,7 @@
 
     <TextView
         android:id="@+id/tv_link"
-        style="@style/TextAppearance.Body1.Light"
+        style="@style/Typo.Body1.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -106,7 +107,7 @@
 
     <TextView
         android:id="@+id/tv_caption_agenda"
-        style="@style/TextAppearance.Caption.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -116,7 +117,7 @@
 
     <TextView
         android:id="@+id/tv_agenda"
-        style="@style/TextAppearance.Body1.Light"
+        style="@style/Typo.Body1.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"

@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/no_data_textview"
-        style="@style/TextAppearance.Caption.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

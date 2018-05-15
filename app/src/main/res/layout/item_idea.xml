@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/event_name"
-        style="@style/TextAppearance.Subheading.Light"
+        style="@style/Typo.Subheading.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="1"
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/event_description"
-        style="@style/TextAppearance.Body1.Light"
+        style="@style/Typo.Body1.Light"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ellipsize="end"

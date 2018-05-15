@@ -139,4 +139,7 @@ SOFTWARE.</string>
     <string name="new_idea_dialog">¿Estás seguro que quieres crear esta nueva idea?</string>
     <string name="idea_create_authenticator_error">Debes iniciar sesión para continuar</string>
     <string name="idea_created">Tu idea fue creada. Un moderador lo revisará y validará.</string>
+    <string name="idea_author">Autor</string>
+    <string name="idea_participant">Participantes</string>
+    <string name="idea_candidates">Candidatos</string>
 </resources>

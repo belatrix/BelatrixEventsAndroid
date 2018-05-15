@@ -18,11 +18,13 @@ import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.presentation.presenters.EventDetailIdeaFragmentPresenter;
+import com.belatrix.events.presentation.ui.activities.IdeaDetailActivity;
 import com.belatrix.events.presentation.ui.adapters.IdeaListAdapter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.presentation.ui.common.DividerItemDecoration;
 import com.belatrix.events.utils.Constants;
 import com.belatrix.events.utils.DialogUtils;
+import com.belatrix.events.utils.account.AccountUtils;
 
 import java.util.List;
 
@@ -43,13 +45,16 @@ public class EventDetailIdeaFragment extends BelatrixBaseFragment implements Eve
     TextView noDataTextView;
     @BindView(R.id.recycler_programs)
     RecyclerView recyclerView;
-    @Inject
-    EventDetailIdeaFragmentPresenter presenter;
-    IdeaListAdapter listAdapter;
     @BindString(R.string.app_name)
     String stringTitle;
     @BindString(R.string.dialog_option_participate)
     String stringParticipate;
+    @Inject
+    EventDetailIdeaFragmentPresenter presenter;
+    @Inject
+    AccountUtils mAccountUtils;
+
+    IdeaListAdapter listAdapter;
 
     public static Fragment newInstance(Context context, Event event) {
         Bundle args = new Bundle();
@@ -129,7 +134,8 @@ public class EventDetailIdeaFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     public void onItemClicked(int position, View view) {
-        final Project project = (Project) view.getTag();
+        Project project = (Project) view.getTag();
+        startActivity(IdeaDetailActivity.makeIntent(getContext(), project));
     }
 
     @Override

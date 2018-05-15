@@ -158,4 +158,7 @@ SOFTWARE.</string>
     <string name="description">Description</string>
     <string name="idea_create_authenticator_error">You need to sign in to proceed</string>
     <string name="idea_created">Your idea was created. A moderator will check it and validate it.</string>
+    <string name="idea_author">Author</string>
+    <string name="idea_participant">Participants</string>
+    <string name="idea_candidates">Candidates</string>
 </resources>

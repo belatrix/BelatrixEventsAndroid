@@ -409,10 +409,5 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
                 }
                 break;
         }
-        if (requestCode == REQ_AUTHENTICATION) {
-
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 }

@@ -43,20 +43,9 @@
         <item name="android:singleLine">true</item>
     </style>
 
-    <style name="Button">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dimen_8_6</item>
-        <item name="android:textSize">@dimen/text_16</item>
-    </style>
-
     <style name="Button.Accent">
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/selector_accent_button</item>
-    </style>
-
-    <style name="Button.Primary">
-        <item name="android:textColor">@color/selector_text_primary_button</item>
-        <item name="android:background">@drawable/selector_primary_button</item>
     </style>
 
     <style name="Button.Primary.Inverse">
@@ -143,58 +132,71 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+    
+    <style name="Typo" />
 
-    <style name="TextAppearance.Caption" parent="android:TextAppearance">
+    <style name="Typo.Caption">
         <item name="android:textSize">12sp</item>
         <item name="android:singleLine">true</item>
-        <item name="android:lineSpacingExtra">20dp</item>
     </style>
 
-    <style name="TextAppearance.Caption.Dark" parent="android:TextAppearance">
+    <style name="Typo.Caption.Dark">
         <item name="android:textColor">@color/white_54</item>
     </style>
 
-    <style name="TextAppearance.Caption.Light" parent="android:TextAppearance">
+    <style name="Typo.Caption.Light">
         <item name="android:textColor">@color/black_54</item>
     </style>
 
-    <style name="TextAppearance.Body1" parent="android:TextAppearance">
+    <style name="Typo.Body1">
         <item name="android:textSize">14sp</item>
-        <item name="android:lineSpacingExtra">20dp</item>
     </style>
 
-    <style name="TextAppearance.Body1.Dark" parent="android:TextAppearance">
+    <style name="Typo.Body1.Dark">
         <item name="android:textColor">@color/white_87</item>
     </style>
 
-    <style name="TextAppearance.Body1.Light" parent="android:TextAppearance">
+    <style name="Typo.Body1.Light">
         <item name="android:textColor">@color/black_87</item>
     </style>
 
-    <style name="TextAppearance.Subheading" parent="android:TextAppearance">
+    <style name="Typo.Subheading">
         <item name="android:textSize">16sp</item>
-        <item name="android:lineSpacingExtra">20dp</item>
     </style>
 
-    <style name="TextAppearance.Subheading.Dark" parent="android:TextAppearance">
+    <style name="Typo.Subheading.Dark">
         <item name="android:textColor">@color/white_87</item>
     </style>
 
-    <style name="TextAppearance.Subheading.Light" parent="android:TextAppearance">
+    <style name="Typo.Subheading.Light">
         <item name="android:textColor">@color/black_87</item>
     </style>
 
-    <style name="TextAppearance.Heading" parent="android:TextAppearance">
+    <style name="Typo.Heading">
         <item name="android:textSize">24sp</item>
-        <item name="android:lineSpacingExtra">32dp</item>
     </style>
 
-    <style name="TextAppearance.Heading.Dark" parent="android:TextAppearance">
+    <style name="Typo.Heading.Dark">
         <item name="android:textColor">@color/white_87</item>
     </style>
 
-    <style name="TextAppearance.Heading.Light" parent="android:TextAppearance">
+    <style name="Typo.Heading.Light">
         <item name="android:textColor">@color/black_87</item>
     </style>
 
+    <style name="Button" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:minHeight">@dimen/dimen_8_6</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontPath">fonts/OpenSans-SemiBold.ttf</item>
+    </style>
+
+    <style name="Button.Primary">
+        <item name="android:textColor">@color/white_87</item>
+        <item name="android:background">@drawable/background_primary_button</item>
+    </style>
+
+    <style name="Button.Secondary">
+        <item name="android:textColor">@color/blue_87</item>
+        <item name="android:background">@drawable/background_secondary_button</item>
+    </style>
 </resources>

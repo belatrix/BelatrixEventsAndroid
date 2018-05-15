@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/event_name"
-        style="@style/TextAppearance.Subheading.Light"
+        style="@style/Typo.Subheading.Light"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/project_votes"
-            style="@style/TextAppearance.Heading.Light"
+            style="@style/Typo.Heading.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

@@ -15,6 +15,7 @@ import java.io.InputStream;
 
 import timber.log.Timber;
 import timber.log.Timber.DebugTree;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class BxEventsApplication extends Application {
 
@@ -40,6 +41,7 @@ public class BxEventsApplication extends Application {
         configLogger();
         configDagger();
         configGlide();
+        configCalligraphy();
     }
 
     private void configLogger() {
@@ -51,6 +53,13 @@ public class BxEventsApplication extends Application {
     private void configDagger() {
         component = DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
         component.inject(this);
+    }
+
+    private void configCalligraphy() {
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/OpenSans-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build());
     }
 
     public ApplicationComponent getComponent() {
