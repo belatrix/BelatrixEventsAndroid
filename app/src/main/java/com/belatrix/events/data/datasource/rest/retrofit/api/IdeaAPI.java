@@ -7,6 +7,7 @@ import com.belatrix.events.data.datasource.rest.retrofit.response.ParticipantsRe
 
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -23,4 +24,13 @@ public interface IdeaAPI {
 
     @GET("/idea/{idea_id}/candidates/")
     Observable<CandidatesResponse> listCandidatesByIdeaId(@Header("Authorization") String token, @Path("idea_id") int ideaId);
+
+    @POST("/idea/{idea_id}/candidate/approval/switch/")
+    Observable<Integer> approveCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
+
+    @POST("/idea/{idea_id}/unregister/candidate/")
+    Observable<Integer> unregisterCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
+
+    @POST("/idea/{idea_id}/register/candidate/")
+    Observable<Integer> registerCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
 }

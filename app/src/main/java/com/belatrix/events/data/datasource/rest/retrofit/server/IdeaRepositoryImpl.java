@@ -37,4 +37,19 @@ public class IdeaRepositoryImpl extends BaseRepository implements IdeaRepository
     public Observable<CandidatesResponse> listCandidates(String token, int ideaId) {
         return subscribeOn(mIdeaAPI.listCandidatesByIdeaId("Token " + token, ideaId));
     }
+
+    @Override
+    public Observable<Integer> approveCandidate(String token, int ideaId, int userId) {
+        return subscribeOn(mIdeaAPI.approveCandidate(token, ideaId, userId));
+    }
+
+    @Override
+    public Observable<Integer> unregisterCandidate(String token, int ideaId, int userId) {
+        return subscribeOn(mIdeaAPI.unregisterCandidate(token, ideaId, userId));
+    }
+
+    @Override
+    public Observable<Integer> registerCandidate(String token, int ideaId, int userId) {
+        return subscribeOn(mIdeaAPI.registerCandidate(token, ideaId, userId));
+    }
 }

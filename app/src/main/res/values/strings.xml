@@ -161,4 +161,12 @@ SOFTWARE.</string>
     <string name="idea_author">Author</string>
     <string name="idea_participant">Participants</string>
     <string name="idea_candidates">Candidates</string>
+    <string name="edit">Edit</string>
+    <string name="request_join">Request to join</string>
+    <string name="request_join_dialog_title">Solicitud para unirse</string>
+    <string name="request_join_dialog_content">You are about to submit an application for this idea, are you sure you want to continue?</string>
+    <string name="request_join_successful">Request sent</string>
+    <string name="request_join_error">There was an error when we try to process your request.</string>
+    <string name="accept_candidate_server_error">There was an error when we try to add the candidate to the idea.</string>
+    <string name="remove_candidate_server_error">There was an error when we try to remove the candidate from the idea.</string>
 </resources>

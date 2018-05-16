@@ -1,12 +1,15 @@
 package com.belatrix.events.presentation.ui.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -20,6 +23,7 @@ import com.belatrix.events.domain.model.Author;
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.presentation.presenters.IdeaDetailPresenter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
+import com.belatrix.events.utils.DialogUtils;
 
 import javax.inject.Inject;
 
@@ -137,12 +141,12 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
 
     @Override
     public void showProgressIndicator() {
-
+        showProgressDialog();
     }
 
     @Override
     public void hideProgressIndicator() {
-
+        dismissProgressDialog();
     }
 
     @Override
@@ -150,6 +154,40 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
         return IdeaDetailActivity.this;
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (mPresenter.isOwner()) {
+            getMenuInflater().inflate(R.menu.menu_idea_owner, menu);
+        } else if (!project.isCompleted()) {
+            getMenuInflater().inflate(R.menu.menu_idea_participant, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                break;
+            case R.id.action_request_join:
+                DialogUtils.createConfirmationDialogWithTitle(IdeaDetailActivity.this,
+                        getString(R.string.request_join_dialog_title),
+                        getString(R.string.request_join_dialog_content),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                mPresenter.requestToJoin();
+                            }
+                        }, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private void addAuthor(Author author, ViewGroup container) {
         View view = inflater.inflate(R.layout.item_author, container, false);
@@ -181,19 +219,21 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
         if (author.getRole() != null) {
             tvAuthorRole.setText(author.getRole().getName());
         }
-        ibCancel.setTag(ibCancel);
-        ibAccept.setTag(ibAccept);
+        ibCancel.setTag(author);
+        ibAccept.setTag(author);
 
         ibCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Author author = (Author) v.getTag();
+                mPresenter.cancelCandidate(author);
             }
         });
         ibAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Author author = (Author) v.getTag();
+                mPresenter.acceptCandidate(author);
             }
         });
 
@@ -211,5 +251,25 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
             tvAuthorRole.setText(author.getRole().getName());
         }
         container.addView(view);
+    }
+
+    @Override
+    public void onRegisteredAsCandidate() {
+        showSnackBar(getString(R.string.request_join_successful));
+    }
+
+    @Override
+    public void onCandidateError() {
+        showError(getString(R.string.request_join_error));
+    }
+
+    @Override
+    public void onApprovedCandidateError() {
+        showError(getString(R.string.accept_candidate_server_error));
+    }
+
+    @Override
+    public void onUnregisterCandidateError() {
+        showError(getString(R.string.remove_candidate_server_error));
     }
 }
