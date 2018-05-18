@@ -33,7 +33,7 @@ public class ListParticipantsInteractor extends AbstractInteractor {
                     for (ParticipantsResponse.TeamMembers teamMembers : participantsResponse.getLstTeamMembers()) {
                         lst.add(teamMembers.getAuthor());
                     }
-                    callback.onParticipantsSuccess(lst);
+                    callback.onParticipantsSuccess(participantsResponse.isRegistered(), lst);
                 }
             }, new Consumer<Throwable>() {
                 @Override
@@ -49,7 +49,7 @@ public class ListParticipantsInteractor extends AbstractInteractor {
                     for (ParticipantsResponse.TeamMembers teamMembers : participantsResponse.getLstTeamMembers()) {
                         lst.add(teamMembers.getAuthor());
                     }
-                    callback.onParticipantsSuccess(lst);
+                    callback.onParticipantsSuccess(participantsResponse.isRegistered(), lst);
                 }
             }, new Consumer<Throwable>() {
                 @Override
@@ -61,7 +61,7 @@ public class ListParticipantsInteractor extends AbstractInteractor {
     }
 
     public interface Callback {
-        void onParticipantsSuccess(List<Author> result);
+        void onParticipantsSuccess(boolean isRegistered, List<Author> result);
 
         void onParticipantsError();
     }

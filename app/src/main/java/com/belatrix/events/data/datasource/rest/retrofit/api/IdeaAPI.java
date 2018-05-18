@@ -30,13 +30,13 @@ public interface IdeaAPI {
 
     @POST("/idea/{idea_id}/candidate/approval/switch/")
     @FormUrlEncoded
-    Observable<Integer> approveCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
+    Observable<CandidatesResponse> approveCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
 
     @POST("/idea/{idea_id}/unregister/candidate/")
     @FormUrlEncoded
-    Observable<Integer> unregisterCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
+    Observable<CandidatesResponse> unregisterCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
 
     @POST("/idea/{idea_id}/register/candidate/")
     @FormUrlEncoded
-    Observable<Integer> registerCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
+    Observable<CandidatesResponse> registerCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
 }

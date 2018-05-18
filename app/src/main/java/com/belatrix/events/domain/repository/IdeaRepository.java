@@ -16,9 +16,9 @@ public interface IdeaRepository {
 
     Observable<CandidatesResponse> listCandidates(String token, int ideaId);
 
-    Observable<Integer> approveCandidate(String token, int ideaId, int userId);
+    Observable<CandidatesResponse> approveCandidate(String token, int ideaId, int userId);
 
-    Observable<Integer> unregisterCandidate(String token, int ideaId, int userId);
+    Observable<CandidatesResponse> unregisterCandidate(String token, int ideaId, int userId);
 
-    Observable<Integer> registerCandidate(String token, int ideaId, int userId);
+    Observable<CandidatesResponse> registerCandidate(String token, int ideaId, int userId);
 }

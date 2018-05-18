@@ -148,6 +148,7 @@ SOFTWARE.</string>
     <string name="idea_candidates">Candidatos</string>
     <string name="edit">Editar</string>
     <string name="request_join">Solicitud para unirse</string>
+    <string name="request_cancel">Cancelar Solicitud</string>
     <string name="request_join_dialog_title">Solicitud para unirse</string>
     <string name="request_join_dialog_content">Estás apunto de enviar un solicitud de ingreso para esta idea, ¿estás seguro que quieres continuar?</string>
     <string name="request_join_successful">Solicitud enviada</string>

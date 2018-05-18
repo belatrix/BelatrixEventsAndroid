@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,7 @@ import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.presentation.presenters.IdeaDetailPresenter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrix.events.utils.DialogUtils;
+import com.belatrix.events.utils.account.AccountUtils;
 
 import javax.inject.Inject;
 
@@ -50,9 +52,14 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
 
     @Inject
     IdeaDetailPresenter mPresenter;
+    @Inject
+    AccountUtils mAccountUtils;
 
     private Project project;
     private LayoutInflater inflater;
+    private boolean isRegistered;
+    private boolean isCandidate;
+    private MenuItem menuItem;
 
     public static Intent makeIntent(Context context, Project project) {
         Intent intent = new Intent(context, IdeaDetailActivity.class);
@@ -118,14 +125,6 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
     }
 
     @Override
-    public void addCandidate(Author author) {
-        if (tvCaptionCandidates.getVisibility() == View.GONE) {
-            tvCaptionCandidates.setVisibility(View.VISIBLE);
-        }
-        addParticipant(author, llCandidatesContent);
-    }
-
-    @Override
     public void addCandidateForOwner(Author author) {
         if (tvCaptionCandidates.getVisibility() == View.GONE) {
             tvCaptionCandidates.setVisibility(View.VISIBLE);
@@ -158,8 +157,15 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
     public boolean onCreateOptionsMenu(Menu menu) {
         if (mPresenter.isOwner()) {
             getMenuInflater().inflate(R.menu.menu_idea_owner, menu);
-        } else if (!project.isCompleted()) {
+        } else if (!project.isCompleted() && mAccountUtils.existsAccount()) {
             getMenuInflater().inflate(R.menu.menu_idea_participant, menu);
+            menuItem = menu.findItem(R.id.action_request_join);
+            if (isRegistered) {
+                menuItem.setVisible(false);
+            } else if (isCandidate) {
+                menuItem.setIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_cancel));
+                menuItem.setTitle(R.string.request_cancel);
+            }
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -170,20 +176,37 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
             case R.id.action_edit:
                 break;
             case R.id.action_request_join:
-                DialogUtils.createConfirmationDialogWithTitle(IdeaDetailActivity.this,
-                        getString(R.string.request_join_dialog_title),
-                        getString(R.string.request_join_dialog_content),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                mPresenter.requestToJoin();
-                            }
-                        }, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
+                if (isCandidate) {
+                    DialogUtils.createConfirmationDialogWithTitle(IdeaDetailActivity.this,
+                            getString(R.string.cancel_request_dialog_title),
+                            getString(R.string.cancel_request_dialog_content),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.cancelCandidate(mAccountUtils.getUserId());
+                                }
+                            }, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                } else {
+                    DialogUtils.createConfirmationDialogWithTitle(IdeaDetailActivity.this,
+                            getString(R.string.request_join_dialog_title),
+                            getString(R.string.request_join_dialog_content),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    mPresenter.requestToJoin();
+                                }
+                            }, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -226,14 +249,14 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
             @Override
             public void onClick(View v) {
                 Author author = (Author) v.getTag();
-                mPresenter.cancelCandidate(author);
+                mPresenter.cancelCandidate(author.getId());
             }
         });
         ibAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Author author = (Author) v.getTag();
-                mPresenter.acceptCandidate(author);
+                mPresenter.acceptCandidate(author.getId());
             }
         });
 
@@ -256,6 +279,9 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
     @Override
     public void onRegisteredAsCandidate() {
         showSnackBar(getString(R.string.request_join_successful));
+        menuItem.setIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_cancel));
+        menuItem.setTitle(R.string.request_cancel);
+        isCandidate = true;
     }
 
     @Override
@@ -271,5 +297,25 @@ public class IdeaDetailActivity extends BelatrixBaseActivity implements IdeaDeta
     @Override
     public void onUnregisterCandidateError() {
         showError(getString(R.string.remove_candidate_server_error));
+    }
+
+    @Override
+    public void userIsCandidate(boolean isCandidate) {
+        this.isCandidate = isCandidate;
+        if (isCandidate && menuItem != null) {
+            menuItem.setIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_cancel));
+            menuItem.setTitle(R.string.request_cancel);
+        } else {
+            menuItem.setIcon(ContextCompat.getDrawable(getContext(), R.drawable.ic_group_add));
+            menuItem.setTitle(R.string.request_join);
+        }
+    }
+
+    @Override
+    public void userIsRegistered(boolean isRegistered) {
+        this.isRegistered = isRegistered;
+        if (isRegistered && menuItem != null) {
+            menuItem.setVisible(false);
+        }
     }
 }

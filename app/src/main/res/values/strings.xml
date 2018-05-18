@@ -167,8 +167,11 @@ SOFTWARE.</string>
     <string name="idea_candidates">Candidates</string>
     <string name="edit">Edit</string>
     <string name="request_join">Request to join</string>
-    <string name="request_join_dialog_title">Solicitud para unirse</string>
+    <string name="request_cancel">Cancel request</string>
+    <string name="request_join_dialog_title">Request to join</string>
+    <string name="cancel_request_dialog_title">Cancel request</string>
     <string name="request_join_dialog_content">You are about to submit an application for this idea, are you sure you want to continue?</string>
+    <string name="cancel_request_dialog_content">You are about to cancel your request for this idea, are you sure you want to continue?</string>
     <string name="request_join_successful">Request sent</string>
     <string name="request_join_error">There was an error when we try to process your request.</string>
     <string name="accept_candidate_server_error">There was an error when we try to add the candidate to the idea.</string>

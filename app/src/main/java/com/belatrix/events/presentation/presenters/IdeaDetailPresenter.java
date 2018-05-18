@@ -46,9 +46,7 @@ public class IdeaDetailPresenter extends BelatrixBasePresenter<IdeaDetailPresent
         mListParticipantsInteractor.getParticipantsListById(IdeaDetailPresenter.this, objProject.getId());
         if (mAccountUtils.existsAccount()) {
             isOwner = mAccountUtils.getUserId() == project.getAuthor().getId();
-            if (isOwner && !project.isCompleted()) {
-                mListCandidatesInteractor.getCandidatesListById(IdeaDetailPresenter.this, mAccountUtils.getToken(), objProject.getId());
-            }
+            mListCandidatesInteractor.getCandidatesListById(IdeaDetailPresenter.this, mAccountUtils.getToken(), objProject.getId());
         }
     }
 
@@ -57,19 +55,23 @@ public class IdeaDetailPresenter extends BelatrixBasePresenter<IdeaDetailPresent
     }
 
     @Override
-    public void onCandidatesSuccess(List<Author> result) {
+    public void onCandidatesSuccess(boolean isCandidate, List<Author> result) {
         view.clearCandidateContainer();
-        if (mAccountUtils.existsAccount()) {
-            if (mAccountUtils.getUserId() == objProject.getAuthor().getId()) {
-                for (Author author : result) {
-                    view.addCandidateForOwner(author);
-                }
-            }
-        } else {
+        if (isOwner) {
             for (Author author : result) {
-                view.addCandidate(author);
+                view.addCandidateForOwner(author);
             }
         }
+        view.userIsCandidate(isCandidate);
+    }
+
+    @Override
+    public void onParticipantsSuccess(boolean isRegistered, List<Author> result) {
+        view.clearParticipantContainer();
+        for (Author author : result) {
+            view.addParticipant(author);
+        }
+        view.userIsRegistered(isRegistered);
     }
 
     @Override
@@ -78,30 +80,28 @@ public class IdeaDetailPresenter extends BelatrixBasePresenter<IdeaDetailPresent
     }
 
     @Override
-    public void onParticipantsSuccess(List<Author> result) {
-        view.clearParticipantContainer();
-        for (Author author : result) {
-            view.addParticipant(author);
-        }
-    }
-
-    @Override
     public void onParticipantsError() {
 
     }
 
-    public void acceptCandidate(Author author) {
-        mApproveCandidateInteractor.approveCandidate(IdeaDetailPresenter.this, objProject.getId(), author.getId());
+    public void acceptCandidate(int userId) {
+        mApproveCandidateInteractor.approveCandidate(IdeaDetailPresenter.this, objProject.getId(), userId);
     }
 
-    public void cancelCandidate(Author author) {
-        mUnregisterCandidateInteractor.unregisterCandidate(IdeaDetailPresenter.this, objProject.getId(), author.getId());
+    public void cancelCandidate(int userId) {
+        mUnregisterCandidateInteractor.unregisterCandidate(IdeaDetailPresenter.this, objProject.getId(), userId);
     }
 
     @Override
-    public void onApprovedCandidate() {
+    public void onApprovedCandidate(List<Author> lst, boolean isCandidate) {
         mListParticipantsInteractor.getParticipantsListById(IdeaDetailPresenter.this, objProject.getId());
-        mListCandidatesInteractor.getCandidatesListById(IdeaDetailPresenter.this, mAccountUtils.getToken(), objProject.getId());
+        view.clearCandidateContainer();
+        if (isOwner) {
+            for (Author author : lst) {
+                view.addCandidateForOwner(author);
+            }
+        }
+        view.userIsCandidate(isCandidate);
     }
 
     @Override
@@ -110,9 +110,15 @@ public class IdeaDetailPresenter extends BelatrixBasePresenter<IdeaDetailPresent
     }
 
     @Override
-    public void onUnregisterCandidate() {
+    public void onUnregisterCandidate(List<Author> lst, boolean isCandidate) {
         mListParticipantsInteractor.getParticipantsListById(IdeaDetailPresenter.this, objProject.getId());
-        mListCandidatesInteractor.getCandidatesListById(IdeaDetailPresenter.this, mAccountUtils.getToken(), objProject.getId());
+        view.clearCandidateContainer();
+        if (isOwner) {
+            for (Author author : lst) {
+                view.addCandidateForOwner(author);
+            }
+        }
+        view.userIsCandidate(isCandidate);
     }
 
     @Override
@@ -143,8 +149,6 @@ public class IdeaDetailPresenter extends BelatrixBasePresenter<IdeaDetailPresent
 
         void clearParticipantContainer();
 
-        void addCandidate(Author author);
-
         void addCandidateForOwner(Author author);
 
         void clearCandidateContainer();
@@ -156,5 +160,9 @@ public class IdeaDetailPresenter extends BelatrixBasePresenter<IdeaDetailPresent
         void onApprovedCandidateError();
 
         void onUnregisterCandidateError();
+
+        void userIsCandidate(boolean isCandidate);
+
+        void userIsRegistered(boolean isRegistered);
     }
 }

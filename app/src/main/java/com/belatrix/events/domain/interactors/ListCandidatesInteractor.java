@@ -1,7 +1,6 @@
 package com.belatrix.events.domain.interactors;
 
 import com.belatrix.events.data.datasource.rest.retrofit.response.CandidatesResponse;
-import com.belatrix.events.data.datasource.rest.retrofit.response.ParticipantsResponse;
 import com.belatrix.events.domain.interactors.base.AbstractInteractor;
 import com.belatrix.events.domain.model.Author;
 import com.belatrix.events.domain.repository.IdeaRepository;
@@ -30,7 +29,7 @@ public class ListCandidatesInteractor extends AbstractInteractor {
                 for (CandidatesResponse.TeamMembers teamMembers : response.getLstCandidates()) {
                     lst.add(teamMembers.getAuthor());
                 }
-                callback.onCandidatesSuccess(lst);
+                callback.onCandidatesSuccess(response.isCandidate(), lst);
             }
         }, new Consumer<Throwable>() {
             @Override
@@ -41,7 +40,7 @@ public class ListCandidatesInteractor extends AbstractInteractor {
     }
 
     public interface Callback {
-        void onCandidatesSuccess(List<Author> result);
+        void onCandidatesSuccess(boolean isCandidate, List<Author> result);
 
         void onCandidatesError();
     }
