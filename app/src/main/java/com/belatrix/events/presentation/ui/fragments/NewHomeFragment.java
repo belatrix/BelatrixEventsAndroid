@@ -68,6 +68,12 @@ public class NewHomeFragment extends BelatrixBaseFragment implements NewEventAda
 
     @Override
     protected void initViews() {
+        rvEvents.post(new Runnable() {
+            @Override
+            public void run() {
+                setTitle(getString(R.string.title_event_list_activity));
+            }
+        });
         setupRecyclerView();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

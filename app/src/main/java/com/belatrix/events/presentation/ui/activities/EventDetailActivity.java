@@ -226,9 +226,9 @@ public class EventDetailActivity extends BelatrixBaseActivity implements EasyPer
         eventDetailIdeaFragment = EventDetailIdeaFragment.newInstance(EventDetailActivity.this, event);
         eventDetailVoteFragment = EventDetailVoteFragment.newInstance(EventDetailActivity.this, event);
 
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_info).setText(R.string.tab_event_about));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_idea).setText(R.string.tab_event_idea));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_group).setText(R.string.tab_event_votes));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_unselected_info).setText(R.string.tab_event_about));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_unselected_idea).setText(R.string.tab_event_idea));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_tab_unselected_group).setText(R.string.tab_event_votes));
 
         swipeRefreshLayout.setDistanceToTriggerSync(300);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -11,6 +11,8 @@ import com.belatrix.events.presentation.ui.activities.IdeaAddActivity;
 import com.belatrix.events.presentation.ui.activities.IdeaDetailActivity;
 import com.belatrix.events.presentation.ui.activities.MainActivity;
 import com.belatrix.events.presentation.ui.activities.NotificationListActivity;
+import com.belatrix.events.presentation.ui.activities.ProfileActivity;
+import com.belatrix.events.presentation.ui.activities.ScannerActivity;
 import com.belatrix.events.presentation.ui.activities.SettingsActivity;
 import com.belatrix.events.presentation.ui.activities.SplashActivity;
 import com.belatrix.events.presentation.ui.fragments.AboutFragment;
@@ -25,6 +27,7 @@ import com.belatrix.events.presentation.ui.fragments.LoginFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.NotificationListFragment;
 import com.belatrix.events.presentation.ui.fragments.RecoverPasswordFragment;
+import com.belatrix.events.presentation.ui.fragments.RegisterAssistanceFragment;
 import com.belatrix.events.presentation.ui.fragments.SettingsFragment;
 
 import dagger.Component;
@@ -84,4 +87,10 @@ public interface UIComponent {
     void inject(IdeaAddActivity activity);
 
     void inject(IdeaDetailActivity activity);
+
+    void inject(ProfileActivity activity);
+
+    void inject(RegisterAssistanceFragment fragment);
+
+    void inject(ScannerActivity activity);
 }

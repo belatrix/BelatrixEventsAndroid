@@ -38,7 +38,7 @@ public class ChangePasswordInteractor extends AbstractInteractor {
         disposable = mUserRepository.getUser(token, userId).subscribe(new Consumer<User>() {
             @Override
             public void accept(User user) {
-                mAccountUtils.createAccount(userId, user.getFirstName(), user.getLastName(), token, user.isStaff(), user.isActive(), user.isParticipant(), user.getEmail(), password);
+                mAccountUtils.createAccount(token, user.getId(), user.getEmail(), user.getFullName(), password, user.isModerator(), user.isStaff(), user.isActive(), user.isParticipant(), user.isJury());
                 callback.onChangeSuccessful();
             }
         }, new Consumer<Throwable>() {

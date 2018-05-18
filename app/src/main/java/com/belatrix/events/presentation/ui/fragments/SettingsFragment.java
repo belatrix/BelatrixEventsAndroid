@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -18,7 +17,6 @@ import com.belatrix.events.domain.model.City;
 import com.belatrix.events.presentation.presenters.SettingsFragmentPresenter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.utils.DialogUtils;
-import com.belatrix.events.utils.account.AccountUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +25,11 @@ import javax.inject.Inject;
 
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * created by dvelasquez
  */
 public class SettingsFragment extends BelatrixBaseFragment implements SettingsFragmentPresenter.View {
-
 
     @Inject
     SettingsFragmentPresenter presenter;
@@ -45,14 +41,6 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
     String stringSelectCity;
     @BindView(R.id.notification)
     Switch notificationSwitch;
-    @BindView(R.id.bt_sign_out)
-    Button btSignOut;
-
-    @Inject
-    AccountUtils mAccountUtils;
-
-    public SettingsFragment() {
-    }
 
     public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
@@ -80,7 +68,6 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
                 presenter.saveNotification(isChecked);
             }
         });
-        btSignOut.setVisibility(mAccountUtils.existsAccount() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -155,13 +142,5 @@ public class SettingsFragment extends BelatrixBaseFragment implements SettingsFr
     public void onDestroyView() {
         super.onDestroyView();
         presenter.cancelRequests();
-    }
-
-    @OnClick(R.id.bt_sign_out)
-    public void onClickSignOutEvent() {
-        if (getActivity() != null) {
-            mAccountUtils.signOut();
-            getActivity().finish();
-        }
     }
 }

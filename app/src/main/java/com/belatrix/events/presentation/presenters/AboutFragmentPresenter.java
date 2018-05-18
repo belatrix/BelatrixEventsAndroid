@@ -55,13 +55,8 @@ public class AboutFragmentPresenter extends BelatrixBasePresenter<AboutFragmentP
     private void prepareCollaborators() {
         collaboratorsList = new ArrayList<>();
         collaboratorsList.add(new Collaborator("Diego", "Velásquez", R.drawable.dvelasquez));
-        collaboratorsList.add(new Collaborator("Gladys", "Cuzcano", R.drawable.gcuzcano));
         collaboratorsList.add(new Collaborator("Karla", "Cerron", R.drawable.kcerron));
-        collaboratorsList.add(new Collaborator("Raul", "Rashuaman", R.drawable.rrashuaman));
         collaboratorsList.add(new Collaborator("Sergio", "Infante", R.drawable.sinfante));
-        collaboratorsList.add(new Collaborator("Carina", "Valdez", R.drawable.cvaldez));
-        collaboratorsList.add(new Collaborator("Erik", "Flores", R.drawable.eflores));
-        collaboratorsList.add(new Collaborator("Fernando", "Puebla", R.drawable.fpuebla));
         collaboratorsList.add(new Collaborator("Carlos", "Monzón", R.drawable.cmonzon));
     }
 

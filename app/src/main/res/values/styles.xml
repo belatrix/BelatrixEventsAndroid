@@ -9,7 +9,6 @@
         <item name="windowActionModeOverlay">true</item>
         <!-- Override the ActionMode Style -->
         <item name="actionModeStyle">@style/ActionMode</item>
-        <item name="actionModeCloseDrawable">@drawable/ic_arrow_back</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -181,6 +180,18 @@
     </style>
 
     <style name="Typo.Heading.Light">
+        <item name="android:textColor">@color/black_87</item>
+    </style>
+
+    <style name="Typo.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Typo.Title.Dark">
+        <item name="android:textColor">@color/white_87</item>
+    </style>
+
+    <style name="Typo.Title.Light">
         <item name="android:textColor">@color/black_87</item>
     </style>
 

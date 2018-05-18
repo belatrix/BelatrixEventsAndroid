@@ -10,7 +10,6 @@ android {
         targetSdkVersion 27
         versionCode 5
         versionName "1.0.2"
-        vectorDrawables.useSupportLibrary = true
     }
 
     testOptions.unitTests.all {
@@ -53,7 +52,7 @@ def okhttpVersion = '3.4.2'
 def supportLibrariesVersion = "27.1.1"
 def timberVersion = "4.6.0"
 def glideVersion = "3.7.0"
-def firebaseLibrariesVersion = "12.0.1"
+def firebaseLibrariesVersion = "15.0.2"
 def rxandroidVersion = '2.0.1'
 def rxjavaVersion = '2.0.2'
 
@@ -66,6 +65,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     // general
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation "com.google.firebase:firebase-core:${firebaseLibrariesVersion}"
     implementation "com.google.firebase:firebase-messaging:${firebaseLibrariesVersion}"
     implementation "com.android.support:design:${supportLibrariesVersion}"
@@ -91,6 +91,9 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
     //ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:1.1.1"
+    //QR Code
+    implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.0'
 }
 
 

@@ -6,8 +6,8 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.activities.MainActivity"
-    android:fitsSystemWindows="false">
+    android:fitsSystemWindows="false"
+    tools:context=".presentation.ui.activities.MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -18,9 +18,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <include layout="@layout/main_toolbar" />
+            <include layout="@layout/main_toolbar"/>
 
-        <include layout="@layout/activity_base" />
+            <include layout="@layout/activity_base"/>
 
         </LinearLayout>
 
@@ -38,8 +38,10 @@
             android:layout_above="@+id/linearOptions"
             android:background="@color/white"
             app:elevation="0dp"
-            app:menu="@menu/menu_user_nav_view"
-            app:headerLayout="@layout/header_navigation"/>
+            app:headerLayout="@layout/header_navigation"
+            app:itemIconTint="@color/navigation_view_color"
+            app:itemTextColor="@color/navigation_view_color"
+            app:menu="@menu/menu_user_nav_view"/>
 
         <LinearLayout
             android:id="@+id/linearOptions"
@@ -54,7 +56,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/divider" />
+                android:background="@color/divider"/>
 
         </LinearLayout>
 

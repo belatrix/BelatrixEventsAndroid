@@ -1,4 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
@@ -24,55 +26,55 @@
                 android:text="@string/app_name"
                 android:textColor="@color/belatrix"
                 android:textSize="@dimen/text_28"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_3_5"
                 android:text="@string/about_what"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/dimen_3_5"
                 android:textSize="@dimen/text_16"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_2_5"
                 android:fontFamily="@string/font_family_regular"
-                android:text="@string/about_what_message" />
+                android:text="@string/about_what_message"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_3_5"
                 android:text="@string/about_why"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/dimen_3_5"
                 android:textSize="@dimen/text_16"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_2_5"
                 android:fontFamily="@string/font_family_regular"
-                android:text="@string/about_why_message" />
+                android:text="@string/about_why_message"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_3_5"
                 android:text="@string/about_who"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/dimen_3_5"
                 android:textSize="@dimen/text_16"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_2_5"
                 android:fontFamily="@string/font_family_regular"
-                android:text="@string/about_who_message" />
+                android:text="@string/about_who_message"/>
 
         </LinearLayout>
 
@@ -95,7 +97,7 @@
                 android:text="@string/support_tittle"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_16"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,18 +106,12 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".2"
-                    android:src="@drawable/ic_support_email" />
-
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".7"
+                    android:layout_gravity="center"
                     android:fontFamily="@string/font_family_regular"
-                    android:text="@string/support_email" />
+                    android:text="@string/support_email"/>
 
             </LinearLayout>
 
@@ -140,14 +136,14 @@
                 android:text="@string/license_title"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_16"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_2_5"
                 android:fontFamily="@string/font_family_regular"
-                android:text="@string/license" />
+                android:text="@string/license"/>
 
         </LinearLayout>
 
@@ -170,7 +166,7 @@
                 android:text="@string/collaborators_title"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_16"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/collaborators"

@@ -10,11 +10,12 @@ import javax.inject.Named;
 public class AccountUtils {
 
     private final static String ACCOUNT_USER_ID = "acccount_user_id";
-    private final static String ACCOUNT_FIRST_NAME = "acccount_first_name";
-    private final static String ACCOUNT_LAST_NAME = "acccount_last_name";
+    private final static String ACCOUNT_FULL_NAME = "acccount_first_name";
     private final static String ACCOUNT_IS_STAFF = "acccount_is_staff";
     private final static String ACCOUNT_IS_ACTIVE = "acccount_is_active";
     private final static String ACCOUNT_IS_PARTICIPANT = "acccount_is_participant";
+    private final static String ACCOUNT_IS_MODERATOR = "account_is_moderator";
+    private final static String ACCOUNT_IS_JURY = "account_is_jury";
 
     private final String mAccountType;
 
@@ -54,21 +55,7 @@ public class AccountUtils {
         if (mAccount == null) {
             return "";
         }
-        return mAccountManager.getUserData(mAccount, ACCOUNT_FIRST_NAME) + " " + mAccountManager.getUserData(mAccount, ACCOUNT_LAST_NAME);
-    }
-
-    public String getFirstName() {
-        if (mAccount == null) {
-            return "";
-        }
-        return mAccountManager.getUserData(mAccount, ACCOUNT_FIRST_NAME);
-    }
-
-    public String getLastName() {
-        if (mAccount == null) {
-            return "";
-        }
-        return mAccountManager.getUserData(mAccount, ACCOUNT_LAST_NAME);
+        return mAccountManager.getUserData(mAccount, ACCOUNT_FULL_NAME);
     }
 
     public String getEmail() {
@@ -97,23 +84,33 @@ public class AccountUtils {
         return mAccount != null && Boolean.parseBoolean(mAccountManager.getUserData(mAccount, ACCOUNT_IS_PARTICIPANT));
     }
 
-    public void createAccount(int userId, String firstName, String lastName, String token, boolean isStaff, boolean isActive, boolean isParticipant, String email, String password) {
+    public boolean isModerator() {
+        return mAccount != null && Boolean.parseBoolean(mAccountManager.getUserData(mAccount, ACCOUNT_IS_MODERATOR));
+    }
+
+    public boolean isJury() {
+        return mAccount != null && Boolean.parseBoolean(mAccountManager.getUserData(mAccount, ACCOUNT_IS_JURY));
+    }
+
+
+    public void createAccount(String token, int userId, String email, String fullName, String password, boolean isModerator, boolean isStaff, boolean isActive, boolean isParticipant, boolean isJury) {
         Bundle args = new Bundle();
+
         args.putString(ACCOUNT_USER_ID, Integer.toString(userId));
-        args.putString(ACCOUNT_FIRST_NAME, firstName);
-        args.putString(ACCOUNT_LAST_NAME, lastName);
+        args.putString(ACCOUNT_FULL_NAME, fullName);
+        args.putString(ACCOUNT_IS_MODERATOR, Boolean.toString(isModerator));
         args.putString(ACCOUNT_IS_STAFF, Boolean.toString(isStaff));
         args.putString(ACCOUNT_IS_ACTIVE, Boolean.toString(isActive));
         args.putString(ACCOUNT_IS_PARTICIPANT, Boolean.toString(isParticipant));
+        args.putString(ACCOUNT_IS_JURY, Boolean.toString(isJury));
         Account account = new Account(email, mAccountType);
         mAccountManager.addAccountExplicitly(account, password, args);
         mAccountManager.setAuthToken(account, mAccountType, token);
     }
 
     public void signOut() {
-        boolean accountRemoved = false;
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-            accountRemoved = mAccountManager.removeAccountExplicitly(mAccount);
+            mAccountManager.removeAccountExplicitly(mAccount);
         } else {
             mAccountManager.removeAccount(mAccount, null, null);
         }

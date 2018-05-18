@@ -29,6 +29,10 @@
     <string name="drawer_close">Close</string>
     <string name="menu_title_home">Home</string>
     <string name="menu_title_profile">Perfil</string>
+    <string name="menu_title_moderator">Moderador</string>
+    <string name="menu_title_organizer">Organizador</string>
+    <string name="menu_title_register_assistance">Registrar asistencia</string>
+    <string name="menu_title_search_user">Buscar usuario</string>
     <string name="menu_title_activities">Novedades</string>
     <string name="menu_title_settings">Configuraciones</string>
     <string name="menu_title_about">Acerca de</string>
