@@ -1,23 +1,28 @@
 package com.belatrix.events.data.datasource.rest.retrofit.api;
 
-import com.belatrix.events.data.datasource.rest.retrofit.request.IdeaCreateRequest;
 import com.belatrix.events.data.datasource.rest.retrofit.response.CandidatesResponse;
 import com.belatrix.events.data.datasource.rest.retrofit.response.IdeaCreateResponse;
 import com.belatrix.events.data.datasource.rest.retrofit.response.ParticipantsResponse;
+import com.belatrix.events.domain.model.Project;
 
 import io.reactivex.Observable;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface IdeaAPI {
 
     @POST("/idea/create/")
-    Observable<IdeaCreateResponse> createIdea(@Header("Authorization") String token, @Body IdeaCreateRequest body);
+    @FormUrlEncoded
+    Observable<IdeaCreateResponse> createIdea(@Header("Authorization") String token, @Field("author") int authorId, @Field("event") int eventId, @Field("title") String title, @Field("description") String description);
+
+    @PATCH("/idea/{idea_id}/")
+    @FormUrlEncoded
+    Observable<Project> updateIdea(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("title") String title, @Field("description") String description);
 
     @GET("/idea/{idea_id}/participants/")
     Observable<ParticipantsResponse> listParcipantByIdeaId(@Path("idea_id") int ideaId);

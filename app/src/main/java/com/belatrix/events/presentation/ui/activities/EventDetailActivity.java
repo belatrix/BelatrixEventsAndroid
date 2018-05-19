@@ -39,6 +39,7 @@ import com.belatrix.events.presentation.ui.common.DisableableAppBarLayoutBehavio
 import com.belatrix.events.presentation.ui.fragments.EventDetailAboutFragment;
 import com.belatrix.events.presentation.ui.fragments.EventDetailIdeaFragment;
 import com.belatrix.events.presentation.ui.fragments.EventDetailVoteFragment;
+import com.belatrix.events.presentation.ui.fragments.IdeaAddFragment;
 import com.belatrix.events.utils.Constants;
 import com.belatrix.events.utils.DateUtils;
 import com.belatrix.events.utils.DialogUtils;

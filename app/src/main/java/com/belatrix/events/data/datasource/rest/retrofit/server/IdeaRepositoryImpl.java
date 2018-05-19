@@ -2,10 +2,10 @@ package com.belatrix.events.data.datasource.rest.retrofit.server;
 
 import com.belatrix.events.data.datasource.rest.retrofit.api.IdeaAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.base.BaseRepository;
-import com.belatrix.events.data.datasource.rest.retrofit.request.IdeaCreateRequest;
 import com.belatrix.events.data.datasource.rest.retrofit.response.CandidatesResponse;
 import com.belatrix.events.data.datasource.rest.retrofit.response.IdeaCreateResponse;
 import com.belatrix.events.data.datasource.rest.retrofit.response.ParticipantsResponse;
+import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.repository.IdeaRepository;
 
 import io.reactivex.Observable;
@@ -20,12 +20,12 @@ public class IdeaRepositoryImpl extends BaseRepository implements IdeaRepository
 
     @Override
     public Observable<IdeaCreateResponse> createIdea(String token, int authorId, int eventId, String title, String description) {
-        IdeaCreateRequest request = new IdeaCreateRequest();
-        request.setAuthor(authorId);
-        request.setEvent(eventId);
-        request.setTitle(title);
-        request.setDescription(description);
-        return subscribeOn(mIdeaAPI.createIdea("Token " + token, request));
+        return subscribeOn(mIdeaAPI.createIdea("Token " + token, authorId, eventId, title, description));
+    }
+
+    @Override
+    public Observable<Project> updateIdea(String token, int ideaId, String title, String description) {
+        return subscribeOn(mIdeaAPI.updateIdea("Token " + token, ideaId, title, description));
     }
 
     @Override
