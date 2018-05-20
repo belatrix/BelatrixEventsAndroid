@@ -30,6 +30,9 @@ public class User {
     @SerializedName("full_name")
     private String mFullName;
 
+    @SerializedName("phone_number")
+    private String mPhoneNumber;
+
     @SerializedName("role")
     private Role role;
 
@@ -60,6 +63,10 @@ public class User {
         return mFullName;
     }
 
+    public String getPhoneNumber() {
+        return mPhoneNumber;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -83,4 +90,6 @@ public class User {
     public boolean isParticipant() {
         return isParticipant;
     }
+
+
 }

@@ -15,7 +15,7 @@ public class UpdateIdeaInteractor extends AbstractInteractor {
     private final AccountUtils mAccountUtils;
 
     @Inject
-    public UpdateIdeaInteractor(IdeaRepository ideaRepository, AccountUtils accountUtils) {
+    UpdateIdeaInteractor(IdeaRepository ideaRepository, AccountUtils accountUtils) {
         this.mIdeaRepository = ideaRepository;
         this.mAccountUtils = accountUtils;
     }

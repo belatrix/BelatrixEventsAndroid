@@ -19,6 +19,7 @@ import com.belatrix.events.presentation.ui.fragments.AboutFragment;
 import com.belatrix.events.presentation.ui.fragments.ChangePasswordFragment;
 import com.belatrix.events.presentation.ui.fragments.CitySelectionFragment;
 import com.belatrix.events.presentation.ui.fragments.CreateAccountFragment;
+import com.belatrix.events.presentation.ui.fragments.EditProfileFragment;
 import com.belatrix.events.presentation.ui.fragments.EventDetailIdeaFragment;
 import com.belatrix.events.presentation.ui.fragments.EventDetailVoteFragment;
 import com.belatrix.events.presentation.ui.fragments.EventListFragment;
@@ -28,6 +29,7 @@ import com.belatrix.events.presentation.ui.fragments.IdeaDetailFragment;
 import com.belatrix.events.presentation.ui.fragments.LoginFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.NotificationListFragment;
+import com.belatrix.events.presentation.ui.fragments.ProfileFragment;
 import com.belatrix.events.presentation.ui.fragments.RecoverPasswordFragment;
 import com.belatrix.events.presentation.ui.fragments.RegisterAssistanceFragment;
 import com.belatrix.events.presentation.ui.fragments.SettingsFragment;
@@ -91,8 +93,6 @@ public interface UIComponent {
 
     void inject(IdeaDetailFragment fragment);
 
-    void inject(ProfileActivity activity);
-
     void inject(RegisterAssistanceFragment fragment);
 
     void inject(ScannerActivity activity);
@@ -102,4 +102,10 @@ public interface UIComponent {
     void inject(IdeaAddFragment fragment);
 
     void inject(UpdateIdeaFragment fragment);
+
+    void inject(ProfileActivity activity);
+
+    void inject(ProfileFragment profileFragment);
+
+    void inject(EditProfileFragment fragment);
 }

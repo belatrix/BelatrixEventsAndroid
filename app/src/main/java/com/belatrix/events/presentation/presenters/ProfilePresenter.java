@@ -31,6 +31,8 @@ public class ProfilePresenter extends BelatrixBasePresenter<ProfilePresenter.Vie
     public void loadUser() {
         view.loadEmailField(mAccountUtils.getEmail());
         view.loadFullNameField(mAccountUtils.getFullName());
+        view.loadPhoneNumberField(mAccountUtils.getPhoneNumber());
+        view.loadRoleName(mAccountUtils.getRoleName());
         BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
         try {
             Bitmap bitmap = barcodeEncoder.encodeBitmap(mAccountUtils.getEmail(), BarcodeFormat.QR_CODE, 400, 400);
@@ -46,5 +48,9 @@ public class ProfilePresenter extends BelatrixBasePresenter<ProfilePresenter.Vie
         void loadFullNameField(String fullName);
 
         void loadQRImage(Bitmap bitmap);
+
+        void loadPhoneNumberField(String phoneNumber);
+
+        void loadRoleName(String role);
     }
 }

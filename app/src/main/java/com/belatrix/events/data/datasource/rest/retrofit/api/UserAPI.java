@@ -1,7 +1,10 @@
 package com.belatrix.events.data.datasource.rest.retrofit.api;
 
 import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
+import com.belatrix.events.domain.model.Role;
 import com.belatrix.events.domain.model.User;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -33,4 +36,11 @@ public interface UserAPI {
 
     @GET("/user/{user_id}/")
     Observable<User> getUserDetail(@Header("Authorization") String authorization, @Path("user_id") int user_id);
+
+    @PATCH("/user/update/")
+    @FormUrlEncoded
+    Observable<User> updateProfile(@Header("Authorization") String token, @Field("full_name") String fullName, @Field("phone_number") String phoneNumber, @Field("role_id") int roleId);
+
+    @GET("user/role/list/")
+    Observable<List<Role>> listRole(@Header("Authorization") String token);
 }

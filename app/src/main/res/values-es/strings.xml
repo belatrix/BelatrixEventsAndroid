@@ -155,4 +155,7 @@ SOFTWARE.</string>
     <string name="request_join_error">Hubo un error cuando tratamos de procesar su solicitud.</string>
     <string name="accept_candidate_server_error">Hubo un error cuando tratamos de agregar al candidato a la idea.</string>
     <string name="remove_candidate_server_error">Hubo un error cuando tratamos de eliminar al candidato de la idea.</string>
+    <string name="full_name">Nombre completo</string>
+    <string name="phone_number">Número de teléfono</string>
+    <string name="role">Rol</string>
 </resources>

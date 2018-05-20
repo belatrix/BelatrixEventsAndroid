@@ -179,4 +179,7 @@ SOFTWARE.</string>
     <string name="registration_title">Register assistance</string>
     <string name="registration_successful">Registration successful.</string>
     <string name="registration_error_server">There was an error in the registration. Try again.</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="role">Role</string>
 </resources>
