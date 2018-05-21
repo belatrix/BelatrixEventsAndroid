@@ -129,6 +129,7 @@ public class MainActivity extends BelatrixBaseActivity {
             });
             navigationView.getMenu().findItem(R.id.menu_profile).setVisible(false);
             navigationView.getMenu().findItem(R.id.menu_organizer_options).setVisible(false);
+            navigationView.getMenu().findItem(R.id.menu_moderator_options).setVisible(false);
         }
     }
 

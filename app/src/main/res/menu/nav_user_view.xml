@@ -26,7 +26,8 @@
             <item
                 android:id="@+id/menu_search_user"
                 android:icon="@drawable/ic_search"
-                android:title="@string/menu_title_search_user"/>
+                android:title="@string/menu_title_search_user"
+                android:visible="false"/>
         </menu>
     </item>
     <item
@@ -35,7 +36,7 @@
         <menu>
             <item
                 android:id="@+id/menu_manage_ideas"
-                android:icon="@drawable/ic_register"
+                android:icon="@drawable/ic_idea"
                 android:title="@string/menu_title_manage_ideas"/>
         </menu>
     </item>
