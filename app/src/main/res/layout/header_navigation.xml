@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dimen_22_10"
-    android:background="@color/belatrix"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
     <ImageView
@@ -14,8 +14,10 @@
         android:layout_weight="1"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_menu"/>
+        android:scaleType="fitCenter"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/hackatrix_logo"/>
 
     <TextView
         android:id="@+id/tv_name"
@@ -23,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="Diego Velasquez"
         android:textColor="@color/white"
         android:textSize="@dimen/text_16"/>
 
@@ -34,7 +35,6 @@
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="dvelasquez@belatrixsf.com"
         android:textColor="@color/white"
         android:textSize="@dimen/text_12"/>
 </LinearLayout>

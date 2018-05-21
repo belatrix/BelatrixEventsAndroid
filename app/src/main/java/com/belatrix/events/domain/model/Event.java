@@ -3,7 +3,10 @@ package com.belatrix.events.domain.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.belatrix.events.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
 
 /**
  * Created by dvelasquez on 2/24/17.
@@ -35,8 +38,21 @@ import com.google.gson.annotations.SerializedName;
 }
  */
 
-public class Event implements Parcelable{
+public class Event implements Parcelable {
 
+    //creator - used when un-parceling our parcle (creating the object)
+    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>() {
+
+        @Override
+        public Event createFromParcel(Parcel parcel) {
+            return new Event(parcel);
+        }
+
+        @Override
+        public Event[] newArray(int size) {
+            return new Event[0];
+        }
+    };
     private int id;
     private String title;
     private String image;
@@ -63,12 +79,11 @@ public class Event implements Parcelable{
     @SerializedName("is_active")
     private boolean isActive;
 
-
-    public Event(){
+    public Event() {
 
     }
 
-    public Event(Parcel parcel){
+    public Event(Parcel parcel) {
         id = parcel.readInt();
         title = parcel.readString();
         image = parcel.readString();
@@ -119,13 +134,16 @@ public class Event implements Parcelable{
         this.title = title;
     }
 
-
     public String getDatetime() {
         return datetime;
     }
 
     public void setDatetime(String datetime) {
         this.datetime = datetime;
+    }
+
+    public Date getDate() {
+        return DateUtils.getDateFromString(datetime, DateUtils.DATE_FORMAT_3);
     }
 
     public String getRegisterLink() {
@@ -240,19 +258,5 @@ public class Event implements Parcelable{
         dest.writeByte((byte) (isInteractionActive ? 0x01 : 0x00));
         dest.writeByte((byte) (isActive ? 0x01 : 0x00));
     }
-
-    //creator - used when un-parceling our parcle (creating the object)
-    public static final Parcelable.Creator<Event> CREATOR = new Parcelable.Creator<Event>(){
-
-        @Override
-        public Event createFromParcel(Parcel parcel) {
-            return new Event(parcel);
-        }
-
-        @Override
-        public Event[] newArray(int size) {
-            return new Event[0];
-        }
-    };
 
 }

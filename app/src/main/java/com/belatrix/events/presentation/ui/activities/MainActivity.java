@@ -12,13 +12,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
-import com.belatrix.events.presentation.ui.fragments.HomeFragment;
+import com.belatrix.events.presentation.ui.fragments.ManageIdeasFragment;
+import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
+import com.belatrix.events.presentation.ui.fragments.RegisterAssistanceFragment;
 import com.belatrix.events.utils.account.AccountUtils;
 import com.belatrix.events.utils.cache.Cache;
 
@@ -52,13 +53,6 @@ public class MainActivity extends BelatrixBaseActivity {
 
     @Inject
     AccountUtils accountUtils;
-
-    private View.OnClickListener onClickQRLink = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            QRDisplayActivity.startActivity(MainActivity.this);
-        }
-    };
 
     public static Intent makeIntent(Context context, Bundle params) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -104,9 +98,8 @@ public class MainActivity extends BelatrixBaseActivity {
         View header = navigationView.getHeaderView(0);
         tvName = header.findViewById(R.id.tv_name);
         tvEmail = header.findViewById(R.id.tv_email);
-        ImageView imageView = header.findViewById(R.id.header_item);
-        imageView.setOnClickListener(onClickQRLink);
-        replaceFragment(HomeFragment.newInstance(), false);
+
+        replaceFragment(NewHomeFragment.newInstance(MainActivity.this, cache.getCity()), false);
         cache.clearStartAppFlag();
         setupProfile();
     }
@@ -119,6 +112,12 @@ public class MainActivity extends BelatrixBaseActivity {
             tvEmail.setText(accountUtils.getEmail());
             tvEmail.setOnClickListener(null);
             navigationView.getMenu().findItem(R.id.menu_profile).setVisible(true);
+            if (accountUtils.isStaff()) {
+                navigationView.getMenu().findItem(R.id.menu_organizer_options).setVisible(true);
+            }
+            if (accountUtils.isModerator()) {
+                navigationView.getMenu().findItem(R.id.menu_moderator_options).setVisible(true);
+            }
         } else {
             tvName.setVisibility(View.INVISIBLE);
             tvEmail.setText(R.string.sign_in_or_sign_up);
@@ -129,6 +128,8 @@ public class MainActivity extends BelatrixBaseActivity {
                 }
             });
             navigationView.getMenu().findItem(R.id.menu_profile).setVisible(false);
+            navigationView.getMenu().findItem(R.id.menu_organizer_options).setVisible(false);
+            navigationView.getMenu().findItem(R.id.menu_moderator_options).setVisible(false);
         }
     }
 
@@ -155,12 +156,32 @@ public class MainActivity extends BelatrixBaseActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
-                    case R.id.menu_settings:
-                        startActivityForResult(SettingsActivity.makeIntent(MainActivity.this), REQ_SETTINGS);
+                    case R.id.menu_events:
+                        navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
+                        item.setChecked(true);
+                        replaceFragment(NewHomeFragment.newInstance(MainActivity.this, cache.getCity()), false);
                         break;
-                    // case R.id.menu_finder:
-                    //   startActivity(FinderActivity.makeIntent(MainActivity.this));
-                    // break;
+                    case R.id.menu_settings:
+                        startActivity(SettingsActivity.makeIntent(MainActivity.this));
+                        break;
+                    case R.id.menu_profile:
+                        startActivityForResult(ProfileActivity.makeIntent(MainActivity.this), REQ_SETTINGS);
+                        break;
+                    case R.id.menu_register_assistance:
+                        navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
+                        item.setChecked(true);
+                        replaceFragment(RegisterAssistanceFragment.create(MainActivity.this), false);
+                        break;
+                    case R.id.menu_search_user:
+                        break;
+                    case R.id.menu_manage_ideas:
+                        navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
+                        item.setChecked(true);
+                        replaceFragment(ManageIdeasFragment.create(MainActivity.this, cache.getCity()), false);
+                        break;
                     case R.id.menu_activities:
                         startActivity(NotificationListActivity.makeIntent(MainActivity.this));
                         break;

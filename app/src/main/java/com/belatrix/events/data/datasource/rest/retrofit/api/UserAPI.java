@@ -1,7 +1,10 @@
 package com.belatrix.events.data.datasource.rest.retrofit.api;
 
 import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
+import com.belatrix.events.domain.model.Role;
 import com.belatrix.events.domain.model.User;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -27,10 +30,17 @@ public interface UserAPI {
     @FormUrlEncoded
     Observable<ResponseBody> recoverPassword(@Field("email") String email);
 
-    @PATCH("/user/{user_id}/update/password/")
+    @PATCH("/user/update/password/")
     @FormUrlEncoded
-    Observable<User> changePassword(@Header("Authorization") String authorization, @Path("user_id") int user_id, @Field("current_password") String current_password, @Field("new_password") String new_password);
+    Observable<User> changePassword(@Header("Authorization") String authorization, @Field("current_password") String current_password, @Field("new_password") String new_password);
 
     @GET("/user/{user_id}/")
     Observable<User> getUserDetail(@Header("Authorization") String authorization, @Path("user_id") int user_id);
+
+    @PATCH("/user/update/")
+    @FormUrlEncoded
+    Observable<User> updateProfile(@Header("Authorization") String token, @Field("full_name") String fullName, @Field("phone_number") String phoneNumber, @Field("role_id") int roleId);
+
+    @GET("user/role/list/")
+    Observable<List<Role>> listRole(@Header("Authorization") String token);
 }

@@ -1,13 +1,13 @@
 package com.belatrix.events.presentation.ui.fragments;
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.text.style.URLSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,35 +23,45 @@ import com.belatrix.events.utils.DateUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 /**
  * created by dvelasquez
+ * modified by lburgos
  */
-public class EventDetailAboutFragment extends BelatrixBaseFragment  {
+public class EventDetailAboutFragment extends BelatrixBaseFragment {
 
-    @BindView(R.id.details)
-    TextView descriptionTextView;
-    @BindView(R.id.location)
-    TextView locationTextView;
-    @BindView(R.id.link)
-    TextView linkTextView;
-    @BindView(R.id.date)
-    TextView dateTextView;
+    @BindView(R.id.tv_details)
+    TextView tvDescription;
+    @BindView(R.id.tv_location)
+    TextView tvPlace;
+    @BindView(R.id.tv_link)
+    TextView tvLink;
+    @BindView(R.id.tv_date)
+    TextView tvDate;
+    @BindView(R.id.tv_agenda)
+    TextView tvAgenda;
+    @BindView(R.id.tv_caption_date)
+    TextView tvCaptionDate;
+    @BindView(R.id.tv_caption_place)
+    TextView tvCaptionPlace;
+    @BindView(R.id.tv_caption_link)
+    TextView tvCaptionLink;
+    @BindView(R.id.tv_caption_agenda)
+    TextView tvCaptionAgenda;
+
     Event event;
 
-    public EventDetailAboutFragment() {
-    }
-
-    public static EventDetailAboutFragment newInstance(Event event) {
-        EventDetailAboutFragment fragment = new EventDetailAboutFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.EVENT_KEY, event);
-        fragment.setArguments(bundle);
-        return fragment;
+    public static Fragment newInstance(Context context, Event event) {
+        Bundle args = new Bundle();
+        args.putParcelable(Constants.EVENT_KEY, event);
+        return Fragment.instantiate(context, EventDetailAboutFragment.class.getName(), args);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        event = getArguments().getParcelable(Constants.EVENT_KEY);
+        if (getArguments() != null) {
+            event = getArguments().getParcelable(Constants.EVENT_KEY);
+        }
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -62,23 +72,34 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
 
     @Override
     protected void initViews() {
-        descriptionTextView.setText(event.getDetails());
-        locationTextView.setText(event.getAddress());
-        SpannableString s = SpannableString.valueOf(locationTextView.getText());
-        s.setSpan(new URLSpan(s.toString()), 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        locationTextView.setText(s);
+        tvDescription.setText(event.getDetails());
+
         if (TextUtils.isEmpty(event.getAddress())) {
-            locationTextView.setVisibility(View.GONE);
+            tvCaptionPlace.setVisibility(View.GONE);
+            tvPlace.setVisibility(View.GONE);
+        } else {
+            tvPlace.setText(event.getAddress());
         }
-        linkTextView.setText(event.getRegisterLink());
         if (TextUtils.isEmpty(event.getRegisterLink())) {
-            linkTextView.setVisibility(View.GONE);
+            tvCaptionLink.setVisibility(View.GONE);
+            tvLink.setVisibility(View.GONE);
+        }else{
+            tvLink.setText(event.getRegisterLink());
         }
-        dateTextView.setText(DateUtils.formatDate(event.getDatetime(),DateUtils.DATE_FORMAT_3,DateUtils.DATE_FORMAT_4 ));
+
+        String agenda = "";
+        if(TextUtils.isEmpty(agenda)){
+            tvCaptionAgenda.setVisibility(View.GONE);
+            tvAgenda.setVisibility(View.GONE);
+        }else{
+            tvAgenda.setText(agenda);
+        }
+
+        tvDate.setText(DateUtils.formatDate(event.getDatetime(), DateUtils.DATE_FORMAT_3, DateUtils.DATE_FORMAT_4));
     }
 
-    @OnClick(R.id.location)
-    public void onClickLocation(){
+    @OnClick(R.id.iv_location)
+    public void onClickLocation() {
         Location location = event.getLocation();
         if (location != null) {
             String latitude = location.getLatitude();
@@ -98,8 +119,7 @@ public class EventDetailAboutFragment extends BelatrixBaseFragment  {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_event_detail_about, container, false);
     }
 }

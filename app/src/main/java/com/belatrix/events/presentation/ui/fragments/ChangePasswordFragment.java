@@ -5,12 +5,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.belatrix.events.R;
@@ -27,17 +27,16 @@ import butterknife.OnClick;
 
 public class ChangePasswordFragment extends BelatrixBaseFragment implements ChangePasswordPresenter.View {
 
-    private final static String ARGS_USER_ID = "args_user_id";
     private final static String ARGS_TOKEN = "args_token";
 
-    @BindView(R.id.til_old_password)
-    TextInputLayout tilOldPassword;
+    @BindView(R.id.et_old_password)
+    EditText etOldPassword;
 
-    @BindView(R.id.til_new_password)
-    TextInputLayout tilNewPassword;
+    @BindView(R.id.et_new_password)
+    EditText etNewPassword;
 
-    @BindView(R.id.til_confirm_new_password)
-    TextInputLayout tilConfirmNewPassword;
+    @BindView(R.id.et_confirm_new_password)
+    EditText etConfirmNewPassword;
 
     @BindView(R.id.tv_error)
     TextView tvError;
@@ -54,11 +53,9 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     private LoginFragment.LoginCallback mLoginCallback;
 
     private String mToken;
-    private int userId;
 
-    public static Fragment newInstance(Context context, String token, int userId) {
+    public static Fragment create(Context context, String token) {
         Bundle args = new Bundle();
-        args.putInt(ARGS_USER_ID, userId);
         args.putString(ARGS_TOKEN, token);
         return Fragment.instantiate(context, ChangePasswordFragment.class.getName(), args);
     }
@@ -80,16 +77,6 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            mToken = args.getString(ARGS_TOKEN);
-            userId = args.getInt(ARGS_USER_ID);
-        }
-    }
-
-    @Override
     protected void initDependencies(UIComponent uiComponent) {
         uiComponent.inject(this);
         changePasswordPresenter.setView(this);
@@ -98,6 +85,10 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     @Override
     protected void initViews() {
         setTitle(getString(R.string.change_password));
+        Bundle args = getArguments();
+        if (args != null) {
+            mToken = args.getString(ARGS_TOKEN);
+        }
     }
 
     @Nullable
@@ -109,21 +100,22 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     @OnClick(R.id.bt_change_password)
     public void onClickChangePasswordEvent() {
         String oldPassword, newPassword, confirmNewPassword;
-        if (tilConfirmNewPassword != null && getActivity() != null) {
+        if (etConfirmNewPassword != null && getActivity() != null) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             if (imm != null) {
-                imm.hideSoftInputFromWindow(tilConfirmNewPassword.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(etConfirmNewPassword.getWindowToken(), 0);
             }
+            etOldPassword.setError(null);
+            etNewPassword.setError(null);
+            etConfirmNewPassword.setError(null);
         }
-        tilOldPassword.setErrorEnabled(false);
-        tilNewPassword.setErrorEnabled(false);
-        tilConfirmNewPassword.setErrorEnabled(false);
+
         tvError.setVisibility(View.GONE);
-        oldPassword = validateStringInput(tilOldPassword, hintPassword);
-        newPassword = validateStringInput(tilNewPassword, hintPassword);
-        confirmNewPassword = validateConfirmPasswordInput(tilConfirmNewPassword, newPassword, hintPassword);
+        oldPassword = validateStringInput(etOldPassword, hintPassword);
+        newPassword = validateStringInput(etNewPassword, hintPassword);
+        confirmNewPassword = validateConfirmPasswordInput(etConfirmNewPassword, newPassword, hintPassword);
         if (!oldPassword.isEmpty() && !newPassword.isEmpty() && !confirmNewPassword.isEmpty()) {
-            changePasswordPresenter.changePassword(mToken, userId, oldPassword, newPassword);
+            changePasswordPresenter.changePassword(mToken, oldPassword, newPassword);
         }
     }
 
@@ -138,26 +130,22 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
         tvError.setText(R.string.error_server_change_password);
     }
 
-    private String validateConfirmPasswordInput(TextInputLayout inputConfirmPassword, String passwordValue, String field) {
-        String confirmPassword = validateStringInput(inputConfirmPassword, field);
+    private String validateConfirmPasswordInput(EditText editText, String passwordValue, String field) {
+        String confirmPassword = validateStringInput(editText, field);
         if (!passwordValue.equals(confirmPassword)) {
-            inputConfirmPassword.setErrorEnabled(true);
-            inputConfirmPassword.setError(getString(R.string.error_passwords_not_equals));
+            editText.setError(getString(R.string.error_passwords_not_equals));
             return "";
         }
         return passwordValue;
     }
 
-    private String validateStringInput(TextInputLayout textInputLayout, String field) {
-        String value = "", error;
-        if (textInputLayout.getEditText() != null) {
-            value = textInputLayout.getEditText().getText().toString();
-            error = mValidator.validateStringField(field, value);
-            if (!error.isEmpty()) {
-                textInputLayout.setErrorEnabled(true);
-                textInputLayout.setError(error);
-                return "";
-            }
+    private String validateStringInput(EditText editText, String field) {
+        String value, error;
+        value = editText.getText().toString();
+        error = mValidator.validateStringField(field, value);
+        if (!error.isEmpty()) {
+            editText.setError(error);
+            return "";
         }
         return value;
     }

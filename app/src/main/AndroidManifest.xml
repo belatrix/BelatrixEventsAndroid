@@ -14,9 +14,12 @@
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
 
+    <uses-permission-sdk-23 android:name="android.permission.CAMERA"/>
+
     <application
         android:name="com.belatrix.events.BxEventsApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/title_main"
         android:supportsRtl="true"
@@ -73,13 +76,22 @@
         <activity
             android:name=".presentation.ui.activities.AuthenticatorActivity"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".presentation.ui.activities.IdeaAddActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".presentation.ui.activities.IdeaDetailActivity"
+            android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".presentation.ui.activities.QRDisplayActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".presentation.ui.activities.ProfileActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".presentation.ui.activities.ScannerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.SemiTransparent"
-            android:windowSoftInputMode="stateHidden|adjustPan"/>
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <service
             android:name=".utils.fcm.EventsFirebaseMessagingService"

@@ -56,7 +56,8 @@ public class AuthenticatorActivity extends BelatrixBaseActivity implements Login
                 public void run() {
                     ActionBar actionBar = getSupportActionBar();
                     if (actionBar != null) {
-                        getSupportActionBar().setTitle(title);
+                        getSupportActionBar().setTitle("");
+                        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back);
                     }
                 }
             });

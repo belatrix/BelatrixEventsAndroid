@@ -8,9 +8,8 @@ android {
         applicationId "com.belatrix.hackatrix"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 5
-        versionName "1.0.2"
-        vectorDrawables.useSupportLibrary = true
+        versionCode 6
+        versionName "2.0.0"
     }
 
     testOptions.unitTests.all {
@@ -44,7 +43,7 @@ android {
     }
 }
 
-def daggerVersion = '2.8'
+def daggerVersion = '2.11'
 def butterKnifeVersion = '8.5.1'
 def retrofitVersion = '2.2.0'
 def jUnitVersion = '4.12'
@@ -52,12 +51,8 @@ def mockitoVersion = '1.9.5'
 def okhttpVersion = '3.4.2'
 def supportLibrariesVersion = "27.1.1"
 def timberVersion = "4.6.0"
-//def viewPagerIndicatorVersion = "1.0.2"
-def bottomNavigationVersion = "2.0.2"
-def daggerMockVersion = "0.6.4"
 def glideVersion = "3.7.0"
-def okhttpVersionCore = "3.6.0"
-def firebaseLibrariesVersion = "12.0.1"
+def firebaseLibrariesVersion = "15.0.2"
 def rxandroidVersion = '2.0.1'
 def rxjavaVersion = '2.0.2'
 
@@ -70,6 +65,7 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 
     // general
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation "com.google.firebase:firebase-core:${firebaseLibrariesVersion}"
     implementation "com.google.firebase:firebase-messaging:${firebaseLibrariesVersion}"
     implementation "com.android.support:design:${supportLibrariesVersion}"
@@ -85,17 +81,19 @@ dependencies {
     testImplementation "junit:junit:${jUnitVersion}"
     testImplementation "org.mockito:mockito-core:${mockitoVersion}"
     //design
-    //compile  "com.github.ronaldsmartin:Material-ViewPagerIndicator:${viewPagerIndicatorVersion}"
-    implementation "com.aurelhubert:ahbottomnavigation:${bottomNavigationVersion}"
     implementation "com.github.bumptech.glide:glide:${glideVersion}"
     implementation "com.github.bumptech.glide:okhttp3-integration:1.4.0@aar"
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     //rxjava-android
     implementation "io.reactivex.rxjava2:rxandroid:${rxandroidVersion}"
-    implementation  "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
+    implementation "io.reactivex.rxjava2:rxjava:${rxjavaVersion}"
     implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}"
-    //scan
-    //compile 'com.journeyapps:zxing-android-embedded:3.5.0@aar'
-    //compile 'com.google.zxing:core:3.2.0'
+    //ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:1.1.1"
+    //QR Code
+    implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
+    implementation 'com.google.zxing:core:3.3.0'
 }
 
 

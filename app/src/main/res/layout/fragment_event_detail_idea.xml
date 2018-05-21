@@ -1,0 +1,32 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/off_white"
+    android:paddingTop="16dp">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_programs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/no_data_textview"
+        style="@style/Typo.Caption.Light"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/no_data_found"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dimen_5_5"
+        android:elevation="@dimen/dimen_8"
+        android:padding="@dimen/dimen_5_5"/>
+
+</FrameLayout>

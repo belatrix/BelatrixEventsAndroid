@@ -10,6 +10,7 @@ import com.belatrix.events.di.module.RetrofitModule;
 import com.belatrix.events.domain.repository.DeviceRepository;
 import com.belatrix.events.domain.repository.EmployeeRepository;
 import com.belatrix.events.domain.repository.EventRepository;
+import com.belatrix.events.domain.repository.IdeaRepository;
 import com.belatrix.events.domain.repository.NotificationRepository;
 import com.belatrix.events.domain.repository.Repository;
 import com.belatrix.events.domain.repository.UserRepository;
@@ -29,9 +30,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {ApplicationModule.class, RetrofitModule.class, RepositoryModule.class
-
-})
+@Component(modules = {ApplicationModule.class, RetrofitModule.class, RepositoryModule.class})
 public interface ApplicationComponent {
 
     @Singleton
@@ -54,6 +53,8 @@ public interface ApplicationComponent {
     NotificationRepository notificationRepository();
 
     UserRepository userRepository();
+
+    IdeaRepository ideaRepository();
 
     Cache provideCache();
 

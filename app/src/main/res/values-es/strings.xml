@@ -29,6 +29,11 @@
     <string name="drawer_close">Close</string>
     <string name="menu_title_home">Home</string>
     <string name="menu_title_profile">Perfil</string>
+    <string name="menu_title_moderator">Moderador</string>
+    <string name="menu_title_organizer">Organizador</string>
+    <string name="menu_title_register_assistance">Registrar asistencia</string>
+    <string name="menu_title_manage_ideas">Gestionar Ideas</string>
+    <string name="menu_title_search_user">Buscar usuario</string>
     <string name="menu_title_activities">Novedades</string>
     <string name="menu_title_settings">Configuraciones</string>
     <string name="menu_title_about">Acerca de</string>
@@ -46,9 +51,11 @@
     <string name="event_title_near">Eventos próximos</string>
     <string name="event_title_past">Eventos pasados</string>
     <string name="tab_event_about">Información</string>
-    <string name="tab_event_interact">Interactuar</string>
+    <string name="tab_event_idea">Ideas</string>
+    <string name="tab_event_votes">Votos</string>
     <string name="event_dialog_confirm_vote">Está seguro de su elección \"%1$s\"?</string>
     <string name="event_invalid_calendar">Calendario inválido</string>
+    <string name="event_calendar">Calendario</string>
     <string name="event_detail_added_calendar">Evento fue agregado a su calendario</string>
     <string name="event_detail_already_added_calendar">Ya agregaste anteriormente este evento al calendario</string>
 
@@ -100,7 +107,7 @@ SOFTWARE.</string>
     <string name="hint_user">Usuario</string>
     <string name="hint_password">Contraseña</string>
     <string name="sign_in">Ingresar</string>
-    <string name="recover_password">Recuperar contraseña</string>
+    <string name="recover_password">¿Olvidaste tu contraseña?</string>
     <string name="create_an_account">Crear una cuenta</string>
     <string name="field_empty">El campo %s está vacío.</string>
     <string name="error_server_login">Hubo un error al tratar de iniciar sesión</string>
@@ -109,7 +116,7 @@ SOFTWARE.</string>
     <string name="error_server_change_password">Hubo un error al tratar de cambiar la contraseña</string>
     <string name="login_title">Ingresar usuario</string>
     <string name="hint_email">Correo electrónico</string>
-    <string name="recover">Recuperar</string>
+    <string name="recover">Recuperar contraseña</string>
     <string name="email_invalid">El correo electrónico es inválido</string>
     <string name="til_name">Nombre completo</string>
     <string name="hint_confirm_password">Confirmar contraseña</string>
@@ -120,4 +127,39 @@ SOFTWARE.</string>
     <string name="change">Cambiar</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="sign_out">Sign out</string>
+    <string name="about_the_event">Sobre el evento</string>
+    <string name="date">Fecha</string>
+    <string name="place">Lugar</string>
+    <string name="agenda">Agenda</string>
+    <string name="link">Link</string>
+    <string name="email">Correo electrónico</string>
+
+    <string name="sign_in_message">Ingresa tus credenciales para poder\niniciar sesión.</string>
+    <string name="recover_message">Ingresa tu correo electrónico para\npoder mandarte una nueva\ncontraseña.</string>
+    <string name="idea_title">Nombre de la idea</string>
+    <string name="idea_detail">Sobre la idea</string>
+    <string name="cancel">Cancelar</string>
+    <string name="accept">Aceptar</string>
+    <string name="new_idea">Nueva Idea</string>
+    <string name="new_idea_dialog">¿Estás seguro que quieres crear esta nueva idea?</string>
+    <string name="idea_create_authenticator_error">Debes iniciar sesión para continuar</string>
+    <string name="idea_created">Tu idea fue creada. Un moderador lo revisará y validará.</string>
+    <string name="idea_author">Autor</string>
+    <string name="idea_participant">Participantes</string>
+    <string name="idea_candidates">Candidatos</string>
+    <string name="edit">Editar</string>
+    <string name="request_join">Solicitud para unirse</string>
+    <string name="request_cancel">Cancelar Solicitud</string>
+    <string name="request_join_dialog_title">Solicitud para unirse</string>
+    <string name="request_join_dialog_content">Estás apunto de enviar un solicitud de ingreso para esta idea, ¿estás seguro que quieres continuar?</string>
+    <string name="request_join_successful">Solicitud enviada</string>
+    <string name="request_join_error">Hubo un error cuando tratamos de procesar su solicitud.</string>
+    <string name="accept_candidate_server_error">Hubo un error cuando tratamos de agregar al candidato a la idea.</string>
+    <string name="remove_candidate_server_error">Hubo un error cuando tratamos de eliminar al candidato de la idea.</string>
+    <string name="full_name">Nombre completo</string>
+    <string name="phone_number">Número de teléfono</string>
+    <string name="role">Rol</string>
+    <string name="valid">Habilitado</string>
+    <string name="invalid">Deshabilitado</string>
+    <string name="question_validate">¿Habilitar?</string>
 </resources>

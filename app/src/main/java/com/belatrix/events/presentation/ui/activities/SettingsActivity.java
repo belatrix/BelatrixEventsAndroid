@@ -47,8 +47,6 @@ public class SettingsActivity extends BelatrixBaseActivity {
         if (city1 != city2) {
             startActivity(MainActivity.makeIntentWithoutAnimation(this));
         }
-//        TODO REMOVE RESULT OK AFTER THE ADDITION OF THE SIGN OUT BUTTON
-        setResult(RESULT_OK);
         return super.isFinishing();
     }
 
