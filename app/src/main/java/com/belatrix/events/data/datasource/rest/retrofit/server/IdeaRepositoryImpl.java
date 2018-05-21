@@ -8,6 +8,8 @@ import com.belatrix.events.data.datasource.rest.retrofit.response.ParticipantsRe
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.repository.IdeaRepository;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 
 public class IdeaRepositoryImpl extends BaseRepository implements IdeaRepository {
@@ -56,5 +58,15 @@ public class IdeaRepositoryImpl extends BaseRepository implements IdeaRepository
     @Override
     public Observable<CandidatesResponse> registerCandidate(String token, int ideaId, int userId) {
         return subscribeOn(mIdeaAPI.registerCandidate("Token " + token, ideaId, userId));
+    }
+
+    @Override
+    public Observable<List<Project>> listIdeaDraft(String token, int eventId) {
+        return subscribeOn(mIdeaAPI.listIdeaDraft("Token " + token, eventId));
+    }
+
+    @Override
+    public Observable<Project> validateIdea(String token, int ideaId) {
+        return subscribeOn(mIdeaAPI.validateIdea("Token " + token, ideaId));
     }
 }

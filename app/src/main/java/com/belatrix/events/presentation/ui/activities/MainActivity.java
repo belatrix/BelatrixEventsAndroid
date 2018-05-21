@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
+import com.belatrix.events.presentation.ui.fragments.ManageIdeasFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.RegisterAssistanceFragment;
 import com.belatrix.events.utils.account.AccountUtils;
@@ -114,6 +115,9 @@ public class MainActivity extends BelatrixBaseActivity {
             if (accountUtils.isStaff()) {
                 navigationView.getMenu().findItem(R.id.menu_organizer_options).setVisible(true);
             }
+            if (accountUtils.isModerator()) {
+                navigationView.getMenu().findItem(R.id.menu_moderator_options).setVisible(true);
+            }
         } else {
             tvName.setVisibility(View.INVISIBLE);
             tvEmail.setText(R.string.sign_in_or_sign_up);
@@ -153,6 +157,7 @@ public class MainActivity extends BelatrixBaseActivity {
                 switch (item.getItemId()) {
                     case R.id.menu_events:
                         navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(NewHomeFragment.newInstance(MainActivity.this, cache.getCity()), false);
                         break;
@@ -164,10 +169,17 @@ public class MainActivity extends BelatrixBaseActivity {
                         break;
                     case R.id.menu_register_assistance:
                         navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(RegisterAssistanceFragment.create(MainActivity.this), false);
                         break;
                     case R.id.menu_search_user:
+                        break;
+                    case R.id.menu_manage_ideas:
+                        navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
+                        item.setChecked(true);
+                        replaceFragment(ManageIdeasFragment.create(MainActivity.this, cache.getCity()), false);
                         break;
                     case R.id.menu_activities:
                         startActivity(NotificationListActivity.makeIntent(MainActivity.this));

@@ -27,6 +27,9 @@ import com.belatrix.events.presentation.ui.fragments.FinderFragment;
 import com.belatrix.events.presentation.ui.fragments.IdeaAddFragment;
 import com.belatrix.events.presentation.ui.fragments.IdeaDetailFragment;
 import com.belatrix.events.presentation.ui.fragments.LoginFragment;
+import com.belatrix.events.presentation.ui.fragments.ManageIdeasFragment;
+import com.belatrix.events.presentation.ui.fragments.ModeratorIdeaDetailFragment;
+import com.belatrix.events.presentation.ui.fragments.ModeratorListIdeasFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.NotificationListFragment;
 import com.belatrix.events.presentation.ui.fragments.ProfileFragment;
@@ -108,4 +111,10 @@ public interface UIComponent {
     void inject(ProfileFragment profileFragment);
 
     void inject(EditProfileFragment fragment);
+
+    void inject(ManageIdeasFragment fragment);
+
+    void inject(ModeratorListIdeasFragment fragment);
+
+    void inject(ModeratorIdeaDetailFragment fragment);
 }

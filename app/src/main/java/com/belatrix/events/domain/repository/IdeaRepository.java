@@ -5,6 +5,8 @@ import com.belatrix.events.data.datasource.rest.retrofit.response.IdeaCreateResp
 import com.belatrix.events.data.datasource.rest.retrofit.response.ParticipantsResponse;
 import com.belatrix.events.domain.model.Project;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 
 public interface IdeaRepository {
@@ -24,4 +26,8 @@ public interface IdeaRepository {
     Observable<CandidatesResponse> unregisterCandidate(String token, int ideaId, int userId);
 
     Observable<CandidatesResponse> registerCandidate(String token, int ideaId, int userId);
+
+    Observable<List<Project>> listIdeaDraft(String token, int eventId);
+
+    Observable<Project> validateIdea(String token, int ideaId);
 }

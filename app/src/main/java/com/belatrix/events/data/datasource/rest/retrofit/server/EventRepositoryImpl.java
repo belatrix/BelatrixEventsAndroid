@@ -25,7 +25,6 @@ import java.util.concurrent.Executor;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 import retrofit2.Response;
 
 /**
@@ -128,6 +127,11 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
     @Override
     public Observable<RegisterAttendanceResponse> registerAttendance(String token, int meetingId, String email) {
         return eventAPI.registerAttendance("Token " + token, meetingId, email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<List<Event>> listEvent(String token, int city) {
+        return subscribeOn(eventAPI.listEvent("Token " + token, city));
     }
 
     private class EventComparator implements Comparator<Event> {

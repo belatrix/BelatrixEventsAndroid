@@ -29,6 +29,16 @@
                 android:title="@string/menu_title_search_user"/>
         </menu>
     </item>
+    <item
+        android:id="@+id/menu_moderator_options"
+        android:title="@string/menu_title_moderator">
+        <menu>
+            <item
+                android:id="@+id/menu_manage_ideas"
+                android:icon="@drawable/ic_register"
+                android:title="@string/menu_title_manage_ideas"/>
+        </menu>
+    </item>
     <group android:id="@+id/grp2">
         <item
             android:id="@+id/menu_settings"

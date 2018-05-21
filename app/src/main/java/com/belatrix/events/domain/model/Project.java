@@ -13,20 +13,23 @@ import com.google.gson.annotations.SerializedName;
 
 /*
  {
-    "id": 32,
+    "id": 39,
     "author": {
-      "id": 2,
-      "full_name": "Participante Registrado",
-      "email": "participante@email.com"
+      "id": 33,
+      "full_name": "Jemil Castro",
+      "email": "jemilcastroc@gmail.com",
+      "phone_number": "",
+      "role": null
     },
-    "title": "Dale Go - App social de eventos deportivos",
-    "description": "",
+    "title": "Análisis Financiero Personal con IA",
+    "description": "La idea se centra en el uso de la IA para analizar las deudas y el comportamiento de pago de una persona en el sistema financiero, y con datos que ingrese el usuario (como ingresos y gastos), se podrá concluir con consejos para el usuario a fin de reducir su riesgo de impago o mejorara el perfil crediticio.",
     "event": {
       "id": 19,
       "title": "Hackatrix Lima 2018",
       "image": "http://i.imgur.com/bTHbsu5.jpg"
     },
-    "is_completed": false
+    "is_completed": false,
+    "is_valid": true
   }
  */
 
@@ -55,13 +58,14 @@ public class Project implements Parcelable {
     private Event mEvent;
     @SerializedName("is_completed")
     private boolean isCompleted;
+    @SerializedName("is_valid")
+    private boolean isValid;
     @Expose(serialize = false)
     private int mVotes;
 
     public Project() {
 
     }
-
 
     protected Project(Parcel in) {
         this.mId = in.readInt();
@@ -70,11 +74,16 @@ public class Project implements Parcelable {
         this.mDescription = in.readString();
         this.mEvent = in.readParcelable(Event.class.getClassLoader());
         this.isCompleted = in.readByte() != 0;
+        this.isValid = in.readByte() != 0;
         this.mVotes = in.readInt();
     }
 
     public int getVotes() {
         return mVotes;
+    }
+
+    public void setVotes(int mVotes) {
+        this.mVotes = mVotes;
     }
 
     public int getId() {
@@ -89,8 +98,16 @@ public class Project implements Parcelable {
         return mTitle;
     }
 
+    public void setTitle(String title) {
+        this.mTitle = title;
+    }
+
     public String getDescription() {
         return mDescription;
+    }
+
+    public void setDescription(String description) {
+        this.mDescription = description;
     }
 
     public Event getEvent() {
@@ -101,16 +118,8 @@ public class Project implements Parcelable {
         return isCompleted;
     }
 
-    public void setVotes(int mVotes) {
-        this.mVotes = mVotes;
-    }
-
-    public void setTitle(String title) {
-        this.mTitle = title;
-    }
-
-    public void setDescription(String description) {
-        this.mDescription = description;
+    public boolean isValid() {
+        return isValid;
     }
 
     @Override
@@ -126,6 +135,7 @@ public class Project implements Parcelable {
         dest.writeString(this.mDescription);
         dest.writeParcelable(this.mEvent, flags);
         dest.writeByte(this.isCompleted ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isValid ? (byte) 1 : (byte) 0);
         dest.writeInt(this.mVotes);
     }
 

@@ -5,6 +5,8 @@ import com.belatrix.events.data.datasource.rest.retrofit.response.IdeaCreateResp
 import com.belatrix.events.data.datasource.rest.retrofit.response.ParticipantsResponse;
 import com.belatrix.events.domain.model.Project;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -44,4 +46,10 @@ public interface IdeaAPI {
     @POST("/idea/{idea_id}/register/candidate/")
     @FormUrlEncoded
     Observable<CandidatesResponse> registerCandidate(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
+
+    @GET("/idea/draft/event/{event_id}/list/")
+    Observable<List<Project>> listIdeaDraft(@Header("Authorization") String token, @Path("event_id") int eventId);
+
+    @PATCH("/idea/{idea_id}/validation/switch/")
+    Observable<Project> validateIdea(@Header("Authorization") String token, @Path("idea_id") int ideaId);
 }

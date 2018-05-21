@@ -32,6 +32,7 @@
     <string name="menu_title_moderator">Moderador</string>
     <string name="menu_title_organizer">Organizador</string>
     <string name="menu_title_register_assistance">Registrar asistencia</string>
+    <string name="menu_title_manage_ideas">Gestionar Ideas</string>
     <string name="menu_title_search_user">Buscar usuario</string>
     <string name="menu_title_activities">Novedades</string>
     <string name="menu_title_settings">Configuraciones</string>
@@ -158,4 +159,7 @@ SOFTWARE.</string>
     <string name="full_name">Nombre completo</string>
     <string name="phone_number">Número de teléfono</string>
     <string name="role">Rol</string>
+    <string name="valid">Habilitado</string>
+    <string name="invalid">Deshabilitado</string>
+    <string name="question_validate">¿Habilitar?</string>
 </resources>

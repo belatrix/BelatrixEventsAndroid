@@ -6,13 +6,11 @@ import com.belatrix.events.domain.model.Contributor;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Meeting;
 import com.belatrix.events.domain.model.Project;
-import com.belatrix.events.domain.model.User;
 import com.belatrix.events.domain.model.Vote;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -66,4 +64,7 @@ public interface EventAPI {
     @POST("/event/register/attendance/")
     @FormUrlEncoded
     Observable<RegisterAttendanceResponse> registerAttendance(@Header("Authorization") String token, @Field("meeting_id") int meetingId, @Field("user_email") String email);
+
+    @GET("/event/list/")
+    Observable<List<Event>> listEvent(@Header("Authorization") String token, @Query("city") int cityId);
 }
