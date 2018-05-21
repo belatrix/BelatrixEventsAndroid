@@ -27,7 +27,6 @@ import butterknife.OnClick;
 
 public class ChangePasswordFragment extends BelatrixBaseFragment implements ChangePasswordPresenter.View {
 
-    private final static String ARGS_USER_ID = "args_user_id";
     private final static String ARGS_TOKEN = "args_token";
 
     @BindView(R.id.et_old_password)
@@ -54,11 +53,9 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     private LoginFragment.LoginCallback mLoginCallback;
 
     private String mToken;
-    private int userId;
 
-    public static Fragment newInstance(Context context, String token, int userId) {
+    public static Fragment create(Context context, String token) {
         Bundle args = new Bundle();
-        args.putInt(ARGS_USER_ID, userId);
         args.putString(ARGS_TOKEN, token);
         return Fragment.instantiate(context, ChangePasswordFragment.class.getName(), args);
     }
@@ -80,16 +77,6 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            mToken = args.getString(ARGS_TOKEN);
-            userId = args.getInt(ARGS_USER_ID);
-        }
-    }
-
-    @Override
     protected void initDependencies(UIComponent uiComponent) {
         uiComponent.inject(this);
         changePasswordPresenter.setView(this);
@@ -98,6 +85,10 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
     @Override
     protected void initViews() {
         setTitle(getString(R.string.change_password));
+        Bundle args = getArguments();
+        if (args != null) {
+            mToken = args.getString(ARGS_TOKEN);
+        }
     }
 
     @Nullable
@@ -124,7 +115,7 @@ public class ChangePasswordFragment extends BelatrixBaseFragment implements Chan
         newPassword = validateStringInput(etNewPassword, hintPassword);
         confirmNewPassword = validateConfirmPasswordInput(etConfirmNewPassword, newPassword, hintPassword);
         if (!oldPassword.isEmpty() && !newPassword.isEmpty() && !confirmNewPassword.isEmpty()) {
-            changePasswordPresenter.changePassword(mToken, userId, oldPassword, newPassword);
+            changePasswordPresenter.changePassword(mToken, oldPassword, newPassword);
         }
     }
 

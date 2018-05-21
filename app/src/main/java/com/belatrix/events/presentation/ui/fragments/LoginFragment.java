@@ -155,7 +155,7 @@ public class LoginFragment extends BelatrixBaseFragment implements LoginFragment
 
     @Override
     public void onChangePassword(String token, int userId) {
-        replaceFragment(ChangePasswordFragment.newInstance(getContext(), token, userId), true);
+        replaceFragment(ChangePasswordFragment.create(getContext(), token), true);
     }
 
     public interface LoginCallback {

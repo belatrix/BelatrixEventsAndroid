@@ -36,8 +36,8 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
     }
 
     @Override
-    public Observable<User> changePassword(String token, int userId, String oldPassword, String newPassword) {
-        return subscribeOn(mUserAPI.changePassword("Token " + token, userId, oldPassword, newPassword));
+    public Observable<User> changePassword(String token, String oldPassword, String newPassword) {
+        return subscribeOn(mUserAPI.changePassword("Token " + token, oldPassword, newPassword));
     }
 
     @Override

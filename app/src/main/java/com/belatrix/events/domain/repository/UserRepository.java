@@ -18,7 +18,7 @@ public interface UserRepository {
 
     Observable<User> createAccount(String email);
 
-    Observable<User> changePassword(String token, int userId, String oldPassword, String newPassword);
+    Observable<User> changePassword(String token, String oldPassword, String newPassword);
 
     Observable<User> getUser(String token, int userId);
 

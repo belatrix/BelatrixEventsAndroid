@@ -30,9 +30,9 @@ public interface UserAPI {
     @FormUrlEncoded
     Observable<ResponseBody> recoverPassword(@Field("email") String email);
 
-    @PATCH("/user/{user_id}/update/password/")
+    @PATCH("/user/update/password/")
     @FormUrlEncoded
-    Observable<User> changePassword(@Header("Authorization") String authorization, @Path("user_id") int user_id, @Field("current_password") String current_password, @Field("new_password") String new_password);
+    Observable<User> changePassword(@Header("Authorization") String authorization, @Field("current_password") String current_password, @Field("new_password") String new_password);
 
     @GET("/user/{user_id}/")
     Observable<User> getUserDetail(@Header("Authorization") String authorization, @Path("user_id") int user_id);

@@ -20,11 +20,11 @@ public class ChangePasswordInteractor extends AbstractInteractor {
         this.mAccountUtils = accountUtils;
     }
 
-    public void changePassword(final Callback callback, final String token, final int userId, String oldPassword, final String newPassword) {
-        disposable = mUserRepository.changePassword(token, userId, oldPassword, newPassword).subscribe(new Consumer<User>() {
+    public void changePassword(final Callback callback, final String token, String oldPassword, final String newPassword) {
+        disposable = mUserRepository.changePassword(token, oldPassword, newPassword).subscribe(new Consumer<User>() {
             @Override
             public void accept(User user) {
-                fetchUserData(callback, token, userId, newPassword);
+                fetchUserData(callback, token, user.getId(), newPassword);
             }
         }, new Consumer<Throwable>() {
             @Override

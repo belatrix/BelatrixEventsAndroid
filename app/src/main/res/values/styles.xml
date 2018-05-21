@@ -205,7 +205,7 @@
     </style>
 
     <style name="Button.Secondary">
-        <item name="android:textColor">@color/blue_87</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:background">@drawable/background_secondary_button</item>
     </style>
 </resources>
