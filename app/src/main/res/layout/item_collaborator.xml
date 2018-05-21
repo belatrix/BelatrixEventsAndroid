@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,9 +10,10 @@
 
     <ImageView
         android:id="@+id/photo"
-        android:layout_width="@dimen/dimen_10_6"
-        android:layout_height="@dimen/dimen_10_6"
-        tools:src="@drawable/contact_placeholder" />
+        android:layout_width="@dimen/dimen_10_8"
+        android:layout_height="@dimen/dimen_10_8"
+        android:contentDescription="@null"
+        tools:src="@drawable/contact_placeholder"/>
 
     <TextView
         android:id="@+id/full_name"
@@ -19,6 +21,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_5"
         android:gravity="center"
-        tools:text="Full name" />
+        tools:text="Full name"/>
 
 </LinearLayout>
