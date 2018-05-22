@@ -1,16 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="@dimen/dimen_13_10"
-        android:layout_height="@dimen/dimen_13_10"
-        android:layout_above="@+id/full_name"
+        android:layout_width="@dimen/dimen_10_9"
+        android:layout_height="@dimen/dimen_10_8"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dimen_5_5"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/sign_logo"/>
 
     <TextView
         android:id="@+id/title"
@@ -19,9 +18,10 @@
         android:layout_below="@+id/icon"
         android:layout_marginBottom="@dimen/dimen_2_5"
         android:layout_marginLeft="@dimen/dimen_8_5"
-        android:layout_marginTop="@dimen/dimen_2_5"
+        android:layout_marginRight="@dimen/dimen_8_5"
+        android:layout_marginTop="@dimen/dimen_3_5"
         android:text="@string/label_settings_select_city"
-        android:textSize="@dimen/text_20" />
+        android:textSize="@dimen/text_20"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -31,11 +31,12 @@
 
         <ListView
             android:id="@+id/city_list"
-            android:choiceMode="singleChoice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="@dimen/dimen_8_5"
-            android:layout_marginRight="@dimen/dimen_8_5" />
+            android:layout_marginRight="@dimen/dimen_8_5"
+            android:choiceMode="singleChoice"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -47,32 +48,30 @@
             android:indeterminate="true"
             android:indeterminateTint="@color/colorAccent"
             android:indeterminateTintMode="src_atop"
-            android:visibility="gone" />
+            android:visibility="gone"/>
     </FrameLayout>
 
     <Button
         android:id="@+id/accept"
+        style="@style/Button.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/later"
         android:layout_marginBottom="@dimen/dimen_3_5"
         android:layout_marginLeft="@dimen/dimen_8_5"
         android:layout_marginRight="@dimen/dimen_8_5"
-        android:background="@drawable/selector_accent_button"
-        android:text="@string/button_text_accept"
-        android:textColor="@color/white" />
+        android:text="@string/button_text_accept"/>
 
     <Button
         android:id="@+id/later"
+        style="@style/Button.Secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/dimen_3_5"
         android:layout_marginLeft="@dimen/dimen_8_5"
         android:layout_marginRight="@dimen/dimen_8_5"
-        android:background="@drawable/selector_accent_button_inverse"
-        android:text="@string/button_text_later"
-        android:textColor="@color/colorAccent" />
+        android:text="@string/button_text_later"/>
 
 
 </RelativeLayout>

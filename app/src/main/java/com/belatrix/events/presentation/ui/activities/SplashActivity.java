@@ -50,7 +50,6 @@ public class SplashActivity extends BelatrixBaseActivity {
         checkAppUpdated();
         if (cache.isFirstTime()) {
             startActivity(CitySelectionActivity.makeIntent(this));
-            cache.updateFirstTime();
         } else {
             startActivity(MainActivity.makeIntent(this));
         }

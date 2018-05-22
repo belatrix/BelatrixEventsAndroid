@@ -18,30 +18,24 @@ import timber.log.Timber;
 
 public class CitySelectionFragmentPresenter extends BelatrixBasePresenter<CitySelectionFragmentPresenter.View> {
 
-    private Integer selectedCity;
     @Inject
     Cache cache;
+    GetCityListInteractor getCityListInteractor;
+    UpdateDeviceInteractor updateDeviceInteractor;
+    private Integer selectedCity;
 
-    public void setSelectedCity(Integer id) {
-        selectedCity = id;
+    @Inject
+    public CitySelectionFragmentPresenter(GetCityListInteractor interactor, UpdateDeviceInteractor updateDeviceInteractor) {
+        this.getCityListInteractor = interactor;
+        this.updateDeviceInteractor = updateDeviceInteractor;
     }
 
     public Integer getSelectedCity() {
         return selectedCity;
     }
 
-    public interface View extends BelatrixBaseView {
-        void showCityList(List<City> list);
-        void onCityError(String errorMessage);
-    }
-
-    GetCityListInteractor getCityListInteractor;
-    UpdateDeviceInteractor updateDeviceInteractor;
-
-    @Inject
-    public CitySelectionFragmentPresenter(GetCityListInteractor interactor, UpdateDeviceInteractor updateDeviceInteractor) {
-        this.getCityListInteractor = interactor;
-        this.updateDeviceInteractor = updateDeviceInteractor;
+    public void setSelectedCity(Integer id) {
+        selectedCity = id;
     }
 
     public void actionLoadCities() {
@@ -61,8 +55,9 @@ public class CitySelectionFragmentPresenter extends BelatrixBasePresenter<CitySe
         });
     }
 
-    public void actionSaveCityId(){
+    public void actionSaveCityId() {
         cache.saveCity(getSelectedCity());
+        cache.updateFirstTime();
         Integer deviceId = cache.getDeviceId();
         if (deviceId != null) {
             updateDeviceInteractor.updateDevice(new UpdateDeviceInteractor.CallBack() {
@@ -75,16 +70,22 @@ public class CitySelectionFragmentPresenter extends BelatrixBasePresenter<CitySe
                 public void onError() {
                     Timber.e("device CITY Updated ERROR ");
                 }
-            }, UpdateDeviceInteractor.Params.forUpdateDevice(deviceId,getSelectedCity()));
+            }, UpdateDeviceInteractor.Params.forUpdateDevice(deviceId, getSelectedCity()));
         }
     }
 
-    public void actionClearCity(){
+    public void actionClearCity() {
         cache.removeCity();
     }
 
     @Override
     public void cancelRequests() {
         getCityListInteractor.cancel();
+    }
+
+    public interface View extends BelatrixBaseView {
+        void showCityList(List<City> list);
+
+        void onCityError(String errorMessage);
     }
 }
