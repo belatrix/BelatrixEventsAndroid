@@ -27,35 +27,13 @@ public class RetrofitModule {
 
     @Singleton
     @Provides
-    public OkHttpClient providesOkHttpClient() {
-        return new OkHttpClient();
-    }
-
-    @Singleton
-    @Provides
-    public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
-
+    public Retrofit provideRetrofit() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         }
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
-        /*
-        OkHttpClient.Builder builder = okHttpClient.newBuilder();
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            builder.addInterceptor(loggingInterceptor);
-        }
-        builder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-
-
-                return chain.proceed(chain.request());
-            }
-        });*/
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

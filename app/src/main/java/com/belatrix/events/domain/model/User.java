@@ -1,5 +1,8 @@
 package com.belatrix.events.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /*
@@ -19,7 +22,7 @@ import com.google.gson.annotations.SerializedName;
   "is_password_reset_required": false
 }
  */
-public class User {
+public class User implements Parcelable {
 
     @SerializedName("id")
     private int mId;
@@ -92,4 +95,50 @@ public class User {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.mId);
+        dest.writeString(this.mEmail);
+        dest.writeString(this.mFullName);
+        dest.writeString(this.mPhoneNumber);
+        dest.writeParcelable(this.role, flags);
+        dest.writeByte(this.isModerator ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isStaff ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isActive ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isJury ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isParticipant ? (byte) 1 : (byte) 0);
+    }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        this.mId = in.readInt();
+        this.mEmail = in.readString();
+        this.mFullName = in.readString();
+        this.mPhoneNumber = in.readString();
+        this.role = in.readParcelable(Role.class.getClassLoader());
+        this.isModerator = in.readByte() != 0;
+        this.isStaff = in.readByte() != 0;
+        this.isActive = in.readByte() != 0;
+        this.isJury = in.readByte() != 0;
+        this.isParticipant = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

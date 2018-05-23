@@ -86,7 +86,7 @@ public class EditProfileFragment extends BelatrixBaseFragment implements EditPro
 
     @Override
     public void onUserUpdated() {
-        replaceFragment(ProfileFragment.create(getContext()), false);
+        replaceFragment(UserFragment.create(getContext()), false);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class EditProfileFragment extends BelatrixBaseFragment implements EditPro
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_cancel:
-                replaceFragment(ProfileFragment.create(getContext()), false);
+                replaceFragment(UserFragment.create(getContext()), false);
                 break;
             case R.id.action_accept:
                 updateProfile();

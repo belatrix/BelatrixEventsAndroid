@@ -33,8 +33,10 @@ import com.belatrix.events.presentation.ui.fragments.ModeratorListIdeasFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.NotificationListFragment;
 import com.belatrix.events.presentation.ui.fragments.ProfileFragment;
+import com.belatrix.events.presentation.ui.fragments.UserFragment;
 import com.belatrix.events.presentation.ui.fragments.RecoverPasswordFragment;
 import com.belatrix.events.presentation.ui.fragments.RegisterAssistanceFragment;
+import com.belatrix.events.presentation.ui.fragments.SearchUserFragment;
 import com.belatrix.events.presentation.ui.fragments.SettingsFragment;
 import com.belatrix.events.presentation.ui.fragments.UpdateIdeaFragment;
 
@@ -108,7 +110,7 @@ public interface UIComponent {
 
     void inject(ProfileActivity activity);
 
-    void inject(ProfileFragment profileFragment);
+    void inject(UserFragment profileFragment);
 
     void inject(EditProfileFragment fragment);
 
@@ -117,4 +119,8 @@ public interface UIComponent {
     void inject(ModeratorListIdeasFragment fragment);
 
     void inject(ModeratorIdeaDetailFragment fragment);
+
+    void inject(SearchUserFragment fragment);
+
+    void inject(ProfileFragment fragment);
 }
