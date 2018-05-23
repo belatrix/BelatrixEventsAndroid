@@ -2,10 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/menu_profile"
-            android:icon="@drawable/ic_person"
-            android:title="@string/menu_title_profile"/>
-        <item
             android:id="@+id/menu_events"
             android:checked="true"
             android:icon="@drawable/ic_event"
@@ -15,6 +11,21 @@
             android:icon="@drawable/ic_news"
             android:title="@string/menu_title_activities"/>
     </group>
+
+    <item
+        android:id="@+id/menu_user_options"
+        android:title="@string/menu_title_profile">
+        <menu>
+            <item
+                android:id="@+id/menu_profile"
+                android:icon="@drawable/ic_person"
+                android:title="@string/menu_title_profile"/>
+            <item
+                android:id="@+id/menu_my_ideas"
+                android:icon="@drawable/ic_idea"
+                android:title="@string/menu_title_my_ideas"/>
+        </menu>
+    </item>
     <item
         android:id="@+id/menu_organizer_options"
         android:title="@string/menu_title_organizer">

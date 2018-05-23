@@ -31,6 +31,7 @@
     <string name="menu_title_profile">Profile</string>
     <string name="menu_title_moderator">Moderator</string>
     <string name="menu_title_organizer">Organizer</string>
+    <string name="menu_title_jury">Jury</string>
     <string name="menu_title_register_assistance">Register Assistance</string>
     <string name="menu_title_manage_ideas">Manage Ideas</string>
     <string name="menu_title_search_user">Search user</string>
@@ -41,6 +42,7 @@
     <string name="menu_title_events">Events</string>
     <string name="menu_title_help">Help</string>
     <string name="menu_title_share">Share</string>
+    <string name="menu_title_my_ideas">My Ideas</string>
     <!--Messages-->
     <string name="no_data_found">No data found</string>
     <string name="text_scan_qr">Scan a QR code</string>

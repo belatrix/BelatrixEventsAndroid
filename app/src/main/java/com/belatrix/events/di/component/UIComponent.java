@@ -30,6 +30,7 @@ import com.belatrix.events.presentation.ui.fragments.LoginFragment;
 import com.belatrix.events.presentation.ui.fragments.ManageIdeasFragment;
 import com.belatrix.events.presentation.ui.fragments.ModeratorIdeaDetailFragment;
 import com.belatrix.events.presentation.ui.fragments.ModeratorListIdeasFragment;
+import com.belatrix.events.presentation.ui.fragments.MyIdeasFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.NotificationListFragment;
 import com.belatrix.events.presentation.ui.fragments.ProfileFragment;
@@ -123,4 +124,6 @@ public interface UIComponent {
     void inject(SearchUserFragment fragment);
 
     void inject(ProfileFragment fragment);
+
+    void inject(MyIdeasFragment fragment);
 }
