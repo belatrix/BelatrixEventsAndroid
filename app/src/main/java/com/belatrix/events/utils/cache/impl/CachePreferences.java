@@ -29,7 +29,7 @@ public class CachePreferences implements Cache {
 
     @Override
     public void saveVote(int eventId) {
-        preferences.edit().putBoolean(PREFIX_EVENT + eventId, true).commit();
+        preferences.edit().putBoolean(PREFIX_EVENT + eventId, true).apply();
     }
 
     @Override
@@ -39,12 +39,12 @@ public class CachePreferences implements Cache {
 
     @Override
     public void saveCity(Integer cityId) {
-        preferences.edit().putInt(PARAM_CITY, cityId).commit();
+        preferences.edit().putInt(PARAM_CITY, cityId).apply();
     }
 
     @Override
     public void removeCity() {
-        preferences.edit().remove(PARAM_CITY).commit();
+        preferences.edit().remove(PARAM_CITY).apply();
     }
 
     @Override
@@ -53,17 +53,17 @@ public class CachePreferences implements Cache {
         if (city != 0) {
             return city;
         } else
-            return null;
+            return -1;
     }
 
     @Override
     public void clearStartAppFlag() {
-        preferences.edit().putBoolean(PARAM_START_APP, true).commit();
+        preferences.edit().putBoolean(PARAM_START_APP, true).apply();
     }
 
     @Override
     public void updateStartAppFlag() {
-        preferences.edit().putBoolean(PARAM_START_APP, false).commit();
+        preferences.edit().putBoolean(PARAM_START_APP, false).apply();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class CachePreferences implements Cache {
 
     @Override
     public void updateFirstTime() {
-        preferences.edit().putBoolean(PARAM_FIRST_TIME, false).commit();
+        preferences.edit().putBoolean(PARAM_FIRST_TIME, false).apply();
     }
 
     @Override
@@ -89,7 +89,7 @@ public class CachePreferences implements Cache {
 
     @Override
     public void saveNotification(boolean value) {
-        preferences.edit().putBoolean(PARAM_NOTIFICATION, value).commit();
+        preferences.edit().putBoolean(PARAM_NOTIFICATION, value).apply();
     }
 
     @Override
@@ -99,7 +99,7 @@ public class CachePreferences implements Cache {
 
     @Override
     public void saveDeviceToken(String value) {
-        preferences.edit().putString(PARAM_DEVICE_TOKEN, value).commit();
+        preferences.edit().putString(PARAM_DEVICE_TOKEN, value).apply();
     }
 
     @Override
@@ -136,7 +136,7 @@ public class CachePreferences implements Cache {
 
     @Override
     public void saveDeviceId(Integer value) {
-        preferences.edit().putInt(PARAM_DEVICE_ID, value).commit();
+        preferences.edit().putInt(PARAM_DEVICE_ID, value).apply();
     }
 
 }

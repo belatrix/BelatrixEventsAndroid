@@ -58,6 +58,7 @@ public class ManageIdeasFragment extends BelatrixBaseFragment implements ManageI
 
     @Override
     protected void initViews() {
+        setTitle(getString(R.string.menu_title_manage_ideas));
         mModeratorEventListAdapter = new ModeratorEventListAdapter(ManageIdeasFragment.this);
         rvEvents.setAdapter(mModeratorEventListAdapter);
         if (getContext() != null) {

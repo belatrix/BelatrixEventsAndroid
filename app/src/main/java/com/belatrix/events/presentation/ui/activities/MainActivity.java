@@ -99,7 +99,7 @@ public class MainActivity extends BelatrixBaseActivity {
         tvName = header.findViewById(R.id.tv_name);
         tvEmail = header.findViewById(R.id.tv_email);
 
-        replaceFragment(NewHomeFragment.newInstance(MainActivity.this, cache.getCity()), false);
+        replaceFragment(NewHomeFragment.create(MainActivity.this, cache.getCity()), false);
         cache.clearStartAppFlag();
         setupProfile();
     }
@@ -160,7 +160,7 @@ public class MainActivity extends BelatrixBaseActivity {
                         navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
                         navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
                         item.setChecked(true);
-                        replaceFragment(NewHomeFragment.newInstance(MainActivity.this, cache.getCity()), false);
+                        replaceFragment(NewHomeFragment.create(MainActivity.this, cache.getCity()), false);
                         break;
                     case R.id.menu_settings:
                         startActivity(SettingsActivity.makeIntent(MainActivity.this));

@@ -42,7 +42,7 @@ public class NewHomeFragment extends BelatrixBaseFragment implements NewEventAda
     private NewEventAdapter mNewEventAdapter;
     private EventViewModel mEventViewModel;
 
-    public static Fragment newInstance(Context context, int cityId) {
+    public static Fragment create(Context context, int cityId) {
         Bundle args = new Bundle();
         args.putInt(ARGS_CITY_ID, cityId);
         return Fragment.instantiate(context, NewHomeFragment.class.getName(), args);

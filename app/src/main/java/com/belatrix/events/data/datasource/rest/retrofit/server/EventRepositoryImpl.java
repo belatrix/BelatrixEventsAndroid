@@ -92,28 +92,19 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
                 List<Event> events = new ArrayList<>();
                 data.postValue(Resource.loading(events));
                 // Get all upcoming events related to the city selected
-                Response<List<Event>> responseUpcoming = null;
+                Response<List<Event>> response = null;
                 try {
-                    responseUpcoming = eventAPI.upcomingEvent(cityId).execute();
+                    response = eventAPI.listEventByCity(cityId == -1 ? null : cityId).execute();
                 } catch (IOException ioex) {
                     ioex.printStackTrace();
                     data.postValue(Resource.error(ioex.getMessage(), events));
                 }
-                // Get all past events related to the city selected
-                Response<List<Event>> responsePast = null;
-                try {
-                    responsePast = eventAPI.pastEvent(cityId).execute();
-                } catch (IOException ioex) {
-                    ioex.printStackTrace();
-                    data.postValue(Resource.error(ioex.getMessage(), events));
+                if (response != null && response.body() != null) {
+                    events.addAll(response.body());
                 }
-                if (responseUpcoming != null && responsePast != null) {
-                    events.addAll(responseUpcoming.body());
-                    events.addAll(responsePast.body());
-                    // Sort events by date and if they are upcoming
-                    Collections.sort(events, new EventComparator());
-                    data.postValue(Resource.success(events));
-                }
+                // Sort events by date and if they are upcoming
+                Collections.sort(events, new EventComparator());
+                data.postValue(Resource.success(events));
             }
         });
         return data;
@@ -131,7 +122,7 @@ public class EventRepositoryImpl extends BaseRepository implements EventReposito
 
     @Override
     public Observable<List<Event>> listEvent(String token, int city) {
-        return subscribeOn(eventAPI.listEvent("Token " + token, city));
+        return subscribeOn(eventAPI.listEvent(city == -1 ? null : city));
     }
 
     private class EventComparator implements Comparator<Event> {

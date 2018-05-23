@@ -66,5 +66,8 @@ public interface EventAPI {
     Observable<RegisterAttendanceResponse> registerAttendance(@Header("Authorization") String token, @Field("meeting_id") int meetingId, @Field("user_email") String email);
 
     @GET("/event/list/")
-    Observable<List<Event>> listEvent(@Header("Authorization") String token, @Query("city") int cityId);
+    Observable<List<Event>> listEvent(@Query("city") Integer cityId);
+
+    @GET("/event/list/")
+    Call<List<Event>> listEventByCity(@Query("city") Integer cityId);
 }
