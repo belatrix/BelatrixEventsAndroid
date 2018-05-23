@@ -35,6 +35,10 @@
                 android:icon="@drawable/ic_register"
                 android:title="@string/menu_title_register_assistance"/>
             <item
+                android:id="@+id/menu_reports"
+                android:icon="@drawable/ic_report"
+                android:title="@string/menu_title_see_reports"/>
+            <item
                 android:id="@+id/menu_search_user"
                 android:icon="@drawable/ic_search"
                 android:title="@string/menu_title_search_user"/>

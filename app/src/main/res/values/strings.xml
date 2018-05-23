@@ -33,6 +33,7 @@
     <string name="menu_title_organizer">Organizer</string>
     <string name="menu_title_jury">Jury</string>
     <string name="menu_title_register_assistance">Register Assistance</string>
+    <string name="menu_title_see_reports">Reports</string>
     <string name="menu_title_manage_ideas">Manage Ideas</string>
     <string name="menu_title_search_user">Search user</string>
     <string name="menu_title_activities">News</string>

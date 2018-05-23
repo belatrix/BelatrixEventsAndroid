@@ -32,6 +32,7 @@
     <string name="menu_title_moderator">Moderador</string>
     <string name="menu_title_organizer">Organizador</string>
     <string name="menu_title_register_assistance">Registrar asistencia</string>
+    <string name="menu_title_see_reports">Reportes</string>
     <string name="menu_title_manage_ideas">Gestionar Ideas</string>
     <string name="menu_title_search_user">Buscar usuario</string>
     <string name="menu_title_activities">Novedades</string>

@@ -161,9 +161,11 @@ public class MainActivity extends BelatrixBaseActivity {
     }
 
     protected void setupNavigationDrawerListener() {
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                Intent intent;
                 if (menuEvents == null || menuManageIdeas == null || menuMyIdeas == null || menuRegisterAssistance == null || menuSearchUser == null) {
                     Menu menu = navigationView.getMenu();
                     menuEvents = menu.findItem(R.id.menu_events);
@@ -195,6 +197,11 @@ public class MainActivity extends BelatrixBaseActivity {
                         item.setChecked(true);
                         replaceFragment(MyIdeasFragment.create(MainActivity.this), false);
                         break;
+                    case R.id.menu_reports:
+                        intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse("http://bxevents.herokuapp.com/reports/"));
+                        startActivity(intent);
+                        break;
                     case R.id.menu_register_assistance:
                         item.setChecked(true);
                         replaceFragment(RegisterAssistanceFragment.create(MainActivity.this), false);
@@ -214,7 +221,7 @@ public class MainActivity extends BelatrixBaseActivity {
                         startActivity(AboutActivity.makeIntent(MainActivity.this));
                         break;
                     case R.id.menu_help:
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringURL));
+                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringURL));
                         startActivity(intent);
                         break;
                 }
