@@ -1,6 +1,7 @@
 package com.belatrix.events.data.datasource.rest.retrofit.api;
 
 import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
+import com.belatrix.events.domain.model.Profile;
 import com.belatrix.events.domain.model.Role;
 import com.belatrix.events.domain.model.User;
 
@@ -15,6 +16,7 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface UserAPI {
 
@@ -41,6 +43,12 @@ public interface UserAPI {
     @FormUrlEncoded
     Observable<User> updateProfile(@Header("Authorization") String token, @Field("full_name") String fullName, @Field("phone_number") String phoneNumber, @Field("role_id") int roleId);
 
-    @GET("user/role/list/")
+    @GET("/user/role/list/")
     Observable<List<Role>> listRole(@Header("Authorization") String token);
+
+    @GET("/user/list/")
+    Observable<List<User>> listUser(@Header("Authorization") String token, @Query("search") String search);
+
+    @GET("/user/profile/")
+    Observable<Profile> getProfile(@Header("Authorization") String token, @Query("id") int userId);
 }

@@ -20,6 +20,7 @@ import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrix.events.presentation.ui.fragments.ManageIdeasFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.RegisterAssistanceFragment;
+import com.belatrix.events.presentation.ui.fragments.SearchUserFragment;
 import com.belatrix.events.utils.account.AccountUtils;
 import com.belatrix.events.utils.cache.Cache;
 
@@ -159,6 +160,7 @@ public class MainActivity extends BelatrixBaseActivity {
                     case R.id.menu_events:
                         navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
                         navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_search_user).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(NewHomeFragment.newInstance(MainActivity.this, cache.getCity()), false);
                         break;
@@ -171,14 +173,21 @@ public class MainActivity extends BelatrixBaseActivity {
                     case R.id.menu_register_assistance:
                         navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
                         navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_search_user).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(RegisterAssistanceFragment.create(MainActivity.this), false);
                         break;
                     case R.id.menu_search_user:
+                        navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
+                        item.setChecked(true);
+                        replaceFragment(SearchUserFragment.create(MainActivity.this), false);
                         break;
                     case R.id.menu_manage_ideas:
                         navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
                         navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
+                        navigationView.getMenu().findItem(R.id.menu_search_user).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(ManageIdeasFragment.create(MainActivity.this, cache.getCity()), false);
                         break;

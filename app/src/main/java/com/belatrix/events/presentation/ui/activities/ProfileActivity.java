@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
-import com.belatrix.events.presentation.ui.fragments.ProfileFragment;
+import com.belatrix.events.presentation.ui.fragments.UserFragment;
 
 public class ProfileActivity extends BelatrixBaseActivity {
 
@@ -24,7 +24,7 @@ public class ProfileActivity extends BelatrixBaseActivity {
         setContentView(R.layout.activity_profile);
         setToolbar();
         initViews();
-        replaceFragment(ProfileFragment.create(ProfileActivity.this), false);
+        replaceFragment(UserFragment.create(ProfileActivity.this), false);
     }
 
     @Override
