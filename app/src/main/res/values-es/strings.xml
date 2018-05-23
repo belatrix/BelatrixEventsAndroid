@@ -162,4 +162,8 @@ SOFTWARE.</string>
     <string name="valid">Habilitado</string>
     <string name="invalid">Deshabilitado</string>
     <string name="question_validate">¿Habilitar?</string>
+    <string name="participant_in">Participante en</string>
+    <string name="candidate_in">Candidato en</string>
+    <string name="integrate_in">Integrante en</string>
+    <string name="assisted_to">Asistió a</string>
 </resources>

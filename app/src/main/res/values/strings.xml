@@ -186,4 +186,8 @@ SOFTWARE.</string>
     <string name="valid">Enable</string>
     <string name="invalid">Disable</string>
     <string name="question_validate">Enable?</string>
+    <string name="participant_in">Participant in</string>
+    <string name="candidate_in">Candidate in</string>
+    <string name="integrate_in">Member in</string>
+    <string name="assisted_to">Attended to</string>
 </resources>

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="24dp"
         android:contentDescription="@null"/>
 
     <TextView
@@ -33,29 +33,75 @@
         tools:text="Luis Miguel Burgos Ortiz"/>
 
     <TextView
-        android:id="@+id/tv_phone_number"
-        style="@style/Typo.Subheading.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        tools:text="Luis Miguel Burgos Ortiz"/>
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/participant_in"/>
+
+    <LinearLayout
+        android:id="@+id/ll_participant_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" />
 
     <TextView
-        android:id="@+id/tv_role"
-        style="@style/Typo.Subheading.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        tools:text="Luis Miguel Burgos Ortiz"/>
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/candidate_in"/>
 
+    <LinearLayout
+        android:id="@+id/ll_candidate_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" />
 
     <TextView
-        android:id="@+id/tv_sign_out"
-        style="@style/Typo.Body1.Light"
+        style="@style/Typo.Caption.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="64dp"
-        android:text="@string/sign_out"
-        android:textColor="@color/blue_87"/>
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/integrate_in"/>
+
+    <LinearLayout
+        android:id="@+id/ll_member_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" />
+
+    <TextView
+        style="@style/Typo.Caption.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/assisted_to"/>
+
+    <LinearLayout
+        android:id="@+id/ll_assisted_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" />
+
 </LinearLayout>

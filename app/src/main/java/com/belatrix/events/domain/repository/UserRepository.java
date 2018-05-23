@@ -2,6 +2,7 @@ package com.belatrix.events.domain.repository;
 
 
 import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
+import com.belatrix.events.domain.model.Profile;
 import com.belatrix.events.domain.model.Role;
 import com.belatrix.events.domain.model.User;
 
@@ -25,4 +26,8 @@ public interface UserRepository {
     Observable<User> updateUser(String token, String fullName, String phoneNumber, int roleId);
 
     Observable<List<Role>> listRole(String token);
+
+    Observable<List<User>> searchUser(String token, String search);
+
+    Observable<Profile> getProfile(String token, int userId);
 }

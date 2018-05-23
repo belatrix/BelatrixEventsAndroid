@@ -2,55 +2,86 @@ package com.belatrix.events.presentation.presenters;
 
 import android.graphics.Bitmap;
 
-import com.belatrix.events.R;
+import com.belatrix.events.domain.interactors.GetProfileInteractor;
+import com.belatrix.events.domain.model.Profile;
+import com.belatrix.events.domain.model.User;
 import com.belatrix.events.presentation.presenters.base.BelatrixBasePresenter;
 import com.belatrix.events.presentation.presenters.base.BelatrixBaseView;
-import com.belatrix.events.utils.account.AccountUtils;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import javax.inject.Inject;
 
-import butterknife.BindDimen;
+public class ProfilePresenter extends BelatrixBasePresenter<ProfilePresenter.View> implements GetProfileInteractor.Callback {
 
-public class ProfilePresenter extends BelatrixBasePresenter<ProfilePresenter.View> {
-
-    private final AccountUtils mAccountUtils;
+    private final GetProfileInteractor mGetProfileInteractor;
 
     @Inject
-    ProfilePresenter(AccountUtils accountUtils) {
-        this.mAccountUtils = accountUtils;
+    public ProfilePresenter(GetProfileInteractor getProfileInteractor) {
+        mGetProfileInteractor = getProfileInteractor;
+    }
+
+    public void loadProfile(User user) {
+        view.showEmail(user.getEmail());
+        view.showFullName(user.getFullName());
+        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+        try {
+            Bitmap bitmap = barcodeEncoder.encodeBitmap(user.getEmail(), BarcodeFormat.QR_CODE, 400, 400);
+            view.showQRCode(bitmap);
+        } catch (WriterException wex) {
+            wex.printStackTrace();
+        }
+        mGetProfileInteractor.getProfile(ProfilePresenter.this, user.getId());
+    }
+
+    @Override
+    public void onRetrieveProfile(Profile profile) {
+        if (profile.getLstParticipant() != null && profile.getLstParticipant().size() > 0) {
+            for (Profile.ParticipantList participant : profile.getLstParticipant()) {
+                view.showParcipantIn(participant.getIdea());
+            }
+        }
+        if (profile.getLstCandidate() != null && profile.getLstCandidate().size() > 0) {
+            for (Profile.CandidateList candidate : profile.getLstCandidate()) {
+                view.showCandidateIn(candidate.getIdea());
+            }
+        }
+        if (profile.getLstAttendance() != null && profile.getLstAttendance().size() > 0) {
+            for (Profile.AttendanceList attendant : profile.getLstAttendance()) {
+                view.showAssistedTo(attendant.getMeeting());
+            }
+        }
+        if (profile.getLstEvents() != null && profile.getLstEvents().size() > 0) {
+            for (Profile.EventList event : profile.getLstEvents()) {
+                view.showMemberIn(event.getEvent());
+            }
+        }
+    }
+
+    @Override
+    public void onRetrieveError() {
+
     }
 
     @Override
     public void cancelRequests() {
-
-    }
-
-    public void loadUser() {
-        view.loadEmailField(mAccountUtils.getEmail());
-        view.loadFullNameField(mAccountUtils.getFullName());
-        view.loadPhoneNumberField(mAccountUtils.getPhoneNumber());
-        view.loadRoleName(mAccountUtils.getRoleName());
-        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-        try {
-            Bitmap bitmap = barcodeEncoder.encodeBitmap(mAccountUtils.getEmail(), BarcodeFormat.QR_CODE, 400, 400);
-            view.loadQRImage(bitmap);
-        } catch (WriterException wex) {
-            wex.printStackTrace();
-        }
+        mGetProfileInteractor.cancel();
     }
 
     public interface View extends BelatrixBaseView {
-        void loadEmailField(String email);
+        void showQRCode(Bitmap bitmap);
 
-        void loadFullNameField(String fullName);
+        void showEmail(String email);
 
-        void loadQRImage(Bitmap bitmap);
+        void showFullName(String fullName);
 
-        void loadPhoneNumberField(String phoneNumber);
+        void showParcipantIn(Profile.Idea idea);
 
-        void loadRoleName(String role);
+        void showCandidateIn(Profile.Idea idea);
+
+        void showMemberIn(Profile.Event event);
+
+        void showAssistedTo(Profile.Meeting meeting);
     }
 }

@@ -18,6 +18,10 @@ android {
         }
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
     signingConfigs {
         debug {
             storeFile file('../buildsystem/debug.keystore')
@@ -39,6 +43,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", serverProps["baseReleaseUrl"]
+
         }
     }
 }
