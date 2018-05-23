@@ -41,6 +41,7 @@
     <string name="menu_title_events">Eventos</string>
     <string name="menu_title_help">Ayuda</string>
     <string name="menu_title_share">Compartir</string>
+    <string name="menu_title_my_ideas">Mis Ideas</string>
     <!--Messages-->
     <string name="no_data_found">No se encontraron datos</string>
     <string name="text_scan_qr">Escanea un código QR</string>

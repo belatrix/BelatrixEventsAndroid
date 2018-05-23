@@ -10,6 +10,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrix.events.presentation.ui.fragments.ManageIdeasFragment;
+import com.belatrix.events.presentation.ui.fragments.MyIdeasFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.RegisterAssistanceFragment;
 import com.belatrix.events.presentation.ui.fragments.SearchUserFragment;
@@ -54,6 +56,13 @@ public class MainActivity extends BelatrixBaseActivity {
 
     @Inject
     AccountUtils accountUtils;
+
+    private MenuItem menuEvents;
+    private MenuItem menuRegisterAssistance;
+    private MenuItem menuManageIdeas;
+    private MenuItem menuSearchUser;
+    private MenuItem menuMyIdeas;
+
 
     public static Intent makeIntent(Context context, Bundle params) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -112,7 +121,7 @@ public class MainActivity extends BelatrixBaseActivity {
             tvName.setText(accountUtils.getFullName());
             tvEmail.setText(accountUtils.getEmail());
             tvEmail.setOnClickListener(null);
-            navigationView.getMenu().findItem(R.id.menu_profile).setVisible(true);
+            navigationView.getMenu().findItem(R.id.menu_user_options).setVisible(true);
             if (accountUtils.isStaff()) {
                 navigationView.getMenu().findItem(R.id.menu_organizer_options).setVisible(true);
             }
@@ -128,7 +137,7 @@ public class MainActivity extends BelatrixBaseActivity {
                     startActivityForResult(AuthenticatorActivity.makeIntent(MainActivity.this), REQ_AUTHENTICATION);
                 }
             });
-            navigationView.getMenu().findItem(R.id.menu_profile).setVisible(false);
+            navigationView.getMenu().findItem(R.id.menu_user_options).setVisible(false);
             navigationView.getMenu().findItem(R.id.menu_organizer_options).setVisible(false);
             navigationView.getMenu().findItem(R.id.menu_moderator_options).setVisible(false);
         }
@@ -155,12 +164,24 @@ public class MainActivity extends BelatrixBaseActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                if (menuEvents == null || menuManageIdeas == null || menuMyIdeas == null || menuRegisterAssistance == null || menuSearchUser == null) {
+                    Menu menu = navigationView.getMenu();
+                    menuEvents = menu.findItem(R.id.menu_events);
+                    menuRegisterAssistance = menu.findItem(R.id.menu_register_assistance);
+                    menuManageIdeas = navigationView.getMenu().findItem(R.id.menu_manage_ideas);
+                    menuSearchUser = navigationView.getMenu().findItem(R.id.menu_search_user);
+                    menuMyIdeas = navigationView.getMenu().findItem(R.id.menu_my_ideas);
+                }
+
+                menuEvents.setChecked(false);
+                menuRegisterAssistance.setChecked(false);
+                menuManageIdeas.setChecked(false);
+                menuSearchUser.setChecked(false);
+                menuMyIdeas.setChecked(false);
+
                 drawerLayout.closeDrawers();
                 switch (item.getItemId()) {
                     case R.id.menu_events:
-                        navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
-                        navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
-                        navigationView.getMenu().findItem(R.id.menu_search_user).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(NewHomeFragment.create(MainActivity.this, cache.getCity()), false);
                         break;
@@ -170,24 +191,19 @@ public class MainActivity extends BelatrixBaseActivity {
                     case R.id.menu_profile:
                         startActivityForResult(ProfileActivity.makeIntent(MainActivity.this), REQ_SETTINGS);
                         break;
+                    case R.id.menu_my_ideas:
+                        item.setChecked(true);
+                        replaceFragment(MyIdeasFragment.create(MainActivity.this), false);
+                        break;
                     case R.id.menu_register_assistance:
-                        navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
-                        navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
-                        navigationView.getMenu().findItem(R.id.menu_search_user).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(RegisterAssistanceFragment.create(MainActivity.this), false);
                         break;
                     case R.id.menu_search_user:
-                        navigationView.getMenu().findItem(R.id.menu_manage_ideas).setChecked(false);
-                        navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
-                        navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(SearchUserFragment.create(MainActivity.this), false);
                         break;
                     case R.id.menu_manage_ideas:
-                        navigationView.getMenu().findItem(R.id.menu_register_assistance).setChecked(false);
-                        navigationView.getMenu().findItem(R.id.menu_events).setChecked(false);
-                        navigationView.getMenu().findItem(R.id.menu_search_user).setChecked(false);
                         item.setChecked(true);
                         replaceFragment(ManageIdeasFragment.create(MainActivity.this, cache.getCity()), false);
                         break;

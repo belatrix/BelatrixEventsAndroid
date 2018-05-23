@@ -1,11 +1,10 @@
 package com.belatrix.events.data.datasource.rest.retrofit.server;
 
-import android.util.Log;
-
 import com.belatrix.events.data.datasource.rest.retrofit.api.UserAPI;
 import com.belatrix.events.data.datasource.rest.retrofit.base.BaseRepository;
 import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
 import com.belatrix.events.domain.model.Profile;
+import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.model.Role;
 import com.belatrix.events.domain.model.User;
 import com.belatrix.events.domain.repository.UserRepository;
@@ -66,5 +65,10 @@ public class UserRepositoryImpl extends BaseRepository implements UserRepository
     @Override
     public Observable<Profile> getProfile(String token, int userId) {
         return subscribeOn(mUserAPI.getProfile("Token " + token, userId));
+    }
+
+    @Override
+    public Observable<List<Project>> listIdeas(String token) {
+        return subscribeOn(mUserAPI.listIdeas("Token " + token));
     }
 }

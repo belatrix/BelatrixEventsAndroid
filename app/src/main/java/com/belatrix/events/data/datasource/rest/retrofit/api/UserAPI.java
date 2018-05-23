@@ -2,6 +2,7 @@ package com.belatrix.events.data.datasource.rest.retrofit.api;
 
 import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
 import com.belatrix.events.domain.model.Profile;
+import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.model.Role;
 import com.belatrix.events.domain.model.User;
 
@@ -51,4 +52,7 @@ public interface UserAPI {
 
     @GET("/user/profile/")
     Observable<Profile> getProfile(@Header("Authorization") String token, @Query("id") int userId);
+
+    @GET("/user/ideas/")
+    Observable<List<Project>> listIdeas(@Header("Authorization") String token);
 }

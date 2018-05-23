@@ -3,6 +3,7 @@ package com.belatrix.events.domain.repository;
 
 import com.belatrix.events.data.datasource.rest.retrofit.response.UserAuthenticationResponse;
 import com.belatrix.events.domain.model.Profile;
+import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.model.Role;
 import com.belatrix.events.domain.model.User;
 
@@ -30,4 +31,6 @@ public interface UserRepository {
     Observable<List<User>> searchUser(String token, String search);
 
     Observable<Profile> getProfile(String token, int userId);
+
+    Observable<List<Project>> listIdeas(String token);
 }
