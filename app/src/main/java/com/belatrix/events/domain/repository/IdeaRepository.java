@@ -8,6 +8,7 @@ import com.belatrix.events.domain.model.Project;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 public interface IdeaRepository {
 
@@ -30,4 +31,6 @@ public interface IdeaRepository {
     Observable<List<Project>> listIdeaDraft(String token, int eventId);
 
     Observable<Project> validateIdea(String token, int ideaId);
+
+    Observable<ResponseBody> addParticipant(String token, int ideaId, int userId);
 }

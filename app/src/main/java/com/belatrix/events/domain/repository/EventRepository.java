@@ -45,4 +45,6 @@ public interface EventRepository {
     Observable<RegisterAttendanceResponse> registerAttendance(String token, int meetingId, String email);
 
     Observable<List<Event>> listEvent(String token, int city);
+
+    Observable<ResponseBody> voteForIdea(String token, int eventId, int ideaId);
 }

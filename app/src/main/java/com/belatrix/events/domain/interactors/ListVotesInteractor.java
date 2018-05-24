@@ -33,7 +33,7 @@ public class ListVotesInteractor extends AbstractInteractor {
                 Collections.sort(votes, new Comparator<Vote>() {
                     @Override
                     public int compare(Vote o1, Vote o2) {
-                        return o1.getVotes() < o2.getVotes() ? -1 : o1.getVotes() > o2.getVotes() ? 1 : 0;
+                        return o1.getVotes() > o2.getVotes() ? -1 : o1.getVotes() < o2.getVotes() ? 1 : 0;
                     }
                 });
                 callback.onSuccess(votes);

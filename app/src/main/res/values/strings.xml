@@ -13,6 +13,8 @@
     <string name="dialog_option_note">Note: Once confirmed, you will not be able to vote</string>
     <string name="dialog_error_vote_already">You can only vote once</string>
     <string name="dialog_error_vote_disable">Votes are not yet enabled</string>
+    <string name="dialog_server_error">There was an error processing your request. Please, try again.</string>
+    <string name="vote_error">You can only vote once.</string>
 
     <!-- Title -->
     <string name="title_main">Hackatrix</string>
@@ -193,4 +195,6 @@ SOFTWARE.</string>
     <string name="candidate_in">Candidate in</string>
     <string name="integrate_in">Member in</string>
     <string name="assisted_to">Attended to</string>
+    <string name="add_participant">Add Participant</string>
+    <string name="add_participant_content">Are you sure you want to add %s to the idea?</string>
 </resources>

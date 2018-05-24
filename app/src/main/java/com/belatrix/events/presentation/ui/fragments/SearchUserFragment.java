@@ -1,6 +1,7 @@
 package com.belatrix.events.presentation.ui.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,19 +17,24 @@ import android.view.ViewGroup;
 
 import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
+import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.model.User;
 import com.belatrix.events.presentation.presenters.SearchUserPresenter;
 import com.belatrix.events.presentation.ui.adapters.UserAdapter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.presentation.ui.common.DividerItemDecoration;
+import com.belatrix.events.utils.DialogUtils;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
 public class SearchUserFragment extends BelatrixBaseFragment implements SearchUserPresenter.View, UserAdapter.OnItemPressListener, SearchView.OnQueryTextListener {
+
+    private static final String ARGS_PROJECT = "args_project";
 
     @BindView(R.id.sv_user)
     SearchView svUser;
@@ -39,9 +45,16 @@ public class SearchUserFragment extends BelatrixBaseFragment implements SearchUs
     SearchUserPresenter mPresenter;
 
     private UserAdapter mUserAdapter;
+    private Project project;
 
     public static Fragment create(Context context) {
         Bundle args = new Bundle();
+        return Fragment.instantiate(context, SearchUserFragment.class.getName(), args);
+    }
+
+    public static Fragment create(Context context, Project project) {
+        Bundle args = new Bundle();
+        args.putParcelable(ARGS_PROJECT, project);
         return Fragment.instantiate(context, SearchUserFragment.class.getName(), args);
     }
 
@@ -65,6 +78,11 @@ public class SearchUserFragment extends BelatrixBaseFragment implements SearchUs
         rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
         rvUsers.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(), android.R.drawable.divider_horizontal_bright)));
         svUser.setOnQueryTextListener(SearchUserFragment.this);
+
+        Bundle args = getArguments();
+        if (args != null) {
+            project = args.getParcelable(ARGS_PROJECT);
+        }
     }
 
     @Override
@@ -87,11 +105,39 @@ public class SearchUserFragment extends BelatrixBaseFragment implements SearchUs
 
     @Override
     public void onSearchError() {
-
+        DialogUtils.createErrorDialog(getActivity(), getString(R.string.dialog_server_error));
     }
 
     @Override
-    public void onItemPressed(User user) {
-        replaceFragment(ProfileFragment.create(getContext(), user), true);
+    public void onItemPressed(final User user) {
+        if (project == null) {
+            replaceFragment(ProfileFragment.create(getContext(), user), true);
+        } else {
+            DialogUtils.createConfirmationDialogWithTitle(getActivity(),
+                    getString(R.string.add_participant),
+                    String.format(Locale.getDefault(), getString(R.string.add_participant_content), user.getFullName()),
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            mPresenter.addParticipant(user.getId(), project.getId());
+                        }
+                    },
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        }
+    }
+
+    @Override
+    public void onParticipantAdded() {
+        replaceFragment(ModeratorIdeaDetailFragment.create(getContext(), project), false);
+    }
+
+    @Override
+    public void onErrorParticipant() {
+        DialogUtils.createErrorDialog(getActivity(), getString(R.string.dialog_server_error));
     }
 }

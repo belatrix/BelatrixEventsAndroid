@@ -77,6 +77,6 @@ public class MyIdeasFragment extends BelatrixBaseFragment implements MyIdeasPres
     @Override
     public void onItemClicked(int position, View view) {
         Project project = (Project) view.getTag();
-        startActivity(IdeaDetailActivity.makeIntent(getContext(), project));
+        startActivity(IdeaDetailActivity.makeIntent(getContext(), project, false));
     }
 }

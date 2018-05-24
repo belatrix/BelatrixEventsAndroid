@@ -1,6 +1,8 @@
 package com.belatrix.events.presentation.ui.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,7 @@ import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.domain.model.Event;
 import com.belatrix.events.domain.model.Vote;
 import com.belatrix.events.presentation.presenters.EventDetailVoteFragmentPresenter;
+import com.belatrix.events.presentation.ui.activities.AuthenticatorActivity;
 import com.belatrix.events.presentation.ui.adapters.VoteListAdapter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.presentation.ui.common.DividerItemDecoration;
@@ -37,19 +40,26 @@ import butterknife.BindView;
  */
 public class EventDetailVoteFragment extends BelatrixBaseFragment implements EventDetailVoteFragmentPresenter.View, VoteListAdapter.RecyclerViewClickListener {
 
+    private static final int REQ_AUTHENTICATION = 1142;
+
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
     @BindView(R.id.no_data_textview)
     TextView noDataTextView;
     @BindView(R.id.recycler_programs)
     RecyclerView recyclerView;
+
     @Inject
     EventDetailVoteFragmentPresenter presenter;
+
     VoteListAdapter listAdapter;
+
     @BindString(R.string.app_name)
     String stringTitle;
     @BindString(R.string.dialog_option_participate)
     String stringParticipate;
+
+    private Vote vote;
 
     public EventDetailVoteFragment() {
     }
@@ -66,14 +76,9 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected void initDependencies(UIComponent uiComponent) {
-        uiComponent.inject(this);
-        presenter.setView(this);
+        uiComponent.inject(EventDetailVoteFragment.this);
+        presenter.setView(EventDetailVoteFragment.this);
     }
 
     @Override
@@ -131,7 +136,8 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
 
     @Override
     public void onItemClicked(int position, View view) {
-        final Vote vote = (Vote) view.getTag();
+        vote = (Vote) view.getTag();
+        presenter.voteForIdea(vote);
     }
 
     @Override
@@ -160,5 +166,28 @@ public class EventDetailVoteFragment extends BelatrixBaseFragment implements Eve
     public void onDestroyView() {
         presenter.cancelRequests();
         super.onDestroyView();
+    }
+
+    @Override
+    public void onAuthorizationRequired() {
+        startActivityForResult(AuthenticatorActivity.makeIntent(getContext()), REQ_AUTHENTICATION);
+    }
+
+    @Override
+    public void onVoteError() {
+        DialogUtils.createErrorDialog(getActivity(), getString(R.string.vote_error)).show();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQ_AUTHENTICATION) {
+            if (resultCode == Activity.RESULT_OK) {
+                if (vote != null) {
+                    presenter.voteForIdea(vote);
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
