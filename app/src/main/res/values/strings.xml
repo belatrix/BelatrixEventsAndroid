@@ -14,6 +14,7 @@
     <string name="dialog_error_vote_already">You can only vote once</string>
     <string name="dialog_error_vote_disable">Votes are not yet enabled</string>
     <string name="dialog_server_error">There was an error processing your request. Please, try again.</string>
+    <string name="vote_error">You can only vote once.</string>
 
     <!-- Title -->
     <string name="title_main">Hackatrix</string>

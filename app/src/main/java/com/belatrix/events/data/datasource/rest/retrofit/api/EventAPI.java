@@ -11,6 +11,7 @@ import com.belatrix.events.domain.model.Vote;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -70,4 +71,8 @@ public interface EventAPI {
 
     @GET("/event/list/")
     Call<List<Event>> listEventByCity(@Query("city") Integer cityId);
+
+    @POST("/event/{event_id}/idea/vote/")
+    @FormUrlEncoded
+    Observable<ResponseBody> voteForIdea(@Header("Authorization") String token, @Path("event_id") int eventId, @Field("idea_id") int ideaId);
 }

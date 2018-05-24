@@ -171,4 +171,5 @@ SOFTWARE.</string>
     <string name="add_participant">Agregar Participante</string>
     <string name="add_participant_content">¿Estás seguro que quieres añadir a %s a la idea?</string>
     <string name="dialog_server_error">Hubo un error al procesar su solicitud. Por favor, vuelva a intentarlo.</string>
+    <string name="vote_error">Solo puedes votar una vez.</string>
 </resources>

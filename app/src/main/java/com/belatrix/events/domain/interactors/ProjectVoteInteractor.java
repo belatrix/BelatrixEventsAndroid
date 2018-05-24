@@ -1,35 +1,31 @@
 package com.belatrix.events.domain.interactors;
 
 import com.belatrix.events.domain.interactors.base.AbstractInteractor;
-import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.domain.repository.EventRepository;
+import com.belatrix.events.utils.account.AccountUtils;
 
 import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
+import okhttp3.ResponseBody;
 
 
 public class ProjectVoteInteractor extends AbstractInteractor {
 
-    public interface CallBack {
-        void onSuccess(Project result);
-
-        void onError();
-    }
+    private final EventRepository mEventRepository;
+    private final AccountUtils mAccountUtils;
 
     @Inject
-    EventRepository eventRepository;
-
-    @Inject
-    public ProjectVoteInteractor() {
+    ProjectVoteInteractor(EventRepository eventRepository, AccountUtils accountUtils) {
+        mEventRepository = eventRepository;
+        mAccountUtils = accountUtils;
     }
 
-    public void actionVote(final ProjectVoteInteractor.CallBack callback, Params params) {
-        int interactionId = params.projectId;
-        disposable = eventRepository.interactionVote(interactionId).subscribe(new Consumer<Project>() {
+    public void actionVote(final ProjectVoteInteractor.Callback callback, int eventId, int ideaId) {
+        disposable = mEventRepository.voteForIdea(mAccountUtils.getToken(), eventId, ideaId).subscribe(new Consumer<ResponseBody>() {
             @Override
-            public void accept(Project project) throws Exception {
-                callback.onSuccess(project);
+            public void accept(ResponseBody responseBody) throws Exception {
+                callback.onSuccess();
             }
         }, new Consumer<Throwable>() {
             @Override
@@ -39,17 +35,10 @@ public class ProjectVoteInteractor extends AbstractInteractor {
         });
     }
 
-    public static final class Params {
-        int projectId;
+    public interface Callback {
+        void onSuccess();
 
-        public Params(int projectId) {
-            this.projectId = projectId;
-        }
-
-        public static ProjectVoteInteractor.Params forProject(int projectId) {
-            return new ProjectVoteInteractor.Params(projectId);
-        }
-
+        void onError();
     }
 
 }
