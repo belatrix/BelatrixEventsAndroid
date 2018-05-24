@@ -16,6 +16,7 @@ import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.presentation.presenters.ModeratorListIdeasPresenter;
+import com.belatrix.events.presentation.ui.activities.IdeaDetailActivity;
 import com.belatrix.events.presentation.ui.adapters.ModeratorIdeaListAdapter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.presentation.ui.common.DividerItemDecoration;
@@ -79,6 +80,6 @@ public class ModeratorListIdeasFragment extends BelatrixBaseFragment implements 
 
     @Override
     public void onItemPressed(Project project) {
-        replaceFragment(ModeratorIdeaDetailFragment.create(getContext(), project), true);
+        startActivity(IdeaDetailActivity.makeIntent(getContext(), project, true));
     }
 }

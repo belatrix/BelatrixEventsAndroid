@@ -135,7 +135,7 @@ public class EventDetailIdeaFragment extends BelatrixBaseFragment implements Eve
     @Override
     public void onItemClicked(int position, View view) {
         Project project = (Project) view.getTag();
-        startActivity(IdeaDetailActivity.makeIntent(getContext(), project));
+        startActivity(IdeaDetailActivity.makeIntent(getContext(), project, false));
     }
 
     @Override

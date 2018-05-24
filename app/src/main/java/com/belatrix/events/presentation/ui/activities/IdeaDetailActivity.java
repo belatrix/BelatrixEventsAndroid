@@ -11,14 +11,17 @@ import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrix.events.presentation.ui.fragments.IdeaDetailFragment;
+import com.belatrix.events.presentation.ui.fragments.ModeratorIdeaDetailFragment;
 
 public class IdeaDetailActivity extends BelatrixBaseActivity {
 
     private static final String ARGS_PROJECT = "args_project";
+    private static final String ARGS_FROM_MODERATOR_SEARCH = "args_from_moderator_search";
 
-    public static Intent makeIntent(Context context, Project project) {
+    public static Intent makeIntent(Context context, Project project, boolean fromModeratorSearch) {
         Intent intent = new Intent(context, IdeaDetailActivity.class);
         intent.putExtra(ARGS_PROJECT, project);
+        intent.putExtra(ARGS_FROM_MODERATOR_SEARCH, fromModeratorSearch);
         return intent;
     }
 
@@ -29,7 +32,12 @@ public class IdeaDetailActivity extends BelatrixBaseActivity {
         ActivityCompat.postponeEnterTransition(this);
         setNavigationToolbar();
         Project project = getIntent().getParcelableExtra(ARGS_PROJECT);
-        replaceFragment(IdeaDetailFragment.create(IdeaDetailActivity.this, project), false);
+        boolean fromModeratorSearch = getIntent().getBooleanExtra(ARGS_FROM_MODERATOR_SEARCH, false);
+        if (fromModeratorSearch) {
+            replaceFragment(ModeratorIdeaDetailFragment.create(IdeaDetailActivity.this, project), false);
+        } else {
+            replaceFragment(IdeaDetailFragment.create(IdeaDetailActivity.this, project), false);
+        }
     }
 
     @Override

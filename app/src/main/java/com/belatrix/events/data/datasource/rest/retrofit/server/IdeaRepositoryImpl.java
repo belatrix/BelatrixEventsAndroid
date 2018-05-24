@@ -11,6 +11,7 @@ import com.belatrix.events.domain.repository.IdeaRepository;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 public class IdeaRepositoryImpl extends BaseRepository implements IdeaRepository {
 
@@ -68,5 +69,10 @@ public class IdeaRepositoryImpl extends BaseRepository implements IdeaRepository
     @Override
     public Observable<Project> validateIdea(String token, int ideaId) {
         return subscribeOn(mIdeaAPI.validateIdea("Token " + token, ideaId));
+    }
+
+    @Override
+    public Observable<ResponseBody> addParticipant(String token, int ideaId, int userId) {
+        return subscribeOn(mIdeaAPI.addParticipant("Token " + token, ideaId, userId));
     }
 }

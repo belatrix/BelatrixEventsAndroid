@@ -8,6 +8,7 @@ import com.belatrix.events.domain.model.Project;
 import java.util.List;
 
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -52,4 +53,8 @@ public interface IdeaAPI {
 
     @PATCH("/idea/{idea_id}/validation/switch/")
     Observable<Project> validateIdea(@Header("Authorization") String token, @Path("idea_id") int ideaId);
+
+    @POST("/idea/{idea_id}/register/")
+    @FormUrlEncoded
+    Observable<ResponseBody> addParticipant(@Header("Authorization") String token, @Path("idea_id") int ideaId, @Field("user_id") int userId);
 }

@@ -7,6 +7,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -52,11 +55,18 @@ public class ModeratorIdeaDetailFragment extends BelatrixBaseFragment implements
     ModeratorIdeaDetailPresenter mPresenter;
 
     private LayoutInflater inflater;
+    private Project project;
 
     public static Fragment create(Context context, Project project) {
         Bundle args = new Bundle();
         args.putParcelable(ARGS_PROJECT, project);
         return Fragment.instantiate(context, ModeratorIdeaDetailFragment.class.getName(), args);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -78,7 +88,7 @@ public class ModeratorIdeaDetailFragment extends BelatrixBaseFragment implements
         if (getArguments() != null) {
             Bundle args = getArguments();
             if (args.containsKey(ARGS_PROJECT)) {
-                Project project = args.getParcelable(ARGS_PROJECT);
+                project = args.getParcelable(ARGS_PROJECT);
                 if (project != null) {
                     loadProject(project);
                 }
@@ -227,17 +237,33 @@ public class ModeratorIdeaDetailFragment extends BelatrixBaseFragment implements
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        Project project = (Project) buttonView.getTag();
         mPresenter.modifyStatus(project.getId());
     }
 
     @Override
     public void onValidateSuccessful(Project project) {
+        this.project = project;
         loadProject(project);
     }
 
     @Override
     public void onValidateError() {
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_idea_participant, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_request_join:
+                replaceFragment(SearchUserFragment.create(getContext(), project), false);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
