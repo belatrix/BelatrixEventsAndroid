@@ -47,13 +47,40 @@ public class SplashActivity extends BelatrixBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        checkAppUpdated();
-        if (cache.isFirstTime()) {
-            startActivity(CitySelectionActivity.makeIntent(this));
-        } else {
-            startActivity(MainActivity.makeIntent(this));
-        }
-        finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException iex) {
+                    iex.printStackTrace();
+                }
+                checkAppUpdated();
+                if (cache.isFirstTime()) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(CitySelectionActivity.makeIntent(SplashActivity.this));
+                        }
+                    });
+
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            startActivity(MainActivity.makeIntent(SplashActivity.this));
+                        }
+                    });
+                }
+                finish();
+            }
+        }).start();
+
     }
 
     private void checkAppUpdated() {
