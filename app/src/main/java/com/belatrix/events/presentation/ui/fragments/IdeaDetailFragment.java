@@ -202,16 +202,14 @@ public class IdeaDetailFragment extends BelatrixBaseFragment implements IdeaDeta
 
     private void addCandidateForOwner(Author author, ViewGroup container) {
         View view = inflater.inflate(R.layout.item_candidate_owner, container, false);
-        TextView tvAuthorName = view.findViewById(R.id.id_author_name);
-        TextView tvAuthorEmail = view.findViewById(R.id.id_author_email);
-        TextView tvAuthorPhone = view.findViewById(R.id.id_author_phone);
-        TextView tvAuthorRole = view.findViewById(R.id.id_author_role);
+        TextView tvAuthorName = view.findViewById(R.id.id_participant_name);
+        TextView tvAuthorEmail = view.findViewById(R.id.id_participant_email);
+        TextView tvAuthorRole = view.findViewById(R.id.id_participant_role);
         ImageButton ibCancel = view.findViewById(R.id.ib_candidate_cancel);
         ImageButton ibAccept = view.findViewById(R.id.ib_candidate_ok);
 
         tvAuthorName.setText(author.getFullName());
         tvAuthorEmail.setText(author.getEmail());
-        tvAuthorPhone.setText(author.getPhoneNumber());
         if (author.getRole() != null) {
             tvAuthorRole.setText(author.getRole().getName());
         }
