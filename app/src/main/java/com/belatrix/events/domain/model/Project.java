@@ -139,7 +139,7 @@ public class Project implements Parcelable {
         dest.writeInt(this.mVotes);
     }
 
-    static class Event implements Parcelable {
+    public static class Event implements Parcelable {
         public static final Creator<Event> CREATOR = new Creator<Event>() {
             @Override
             public Event createFromParcel(Parcel source) {

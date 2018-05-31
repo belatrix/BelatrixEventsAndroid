@@ -14,12 +14,12 @@ public class MyIdeasPresenter extends BelatrixBasePresenter<MyIdeasPresenter.Vie
     private final ListMyIdeasInteractor mListMyIdeasInteractor;
 
     @Inject
-    public MyIdeasPresenter(ListMyIdeasInteractor listMyIdeasInteractor) {
+    MyIdeasPresenter(ListMyIdeasInteractor listMyIdeasInteractor) {
         this.mListMyIdeasInteractor = listMyIdeasInteractor;
     }
 
-    public void listMyIdeas() {
-        mListMyIdeasInteractor.listMyIdeas(MyIdeasPresenter.this);
+    public void listMyIdeas(int eventId) {
+        mListMyIdeasInteractor.listMyIdeas(MyIdeasPresenter.this, eventId);
     }
 
     @Override

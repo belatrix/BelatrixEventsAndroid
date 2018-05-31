@@ -29,6 +29,7 @@ import butterknife.BindView;
 public class ManageIdeasFragment extends BelatrixBaseFragment implements ManageIdeaPresenter.View, ModeratorEventListAdapter.OnItemPressListener {
 
     private static final String ARGS_CITY_ID = "args_city_id";
+    private static final String ARGS_FROM_MY_IDEAS = "args_from_my_ideas";
 
     @BindView(R.id.rv_events)
     RecyclerView rvEvents;
@@ -38,9 +39,10 @@ public class ManageIdeasFragment extends BelatrixBaseFragment implements ManageI
 
     private ModeratorEventListAdapter mModeratorEventListAdapter;
 
-    public static Fragment create(Context context, int cityId) {
+    public static Fragment create(Context context, int cityId, boolean fromMyIdeas) {
         Bundle args = new Bundle();
         args.putInt(ARGS_CITY_ID, cityId);
+        args.putBoolean(ARGS_FROM_MY_IDEAS, fromMyIdeas);
         return Fragment.instantiate(context, ManageIdeasFragment.class.getName(), args);
     }
 
@@ -58,13 +60,17 @@ public class ManageIdeasFragment extends BelatrixBaseFragment implements ManageI
 
     @Override
     protected void initViews() {
-        setTitle(getString(R.string.menu_title_manage_ideas));
         mModeratorEventListAdapter = new ModeratorEventListAdapter(ManageIdeasFragment.this);
         rvEvents.setAdapter(mModeratorEventListAdapter);
         if (getContext() != null) {
             rvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
             rvEvents.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(), android.R.drawable.divider_horizontal_bright)));
             mPresenter.listEvent();
+        }
+        if (getArguments() != null && getArguments().containsKey(ARGS_FROM_MY_IDEAS)) {
+            setTitle(getString(R.string.menu_title_my_ideas));
+        } else {
+            setTitle(getString(R.string.menu_title_manage_ideas));
         }
     }
 
@@ -80,6 +86,10 @@ public class ManageIdeasFragment extends BelatrixBaseFragment implements ManageI
 
     @Override
     public void onItemPressed(Event event) {
-        replaceFragment(ModeratorListIdeasFragment.create(getContext(), event.getId()), true);
+        if (getArguments() != null && getArguments().containsKey(ARGS_FROM_MY_IDEAS)) {
+            replaceFragment(MyIdeasFragment.create(getContext(), event.getId()), true);
+        } else {
+            replaceFragment(ModeratorListIdeasFragment.create(getContext(), event.getId()), true);
+        }
     }
 }

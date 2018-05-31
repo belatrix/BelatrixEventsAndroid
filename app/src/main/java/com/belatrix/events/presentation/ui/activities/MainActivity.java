@@ -19,7 +19,6 @@ import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseActivity;
 import com.belatrix.events.presentation.ui.fragments.ManageIdeasFragment;
-import com.belatrix.events.presentation.ui.fragments.MyIdeasFragment;
 import com.belatrix.events.presentation.ui.fragments.NewHomeFragment;
 import com.belatrix.events.presentation.ui.fragments.RegisterAssistanceFragment;
 import com.belatrix.events.presentation.ui.fragments.SearchUserFragment;
@@ -195,7 +194,7 @@ public class MainActivity extends BelatrixBaseActivity {
                         break;
                     case R.id.menu_my_ideas:
                         item.setChecked(true);
-                        replaceFragment(MyIdeasFragment.create(MainActivity.this), false);
+                        replaceFragment(ManageIdeasFragment.create(MainActivity.this, cache.getCity(), true), false);
                         break;
                     case R.id.menu_reports:
                         intent = new Intent(Intent.ACTION_VIEW);
@@ -212,7 +211,7 @@ public class MainActivity extends BelatrixBaseActivity {
                         break;
                     case R.id.menu_manage_ideas:
                         item.setChecked(true);
-                        replaceFragment(ManageIdeasFragment.create(MainActivity.this, cache.getCity()), false);
+                        replaceFragment(ManageIdeasFragment.create(MainActivity.this, cache.getCity(), false), false);
                         break;
                     case R.id.menu_activities:
                         startActivity(NotificationListActivity.makeIntent(MainActivity.this));

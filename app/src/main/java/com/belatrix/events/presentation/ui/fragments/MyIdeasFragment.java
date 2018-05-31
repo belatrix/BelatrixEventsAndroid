@@ -1,6 +1,8 @@
 package com.belatrix.events.presentation.ui.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,29 +18,47 @@ import com.belatrix.events.R;
 import com.belatrix.events.di.component.UIComponent;
 import com.belatrix.events.domain.model.Project;
 import com.belatrix.events.presentation.presenters.MyIdeasPresenter;
+import com.belatrix.events.presentation.ui.activities.AuthenticatorActivity;
+import com.belatrix.events.presentation.ui.activities.IdeaAddActivity;
 import com.belatrix.events.presentation.ui.activities.IdeaDetailActivity;
 import com.belatrix.events.presentation.ui.adapters.IdeaListAdapter;
 import com.belatrix.events.presentation.ui.base.BelatrixBaseFragment;
 import com.belatrix.events.presentation.ui.common.DividerItemDecoration;
+import com.belatrix.events.utils.account.AccountUtils;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MyIdeasFragment extends BelatrixBaseFragment implements MyIdeasPresenter.View, IdeaListAdapter.RecyclerViewClickListener {
+
+    private static final int REQ_AUTHENTICATION = 3342;
+    private static final int REQ_CREATE_IDEA = 2242;
+
+    private static final String ARGS_EVENT_ID = "args_event_id";
 
     @BindView(R.id.rv_ideas)
     RecyclerView rvIdeas;
 
+    @BindString(R.string.idea_created)
+    String stringIdeaCreated;
+
     @Inject
     MyIdeasPresenter mPresenter;
 
-    private IdeaListAdapter mAdapter;
+    @Inject
+    AccountUtils mAccountUtils;
 
-    public static Fragment create(Context context) {
+    private IdeaListAdapter mAdapter;
+    private int eventId;
+
+    public static Fragment create(Context context, int eventId) {
         Bundle args = new Bundle();
+        args.putInt(ARGS_EVENT_ID, eventId);
         return Fragment.instantiate(context, MyIdeasFragment.class.getName(), args);
     }
 
@@ -61,7 +81,11 @@ public class MyIdeasFragment extends BelatrixBaseFragment implements MyIdeasPres
         rvIdeas.setAdapter(mAdapter);
         rvIdeas.setLayoutManager(new LinearLayoutManager(getContext()));
         rvIdeas.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getContext(), android.R.drawable.divider_horizontal_bright)));
-        mPresenter.listMyIdeas();
+        Bundle args = getArguments();
+        if (args != null && args.containsKey(ARGS_EVENT_ID)) {
+            eventId = args.getInt(ARGS_EVENT_ID);
+            mPresenter.listMyIdeas(eventId);
+        }
     }
 
     @Override
@@ -78,5 +102,34 @@ public class MyIdeasFragment extends BelatrixBaseFragment implements MyIdeasPres
     public void onItemClicked(int position, View view) {
         Project project = (Project) view.getTag();
         startActivity(IdeaDetailActivity.makeIntent(getContext(), project, false));
+    }
+
+    @OnClick(R.id.fab_add_idea)
+    void onAddIdeaClick() {
+        if (mAccountUtils.existsAccount()) {
+            Intent intent = IdeaAddActivity.makeIntent(getContext(), eventId);
+            startActivityForResult(intent, REQ_CREATE_IDEA);
+        } else {
+            startActivityForResult(AuthenticatorActivity.makeIntent(getContext()), REQ_AUTHENTICATION);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQ_AUTHENTICATION:
+                if (resultCode == Activity.RESULT_OK) {
+                    Intent intent = IdeaAddActivity.makeIntent(getContext(), eventId);
+                    startActivityForResult(intent, REQ_CREATE_IDEA);
+                }
+                break;
+            case REQ_CREATE_IDEA:
+                if (resultCode == Activity.RESULT_OK) {
+                    mPresenter.listMyIdeas(eventId);
+                    showSnackBar(stringIdeaCreated);
+                }
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
